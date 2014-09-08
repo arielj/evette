@@ -1,0 +1,989 @@
+<html>
+<head>
+<title>About Evette</title>
+</head>
+<body>
+
+<h1 align=center><u>About Evette</u></h1>
+
+<p align=center>
+Version 1.3.2 (29/11/2008)
+</p>
+
+<h2><u>To do</u></h2>
+
+
+<p>
+<ul>
+<li>Sort out UTF-8 inconsistencies. (Waiting on a reply from Jurgis)</li>
+<li>Add a base precription fee. (Waiting on feedback from forum - put in the setting but not sure on best implementation)</li>
+<li>Add support for postgresql - this has turned out to be pretty complex, mysql is much more flexible when it comes to allowing evette to handle the creation and setting up of the evette database. Postgres will not allow this, it should be possible to set up evette to use postgres but much of the setup will be down to the user. I have had a tinker with this but I have a lot more to learn about postgres yet. Please let me know if this a feature that is important to you.</li>
+</ul>
+</p>
+
+
+
+<a name=changelog><h2><u>Changelog</u></h2>
+
+<table>
+	<tr>
+		<td valign=top>
+			30/11/2008
+		</td>
+		<td valign=top>
+			Found and fixed a bug with the edit diary popup menu.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			29/11/2008
+		</td>
+		<td valign=top>
+			Fixed a bug that allowed the "Edit Movement" popup when right clicking on the balance for a stock item.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			21/11/2008
+		</td>
+		<td valign=top>
+			Fixed a bug that prevented saving of new clients.<br>
+			Fixed a bug that mixed up units and batch numbers when editing medication movements.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			26/10/2008
+		</td>
+		<td valign=top>
+			Fixed a bug that preventing the lost and found popup menus from binding to the ListCtrl.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			24/10/2008
+		</td>
+		<td valign=top>
+			Sorted out an issue with ASM Syncing animals that are on shelter.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			21/10/2008
+		</td>
+		<td valign=top>
+			Fixed a bug with the appointment browser which confused appointment.OwnerIds with animal.OwnerIDs.<br>
+			Fixed a couple of bug with the ListCtrlWrapper - it wasn't sizing columns quite how I had intended.<br>
+			Fixed a bug an the appointment panel - you got an error if you right clicked on the appointment list without selecting a slot.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			18/10/2008
+		</td>
+		<td valign=top>
+			Updated the stock panel.<br>
+			Updated client search listctrl.<br>
+			Updated animal search listctrl.<br>
+			Updated the lost and found listctrl.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			17/10/2008
+		</td>
+		<td valign=top>
+			Updated the edit procedures listbox.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			16/10/2008
+		</td>
+		<td valign=top>
+			Updated the lookup panels.<br>
+			Updated the edit procedures panel.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			15/10/2008
+		</td>
+		<td valign=top>
+			Updated the ASM client and animal importers.<br>
+			Updated the Appointment Search Panel.<br>
+			Updated the kennel editor.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			12/10/2008
+		</td>
+		<td valign=top>
+			Overhauled the diary.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			11/10/2008
+		</td>
+		<td valign=top>
+			Tidied up lots more panels.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			06/10/2008
+		</td>
+		<td valign=top>
+			Updated the animal panel, put labels above input fields. Plus the death details are hidden when not in use.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			05/10/2008
+		</td>
+		<td valign=top>
+			Removed buttons from all animal panels and the client invoice panel and replaced them with menus.<br>
+			Put labels above input fields on the client search screen for improved compatibility with other languages.<br>
+			Updated the client panel, put labels above input fields.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			04/10/2008
+		</td>
+		<td valign=top>
+			Updated the ugly appointment browser on animal records with a nice listctrl and popup menu based system. Now gives information on puntuality of previous appointments.<br>
+			Tidied up the vaccination panel - removed buttons and put in a popup menu.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			28/09/2008
+		</td>
+		<td valign=top>
+			Users can now switch between the username and password boxes on the login panel using the up and down cursor keys.<br>
+			Altered the ASM syncing tools to use green and red backgrounds rather than changing the foreground colour - this didn't work on certain installations.<br>
+			Tidied up ASM/Evette chipping sync.<br>
+			Fixed shop sale bug for non British English languages.<br>
+			Tweaked the kennel tools, now has drop down menus to access other records directly. Also creates a new vetform if an animal has stayed overnight and prompts the user, so that they can charge an overnight fee should they wish.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			07/09/2008
+		</td>
+		<td valign=top>
+			Fixed bug generating appointment html where the owners comments contain pound signs.<br>
+			Added the option to choose which users have access to the ASM Sync tools.<br>
+			Made the time validation methods a little less strict so users can enter single digit hours or minutes without causing an error.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			01/09/2008
+		</td>
+		<td valign=top>
+			Found and fixed a bug editing appointments from the View Kennels panel.<br>
+			Noticed and fixed a bug preventing ASM Imported animals from being sexed correctly - they were all being imported as "Unknown Sex".
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			31/08/2008
+		</td>
+		<td valign=top>
+			Finished off Evette/ASM syncing tools.<br>
+			Moved transfer animal ownership button to right click menu on owner field.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			30/08/2008
+		</td>
+		<td valign=top>
+			Fixed broken reset button on the client/animal search panel.<br>
+			Found and fixed a bug that prevented users from opening animal records where animal are flagged as dead but have no deceased date.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			29/08/2008
+		</td>
+		<td valign=top>
+			When an animal with an ASM ref is vaccinated through Evette, it's ASM vaccination record is now updated automatically.<br>
+			Fixed a problem with the lost and found shortcuts on animal records. Don't see why it was suddenly a problem but found a workaround anyway.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			28/08/2008
+		</td>
+		<td valign=top>
+			Added an item to the settings panel allowing you to mark a choose a vaccination from ASM to be used by Evette when updating animal records.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top bgcolor=yellow>
+			<b>1.3.1</b>
+		</td>
+		<td valign=top bgcolor=yellow>
+			Version 1.3.1 released.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			28/08/2008
+		</td>
+		<td valign=top>
+			Fixed label generating bug<br>
+			Fixed a bug that stopped the client/animal search from refreshing following deleting records on Windows.<br>
+			Tidied up the settings panel.<br>
+			Added an item to the settings panel allowing you to mark a client as "The Shelter". Any animals imported from ASM which are not owned are attached to this client record.<br>
+			Added an item to the settings panel that allows you to customize the interval between refreshes on the View Appointments panel. This settings is stored locally so different workstations can have different refresh rates.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top bgcolor=yellow>
+			<b>1.3</b>
+		</td>
+		<td valign=top bgcolor=yellow>
+			Version 1.3 released.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			25/08/2008
+		</td>
+		<td valign=top>
+			Fixed bug that caused an error message when Evette tried to close following creating random data.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			12/08/2008
+		</td>
+		<td valign=top>
+			Noticed and fixed a bug preventing users from adding animals to client records that they had just created. You had to create a client, close it, find it, open it and then you could add animals. Whoops - fixed.<br>
+			Added photos of animals to the login panel, it looks much better and gives me an excuse to include photos of my own animals - Bob did this with Animal Shelter Manager a while back and I liked it :)<br>
+			Dropped the splash screen. Evette took ages to start on my old laptop and I was looking for a way of letting users know that something was actually happening while it was connecting to the database but I've tried this build out at work and had problems with dialog boxes getting stuck behind the splash screen. Ah well.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			03/08/2008
+		</td>
+		<td valign=top>
+			Added menu items for adding lost and found animals without calling up the whole lost and found panel.<br>
+			Tidied up the animal list on client records. The animal list is now manipulated through popup menus only to free up space.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top bgcolor=yellow>
+			<b>1.2.9</b>
+		</td>
+		<td valign=top bgcolor=yellow>
+			Version 1.2.9 released.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			02/08/2008
+		</td>
+		<td valign=top>
+			A couple of nasty bugs were discovered by RSPCA Halifax when editing stock movements with empty date fields. They only appear to be an issue to users running a windows mysql server - fixed.<br>
+			Adapted my db module to cope with older versions of python (hopefully).<br>
+			Fixed a bug with the sample data engine since the Sex field was changed.<br>
+			Updated the client search dialog when transfering animal ownership.<br>
+			Hadn't realised that I hadn't updated the client/animal search panel since the Sex field was changed - now sorted.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top bgcolor=yellow>
+			<b>1.2.8</b>
+		</td>
+		<td valign=top bgcolor=yellow>
+			Version 1.2.8 released.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			28/07/2008
+		</td>
+		<td valign=top>
+			Reinstated splitter windows under Windows on the Client Search and Lost and Found panels. The problem that prevented their use before seems to have been an artifact of my old custom notebook.<br>
+			Have found how to get around the enter key not triggering events on windows.<br>
+			Added a splash screen, so that user can see that something is happening while evette is waiting to connect to the server.<br>
+			Tweaked the client and animal panels to make better use of space.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			26/07/2008
+		</td>
+		<td valign=top>
+			Reworked my custom notebook as I was not happy with it's performance under windows, lots lighter now and works much better.<br>
+			Tweaked the date field on the appointment panel, it now updates the appointment list without the date ctrl having to lose focus.<br>
+			Compressed the main menu.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			22/07/2008
+		</td>
+		<td valign=top>
+			Put in lost and found tools. There were lots of bits of the ASM lost and found that I would have liked to have changed so I've knocked one together to see how it gets on.<br>
+			Fixed a dodgy image path that made the submit button on the db settings dialog dissappear.<br>
+			The sex field on animal records is now a choice instead of a combo box for easier lost and found integration.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			17/07/2008
+		</td>
+		<td valign=top>
+			Contact numbers for clients can now be marked as public numbers. I have put this in as the first step towards adding lost and found animal facilities but it could also come in handy for storing useful contact numbers which may or may not be available to the general public.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top bgcolor=yellow>
+			<b>1.2.7</b>
+		</td>
+		<td valign=top bgcolor=yellow>
+			Version 1.2.7 released.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			11/07/2008
+		</td>
+		<td valign=top>
+			It is now possible to take payment from any of the lists on the Todays Appointments panel. This should accomodate practices that insist on payment before treatment.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			04/07/2008
+		</td>
+		<td valign=top>
+			Added the facility to define a standard markup which allows evette to work out your public prices automatically from your cost prices.<br>
+			Users can still edit the selling prices individually - when doing so, pushing the a key while the selling price has focus autogenerates a selling price based on the rules that you have defined.<br>
+			Users can also pull up a little tool which will work out their cost unit price from the cost per pack and the number of units per pack by pushing the "c" key while the cost price has focus.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			29/06/2008
+		</td>
+		<td valign=top>
+			Tidied up the appointment search panel.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			27/06/2008
+		</td>
+		<td valign=top>
+			Noticed and fixed a bug preventing sorting appointments on the Todays Appointments panel correctly.<br>
+			Fixed a bug to the ASM Client Importer - it was struggling with ASM clients with blank fields.<br>
+			Finished replacing all of the button and menu icons with png images.<br>
+			Added images to notebook tabs.<br>
+			Fixed a bug with the stock list printer.<br>
+			Fixed a bug with stock and stock movement changelog viewers.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			21/06/2008
+		</td>
+		<td valign=top>
+			Added tools allowing shop sales to client from the view appointments panel and from the client record.<br>
+			Added animal column to the "done" list on the view appointemnts panel. In practice it was a pain without it.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			20/06/2008
+		</td>
+		<td valign=top>
+			When saving a new client record, clients with similar addresses are pointed out to avoid creating multiple records for clients.<br>
+			The animal name column on client records now resizes properly.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			19/06/2008
+		</td>
+		<td valign=top>
+			The column sizes are calculated more efficiently on the animal search panel so that users don't have to resize after every search.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top bgcolor=yellow>
+			<b>1.2.6</b>
+		</td>
+		<td valign=top bgcolor=yellow>
+			Version 1.2.6 released.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			17/05/2008
+		</td>
+		<td valign=top>
+			Deceased animals are now flagged on search and client panels.
+			Fixed a bug with the Update Todays appointments method which should improve performance.<br>
+			Re-wrote the appointment panel, the listbox was not very efficient.<br>
+			Added payment option on Todays Appointments without opening the client record.<br>
+			Altered launch script to allow easier exit from loop when no database is found.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			15/05/2008
+		</td>
+		<td valign=top>
+			Added cost price field to medication records.<br>
+			Upgraded procedure dialog on vet form to match the new stock dialogs.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			11/05/2008
+		</td>
+		<td valign=top>
+			Replaced the HTMLListbox of animals on client records with a ListCtrl and replaced several buttons with a popup menu.<br>
+			Added animal and client details to appointment data generated from animal records.<br>
+			Added the option to only have one panel open at a time.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			10/05/2008
+		</td>
+		<td valign=top>
+			Jazzed up the Todays Appointments panel. Now uses ListCtrls, added icons and movement options to popup menus, show waiting times for arrived animals and colour codes appointments according to how far overdue they are.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			05/05/2008
+		</td>
+		<td valign=top>
+			Updated edit owner, edit animal and create diary note icons. Added ASM icons to animal search screen where animals are ASM imports.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			04/05/2008
+		</td>
+		<td valign=top>
+			Fixed bug stopping users from using apostrophes on the vet form.<br>
+			Built in record locking. You are now prevented from saving changes to a client, animal or appointment record if another user has altered the record since you opened it.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			29/04/2008
+		</td>
+		<td valign=top>
+			Updated the vet form medication browser, it made lots of unneccesary database calls, should work much better over a network now, user can also search medications descriptions with this tool.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top bgcolor=yellow>
+			<b>1.2.5</b>
+		</td>
+		<td valign=top bgcolor=yellow>
+			Version 1.2.5 released.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			26/04/2008
+		</td>
+		<td valign=top>
+			Added a popup menu on the Todays Appointments panel that allow direct access to animal and client records plus the vet form.<br>
+			Updated readme.txt.<br>
+			Tweaked the html page that is shown on the "View Appointments" panel and the vet form. Merged the htmlpanel and the appointment reason entry field on the vet form, much more room now.<br>
+			Removed buttons from Todays Appointments panel for editing the vet form and the owner record - now done through the popup menu instead.<br>
+			Added tooltip to vaccination buttons on the animal form.<br>
+			Added a button that creates a printable list of appointments found when browsing appointments.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			25/04/2008
+		</td>
+		<td valign=top>
+			Fixed bug that closed evette if no mysql server is found during startup.<br>
+			Added search facility to medication brower on vet form.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			21/04/2008
+		</td>
+		<td valign=top>
+			Added a popup calendar that allows users to choose a date when they double click on a datectrl.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			19/04/2008
+		</td>
+		<td valign=top>
+			Added ASM client only importer.<br>
+			Added code that limits the number of animals that can be displayed on an owner record. If there are more than 50 you have to enter a name to filter the results down.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			18/04/2008
+		</td>
+		<td valign=top>
+			Added icons to menu items.<br>
+			Updated incorrect tooltip when refreshing the medication list in the medication editor.<br>
+			Increased the width of my custom DateCtrl widget.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top bgcolor=yellow>
+			<b>1.2.4</b>
+		</td>
+		<td valign=top bgcolor=yellow>
+			Version 1.2.4 released.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			13/04/2008
+		</td>
+		<td valign=top>
+			I think I've got to the bottom of the notebook problems I was experiencing at work. Fingers crossed.<br>
+			Adjusted the appointment listboxes used in the realtime "Todays Appointments" panel, they looked awful if an appointment reason contained a lot of characters. Much nicer now.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			11/04/2008
+		</td>
+		<td valign=top>
+			Updated tooltips and dialog titles when editing kennels.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			05/04/2008
+		</td>
+		<td valign=top>
+			Have put in a method that displays an animals age in years, months, weeks and days as a tooltip when you hover over the DOB field on an animal record. It is refreshed whenever the DOB field loses focus.<br>
+			Noticed and fixed a bug that meant Evette wasn't warning users who were closing records with unsaved changed.<br>
+			Save buttons on animal and client records are now only enabled when changed have been made. This has allowed me to ditch a lot of complicated code that used to detect unsaved changed saving a little time when closing a record. I may extend this to other records in the future.<br>
+			Evette had stopped putting in the name of the last user to login in the login dialog, now fixed.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			03/04/2008
+		</td>
+		<td valign=top>
+			Disabled text formatting methods. I had originally put in a method that made sure theat capital letter were used in the corrent places when inputting data. I think that this was over ambitious and I have already stumbled across several way of confusing it.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			02/04/2008
+		</td>
+		<td valign=top>
+			Fixed a bug when editing receipt items, you couldn't submit a negative price - now you can.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			01/04/2008
+		</td>
+		<td valign=top>
+			Tweaked the custom Notebook, cosmetic changes only.<br>
+			Did some windows testing. My notebook changes looked pretty bad under windows, seems better now.<br>
+			Fixed a bug with the Kennel Editor, can't understand how I hadn't noticed, it was crippled.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			31/03/2008
+		</td>
+		<td valign=top>
+			Tidied up procedures panel.<br>
+			RSPCA Bawtry found a nasty bug with my DateCtrl improvements cauing Evette to hang during certain operations - now fixed.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			30/03/2008
+		</td>
+		<td valign=top>
+			Tweaked the ASM importer.<br>
+			Added keyboard shortcuts for animal searching and ASM importing.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			29/03/2008
+		</td>
+		<td valign=top>
+			Tidied up the edit users panel.<br>
+			Tidied up the lookup editor panel.<br>
+			Added an appointment reason lookup table, when editing an appointment, double click on the text area to be given a choice of reasons.<br>
+			Tidied up the appointment panel.<br>
+			Added hotkeys for commonly used menu items.<br>
+			Added a close all windows menu item and hotkey.<br>
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			28/03/2008
+		</td>
+		<td valign=top>
+			Have spent days messing around with the launch scripts and pretty much ended up puttin them back as they started, just a slight speed increase.<br>
+			Have added tools allowing users to import <a href=http://sheltermanager.sourceforge.net target=_blank>Animal Shelter Manager</a> animals and their owners. I don't imagine that anyone other than myself will find this useful so I have written it in English only and a slight adjustment has to be made to your database to define a client as "The Animal Shelter" so animals without owners can be imported. If anyone else would like to make use of this facility please let me know.<br>
+			I hadn't noticed that I had removed the generate medication label button from the vet form, I've put it back :)<br>
+			When searching for a client you can now search the whole name rather than just the surname.<br>
+			Tidied up animal weight panel.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			16/03/2008
+		</td>
+		<td valign=top>
+			Added the facility to "keep animals in". You can define kennel blocks and individual kennels then put animals into them via the appointment panel.<br>
+			You can now transfer ownership of animals. There is a new button on animal records to allow this.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			08/03/2008
+		</td>
+		<td valign=top>
+			Made lots of cometic changes. replaced lots of big ugly panels with neat little dialogs. Completely overhauled database calls. Runs <b>LOTS</b> faster now over a network. Also altered my custom DateCtrl - now it is a little more intuitive, they will accept a year or a month and a year. Also added support for YYYYMMDD date format. Thanks a lot to Jurgis for help with this.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			29/02/2008
+		</td>
+		<td valign=top>
+			Overhauled the medication/vaccination managers. Replaced them with a single panel that can handle medication, vaccinations, consumables and shop stock. Tidied up vet form to suit new system - now much simpler.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			09/12/2007
+		</td>
+		<td valign=top>
+			Improved the function of the appointment browser, now you can open appointments, animals and clients directly.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			09/12/2007
+		</td>
+		<td valign=top>
+			Improved the function of the appointment browser, now you can open appointments, animals and clients directly.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			10/11/2007
+		</td>
+		<td valign=top>
+			Overhauled form generation. Now users can create their own templates for invoices, client documents, animal documents and medication documents. You can now specify the expiry date of the current batch of medication on the Edit Medication panel and when prescibing medication on the vet form - this allows the medication forms generated to show the expiry date.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			27/10/2007
+		</td>
+		<td valign=top>
+			Re-enabled and updated the medication label generator on the vet form.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			26/10/2007
+		</td>
+		<td valign=top>
+			Added tools for generating invoices for clients. To accomodate this, I have also added extra fields on the settings panel allowing users to input the practice address, postcode, telephone, email address and website.
+		</td>
+	</tr>
+	<tr>
+		<td bgcolor=yellow>
+			<b>1.2</b>
+		</td>
+		<td bgcolor=yellow>
+			Version 1.2 is released including improved foreign language support
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			01/10/2007
+		</td>
+		<td valign=top>
+			Created my own custom "Notebook" widget. The built in one had started behaving very strangely under linux. Also I've spent a lot of time adapting Evette to allow unicode characters, I'm sure that I will have overlooked some places that needed adapting, I will have to wait and see how users get on.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			02/09/2007
+		</td>
+		<td valign=top>
+			Added an appointment browser, without it the only way to quickly view a days appointments was to open an animal record and create or edit an appointment.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			15/08/2007
+		</td>
+		<td valign=top>
+			You can now filter animals from owner records. I figured that vets will register animal organisations as owners and they may have hundreds of animals on there books.
+		</td>
+	</tr>
+	<tr>
+		<td bgcolor=yellow>
+			<b>1.1.9</b>
+		</td>
+		<td bgcolor=yellow>
+			Version 1.1.9 is released including prototpye builds for French, Norwegian and German.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			19/07/2007
+		</td>
+		<td valign=top>
+			You can now specify a minimum number of units for your medication. This makes it possible to search for medication that needs re-ordering.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			18/07/2007
+		</td>
+		<td valign=top>
+			Animal weights can now be stored on animal records.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			30/06/2007
+		</td>
+		<td valign=top>
+			Added tools for opeing binary files from animal and client records and created a panel for creating and editing file associations.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			27/06/2007
+		</td>
+		<td valign=top>
+			Added tools for saving binary files to animal and client records.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			26/06/2007
+		</td>
+		<td valign=top>
+			Now supports US English (inluding currency and date format).
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			24/06/2007
+		</td>
+		<td valign=top>
+			Added a diary system.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			21/06/2007
+		</td>
+		<td valign=top>
+			Redone the rota editting tools, now much faster and easier to add to rota and you can now view the rota a month at a time.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			10/06/2007
+		</td>
+		<td valign=top>
+			Added mail merging tools for pending vaccinations. Added fields for recording animal deaths. Did some windows testing and debugging. Finally got around to trying out py2exe on Bob's recommendation - it seems great. It makes the performance on Windows comparable to the performance on Linux.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			03/06/2007
+		</td>
+		<td valign=top>
+			Tidied up listbox behaviour on edit medication/vaccination panels. Tidied up price inputs, now detects invalid prices and lets you know what the problem is.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			30/05/2007
+		</td>
+		<td valign=top>
+			Fixed bug in generating medication totals when the is more than one movement in with the same batch number.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			29/05/2007
+		</td>
+		<td valign=top>
+			Sorted out htmllistbox rendering for better performance on older machines. Tidied up messy animal record layout.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			25/03/2007
+		</td>
+		<td valign=top>
+			Put in internationalisation support for currencies and dates.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			16/03/2007
+		</td>
+		<td valign=top>
+			(Hopefully) fixed form editor bug on windows.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			11/03/2007
+		</td>
+		<td valign=top>
+			(Hopefully) sorted compatability problems with recent versions of Mysql on Windows.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			05/03/2007
+		</td>
+		<td valign=top>
+			(Hopefully) fixed the bug that causes crash when using a mysql password.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			04/03/2007
+		</td>
+		<td valign=top>
+			Added vet to day summary when editing an appointment.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			24/02/2007
+		</td>
+		<td valign=top>
+			Added an appointment browser.
+			Fixed startup problems on windows (hopefully)
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			19/02/2007
+		</td>
+		<td valign=top>
+			Added support for other languages.
+			Added new installer scripts.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			16/01/2007
+		</td>
+		<td valign=top>
+			When creating default settings, if running windows, htmlviewer defaults to Internet Explorer.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			15/01/2007
+		</td>
+		<td valign=top>
+			Put in changelog viewing tools. Will probably need some tweaking.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			13/01/2007
+		</td>
+		<td valign=top>
+			Added search panel to edit medication panel.<br>
+			Put in a test that stops you from accidently double booking a vet.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			12/01/2007
+		</td>
+		<td valign=top>
+			Added warning when overwriting medications.<br>
+			Added batch number entries and reworked medication and vaccination tools on vet form.<br>
+			Can now choose vet when making an appointment.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			09/01/2007
+		</td>
+		<td valign=top>
+			Added tools for editing/deleting and adding vaccinations on animal records.<br>
+			Added a choice widget to appointment records to allow you to specify whether the appointment has arrived, is with the vet or is done.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			04/01/2007
+		</td>
+		<td valign=top>
+			Tidied up the new DateCtrl, took out the manual entry functions, they were very flakey.<br>
+			Fixed bug when switching to operations when creating/editing an appointment.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			02/01/2007
+		</td>
+		<td valign=top>
+			Fixed nasty bug that prevented adding new owners and animals using certain versions of SQL.<br>
+			Found that I'd missed a couple of DatePickerCtrls on the Vaccination Editor - sorted.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			01/01/2007
+		</td>
+		<td valign=top>
+			Added a new staff position <a href=medication.html#medicationonly>"Medication Only"</a> - this makes it easy for evette to be used simply as a medication manager.<br>
+			Added details for individual batches to medication panel.
+		</td>
+	</tr>
+	<tr>
+		<td valign=top>
+			31/12/2006
+		</td>
+		<td valign=top>
+			Replaced wxpython's DatePickerCtrl widget with a simpler one that I made myself.
+		</td>
+	</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<html>
+<head>
+<title>Evette Help - Gettings Started</title>
+</head>
+<body>
+
+<table width=100%>
+	<tr>
+		<td align=left>
+			<a href=index.html>Back to index</a>
+		</td>
+		<td align=right>
+			<a href=about.html>About Evette</a>
+		</td>
+	</tr>
+</table>
+
+<h1 align=center><u>Getting Started</u></h1>
+
+<p>
+Hopefully if you are reading this, you have successfully installed and run evette. Having logged in for the first time you are facing with an empty database. This is a good time to try out all of evettes functions before you go "live".
+</p>
+
+<p>
+You may want to start off trying out some of the tools but you may get frustrated fairly quickly as it is very time consuming putting in a lot of data to play around with. To help you with this I have incorporated a "Random Data" function. This will fill evette with random data so you can have a go at manipulating it. Once you are finished experimenting, you can simply reset the database and start inputting your own data.
+</p>
+
+<p>
+<u>Note:</u><br>
+If you are familiar with the <font color=blue>Animal Shelter Manager</font> package, then you should find it fairly easy to take to Evette. I have "borrowed" a lot of ideas and principles from it. Cheers Bob :)
+</p>
+
+<a name=randomdata><h2><b>Random Data</b></h2>
+
+<p>
+Choose <b>Random Data</b> from the <b>Settings</b> menu. You will be given a panel where you can specify the number of clients, animals, appointments, operations, and medications that will be created. When you are happy with your choices, click on the <b>submit</b> button and off it goes.
+</p>
+
+<p>
+<u>Note:</u><br>
+If you ask for a HUGE amount of random data it may take a while or complain, if you are trying to add a huge amount of data for testing, you can always add your random data in stages, if this is a huge issue for anyone, please let me know, I knocked together the random data tools fairly quickly so I had some test data, I'm sure I can improve their performance but didn't see the point in putting a lot of effort into it as it should be adequate for most users.
+</p>
+
+<p>
+Once you feel you have experimented enough, you can purge evette of the data you have created by chossing <b>Reset All Tables</b> from the <b>Settings</b> menu.
+</p>
+
+
+<a name=managingusers><h2><b>Managing Users</b></h2>
+
+<p>
+The first time you ran evette, a folder called ".evette" was created in your home folder with various local files that evette needs to function. A set of tables were also created on your mysql server to store the information that evette manages. Evette creates you a user so that you can log in and set it up. The default username is <b>user</b> and the password is <b>letmein</b>.
+</p>
+
+<p>
+Having successfully logged in, the first thing to do is to add yourself and your colleagues to the system and remove the default user (because this username and password are provided for all evette systems it would be easy for someone to find them out and harm your data).
+</p>
+
+<p>
+Simply go to the <b>Staff</b> menu and choose <b>Edit Staff</b>.
+</p>
+
+<p align=center><img src=images/userpanel.jpg></p>
+
+<p>
+Here you can input new members of staff by giving them a unique username (it is advisable to keep these fairly short), a password and specifying their position (this data can be used when planning your staff rota). You can also specifiy their individual preferences and which areas of the system they have access to.
+</p>
+
+
+<p>
+<u>Note:</u><br>
+It is important that at least one user has permission to edit users so that you can get to this area of the system!
+</p>
+
+<a name=settings><h2><b>Settings</b></h2>
+
+<p>
+Choose <b>Edit Settings</b> from the <b>Settings</b> menu. Here you can input the name of your practice, your opening hours, the language that you wish to use and the time you would like clients to bring in their animals for operations.
+</p>
+
+<p>
+<u>Note:</u><br>
+Be careful when changing your opening hours. If you book an appointment for say 08:30 on a particular day, then change your opening hours to 09:00 to 17:00, the appointment will not appear on the appointment diary and you may get a very angry client.
+</p>
+
+<a name=rota><h2><b>The Rota</b></h2>
+
+<p>
+Before you start booking animals in for appointments. Have a look at the <a href=rota.html>rota panel</a> by choosing <b>Edit Rota</b> from the <b>Staff</b> menu.
+</p>
+
+<a name=clientsanimalsappointments><h2>Clients, Animals and Appointments</h2>
+
+<p>
+So you have put in some staff members, your opening hours and added staff to your rota. Now you should be ready to start taking clients details. Please note to create an appointment, if it hasn't already been created, you must create a record for the animal involved. Before you can create an animal record you must, if doesn't already exist, create a record for the animals owner.
+</p>
+
+<table width=100%>
+	<tr>
+		<td align=left>
+			<a href=index.html>Back to index</a>
+		</td>
+		<td align=right>
+			<a href=about.html>About Evette</a>
+		</td>
+	</tr>
+</table>
+
+</body>
+</html>
