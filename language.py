@@ -1740,7 +1740,7 @@ def GetDictionary():
 		)
 	dictionary["runninglowlabel"] = (
 		"Running Low?",
-		u"Quedan pocos? ??"
+		u"Pocos?"
 		)
 	dictionary["diarymenu"] = (
 		"&Diary",
@@ -2412,7 +2412,7 @@ def GetDictionary():
 ############################## 1.2.8 ###############################################
 	dictionary["phonenumbertooltip"] = (
 		"CTRL + P to toggle public availability.",
-		u"CTRL + P para cambiar la disponibilidad al público ??"
+		u"CTRL + P para cambiar la visibilidad al público"
 		)
 	dictionary["lostanimallabel"] = (
 		"Lost Animal",
@@ -2687,7 +2687,7 @@ def GetDictionary():
 		)
 	dictionary["dischargelabel"] = (
 		"Discharge",
-		u"Descargar ??"
+		u"Dar de alta"
 		)
 	dictionary["overnightstaylabel"] = (
 		"Overnight Stay",
@@ -2731,7 +2731,7 @@ def GetDictionary():
 		)
 	dictionary["batchbreakdownlabel"] = (
 		"Batch No Breakdown",
-		u"Batch No Breakdown ??"
+		u"Desglose de lote"
 		)
 	dictionary["returntoshelterlabel"] = (
 		"Return to shelter",
