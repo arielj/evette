@@ -131,7 +131,7 @@ class Evette:
 		
 		#frame.Maximize()
 		
-		frame.SetSize((800,600))
+		frame.SetSize((1024,700))
 		frame.CentreOnScreen()
 		
 		panel = wx.Panel(frame)
