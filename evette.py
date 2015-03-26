@@ -451,8 +451,8 @@ class Evette:
 			if self.localsettings.editclients == 1:
 				
 				self.bAddClient = wx.Button(panel, ADD_CLIENT, self.GetLabel("addclienttoolbar", 0))
-				self.bAddClient.SetBackgroundColour("blue")
-				self.bAddClient.SetForegroundColour("white")
+				#self.bAddClient.SetBackgroundColour("#0000ff")
+				self.bAddClient.SetForegroundColour("blue")
 				
 				font = self.bAddClient.GetFont()
 				font.SetPointSize(font.GetPointSize() + 2)
@@ -463,8 +463,8 @@ class Evette:
 				toolbarsizer.Add(self.bAddClient, 0, wx.EXPAND)
 				
 				self.bViewClients = wx.Button(panel, FIND_CLIENT, self.GetLabel("findclienttoolbar", 0))
-				self.bViewClients.SetBackgroundColour("red")
-				self.bViewClients.SetForegroundColour("white")
+				#self.bViewClients.SetBackgroundColour("red")
+				self.bViewClients.SetForegroundColour("red")
 				
 				font = self.bViewClients.GetFont()
 				font.SetPointSize(font.GetPointSize() + 2)
@@ -477,7 +477,8 @@ class Evette:
 			if self.localsettings.editappointments == 1:
 				
 				self.bViewAppointments = wx.Button(panel, VIEW_APPOINTMENTS, self.GetLabel("viewappointmentstoolbar", 0))
-				self.bViewAppointments.SetBackgroundColour("yellow")
+				#self.bViewAppointments.SetBackgroundColour("yellow")
+				self.bViewAppointments.SetForegroundColour('#555555')
 				
 				font = self.bViewAppointments.GetFont()
 				font.SetPointSize(font.GetPointSize() + 2)
@@ -488,7 +489,8 @@ class Evette:
 				toolbarsizer.Add(self.bViewAppointments, 0, wx.EXPAND)
 				
 				self.bViewOps = wx.Button(panel, VIEW_OPS, self.GetLabel("viewoperationstoolbar", 0))
-				self.bViewOps.SetBackgroundColour("green")
+				#self.bViewOps.SetBackgroundColour("green")
+				self.bViewOps.SetForegroundColour("green")
 				
 				font = self.bViewOps.GetFont()
 				font.SetPointSize(font.GetPointSize() + 2)
@@ -502,8 +504,8 @@ class Evette:
 			
 			editdiarybutton = wx.Button(panel, -1, self.GetLabel("editdiarytoolbar", 0))
 			editdiarybutton.SetToolTipString(self.GetLabel("editdiarytoolbar", 1))
-			editdiarybutton.SetBackgroundColour("#ffacfe")
-			editdiarybutton.SetForegroundColour("black")
+			#editdiarybutton.SetBackgroundColour("#ffacfe")
+			editdiarybutton.SetForegroundColour("#33acfe")
 			font = editdiarybutton.GetFont()
 			font.SetPointSize(font.GetPointSize() + 2)
 			editdiarybutton.SetFont(font)
@@ -513,7 +515,7 @@ class Evette:
 			editstockbutton = wx.Button(panel, -1, self.GetLabel("editstockmenu", 0))
 			editstockbutton.SetToolTipString(self.GetLabel("editstockmenu", 1))
 			editstockbutton.SetBackgroundColour("blue")
-			editstockbutton.SetForegroundColour("white")
+			editstockbutton.SetForegroundColour("black")
 			font = editstockbutton.GetFont()
 			font.SetPointSize(font.GetPointSize() + 2)
 			editstockbutton.SetFont(font)
