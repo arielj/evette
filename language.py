@@ -35,7 +35,7 @@ def GetDictionary():
 		)
 	dictionary["submitlabel"] = (
 		"Submit",
-		u"Acceder"
+		u"Aceptar"
 		)
 	dictionary["totallabel"] = (
 		"Total",
@@ -557,7 +557,7 @@ def GetDictionary():
 		)
 	dictionary["animalgivenlabel"] = (
 		"Given: ",
-		u"Administrado por "
+		u"Administrado: "
 		)
 	dictionary["animalnextlabel"] = (
 		" Next: ",
