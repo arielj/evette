@@ -578,7 +578,7 @@ class MedicationListbox(wx.HtmlListBox):
       
       #print "balance = " + str(balance)
       
-      output = "<table width=100% cellpadding=0 cellspacing=0><tr><td valign=top width=100%><font size=3 color=blue><b>" + str(name) + "</b></font>&nbsp;<font size=2>(" + self.localsettings.dictionary["currency"][self.localsettings.language] + str(price) + " per " + str(unit) + ")</font>" + description + "</td><td align=right valign=top nowrap>" + str(balance) + "</font>&nbsp;</td></tr></table>"
+      output = "<table width=100% cellpadding=0 cellspacing=0><tr><td valign=top width=100%><font size=3 color=blue><b>" + str(name) + "</b></font>&nbsp;<font size=2>(" + self.localsettings.dictionary["currency"][self.localsettings.language] + str(price) + " x " + str(unit) + ")</font>" + description + "</td><td align=right valign=top nowrap>" + str(balance) + "</font>&nbsp;</td></tr></table>"
       
       return output
   
@@ -1066,7 +1066,9 @@ class VaccinationListbox(wx.HtmlListBox):
       
       #print "balance = " + str(balance)
       
-      output = "<table width=100% cellpadding=0 cellspacing=0><tr><td valign=top width=100%><font size=2 color=blue>" + str(name) + "</font>&nbsp;<font size=1>(" + self.localsettings.dictionary["currency"][self.localsettings.language] + str(price) + " per vaccine)</font><br><font color=red size=1>" + str(description) + "</font></td><td align=right valign=top nowrap>" + balance + "</font></td></tr></table>"
+      vaccine_t = self.localsettings.dictionary['animalvaccinelabel'][self.localsettings.language].lower()
+      
+      output = "<table width=100% cellpadding=0 cellspacing=0><tr><td valign=top width=100%><font size=2 color=blue>" + str(name) + "</font>&nbsp;<font size=1>(" + self.localsettings.dictionary["currency"][self.localsettings.language] + str(price) + " x " + vaccine_t +")</font><br><font color=red size=1>" + str(description) + "</font></td><td align=right valign=top nowrap>" + balance + "</font></td></tr></table>"
       
       return output
   
@@ -1208,12 +1210,14 @@ class VaccinationMovementListBox(wx.HtmlListBox):
       
       quantity = self.htmllist[n][3]
       
+      vaccine_t = self.localsettings.dictionary['animalvaccinelabel'][self.localsettings.language].lower()
+      
       if self.htmllist[n][7] == 0:
         source = self.htmllist[n][6]
-        output = "<table width=100%><tr><td nowrap>" + str(date) + "</td><td width=100%>From " + source + "</td><td align=right nowrap><font color=green>+" + str(quantity) + " x vaccine</font></td></tr></table>"
+        output = "<table width=100%><tr><td nowrap>" + str(date) + "</td><td width=100%>From " + source + "</td><td align=right nowrap><font color=green>+" + str(quantity) + " x " + vaccine_t +"</font></td></tr></table>"
       else:
         destination = self.htmllist[n][5]
-        output = "<table width=100%><tr><td nowrap>" + str(date) + "</td><td width=100%>To " + destination + "</td><td align=right nowrap><font color=red>-" + str(quantity) + " x vaccine</font></td></tr></table>"
+        output = "<table width=100%><tr><td nowrap>" + str(date) + "</td><td width=100%>To " + destination + "</td><td align=right nowrap><font color=red>-" + str(quantity) + " x " + vaccine_t +"</font></td></tr></table>"
       
       return output
   
