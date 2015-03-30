@@ -278,7 +278,11 @@ class AttachedFilesListbox(customwidgets.ListCtrlWrapper):
 	
 	def __init__(self, parent, localsettings, linktype, linkid):
 		
-		columnheadings = ("Date", "Title", "Size")
+		date_t = localsettings.dictionary["attachmentdatelabel"][localsettings.language]
+		title_t = localsettings.dictionary["attachmenttitlelabel"][localsettings.language]
+		size_t =  localsettings.dictionary["attachmentsizelabel"][localsettings.language]
+		
+		columnheadings = (date_t, title_t, size_t)
 		
 		customwidgets.ListCtrlWrapper.__init__(self, parent, localsettings, columnheadings)
 		

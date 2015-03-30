@@ -561,7 +561,7 @@ def GetDictionary():
 		)
 	dictionary["animalnextlabel"] = (
 		" Next: ",
-		u"Próxima vacuna el "
+		u"Próxima: "
 		)
 	dictionary["animaldeletevaccinationtooltip"] = (
 		"Delete the selected vaccination",
@@ -577,7 +577,7 @@ def GetDictionary():
 		)
 	dictionary["animalvaccinationbatchlabel"] = (
 		" Batch: ",
-		u" Número de lote: "
+		u" Número de lote:"
 		)
 
 	##Appointments
@@ -2745,5 +2745,43 @@ def GetDictionary():
 		"Imported from ASM",
 		u"Importado de ASM"
 		)
+	
+	dictionary["today"] = (
+	  "Today",
+	  u"Hoy"
+	)
+	dictionary["day"] = (
+	  "Day",
+	  u"Día"
+	)
+	dictionary["days"] = (
+	  "Days",
+	  u"Días"
+	)
+	dictionary["dayago"] = (
+	  "Day ago",
+	  u"Día atrás"
+	)
+	dictionary["daysago"] = (
+	  "Days ago",
+	  u"Días atrás"
+	)
+	dictionary["in"] = (
+	  "In",
+	  u"En"
+	)
+	
+	dictionary['attachmenttitlelabel'] = (
+	  "Title",
+	  u"Título"
+	)
+	dictionary['attachmentdatelabel'] = (
+	  "Date",
+	  u"Fecha"
+	)
+	dictionary['attachmentsizelabel'] = (
+	  "Size",
+	  u"Tamaño"
+	)
 
 	return dictionary
