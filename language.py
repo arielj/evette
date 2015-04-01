@@ -656,7 +656,7 @@ def GetDictionary():
 		)
 	dictionary["appointmenttimetooearlymessage"] = (
 		"Appointment time is before the practice opens!",
-		u"¡¡La hora de la cita es antes de la apertura de la Clínica!!"
+		u"¡La hora de la cita es antes de la apertura de la Clínica!"
 		)
 	dictionary["appointmenttimetoolatemessage"] = (
 		"Appointment time is after the practice closes!",
@@ -664,7 +664,7 @@ def GetDictionary():
 		)
 	dictionary["appointmentinvalidtimemessage"] = (
 		"Invalid time - times must be HH:MM!",
-		u"¡¡Hora Incorrecta - el formato de la hora es HH:MM!!"
+		u"¡Hora Incorrecta - el formato de la hora es HH:MM!"
 		)
 
 	##Client search panel

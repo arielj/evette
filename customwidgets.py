@@ -300,7 +300,7 @@ class AppointmentListbox(wx.Panel, listmix.ColumnSorterMixin):
     self.listctrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.parent.AppointmentSelected)
   
   def RefreshList(self, ID=False):
-    
+  
     self.itemDataMap = {}
     
     self.listctrl.ClearAll()
