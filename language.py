@@ -786,11 +786,11 @@ def GetDictionary():
 		)
 	dictionary["launchnodatabaseservermessage"] = (
 		"Unable to connect to database server! Please check that it is installed and running. Would you like to adjust your local settings?",
-		u"¡¡Imposible conectarse al servidor de datos!! Por favor, verifique si esta instalado y funcionando. ¿Desea ajustar las configuraciones locales?"
+		u"¡Imposible conectarse al servidor de datos! Por favor, verifique si esta instalado y funcionando. ¿Desea ajustar las configuraciones locales?"
 		)
 	dictionary["launchnoevettedatabasemessage"] = (
 		"Unable to locate evette database! Would you like to create one now?",
-		u"¡¡Imposible localizar la base de datos de Evette!! ¿Desea crearla ahora?"
+		u"¡Imposible localizar la base de datos de evette! ¿Desea crearla ahora?"
 		)
 	dictionary["launchconffilecreatedmessage"] = (
 		"Conf file created",
@@ -802,23 +802,23 @@ def GetDictionary():
 		)
 	dictionary["launchdbiplabel"] = (
 		"DB IP",
-		u"IP BD"
+		u"IP de la base de datos"
 		)
 	dictionary["launchdbuserlabel"] = (
 		"DB User",
-		u"Usuario BD"
+		u"Usuario de la base de datos"
 		)
 	dictionary["launchdbpasslabel"] = (
 		"DB Pass",
-		u"Contraseña BD"
+		u"Contraseña de la base de datos"
 		)
 	dictionary["launchunabletocreatedatabasemessage"] = (
 		"Unable to create database, please check your mysql server config!",
-		u"¡¡Imposible crear Base de Datos, por favor compruebe la configuración de su servidor mysql!!"
+		u"¡Imposible crear Base de Datos, por favor compruebe la configuración de su servidor mysql!"
 		)
 	dictionary["launchdatabasecreatedmessage"] = (
 		"Database created successfully!",
-		u"¡¡Base de Datos creada exitosamente!!"
+		u"¡Base de Datos creada exitosamente!"
 		)
 	dictionary["launchlogintooltip"] = (
 		"Log in",
@@ -829,15 +829,15 @@ def GetDictionary():
 
 	dictionary["lookupscolourpagetitle"] = (
 		"Edit Colour Lookups",
-		u"Editar Libreria de colores de pelaje"
+		u"Editar colores de pelaje"
 		)
 	dictionary["lookupsspeciespagetitle"] = (
 		"Edit Species Lookups",
-		u"Editar Librería de Especies"
+		u"Editar Especies"
 		)
 	dictionary["lookupsbreedpagetitle"] = (
 		"Edit Breed Lookups",
-		u"Editar Librería de Razas"
+		u"Editar Razas"
 		)
 	dictionary["lookupsrefreshtooltip"] = (
 		"Refresh the list",
@@ -845,23 +845,23 @@ def GetDictionary():
 		)
 	dictionary["lookupsdeletetooltip"] = (
 		"Delete the selected lookup",
-		u"Borrar la Librería seleccionada"
+		u"Borrar la configuración seleccionada"
 		)
 	dictionary["lookupssubmittooltip"] = (
 		"Submit lookup",
-		u"Incorporar Librería"
+		u"Incorporar configuración"
 		)
 	dictionary["lookupsduplicatemessage"] = (
 		"That lookup already exists, it's pointless putting it in again!",
-		u"¡¡Esta Librería ya existe, es inútil agregarla nuevamente!!"
+		u"¡Esta configuración ya existe, es inútil agregarla nuevamente!"
 		)
 	dictionary["lookupsnonamemessage"] = (
 		"You must give a name for this lookup!",
-		u"Nombre esta Librería"
+		u"¡Debés nombrar esta configuración!"
 		)
 	dictionary["lookupsdeletemessage"] = (
 		"Are you sure that you want to delete this lookup?",
-		u"¿Realmente desea borrar esta Librería?"
+		u"¿Realmente desea borrar esta configuración?"
 		)
 
 	##Medication
@@ -880,11 +880,11 @@ def GetDictionary():
 		)
 	dictionary["medicationbatchnolabel"] = (
 		"Batch #",
-		u"Número de Lote"
+		u"# de lote"
 		)
 	dictionary["medicationbatchmovementreporttooltip"] = (
 		"Generate a report showing all movements of this batch",
-		u"Generar un reporte con todos los movimientos de este número de lote"
+		u"Generar un reporte con todos los movimientos de este lote"
 		)
 	dictionary["medicationstocklisttooltip"] = (
 		"Print a list of your current stock",
@@ -896,15 +896,15 @@ def GetDictionary():
 		)
 	dictionary["medicationconfirmdeletemessage"] = (
 		"Are you sure you want to delete ",
-		u"¿Está seguro de Borrarlo?"
+		u"¿Está seguro de borrar "
 		)
 	dictionary["medicationconfirmoverwritemessage"] = (
 		"Are you sure you want to overwrite this medication?",
-		u"¿Está seguro de querer sobreescribir este tratamiento"
+		u"¿Está seguro de querer sobreescribir este tratamiento?"
 		)
 	dictionary["medicationmovementsofbatchnumberlabel"] = (
 		"Movements of Batch Number ",
-		u"Movimientos del número de lote"
+		u"Movimientos del Lote Número"
 		)
 	dictionary["medicationexpireslabel"] = (
 		"Expires",
@@ -920,15 +920,15 @@ def GetDictionary():
 		)
 	dictionary["movementmovementlabel"] = (
 		"Movement",
-		u"Cambiando"
+		u"Cambio"
 		)
 	dictionary["movementoverwritemovementmessage"] = (
 		"Are you sure that you want to overwrite this movement?",
-		u"¿Está seguro de sobreescribir esta entrada en la historia clínica?"
+		u"¿Está seguro de sobreescribir este cambio?"
 		)
 	dictionary["movementconfirmdeletemovementmessage"] = (
 		"Are you sure that you want to delete this movement?",
-		u"¿Está seguro de borrar esta entrada de la historia clínica?"
+		u"¿Está seguro de borrar este cambio?"
 		)
 	dictionary["movementrefreshmovementsmessage"] = (
 		"Refresh the details of this medication",
@@ -940,7 +940,7 @@ def GetDictionary():
 		)
 	dictionary["medicationcurrentbatchlabel"] = (
 		"Current Batch",
-		u"Número de lote actual"
+		u"Lote actual"
 		)
 	dictionary["medicationunitpricelabel"] = (
 		"Unit Price",
@@ -994,7 +994,7 @@ def GetDictionary():
 		)
 	dictionary["proceduresunnamedproceduremessage"] = (
 		"You must give this procedure a name!",
-		u"Ingrese un Nombre para este Procedimiento"
+		u"¡Debés darle un nombre a este procedimiento!"
 		)
 	dictionary["proceduresoverwritemessage"] = (
 		"Are you sure that you want to edit this procedure?",
@@ -1013,23 +1013,23 @@ def GetDictionary():
 		)
 	dictionary["randomdatanoofclientslabel"] = (
 		"No of clients",
-		u"No hay Clientes para atender"
+		u"Cantidad de clientes"
 		)
 	dictionary["randomdatanoofanimalslabel"] = (
 		"No of animals",
-		u"No hay Mascotas para atender"
+		u"Cantidad de animales"
 		)
 	dictionary["randomdatanoofappointmentslabel"] = (
 		"No of appointments",
-		u"No hay más Citas Pendientes"
+		u"Cantidad de citas"
 		)
 	dictionary["randomdatanoofoperationslabel"] = (
 		"No of operations",
-		u"No hay más Cirugías Pendientes"
+		u"Cantidad de cirugías"
 		)
 	dictionary["randomdatanoofmedicationslabel"] = (
 		"No of medications",
-		u"No hay tratamientos pendientes"
+		u"Cantidad de tratamientos"
 		)
 	dictionary["randomdataclientslabel"] = (
 		"Clients",
@@ -1103,11 +1103,11 @@ def GetDictionary():
 		)
 	dictionary["viewchangeloglabel"] = (
 		"View Changelogs",
-		u"Ver Cambios"
+		u"Ver Registro de Cambios"
 		)
 	dictionary["editsettingslabel"] = (
 		"Edit Settings",
-		u"Editar configuración"
+		u"Editar Configuración"
 		)
 	dictionary["editrotalabel"] = (
 		"Edit Rota",
@@ -1119,7 +1119,7 @@ def GetDictionary():
 		)
 	dictionary["staffmemberlabel"] = (
 		"Staff Member",
-		u"Mienbros del Personal"
+		u"Miembro del Personal"
 		)
 	dictionary["deleteusertooltip"] = (
 		"Delete the selected user",
@@ -1147,7 +1147,7 @@ def GetDictionary():
 		)
 	dictionary["lookupslabel"] = (
 		"Lookups",
-		u"Librerías"
+		u"Configuraciones"
 		)
 	dictionary["formslabel"] = (
 		"Forms",
@@ -1167,7 +1167,7 @@ def GetDictionary():
 		)
 	dictionary["tickalltooltip"] = (
 		"Give the user permission to use ALL areas of the system. Use with care!",
-		u"¡¡Permitir al usuario el uso de TODAS las áreas del Sistema. Usar con cuidado!!"
+		u"¡Permitir al usuario el uso de TODAS las áreas del Sistema. Usar con cuidado!"
 		)
 	dictionary["useroverwritemessage"] = (
 		"Are you sure that you want to overwrite this user?",
@@ -1317,7 +1317,7 @@ def GetDictionary():
 		)
 	dictionary["vetformmedicationclearcontainstooltip"] = (
 		"Clear the \"Contains\" entry",
-		u"Borrar el \"Contiene\"entrada"
+		u"Borrar la entrada \"Contiene\""
 		)
 	dictionary["vetformrefreshmedicationtooltip"] = (
 		"Refresh the medication list",
@@ -1345,7 +1345,7 @@ def GetDictionary():
 		)
 	dictionary["vetformrefreshvaccinationtooltip"] = (
 		"Refresh the vaccination list",
-		u"Actualizar la lista de Vacunaciones"
+		u"Actualizar la lista de vacunaciones"
 		)
 	dictionary["vetformrefreshprocedurestooltip"] = (
 		"Refresh the procedures list",
@@ -1353,14 +1353,14 @@ def GetDictionary():
 		)
 	dictionary["vetformnodescriptionmessage"] = (
 		"You must give a description!",
-		u"¡Debe introducir una descripción!"
+		u"¡Debés introducir una descripción!"
 		)
 
 	##View Appointments
 
 	dictionary["viewappointmentspagetitle"] = (
 		"View Appointments",
-		u"Visualizar citas"
+		u"Visualizar Citas"
 		)
 	dictionary["viewoperationsspagetitle"] = (
 		"View Operations",
@@ -1436,11 +1436,11 @@ def GetDictionary():
 		)
 	dictionary["anyvaccine"] = (
 		"Any Vaccine",
-		u"Todas las vacunas"
+		u"Cualquier vacuna"
 		)
 	dictionary["anyspecies"] = (
 		"Any Species",
-		u"Todas las Especies"
+		u"Caulquier Especie"
 		)
 	dictionary["deceasedlabel"] = (
 		"Deceased",
@@ -1480,15 +1480,15 @@ def GetDictionary():
 		)
 	dictionary["versionupdatequestion3"] = (
 		"Would you like to upgrade your database?",
-		u"Desea  actualizar la base de Datos de Evette?"
+		u"¿Desea  actualizar la base de Datos de Evette?"
 		)
 	dictionary["resetdatabasequestion"] = (
 		"Are you sure that you want to reset all tables? ALL DATA WILL BE LOST!",
-		u"¿Está seguro de querer borrar todas las Tablas? SE PERDERÁN TODOS LOS DATOS "
+		u"¿Está seguro de querer borrar todas las Tablas? ¡SE PERDERÁN TODOS LOS DATOS!"
 		)
 	dictionary["alltablesresetmessage"] = (
 		"All tables have been reset!",
-		u"TODAS las tablas fueron borradas"
+		u"¡Todas las tablas fueron borradas!"
 		)
 	dictionary["addstafflabel"] = (
 		"Add staff?",
@@ -1520,7 +1520,7 @@ def GetDictionary():
 		)
 	dictionary["addstafftodailyrotatooltip"] = (
 		"Add a member of staff to this days rota",
-		u"Agregar un mienbro del personal al calendario de turnos"
+		u"Agregar personal al calendario de turnos"
 		)
 	dictionary["deleterotaitemtooltip"] = (
 		"Delete this rota entry",
@@ -2167,11 +2167,11 @@ def GetDictionary():
 		)
 	dictionary["confirmcloseallwindowsmessage"] = (
 		("Are you sure that you want to close all open panels? Any unsaved data will be lost."),
-		(u"¿Está seguro de Cerrar Todos los Paneles abiertos? LOS DATOS NO GUARDADOS SE PERDERÁN")
+		(u"¿Está seguro de Cerrar Todos los Paneles abiertos? Los datos no guardados se perderán.")
 		)
 	dictionary["locationlabel"] = (
 		"Location",
-		u"Localización"
+		u"Ubicación"
 		)
 	dictionary["editprocedurelabel"] = (
 		"Edit Procedure",
@@ -2192,7 +2192,7 @@ def GetDictionary():
 		)
 	dictionary["unknownlabel"] = (
 		"Unknown",
-		u"No determinado / Desconocido"
+		u"Desconocido"
 		)
 	dictionary["dayslabel"] = (
 		"days",
@@ -2475,8 +2475,8 @@ def GetDictionary():
 		u"Mediano"
 		)
 	dictionary["smalllabel"] = (
-		"Peuqeño",
-		u"New Language"
+		"Small",
+		u"Pequeño"
 		)
 	dictionary["juvenilelabel"] = (
 		"Juvenile",
@@ -2560,11 +2560,11 @@ def GetDictionary():
 		)
 	dictionary["alreadyonlostandfoundmessage"] = (
 		"This animal is already on the lost and found!",
-		u"Esa Mascota ya está en Perdidos y Encontrados"
+		u"¡Esa Mascota ya está en Perdidos y Encontrados!"
 		)
 	dictionary["includecompletelabel"] = (
 		"Include complete?",
-		u"Incluir completos ????"
+		u"Incluir completos?"
 		)
 	dictionary["closelabel"] = (
 		"Close",
