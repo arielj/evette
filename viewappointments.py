@@ -31,6 +31,7 @@ import clientmethods
 import animalmethods
 import dbmethods
 import medicationmethods
+import traceback
 
 EDIT_APPOINTMENT = 700
 EDIT_ANIMAL = 701
@@ -61,7 +62,7 @@ class ViewAppointments(wx.Panel):
     
     self.selectedappointmentdata = False
     
-    date = datetime.datetime.today().strftime("%A %d %B %Y")
+    date = datetime.datetime.today().strftime("%A %d %B %Y").decode('utf-8')
     sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
     
     if operations == 0:
@@ -554,7 +555,7 @@ class ViewAppointments(wx.Panel):
     
   def RefreshLists(self, ID=False):
     
-    date = datetime.datetime.today().strftime("%A %d %B %Y")
+    date = datetime.datetime.today().strftime("%A %d %B %Y").decode('utf-8')
     sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
     time = datetime.datetime.today().strftime("%X")[:5]
     
@@ -739,7 +740,7 @@ def UpdateViewAppointments(ID, force=False):
       
       #print "updating view appointments " + datetime.datetime.today().strftime("%H:%M:%S")
       
-      date = datetime.datetime.today().strftime("%A %d %B %Y")
+      date = datetime.datetime.today().strftime("%A %d %B %Y").decode('utf-8')
       sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
       timestring = datetime.datetime.today().strftime("%X")[:5]
       
@@ -792,7 +793,6 @@ def UpdateViewAppointments(ID, force=False):
 
         elif index == 2:
           appointmentpanel.withvetlistbox.htmllist = db.SendSQL(action, appointmentpanel.localsettings.dbconnection)
-
         else:
           results = db.SendSQL(action, appointmentpanel.localsettings.dbconnection)
           
@@ -833,6 +833,7 @@ def UpdateViewAppointments(ID, force=False):
       del busy
     
   except Exception as inst:
+    print traceback.format_exc()
     print type(inst)
     print inst
 

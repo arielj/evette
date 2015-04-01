@@ -2476,7 +2476,7 @@ def GetDictionary():
 		)
 	dictionary["smalllabel"] = (
 		"Small",
-		u"Pequeño"
+		u"Chico"
 		)
 	dictionary["juvenilelabel"] = (
 		"Juvenile",
