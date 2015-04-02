@@ -200,7 +200,7 @@ def GetDictionary():
 		)
 	dictionary["medicationmenu"] = (
 		"Medication",
-		u"Tratamientos"
+		u"Medicamento"
 		)
 	dictionary["proceduresmenu"] = (
 		"Procedures",
@@ -208,7 +208,7 @@ def GetDictionary():
 		)
 	dictionary["lookupsmenu"] = (
 		"Lookups",
-		u"Antecedentes"
+		u"Configuraciones"
 		)
 	dictionary["formsmenu"] = (
 		"Forms",
@@ -264,7 +264,7 @@ def GetDictionary():
 		)
 	dictionary["editmedicationmenu"] = (
 		("Edit Medication", "Edit Medication"),
-		(u"Editar Tratamientos", u"Editar Tratamientos")
+		(u"Editar Medicamento", u"Editar Medicamento")
 		)
 	dictionary["editvaccinationsmenu"] = (
 		("Edit Vaccinations", "Edit Vaccinations"),
@@ -868,15 +868,15 @@ def GetDictionary():
 
 	dictionary["medicationeditmedicationpagetitle"] = (
 		"Edit Medication",
-		u"Editar Tratamiento"
+		u"Editar Medicamento"
 		)
 	dictionary["medicationrefreshtooltip"] = (
 		"Edit Medication",
-		u"Editar Tratamiento"
+		u"Editar Medicamento"
 		)
 	dictionary["medicationdeletetooltip"] = (
 		"Delete the selected medication",
-		u"Borrar el tratamiento seleccionado"
+		u"Borrar el medicamento seleccionado"
 		)
 	dictionary["medicationbatchnolabel"] = (
 		"Batch #",
@@ -900,7 +900,7 @@ def GetDictionary():
 		)
 	dictionary["medicationconfirmoverwritemessage"] = (
 		"Are you sure you want to overwrite this medication?",
-		u"¿Está seguro de querer sobreescribir este tratamiento?"
+		u"¿Está seguro de querer sobreescribir este medicamento?"
 		)
 	dictionary["medicationmovementsofbatchnumberlabel"] = (
 		"Movements of Batch Number ",
@@ -912,11 +912,11 @@ def GetDictionary():
 		)
 	dictionary["medicationrefreshdetailstooltip"] = (
 		"Refresh the details of this medication",
-		u"Actualizar los detalles de este tratamiento"
+		u"Actualizar los detalles de este medicamento"
 		)
 	dictionary["medicationdeletemovementtooltip"] = (
 		"Delete this medication movement",
-		u"Borrar este cambio de tratamiento"
+		u"Borrar este cambio de medicamento"
 		)
 	dictionary["movementmovementlabel"] = (
 		"Movement",
@@ -932,7 +932,7 @@ def GetDictionary():
 		)
 	dictionary["movementrefreshmovementsmessage"] = (
 		"Refresh the details of this medication",
-		u"Actualizar los detalles de este tratamiento"
+		u"Actualizar los detalles de este medicamento"
 		)
 	dictionary["movementresetsearchentriestooltip"] = (
 		"Reset search entries",
@@ -1029,7 +1029,7 @@ def GetDictionary():
 		)
 	dictionary["randomdatanoofmedicationslabel"] = (
 		"No of medications",
-		u"Cantidad de tratamientos"
+		u"Cantidad de medicamentos"
 		)
 	dictionary["randomdataclientslabel"] = (
 		"Clients",
@@ -1049,7 +1049,7 @@ def GetDictionary():
 		)
 	dictionary["randomdatamedicationlabel"] = (
 		"Medication",
-		u"Tratamientos"
+		u"Medicamento"
 		)
 	dictionary["randomdatasubmittooltip"] = (
 		"Create random data",
@@ -1139,7 +1139,7 @@ def GetDictionary():
 		)
 	dictionary["medicationlabel"] = (
 		"Medication",
-		u"Tratamiento"
+		u"Medicamento"
 		)
 	dictionary["procedureslabel"] = (
 		"Clients",
@@ -1281,7 +1281,7 @@ def GetDictionary():
 		)
 	dictionary["vetformmedlabel"] = (
 		"Med",
-		u"Tratamientos"
+		u"Medicamento"
 		)
 	dictionary["vetformvacclabel"] = (
 		"Vacc",
@@ -1321,7 +1321,7 @@ def GetDictionary():
 		)
 	dictionary["vetformrefreshmedicationtooltip"] = (
 		"Refresh the medication list",
-		u"Actualizar la lista de Tratamientos"
+		u"Actualizar la lista de medicamentos"
 		)
 	dictionary["vetformnoofunitstooltip"] = (
 		"Enter the number of units that you are dispensing here",
@@ -1333,7 +1333,7 @@ def GetDictionary():
 		)
 	dictionary["vetforminstructionstooltip"] = (
 		"Enter instructions on how to administer this medication here",
-		u"Introducir las instrucciones de cómo se debe administrar esta medicación"
+		u"Introducir las instrucciones de cómo se debe administrar este medicamento"
 		)
 	dictionary["vetformprintlabeltooltip"] = (
 		"Print a label for this medication",
@@ -1873,7 +1873,7 @@ def GetDictionary():
 		)
 	dictionary["medicationformsmenu"] = (
 		("Medication Forms", "Edit the medication templates"),
-		(u"Formulario de Tratamiento ", u"Editar las plantillas de tratamientos")
+		(u"Formularios de Medicamentos", u"Editar las plantillas de medicamentos")
 		)
 	dictionary["editmedicationtformspagetitle"] = (
 		"Medication Forms",
@@ -1978,7 +1978,7 @@ def GetDictionary():
 		)
 	dictionary["prescribemedicationlabel"] = (
 		"Prescribe Medication",
-		u"Prescribir Medicación"
+		u"Prescribir Medicamento"
 		)
 	dictionary["quantitylabel"] = (
 		"Quantity",
