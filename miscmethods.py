@@ -45,15 +45,15 @@ def GetSex(localsettings, sexint):
 	
 	if sexint == 1:
 		
-		sex = localsettings.dictionary["malelabel"][localsettings.language]
+		sex = localsettings.t("malelabel")
 		
 	elif sexint == 2:
 		
-		sex = localsettings.dictionary["femalelabel"][localsettings.language]
+		sex = localsettings.t("femalelabel")
 		
 	else:
 		
-		sex = localsettings.dictionary["unknownlabel"][localsettings.language]
+		sex = localsettings.t("unknownlabel")
 	
 	return sex
 
@@ -61,7 +61,7 @@ def GetAgeFromDOB(dob, localsettings):
 	
 	try:
 		
-		if localsettings.dictionary["dateformat"][localsettings.language] == "DDMMYYYY":
+		if localsettings.t("dateformat") == "DDMMYYYY":
 			
 			if len(dob) == 4:
 				
@@ -81,7 +81,7 @@ def GetAgeFromDOB(dob, localsettings):
 				month = dob[3:5]
 				year = dob[6:10]
 			
-		elif localsettings.dictionary["dateformat"][localsettings.language] == "MMDDYYYY":
+		elif localsettings.t("dateformat") == "MMDDYYYY":
 			
 			if len(dob) == 4:
 				
@@ -155,21 +155,21 @@ def GetAgeFromDOB(dob, localsettings):
 		
 		if years > 0:
 			
-			age = age + str(years) + " " + localsettings.dictionary["yearslabel"][localsettings.language] + " "
+			age = age + str(years) + " " + localsettings.t("yearslabel") + " "
 			
 		elif months > 0:
 			
-			age = age + str(months) + " " + localsettings.dictionary["monthslabel"][localsettings.language] + " "
+			age = age + str(months) + " " + localsettings.t("monthslabel") + " "
 			
 		else:
 			
-			age = age + str(weeks) + " " + localsettings.dictionary["weekslabel"][localsettings.language] + " " + str(days) + " " + localsettings.dictionary["dayslabel"][localsettings.language] + " "
+			age = age + str(weeks) + " " + localsettings.t("weekslabel") + " " + str(days) + " " + localsettings.t("dayslabel") + " "
 		
 		return age
 		
 	except:
 		
-		return localsettings.dictionary["invaliddobtooltip"][localsettings.language].lower()
+		return localsettings.t("invaliddobtooltip").lower()
 	
 
 def NoWrap(string):
@@ -194,48 +194,48 @@ def NoWrap(string):
 def GetMonth(monthint, localsettings):
 	
 	if monthint == 1:
-		month = localsettings.dictionary["januarylabel"][localsettings.language]
+		month = localsettings.t("januarylabel")
 	elif monthint == 2:
-		month = localsettings.dictionary["februarylabel"][localsettings.language]
+		month = localsettings.t("februarylabel")
 	elif monthint == 3:
-		month = localsettings.dictionary["marchlabel"][localsettings.language]
+		month = localsettings.t("marchlabel")
 	elif monthint == 4:
-		month = localsettings.dictionary["aprillabel"][localsettings.language]
+		month = localsettings.t("aprillabel")
 	elif monthint == 5:
-		month = localsettings.dictionary["maylabel"][localsettings.language]
+		month = localsettings.t("maylabel")
 	elif monthint == 6:
-		month = localsettings.dictionary["junelabel"][localsettings.language]
+		month = localsettings.t("junelabel")
 	elif monthint == 7:
-		month = localsettings.dictionary["julylabel"][localsettings.language]
+		month = localsettings.t("julylabel")
 	elif monthint == 8:
-		month = localsettings.dictionary["augustlabel"][localsettings.language]
+		month = localsettings.t("augustlabel")
 	elif monthint == 9:
-		month = localsettings.dictionary["septemberlabel"][localsettings.language]
+		month = localsettings.t("septemberlabel")
 	elif monthint == 10:
-		month = localsettings.dictionary["octoberlabel"][localsettings.language]
+		month = localsettings.t("octoberlabel")
 	elif monthint == 11:
-		month = localsettings.dictionary["novemberlabel"][localsettings.language]
+		month = localsettings.t("novemberlabel")
 	elif monthint == 12:
-		month = localsettings.dictionary["decemberlabel"][localsettings.language]
+		month = localsettings.t("decemberlabel")
 	
 	return month
 
 def GetWeekday(weekdayint, localsettings):
 	
 	if weekdayint == 0:
-		weekday = localsettings.dictionary["sunday"][localsettings.language]
+		weekday = localsettings.t("sunday")
 	elif weekdayint == 1:
-		weekday = localsettings.dictionary["monday"][localsettings.language]
+		weekday = localsettings.t("monday")
 	elif weekdayint == 2:
-		weekday = localsettings.dictionary["tuesday"][localsettings.language]
+		weekday = localsettings.t("tuesday")
 	elif weekdayint == 3:
-		weekday = localsettings.dictionary["wednesday"][localsettings.language]
+		weekday = localsettings.t("wednesday")
 	elif weekdayint == 4:
-		weekday = localsettings.dictionary["thursday"][localsettings.language]
+		weekday = localsettings.t("thursday")
 	elif weekdayint == 5:
-		weekday = localsettings.dictionary["friday"][localsettings.language]
+		weekday = localsettings.t("friday")
 	elif weekdayint == 6:
-		weekday = localsettings.dictionary["saturday"][localsettings.language]
+		weekday = localsettings.t("saturday")
 	
 	return weekday
 
@@ -331,7 +331,7 @@ def CreateEvetteFolder():
 	os.mkdir(evettefolder + "/html")
 	os.mkdir(evettefolder + "/temp")
 	os.mkdir(evettefolder + "/templates")
-	header = "<html><head><meta http-equiv='content-type' content='text/html; charset=UTF-8'></head><body><table width=100% cellpadding=0 cellspacing=10><tr><td valign=top><img src=http://evette.homeip.net/imagesfolder/logo.jpg alt=Evette></td><td valign=middle width=100% align=right><font size=1 color=red>" + localsettings.dictionary["headertext1"][localsettings.language] + "<br></font><font size=1><i>" + localsettings.dictionary["headertext2"][localsettings.language] + " <br>$HOME/.evette/html/header.dat</i></font></td></tr></table><hr>"
+	header = "<html><head><meta http-equiv='content-type' content='text/html; charset=UTF-8'></head><body><table width=100% cellpadding=0 cellspacing=10><tr><td valign=top><img src=http://evette.homeip.net/imagesfolder/logo.jpg alt=Evette></td><td valign=middle width=100% align=right><font size=1 color=red>" + localsettings.t("headertext1") + "<br></font><font size=1><i>" + localsettings.t("headertext2") + " <br>$HOME/.evette/html/header.dat</i></font></td></tr></table><hr>"
 	out = open(evettefolder + "/html/header.dat", "w")
 	out.write(header)
 	out.close()
@@ -591,10 +591,10 @@ def GenerateDayPlan(localsettings, sqldate, step):
 			colour = colours[colourcount]
 			vetdata.append((a[1], a[3], a[4], colour, a[5]))
 		
-		output = "<table><tr><td valign=bottom><u><font size=2>" + localsettings.dictionary["timelabel"][localsettings.language] + "</font></u></td>"
+		output = "<table><tr><td valign=bottom><u><font size=2>" + localsettings.t("timelabel") + "</font></u></td>"
 		for a in vetnames:
 			output = output + "<td valign=bottom><u><font size=2>" + a + "</font></u></td>"
-		output = output + "<td valign=bottom><u><font size=2>" + localsettings.dictionary["animalappointmentslabel"][localsettings.language] + "</font></u></td><td valign=bottom><u><font size=2>" + localsettings.dictionary["operationslabel"][localsettings.language] + "</font></u></td><tr>"
+		output = output + "<td valign=bottom><u><font size=2>" + localsettings.t("animalappointmentslabel") + "</font></u></td><td valign=bottom><u><font size=2>" + localsettings.t("operationslabel") + "</font></u></td><tr>"
 		
 		columncount = len(vetnames)
 		
@@ -637,9 +637,9 @@ def GenerateDayPlan(localsettings, sqldate, step):
 					vetnameb = vetdata[c][0]
 					
 					if vetdata[c][4] == 0:
-						roleb = localsettings.dictionary["consultinglabel"][localsettings.language].lower()
+						roleb = localsettings.t("consultinglabel").lower()
 					else:
-						roleb = localsettings.dictionary["operatinglabel"][localsettings.language].lower()
+						roleb = localsettings.t("operatinglabel").lower()
 					
 					if time > openfrombint - 1 and time < opentobint + 1 and vetnameb == vetname:
 						output = output + "<td bgcolor=" + colour + "><font size=1 color=white>" + roleb + "</font></td>"
@@ -689,19 +689,19 @@ def GenerateDayPlan(localsettings, sqldate, step):
 def GetDayNameFromID(ID, localsettings):
 	
 	if ID == 0:
-		name = localsettings.dictionary["sunday"][localsettings.language]
+		name = localsettings.t("sunday")
 	elif ID == 1:
-		name = localsettings.dictionary["monday"][localsettings.language]
+		name = localsettings.t("monday")
 	elif ID == 2:
-		name = localsettings.dictionary["tuesday"][localsettings.language]
+		name = localsettings.t("tuesday")
 	elif ID == 3:
-		name = localsettings.dictionary["wednesday"][localsettings.language]
+		name = localsettings.t("wednesday")
 	elif ID == 4:
-		name = localsettings.dictionary["thursday"][localsettings.language]
+		name = localsettings.t("thursday")
 	elif ID == 5:
-		name = localsettings.dictionary["friday"][localsettings.language]
+		name = localsettings.t("friday")
 	else:
-		name = localsettings.dictionary["saturday"][localsettings.language]
+		name = localsettings.t("saturday")
 	
 	return name
 
@@ -753,11 +753,11 @@ def GetAppointmentHtml(appointmentdata):
 	
 	if neutered == 0:
 		
-		neutered = localsettings.dictionary["entirelabel"][localsettings.language].lower()
+		neutered = localsettings.t("entirelabel").lower()
 		
 	else:
 		
-		neutered = localsettings.dictionary["neuteredlabel"][localsettings.language].lower()
+		neutered = localsettings.t("neuteredlabel").lower()
 	
 	species = appointmentdata.animaldata.species
 	breed = appointmentdata.animaldata.breed
@@ -784,11 +784,11 @@ def GetAppointmentHtml(appointmentdata):
 	
 	
 	
-	output = "<font size=1><b>" + time + "</font>&nbsp;<font color=blue size=1>(" + localsettings.dictionary["vetlabel"][localsettings.language] + ": " + appointmentdata.vet + ")</font> - <font size=1><b>" + animalname + " " + ownersurname + "</b>"
+	output = "<font size=1><b>" + time + "</font>&nbsp;<font color=blue size=1>(" + localsettings.t("vetlabel") + ": " + appointmentdata.vet + ")</font> - <font size=1><b>" + animalname + " " + ownersurname + "</b>"
 	
 	output = output + "<br></font><font color=red size=2><b>" + reason + "</b><br></font>"
 	
-	output = output + "<font size=1>" + GetSex(localsettings, sex) + " (" + neutered + ") " + breed.lower() + " " + species.lower() + ", " + age + "</font>" + animalcomments + "<font size=1><br>""" + localsettings.dictionary["animalownerlabel"][localsettings.language] + """: </font><font color=blue size=1>""" + title + " " + ownersurname + "</font>" + clientcomments
+	output = output + "<font size=1>" + GetSex(localsettings, sex) + " (" + neutered + ") " + breed.lower() + " " + species.lower() + ", " + age + "</font>" + animalcomments + "<font size=1><br>""" + localsettings.t("animalownerlabel") + """: </font><font color=blue size=1>""" + title + " " + ownersurname + "</font>" + clientcomments
 	
 	return output
 
@@ -806,7 +806,7 @@ def GetAppointmentDetailsHtml(localsettings, appointmentid, short=False):
 	
 	if short == False:
 	
-		receipthtml = "<td valign=top align=left width=40%><font size=1><u>" + localsettings.dictionary["receiptlabel"][localsettings.language] + "</u><br></font><table width=100%>"
+		receipthtml = "<td valign=top align=left width=40%><font size=1><u>" + localsettings.t("receiptlabel") + "</u><br></font><table width=100%>"
 		
 		receipttotal = 0
 		
@@ -819,11 +819,11 @@ def GetAppointmentDetailsHtml(localsettings, appointmentid, short=False):
 			
 			price = FormatPrice(price)
 			
-			receipthtml = receipthtml + "<tr><td align=left valign=top><font size=1>" + description + "</font></td><td align=right valign=top nowrap><font size=1>" + localsettings.dictionary["currency"][localsettings.language] + price + "</font></td></tr>"
+			receipthtml = receipthtml + "<tr><td align=left valign=top><font size=1>" + description + "</font></td><td align=right valign=top nowrap><font size=1>" + localsettings.t("currency") + price + "</font></td></tr>"
 		
 		receipttotal = FormatPrice(receipttotal)
 		
-		receipthtml = receipthtml + "<tr><td align=left valign=top><font size=1><b>" + localsettings.dictionary["totallabel"][localsettings.language] + ":</b></font></td><td align=right valign=top nowrap><font size=1><b>" + localsettings.dictionary["currency"][localsettings.language] + receipttotal + "</b></font></td></tr></table></td>"
+		receipthtml = receipthtml + "<tr><td align=left valign=top><font size=1><b>" + localsettings.t("totallabel") + ":</b></font></td><td align=right valign=top nowrap><font size=1><b>" + localsettings.t("currency") + receipttotal + "</b></font></td></tr></table></td>"
 		
 	else:
 		
@@ -837,7 +837,7 @@ def GetAppointmentDetailsHtml(localsettings, appointmentid, short=False):
 			
 			#DNA
 			
-			arrivaltimehtml = " (" + localsettings.dictionary["dnalabel"][localsettings.language] + ")"
+			arrivaltimehtml = " (" + localsettings.t("dnalabel") + ")"
 			
 		elif appointmentdata.arrivaltime == None:
 			
@@ -849,11 +849,11 @@ def GetAppointmentDetailsHtml(localsettings, appointmentid, short=False):
 			
 			#Arrived late
 			
-			arrivaltimehtml = " (" + localsettings.dictionary["latelabel"][localsettings.language] + ")"
+			arrivaltimehtml = " (" + localsettings.t("latelabel") + ")"
 			
 		else:
 			
-			arrivaltimehtml = " (" + localsettings.dictionary["ontimelabel"][localsettings.language] + ")"
+			arrivaltimehtml = " (" + localsettings.t("ontimelabel") + ")"
 		
 	else:
 		
@@ -861,7 +861,7 @@ def GetAppointmentDetailsHtml(localsettings, appointmentid, short=False):
 		
 		arrivaltimehtml = ""
 	
-	output =  "<table width=100% cellpadding=0 cellspacing=0><tr><td valign=top align=left><font color=blue size=1><b>" + date + " " + time + "</b>" + arrivaltimehtml + "</font><font size=1><br>" + localsettings.dictionary["vetlabel"][localsettings.language] + ": <b>" + appointmentdata.vet + "</b><br></font><font color=red size=1>" + appointmentdata.reason + "</font><br><br><font size=1><u>" + localsettings.dictionary["problemlabel"][localsettings.language] + "</u><br>" + appointmentdata.problem + "<br><u>" + localsettings.dictionary["noteslabel"][localsettings.language] + "</u><br>" + appointmentdata.notes + "<br><u>" + localsettings.dictionary["planlabel"][localsettings.language] + "</u><br>" + appointmentdata.plan + "</font></td>" + receipthtml + "</tr></table>"
+	output =  "<table width=100% cellpadding=0 cellspacing=0><tr><td valign=top align=left><font color=blue size=1><b>" + date + " " + time + "</b>" + arrivaltimehtml + "</font><font size=1><br>" + localsettings.t("vetlabel") + ": <b>" + appointmentdata.vet + "</b><br></font><font color=red size=1>" + appointmentdata.reason + "</font><br><br><font size=1><u>" + localsettings.t("problemlabel") + "</u><br>" + appointmentdata.problem + "<br><u>" + localsettings.t("noteslabel") + "</u><br>" + appointmentdata.notes + "<br><u>" + localsettings.t("planlabel") + "</u><br>" + appointmentdata.plan + "</font></td>" + receipthtml + "</tr></table>"
 	
 	return output
 
@@ -875,11 +875,11 @@ def GetAnimalDetailsHTML(animaldata):
 	
 	if neutered == 0:
 		
-		neutered = localsettings.dictionary["entirelabel"][localsettings.language].lower()
+		neutered = localsettings.t("entirelabel").lower()
 		
 	else:
 		
-		neutered = localsettings.dictionary["neuteredlabel"][localsettings.language].lower()
+		neutered = localsettings.t("neuteredlabel").lower()
 	
 	species = animaldata.species
 	breed = animaldata.breed
@@ -909,7 +909,7 @@ def GetAnimalDetailsHTML(animaldata):
 	
 	ownerpostcode = unicode(results[0][4], "utf8").upper()
 	
-	output = "<table align=center><tr><td valign=top><fieldset><legend>" + localsettings.dictionary["animallabel"][localsettings.language] + "</legend><p>" + localsettings.dictionary["namelabel"][localsettings.language] + ": <b>" + animalname + "</b><br>" + localsettings.dictionary["animalsexlabel"][localsettings.language] + ": <b>" + GetSex(animaldata.localsettings, sex) + " (" + neutered + ")</b><br>" + localsettings.dictionary["animalspecieslabel"][localsettings.language] + ": <b>" + species + "</b><br>" + localsettings.dictionary["animalbreedlabel"][localsettings.language] + ": <b>" + breed + "</b><br>" + localsettings.dictionary["animalcommentslabel"][localsettings.language] + ":<br><b>" + animalcomments + "</b></p></fieldset></td><td valign=top><fieldset><legend>" + localsettings.dictionary["clientlabel"][localsettings.language] + "</legend><p><b>" + ownername + "<br>" + owneraddress + "<br>" + ownerpostcode + "</b></p></fieldset></td></tr></table>"
+	output = "<table align=center><tr><td valign=top><fieldset><legend>" + localsettings.t("animallabel") + "</legend><p>" + localsettings.t("namelabel") + ": <b>" + animalname + "</b><br>" + localsettings.t("animalsexlabel") + ": <b>" + GetSex(animaldata.localsettings, sex) + " (" + neutered + ")</b><br>" + localsettings.t("animalspecieslabel") + ": <b>" + species + "</b><br>" + localsettings.t("animalbreedlabel") + ": <b>" + breed + "</b><br>" + localsettings.t("animalcommentslabel") + ":<br><b>" + animalcomments + "</b></p></fieldset></td><td valign=top><fieldset><legend>" + localsettings.t("clientlabel") + "</legend><p><b>" + ownername + "<br>" + owneraddress + "<br>" + ownerpostcode + "</b></p></fieldset></td></tr></table>"
 	
 	return output
 
@@ -932,18 +932,18 @@ def FormatSQLDate(sqldate, localsettings):
 	month = str(sqldate)[5:7]
 	year = str(sqldate)[:4]
 	
-	if localsettings.dictionary["dateformat"][localsettings.language] == "DDMMYYYY":
+	if localsettings.t("dateformat") == "DDMMYYYY":
 		return day + "/" + month + "/" + year
-	elif localsettings.dictionary["dateformat"][localsettings.language] == "MMDDYYYY":
+	elif localsettings.t("dateformat") == "MMDDYYYY":
 		return month + "/" + day + "/" + year
 	else:
 		return year + "/" + month + "/" + day
 
 def FormatDate(date, localsettings):
 	
-	if localsettings.dictionary["dateformat"][localsettings.language] == "DDMMYYYY":
+	if localsettings.t("dateformat") == "DDMMYYYY":
 		return date.strftime("%d/%m/%Y")
-	elif localsettings.dictionary["dateformat"][localsettings.language] == "MMDDYYYY":
+	elif localsettings.t("dateformat") == "MMDDYYYY":
 		return date.strftime("%m/%d/%Y")
 	else:
 		return date.strftime("%Y/%m/%d")
@@ -1106,7 +1106,7 @@ def FormatChangeLog(changelog, name, connection):
 			results = db.SendSQL(action, connection)
 			username = results[0][0]
 		except:
-			username = localsettings.dictionary["userdeleted"][localsettings.language]
+			username = localsettings.t("userdeleted")
 		
 		output = output + date + " - " + username + "\n"
 		
@@ -1123,7 +1123,7 @@ def ShowChangeLog(name, changelog, connection):
 	localsettings.GetSettings()
 	
 	changelog = FormatChangeLog(changelog, name, connection)
-	output = wx.MessageDialog(None, changelog, localsettings.dictionary["changelog"][localsettings.language], wx.OK)
+	output = wx.MessageDialog(None, changelog, localsettings.t("changelog"), wx.OK)
 	output.ShowModal()
 
 def WriteToTempFolder(filename, output):
@@ -1218,7 +1218,7 @@ def OpenMedia(mediaid, formname=False):
 			localsettings = settings.settings(False)
 			localsettings.GetSettings()
 			
-			wx.CallAfter(ShowMessage, fileextension + " - " + localsettings.dictionary["noprogramassociatedmessage"][localsettings.language] + " " + localsettings.dictionary["readfileassociationhelpmessage"][localsettings.language])
+			wx.CallAfter(ShowMessage, fileextension + " - " + localsettings.t("noprogramassociatedmessage") + " " + localsettings.t("readfileassociationhelpmessage"))
 			
 		else:
 			
@@ -1238,7 +1238,7 @@ def OpenMedia(mediaid, formname=False):
 		localsettings = settings.settings(False)
 		localsettings.GetSettings()
 		
-		wx.CallAfter(ShowMessage, localsettings.dictionary["noprogramassociatedmessage"][localsettings.language])
+		wx.CallAfter(ShowMessage, localsettings.t("noprogramassociatedmessage"))
 
 def CorrectNullString(string):
 	
@@ -1248,6 +1248,3 @@ def CorrectNullString(string):
 	
 	return string
 
-def t(label, localsettings):
-	
-	return localsettings.t(label)

@@ -31,15 +31,15 @@ DELETE_ASSOCIATION = 903
 
 class FileTypePanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
 		self.localsettings = localsettings
 		
-		self.pagetitle = self.GetLabel("fileassociationspagetitle")
+		self.pagetitle = self.t("fileassociationspagetitle")
 		
 		self.pagetitle = miscmethods.GetPageTitle(notebook, self.pagetitle)
 		
@@ -64,26 +64,26 @@ class FileTypePanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		addassociation = wx.MenuItem(popupmenu, ADD_ASSOCIATION, self.GetLabel("addlabel"))
+		addassociation = wx.MenuItem(popupmenu, ADD_ASSOCIATION, self.t("addlabel"))
 		addassociation.SetBitmap(wx.Bitmap("icons/new.png"))
 		wx.EVT_MENU(popupmenu, ADD_ASSOCIATION, self.Add)
 		popupmenu.AppendItem(addassociation)
 		
 		if self.listbox.listctrl.GetSelectedItemCount() > 0:
 			
-			editassociation = wx.MenuItem(popupmenu, EDIT_ASSOCIATION, self.GetLabel("editlabel"))
+			editassociation = wx.MenuItem(popupmenu, EDIT_ASSOCIATION, self.t("editlabel"))
 			editassociation.SetBitmap(wx.Bitmap("icons/edit.png"))
 			wx.EVT_MENU(popupmenu, EDIT_ASSOCIATION, self.Edit)
 			popupmenu.AppendItem(editassociation)
 			
-			deleteassociation = wx.MenuItem(popupmenu, DELETE_ASSOCIATION, self.GetLabel("deletelabel"))
+			deleteassociation = wx.MenuItem(popupmenu, DELETE_ASSOCIATION, self.t("deletelabel"))
 			deleteassociation.SetBitmap(wx.Bitmap("icons/delete.png"))
 			wx.EVT_MENU(popupmenu, DELETE_ASSOCIATION, self.Delete)
 			popupmenu.AppendItem(deleteassociation)
 		
 		popupmenu.AppendSeparator()
 		
-		refreshassociation = wx.MenuItem(popupmenu, REFRESH_ASSOCIATIONS, self.GetLabel("refreshlabel"))
+		refreshassociation = wx.MenuItem(popupmenu, REFRESH_ASSOCIATIONS, self.t("refreshlabel"))
 		refreshassociation.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		wx.EVT_MENU(popupmenu, REFRESH_ASSOCIATIONS, self.listbox.RefreshList)
 		popupmenu.AppendItem(refreshassociation)
@@ -104,7 +104,7 @@ class FileTypePanel(wx.Panel):
 	
 	def EditFileTypeDialog(self, countid=-1):
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("fileassociationspagetitle"))
+		dialog = wx.Dialog(self, -1, self.t("fileassociationspagetitle"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -112,7 +112,7 @@ class FileTypePanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		extensionlabel = wx.StaticText(panel, -1, self.GetLabel("extensionlabel") + ":")
+		extensionlabel = wx.StaticText(panel, -1, self.t("extensionlabel") + ":")
 		font = extensionlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		extensionlabel.SetFont(font)
@@ -122,7 +122,7 @@ class FileTypePanel(wx.Panel):
 		extensionentry.SetFocus()
 		topsizer.Add(extensionentry, 0, wx.ALIGN_LEFT)
 		
-		programlabel = wx.StaticText(panel, -1, self.GetLabel("programlabel") + ":")
+		programlabel = wx.StaticText(panel, -1, self.t("programlabel") + ":")
 		programlabel.SetFont(font)
 		topsizer.Add(programlabel, 0, wx.ALIGN_LEFT)
 		
@@ -133,7 +133,7 @@ class FileTypePanel(wx.Panel):
 		
 		editbitmap = wx.Bitmap("icons/edit.png")
 		findprogrambutton = wx.BitmapButton(panel, -1, editbitmap)
-		findprogrambutton.SetToolTipString(self.GetLabel("programbrowsertooltip"))
+		findprogrambutton.SetToolTipString(self.t("programbrowsertooltip"))
 		findprogrambutton.Bind(wx.EVT_BUTTON, self.GetProgramPath)
 		programsizer.Add(findprogrambutton, 0, wx.EXPAND)
 		
@@ -141,8 +141,8 @@ class FileTypePanel(wx.Panel):
 		
 		topsizer.Add(wx.StaticText(panel, -1, "", size=(-1,10)), 0, wx.EXPAND)
 		
-		submitbutton = wx.Button(panel, -1, self.GetLabel("submitlabel"))
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton = wx.Button(panel, -1, self.t("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		submitbutton.SetBackgroundColour("green")
 		submitbutton.Bind(wx.EVT_BUTTON, self.Submit)
 		topsizer.Add(submitbutton, 0, wx.ALIGN_CENTER_HORIZONTAL)
@@ -197,7 +197,7 @@ class FileTypePanel(wx.Panel):
 				
 				success = False
 				
-				miscmethods.ShowMessage(self.GetLabel("fileassociationexistsmessage"))
+				miscmethods.ShowMessage(self.t("fileassociationexistsmessage"))
 			
 		else:
 			
@@ -227,7 +227,7 @@ class FileTypePanel(wx.Panel):
 	
 	def Delete(self, ID):
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("deleteassociationconfirm")):
+		if miscmethods.ConfirmMessage(self.t("deleteassociationconfirm")):
 			
 			listboxid = self.listbox.GetSelection()
 			
@@ -259,9 +259,9 @@ class FileTypePanel(wx.Panel):
 
 class FileTypesListbox(customwidgets.ListCtrlWrapper):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -269,7 +269,7 @@ class FileTypesListbox(customwidgets.ListCtrlWrapper):
 		self.localsettings = localsettings
 		self.parent = parent
 		
-		columnheadings = (self.GetLabel("extensionlabel"), self.GetLabel("programlabel"))
+		columnheadings = (self.t("extensionlabel"), self.t("programlabel"))
 		
 		customwidgets.ListCtrlWrapper.__init__(self, parent, self.localsettings, columnheadings)
 	

@@ -75,7 +75,7 @@ class BuildForm(threading.Thread):
 		
 		header = CreateHeader(localsettings)
 		
-		form = header + body + "<p align=right><font size=1><hr>" + localsettings.dictionary["generatedbylabel"][localsettings.language] + " $$user$$ " + localsettings.dictionary["onlabel"][localsettings.language] + " $$time$$</font></p></body></html>"
+		form = header + body + "<p align=right><font size=1><hr>" + localsettings.t("generatedbylabel") + " $$user$$ " + localsettings.t("onlabel") + " $$time$$</font></p></body></html>"
 		
 		form = form.replace("$$user$$", username).replace("$$time$$", time)
 		
@@ -133,15 +133,15 @@ class BuildLabel(threading.Thread):
 
 class AnimalFormEditor(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
 		self.localsettings = localsettings
 		
-		self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("animalformspagetitle"))
+		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("animalformspagetitle"))
 		
 		wx.Panel.__init__(self, notebook)
 		
@@ -167,15 +167,15 @@ class AnimalFormEditor(wx.Panel):
 
 class ClientFormEditor(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
 		self.localsettings = localsettings
 		
-		self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("clientformspagetitle"))
+		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("clientformspagetitle"))
 		
 		wx.Panel.__init__(self, notebook)
 		
@@ -201,15 +201,15 @@ class ClientFormEditor(wx.Panel):
 
 class MedicationFormEditor(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
 		self.localsettings = localsettings
 		
-		self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("editmedicationtformspagetitle"))
+		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("editmedicationtformspagetitle"))
 		
 		wx.Panel.__init__(self, notebook)
 		
@@ -235,15 +235,15 @@ class MedicationFormEditor(wx.Panel):
 
 class InvoiceEditor(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
 		self.localsettings = localsettings
 		
-		self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("editinvoicepagetitle"))
+		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("editinvoicepagetitle"))
 		
 		wx.Panel.__init__(self, notebook)
 		
@@ -269,9 +269,9 @@ class InvoiceEditor(wx.Panel):
 
 class FormEditingPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings, formtype):
 		
@@ -335,7 +335,7 @@ class FormEditingPanel(wx.Panel):
 		
 		formnotebook.AddPage(entrypanel, "HTML", select=True)
 		
-		formnotebook.AddPage(previewpanel, self.GetLabel("previewlabel"), select=False)
+		formnotebook.AddPage(previewpanel, self.t("previewlabel"), select=False)
 		
 		mainsizer.Add(formnotebook, 3, wx.EXPAND)
 		
@@ -344,7 +344,7 @@ class FormEditingPanel(wx.Panel):
 		
 		wordkeysizer = wx.BoxSizer(wx.VERTICAL)
 		
-		wordkeylabel = wx.StaticText(self, -1, self.GetLabel("wordkeyslabel") + ":")
+		wordkeylabel = wx.StaticText(self, -1, self.t("wordkeyslabel") + ":")
 		wordkeysizer.Add(wordkeylabel, 0, wx.ALIGN_LEFT)
 		
 		wordkeys = WordKeys(self, localsettings, formtype)
@@ -561,11 +561,11 @@ def GenerateAnimalForm(formname, clientdata, animaldata):
 	
 	if animalneutered == 0:
 		
-		animalneutered = animaldata.localsettings.dictionary["nolabel"][animaldata.localsettings.language]
+		animalneutered = animaldata.localsettings.t("nolabel")
 		
 	else:
 		
-		animalneutered = animaldata.localsettings.dictionary["yeslabel"][animaldata.localsettings.language]
+		animalneutered = animaldata.localsettings.t("yeslabel")
 	
 	time = datetime.datetime.today()
 	
@@ -575,15 +575,15 @@ def GenerateAnimalForm(formname, clientdata, animaldata):
 	
 	if animaldata.sex == 0:
 		
-		body = body.replace("<<AnimalSex>>", animaldata.localsettings.dictionary["unknownlabel"][animaldata.localsettings.language])
+		body = body.replace("<<AnimalSex>>", animaldata.localsettings.t("unknownlabel"))
 		
 	elif animaldata.sex == 1:
 		
-		body = body.replace("<<AnimalSex>>", animaldata.localsettings.dictionary["malelabel"][animaldata.localsettings.language])
+		body = body.replace("<<AnimalSex>>", animaldata.localsettings.t("malelabel"))
 		
 	else:
 		
-		body = body.replace("<<AnimalSex>>", animaldata.localsettings.dictionary["femalelabel"][animaldata.localsettings.language])
+		body = body.replace("<<AnimalSex>>", animaldata.localsettings.t("femalelabel"))
 	
 	BuildForm(clientdata.localsettings, body)
 
@@ -631,15 +631,15 @@ def GenerateMedicationDocument(formname, appointmentdata, medicationname, unit, 
 	
 	if appointmentdata.animaldata.sex == 0:
 		
-		body = body.replace("<<AnimalSex>>", appointmentdata.localsettings.dictionary["unknownlabel"][appointmentdata.localsettings.language])
+		body = body.replace("<<AnimalSex>>", appointmentdata.localsettings.t("unknownlabel"))
 		
 	elif appointmentdata.animaldata.sex == 1:
 		
-		body = body.replace("<<AnimalSex>>", appointmentdata.localsettings.dictionary["malelabel"][appointmentdata.localsettings.language])
+		body = body.replace("<<AnimalSex>>", appointmentdata.localsettings.t("malelabel"))
 		
 	else:
 		
-		body = body.replace("<<AnimalSex>>", appointmentdata.localsettings.dictionary["femalelabel"][appointmentdata.localsettings.language])
+		body = body.replace("<<AnimalSex>>", appointmentdata.localsettings.t("femalelabel"))
 	
 	BuildLabel(appointmentdata.localsettings, body)
 

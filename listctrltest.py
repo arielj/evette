@@ -24,9 +24,9 @@ import wx.lib.mixins.listctrl as listmix
 
 class ListCtrl(wx.Panel, listmix.ColumnSorterMixin):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings, columns):
 		

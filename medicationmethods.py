@@ -178,9 +178,9 @@ class MedicationOutData:
 
 class EditMedicationPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field, idx)
 	
 	def __init__(self, notebook, localsettings):
 		
@@ -192,7 +192,7 @@ class EditMedicationPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("stocklabel"))
+		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("stocklabel"))
 		self.pageimage = "icons/stock.png"
 		
 		horizontalsizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -246,43 +246,43 @@ class EditMedicationPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		add = wx.MenuItem(popupmenu, ADD_MEDICATION, self.GetLabel("addlabel"))
+		add = wx.MenuItem(popupmenu, ADD_MEDICATION, self.t("addlabel"))
 		add.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(add)
 		wx.EVT_MENU(popupmenu, ADD_MEDICATION, self.AddMedication)
 		
 		if self.medicationlistbox.GetSelection() > -1:
 			
-			edit = wx.MenuItem(popupmenu, EDIT_MEDICATION, self.GetLabel("editlabel"))
+			edit = wx.MenuItem(popupmenu, EDIT_MEDICATION, self.t("editlabel"))
 			edit.SetBitmap(wx.Bitmap("icons/edit.png"))
 			popupmenu.AppendItem(edit)
 			wx.EVT_MENU(popupmenu, EDIT_MEDICATION, self.EditMedication)
 			
-			delete = wx.MenuItem(popupmenu, DELETE_MEDICATION, self.GetLabel("deletelabel"))
+			delete = wx.MenuItem(popupmenu, DELETE_MEDICATION, self.t("deletelabel"))
 			delete.SetBitmap(wx.Bitmap("icons/delete.png"))
 			popupmenu.AppendItem(delete)
 			wx.EVT_MENU(popupmenu, DELETE_MEDICATION, self.DeleteMedication)
 			
 			if self.localsettings.changelog == 1:
 				
-				changelog = wx.MenuItem(popupmenu, MEDICATION_CHANGELOG, self.GetLabel("changelog"))
+				changelog = wx.MenuItem(popupmenu, MEDICATION_CHANGELOG, self.t("changelog"))
 				changelog.SetBitmap(wx.Bitmap("icons/log.png"))
 				popupmenu.AppendItem(changelog)
 				wx.EVT_MENU(popupmenu, MEDICATION_CHANGELOG, self.MedicationChangeLog)
 			
-			batchbreakdown = wx.MenuItem(popupmenu, BATCH_BREAKDOWN, self.GetLabel("batchbreakdownlabel"))
+			batchbreakdown = wx.MenuItem(popupmenu, BATCH_BREAKDOWN, self.t("batchbreakdownlabel"))
 			batchbreakdown.SetBitmap(wx.Bitmap("icons/form.png"))
 			popupmenu.AppendItem(batchbreakdown)
 			wx.EVT_MENU(popupmenu, BATCH_BREAKDOWN, self.BatchBreakdownDialog)
 		
 		popupmenu.AppendSeparator()
 		
-		printmedications = wx.MenuItem(popupmenu, PRINT_MEDICATIONS, self.GetLabel("printtooltip"))
+		printmedications = wx.MenuItem(popupmenu, PRINT_MEDICATIONS, self.t("printtooltip"))
 		printmedications.SetBitmap(wx.Bitmap("icons/printer.png"))
 		popupmenu.AppendItem(printmedications)
 		wx.EVT_MENU(popupmenu, PRINT_MEDICATIONS, self.PrintStockList)
 		
-		refresh = wx.MenuItem(popupmenu, REFRESH_MEDICATIONS, self.GetLabel("refreshlabel"))
+		refresh = wx.MenuItem(popupmenu, REFRESH_MEDICATIONS, self.t("refreshlabel"))
 		refresh.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refresh)
 		wx.EVT_MENU(popupmenu, REFRESH_MEDICATIONS, self.RefreshMedicationList)
@@ -385,7 +385,7 @@ class EditMedicationPanel(wx.Panel):
 		medicationentrysizer1 = wx.BoxSizer(wx.HORIZONTAL)
 		
 		namesizer = wx.BoxSizer(wx.VERTICAL)
-		namelabel = wx.StaticText(panel, -1, self.GetLabel("namelabel"))
+		namelabel = wx.StaticText(panel, -1, self.t("namelabel"))
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -398,7 +398,7 @@ class EditMedicationPanel(wx.Panel):
 		medicationentrysizer1.Add(namespacer, 0, wx.EXPAND)
 		
 		unitsizer = wx.BoxSizer(wx.VERTICAL)
-		unitlabel = wx.StaticText(panel, -1, self.GetLabel("unitlabel") + ":")
+		unitlabel = wx.StaticText(panel, -1, self.t("unitlabel") + ":")
 		unitlabel.SetFont(font)
 		unitsizer.Add(unitlabel, 0, wx.ALIGN_LEFT)
 		unitentry = wx.TextCtrl(panel, -1, medicationdata["unit"])
@@ -408,7 +408,7 @@ class EditMedicationPanel(wx.Panel):
 		medicationentrysizer2 = wx.BoxSizer(wx.HORIZONTAL)
 		
 		descriptionsizer = wx.BoxSizer(wx.VERTICAL)
-		descriptionlabel = wx.StaticText(panel, -1, self.GetLabel("descriptionlabel"))
+		descriptionlabel = wx.StaticText(panel, -1, self.t("descriptionlabel"))
 		descriptionlabel.SetFont(font)
 		descriptionsizer.Add(descriptionlabel, 0, wx.ALIGN_LEFT)
 		descriptionentry = wx.TextCtrl(panel, -1, medicationdata["description"])
@@ -419,7 +419,7 @@ class EditMedicationPanel(wx.Panel):
 		medicationentrysizer2.Add(wx.StaticText(panel, -1, "", size=(10,-1)), 0, wx.EXPAND)
 		
 		reordersizer = wx.BoxSizer(wx.VERTICAL)
-		reorderlabel = wx.StaticText(panel, -1, self.GetLabel("reorderlabel"))
+		reorderlabel = wx.StaticText(panel, -1, self.t("reorderlabel"))
 		reorderlabel.SetFont(font)
 		reordersizer.Add(reorderlabel, 0, wx.ALIGN_LEFT)
 		reorderentry = wx.TextCtrl(panel, -1, medicationdata["minimum"])
@@ -430,7 +430,7 @@ class EditMedicationPanel(wx.Panel):
 		medicationentrysizer3 = wx.BoxSizer(wx.HORIZONTAL)
 		
 		batchnosizer = wx.BoxSizer(wx.VERTICAL)
-		batchnolabel = wx.StaticText(panel, -1, self.GetLabel("medicationcurrentbatchlabel"))
+		batchnolabel = wx.StaticText(panel, -1, self.t("medicationcurrentbatchlabel"))
 		batchnolabel.SetFont(font)
 		batchnosizer.Add(batchnolabel, 0, wx.ALIGN_LEFT)
 		batchnoentry = wx.TextCtrl(panel, -1, medicationdata["currentbatch"])
@@ -440,7 +440,7 @@ class EditMedicationPanel(wx.Panel):
 		medicationentrysizer3.Add(wx.StaticText(panel, -1, "", size=(10,-1)), 0, wx.EXPAND)
 		
 		expirysizer = wx.BoxSizer(wx.VERTICAL)
-		expirylabel = wx.StaticText(panel, -1, self.GetLabel("medicationexpireslabel"))
+		expirylabel = wx.StaticText(panel, -1, self.t("medicationexpireslabel"))
 		expirylabel.SetFont(font)
 		expirysizer.Add(expirylabel, 0, wx.ALIGN_LEFT)
 		expiryentry = customwidgets.DateCtrl(panel, self.localsettings)
@@ -459,11 +459,11 @@ class EditMedicationPanel(wx.Panel):
 		medicationentrysizer3.Add(wx.StaticText(panel, -1, "", size=(10,-1)), 0, wx.EXPAND)
 		
 		costpricesizer = wx.BoxSizer(wx.VERTICAL)
-		costpricelabel = wx.StaticText(panel, -1, self.GetLabel("costpricelabel"))
+		costpricelabel = wx.StaticText(panel, -1, self.t("costpricelabel"))
 		costpricelabel.SetFont(font)
 		costpricesizer.Add(costpricelabel, 0, wx.ALIGN_LEFT)
 		costpriceentry = wx.TextCtrl(panel, -1, medicationdata["costprice"])
-		costpriceentry.SetToolTipString(self.GetLabel("costpricentrytooltip"))
+		costpriceentry.SetToolTipString(self.t("costpricentrytooltip"))
 		costpriceentry.Bind(wx.EVT_CHAR, self.CalculateCostPrice)
 		costpricesizer.Add(costpriceentry, 1, wx.EXPAND)
 		medicationentrysizer3.Add(costpricesizer, 1, wx.EXPAND)
@@ -471,11 +471,11 @@ class EditMedicationPanel(wx.Panel):
 		medicationentrysizer3.Add(wx.StaticText(panel, -1, "", size=(10,-1)), 0, wx.EXPAND)
 		
 		pricesizer = wx.BoxSizer(wx.VERTICAL)
-		pricelabel = wx.StaticText(panel, -1, self.GetLabel("medicationunitpricelabel"))
+		pricelabel = wx.StaticText(panel, -1, self.t("medicationunitpricelabel"))
 		pricelabel.SetFont(font)
 		pricesizer.Add(pricelabel, 0, wx.ALIGN_LEFT)
 		priceentry = wx.TextCtrl(panel, -1, medicationdata["unitprice"])
-		priceentry.SetToolTipString(self.GetLabel("unitpricentrytooltip"))
+		priceentry.SetToolTipString(self.t("unitpricentrytooltip"))
 		priceentry.Bind(wx.EVT_CHAR, self.UnitPriceEntryKeyPress)
 		pricesizer.Add(priceentry, 1, wx.EXPAND)
 		medicationentrysizer3.Add(pricesizer, 1, wx.EXPAND)
@@ -486,32 +486,32 @@ class EditMedicationPanel(wx.Panel):
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitmedicationbutton = wx.BitmapButton(panel, -1, submitbitmap)
 		submitmedicationbutton.Bind(wx.EVT_BUTTON, self.SubmitConsumable)
-		submitmedicationbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitmedicationbutton.SetToolTipString(self.t("submitlabel"))
 		medicationentrysizer3.Add(submitmedicationbutton, 0, wx.ALIGN_BOTTOM)
 		
 		medicationentrysizer4 = wx.GridSizer(cols=3)
 		
-		medicationcheckbox = wx.CheckBox(panel, -1, self.GetLabel("randomdatamedicationlabel"))
+		medicationcheckbox = wx.CheckBox(panel, -1, self.t("randomdatamedicationlabel"))
 		medicationcheckbox.SetFont(font)
 		medicationcheckbox.Bind(wx.EVT_CHECKBOX, self.TypeChanged)
 		medicationentrysizer4.Add(medicationcheckbox, 0, wx.EXPAND)
 		
-		vaccinationcheckbox = wx.CheckBox(panel, -1, self.GetLabel("vaccinationsvaccinelabel"))
+		vaccinationcheckbox = wx.CheckBox(panel, -1, self.t("vaccinationsvaccinelabel"))
 		vaccinationcheckbox.SetFont(font)
 		vaccinationcheckbox.Bind(wx.EVT_CHECKBOX, self.TypeChanged)
 		medicationentrysizer4.Add(vaccinationcheckbox, 0, wx.EXPAND)
 		
-		consumablecheckbox = wx.CheckBox(panel, -1, self.GetLabel("consumablelabel"))
+		consumablecheckbox = wx.CheckBox(panel, -1, self.t("consumablelabel"))
 		consumablecheckbox.SetFont(font)
 		consumablecheckbox.Bind(wx.EVT_CHECKBOX, self.TypeChanged)
 		medicationentrysizer4.Add(consumablecheckbox, 0, wx.EXPAND)
 		
-		shopcheckbox = wx.CheckBox(panel, -1, self.GetLabel("shoplabel"))
+		shopcheckbox = wx.CheckBox(panel, -1, self.t("shoplabel"))
 		shopcheckbox.SetFont(font)
 		shopcheckbox.Bind(wx.EVT_CHECKBOX, self.TypeChanged)
 		medicationentrysizer4.Add(shopcheckbox, 0, wx.EXPAND)
 		
-		chipcheckbox = wx.CheckBox(panel, -1, self.GetLabel("microchiplabel"))
+		chipcheckbox = wx.CheckBox(panel, -1, self.t("microchiplabel"))
 		chipcheckbox.SetFont(font)
 		chipcheckbox.Bind(wx.EVT_CHECKBOX, self.TypeChanged)
 		medicationentrysizer4.Add(chipcheckbox, 0, wx.EXPAND)
@@ -577,7 +577,7 @@ class EditMedicationPanel(wx.Panel):
 		
 		if keycode == 99:
 			
-			dialog = wx.Dialog(self, -1, self.GetLabel("calculatecostpricetitle"))
+			dialog = wx.Dialog(self, -1, self.t("calculatecostpricetitle"))
 			
 			dialogsizer = wx.BoxSizer(wx.VERTICAL)
 			
@@ -588,21 +588,21 @@ class EditMedicationPanel(wx.Panel):
 			gridsizer = wx.FlexGridSizer(cols=2)
 			gridsizer.AddGrowableCol(1)
 			
-			packpricelabel = wx.StaticText(panel, -1, self.GetLabel("packpricelabel"))
+			packpricelabel = wx.StaticText(panel, -1, self.t("packpricelabel"))
 			gridsizer.Add(packpricelabel, 0, wx.ALIGN_RIGHT)
 			
 			packpriceentry = wx.TextCtrl(panel, -1, "0.00")
 			packpriceentry.Bind(wx.EVT_TEXT, self.CalculateCostPriceKeyPress)
 			gridsizer.Add(packpriceentry, 1, wx.EXPAND)
 			
-			unitsperpacklabel = wx.StaticText(panel, -1, self.GetLabel("unitsperpacklabel"))
+			unitsperpacklabel = wx.StaticText(panel, -1, self.t("unitsperpacklabel"))
 			gridsizer.Add(unitsperpacklabel, 0, wx.ALIGN_RIGHT)
 			
 			unitsperpackentry = wx.TextCtrl(panel, -1, "0")
 			unitsperpackentry.Bind(wx.EVT_TEXT, self.CalculateCostPriceKeyPress)
 			gridsizer.Add(unitsperpackentry, 1, wx.EXPAND)
 			
-			unitpricelabel = wx.StaticText(panel, -1, self.GetLabel("medicationunitpricelabel"))
+			unitpricelabel = wx.StaticText(panel, -1, self.t("medicationunitpricelabel"))
 			gridsizer.Add(unitpricelabel, 0, wx.ALIGN_RIGHT)
 			
 			unitpriceentry = wx.TextCtrl(panel, -1, "0.00", style=wx.TE_READONLY)
@@ -612,7 +612,7 @@ class EditMedicationPanel(wx.Panel):
 			
 			submitbitmap = wx.Bitmap("icons/submit.png")
 			submitbutton = wx.BitmapButton(panel, -1, submitbitmap)
-			submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+			submitbutton.SetToolTipString(self.t("submitlabel"))
 			submitbutton.Bind(wx.EVT_BUTTON, self.CalculateCostPriceSubmit)
 			gridsizer.Add(submitbutton, 0, wx.ALIGN_LEFT)
 			
@@ -765,7 +765,7 @@ class EditMedicationPanel(wx.Panel):
 			
 			self.selectedmedicationid = medicationdata[0]
 			
-			newmovementlabel = miscmethods.NoWrap(self.GetLabel("medicationmovementsoflabel") + name)
+			newmovementlabel = miscmethods.NoWrap(self.t("medicationmovementsoflabel") + name)
 			
 			self.medicationmovementspanel.movementlabel.SetLabel(newmovementlabel)
 			self.medicationmovementspanel.ClearMovementEntries()
@@ -786,7 +786,7 @@ class EditMedicationPanel(wx.Panel):
 		medicationid = self.medicationlistbox.htmllist[listboxid][0]
 		medicationname = unicode(self.medicationlistbox.htmllist[listboxid][1], "utf8")
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("medicationconfirmdeletemessage") + medicationname + "?"):
+		if miscmethods.ConfirmMessage(self.t("medicationconfirmdeletemessage") + medicationname + "?"):
 			
 			action = "DELETE FROM medication WHERE ID = " + str(medicationid)
 			db.SendSQL(action, self.localsettings.dbconnection)
@@ -912,7 +912,7 @@ class EditMedicationPanel(wx.Panel):
 						
 						batchhtml = batchhtml + "<br><font color=" + colour + " size=1>" + p + "&nbsp;</font>"
 				
-				output = output + "<tr><td valign=top><font size=2 color=blue>" + str(name) + "</font>&nbsp;<font size=1>(" + self.localsettings.dictionary["currency"][self.localsettings.language] + str(price) + " per " + str(unit) + ")</font><br><font color=red size=1>" + str(description) + "</font></td><td align=right valign=top nowrap>" + balance + "</font>" + batchhtml + "</td></tr>"
+				output = output + "<tr><td valign=top><font size=2 color=blue>" + str(name) + "</font>&nbsp;<font size=1>(" + self.t("currency") + str(price) + " per " + str(unit) + ")</font><br><font color=red size=1>" + str(description) + "</font></td><td align=right valign=top nowrap>" + balance + "</font>" + batchhtml + "</td></tr>"
 			
 			output = output + "</table>"
 			
@@ -920,9 +920,9 @@ class EditMedicationPanel(wx.Panel):
 
 class MedicationMovementPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -934,7 +934,7 @@ class MedicationMovementPanel(wx.Panel):
 		
 		topsizer.Add(wx.Panel(self, size=(-1,10)), 0, wx.EXPAND)
 		
-		movementlabel = wx.StaticText(self, -1, self.GetLabel("medicationmovementsoflabel"))
+		movementlabel = wx.StaticText(self, -1, self.t("medicationmovementsoflabel"))
 		topsizer.Add(movementlabel, 0, wx.ALIGN_LEFT)
 		
 		topsizer.Add(wx.Panel(self, size=(-1,10)), 0, wx.EXPAND)
@@ -944,28 +944,28 @@ class MedicationMovementPanel(wx.Panel):
 		#addbitmap = wx.Bitmap("icons/new.png")
 		#addbutton = wx.BitmapButton(self, -1, addbitmap)
 		#addbutton.Bind(wx.EVT_BUTTON, self.CreateMovement)
-		#addbutton.SetToolTipString(self.GetLabel("createmovementlabel"))
+		#addbutton.SetToolTipString(self.t("createmovementlabel"))
 		#buttonssizer.Add(addbutton, 0, wx.EXPAND)
 		
 		#editbitmap = wx.Bitmap("icons/edit.png")
 		#editbutton = wx.BitmapButton(self, -1, editbitmap)
 		#editbutton.Disable()
 		#editbutton.Bind(wx.EVT_BUTTON, self.EditMovement)
-		#editbutton.SetToolTipString(self.GetLabel("editmovementlabel"))
+		#editbutton.SetToolTipString(self.t("editmovementlabel"))
 		#buttonssizer.Add(editbutton, 0, wx.EXPAND)
 		
 		#deletebitmap = wx.Bitmap("icons/delete.png")
 		#deletebutton = wx.BitmapButton(self, -1, deletebitmap)
 		#deletebutton.Disable()
 		#deletebutton.Bind(wx.EVT_BUTTON, self.DeleteMovement)
-		#deletebutton.SetToolTipString(self.GetLabel("medicationdeletemovementtooltip"))
+		#deletebutton.SetToolTipString(self.t("medicationdeletemovementtooltip"))
 		#buttonssizer.Add(deletebutton, 0, wx.EXPAND)
 		
 		buttonssizer.Add(wx.Panel(self), 1, wx.EXPAND)
 		
 		datesizer = wx.BoxSizer(wx.HORIZONTAL)
 		
-		fromlabel = wx.StaticText(self, -1, self.GetLabel("fromlabel") + u"\xa0")
+		fromlabel = wx.StaticText(self, -1, self.t("fromlabel") + u"\xa0")
 		datesizer.Add(fromlabel, 0, wx.ALIGN_CENTER)
 		
 		fromdateentry = customwidgets.DateCtrl(self, self.localsettings)
@@ -976,7 +976,7 @@ class MedicationMovementPanel(wx.Panel):
 		
 		datesizer.Add(fromdateentry, 0, wx.EXPAND)
 		
-		tolabel = wx.StaticText(self, -1, u"\xa0" + self.GetLabel("tolabel").lower() + u"\xa0")
+		tolabel = wx.StaticText(self, -1, u"\xa0" + self.t("tolabel").lower() + u"\xa0")
 		datesizer.Add(tolabel, 0, wx.ALIGN_CENTER)
 		
 		todateentry = customwidgets.DateCtrl(self, self.localsettings)
@@ -989,7 +989,7 @@ class MedicationMovementPanel(wx.Panel):
 		refreshbitmap = wx.Bitmap("icons/refresh.png")
 		refreshbutton = wx.BitmapButton(self, -1, refreshbitmap)
 		refreshbutton.Bind(wx.EVT_BUTTON, self.RefreshList)
-		refreshbutton.SetToolTipString(self.GetLabel("movementrefreshmovementsmessage"))
+		refreshbutton.SetToolTipString(self.t("movementrefreshmovementsmessage"))
 		buttonssizer.Add(refreshbutton, 0, wx.EXPAND)
 		
 		topsizer.Add(buttonssizer, 0, wx.EXPAND)
@@ -1006,7 +1006,7 @@ class MedicationMovementPanel(wx.Panel):
 		
 		topsizer.Add(medicationmovementlist, 1, wx.EXPAND)
 		
-		totallabel = wx.StaticText(self, -1, self.GetLabel("totallabel") + ": 0")
+		totallabel = wx.StaticText(self, -1, self.t("totallabel") + ": 0")
 		topsizer.Add(totallabel, 0, wx.ALIGN_RIGHT)
 		
 		self.SetSizer(topsizer)
@@ -1032,7 +1032,7 @@ class MedicationMovementPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		add = wx.MenuItem(popupmenu, ADD_MEDICATIONMOVEMENT, self.GetLabel("addlabel"))
+		add = wx.MenuItem(popupmenu, ADD_MEDICATIONMOVEMENT, self.t("addlabel"))
 		add.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(add)
 		wx.EVT_MENU(popupmenu, ADD_MEDICATIONMOVEMENT, self.CreateMovement)
@@ -1040,28 +1040,28 @@ class MedicationMovementPanel(wx.Panel):
 		listboxid = self.medicationmovementlist.GetSelection()
 		movementdetails = self.medicationmovementlist.htmllist[listboxid]
 		
-		if movementdetails[6] != self.GetLabel("clientbalancelabel"):
+		if movementdetails[6] != self.t("clientbalancelabel"):
 			
-			edit = wx.MenuItem(popupmenu, EDIT_MEDICATIONMOVEMENT, self.GetLabel("editlabel"))
+			edit = wx.MenuItem(popupmenu, EDIT_MEDICATIONMOVEMENT, self.t("editlabel"))
 			edit.SetBitmap(wx.Bitmap("icons/edit.png"))
 			popupmenu.AppendItem(edit)
 			wx.EVT_MENU(popupmenu, EDIT_MEDICATIONMOVEMENT, self.EditMovement)
 			
-			delete = wx.MenuItem(popupmenu, DELETE_MEDICATIONMOVEMENT, self.GetLabel("deletelabel"))
+			delete = wx.MenuItem(popupmenu, DELETE_MEDICATIONMOVEMENT, self.t("deletelabel"))
 			delete.SetBitmap(wx.Bitmap("icons/delete.png"))
 			popupmenu.AppendItem(delete)
 			wx.EVT_MENU(popupmenu, DELETE_MEDICATIONMOVEMENT, self.DeleteMovement)
 			
 			if self.localsettings.changelog == 1:
 				
-				changelog = wx.MenuItem(popupmenu, MEDICATIONMOVEMENT_CHANGELOG, self.GetLabel("changelog"))
+				changelog = wx.MenuItem(popupmenu, MEDICATIONMOVEMENT_CHANGELOG, self.t("changelog"))
 				changelog.SetBitmap(wx.Bitmap("icons/log.png"))
 				popupmenu.AppendItem(changelog)
 				wx.EVT_MENU(popupmenu, MEDICATIONMOVEMENT_CHANGELOG, self.MovementChangeLog)
 		
 		popupmenu.AppendSeparator()
 		
-		refresh = wx.MenuItem(popupmenu, REFRESH_MEDICATIONMOVEMENTS, self.GetLabel("refreshlabel"))
+		refresh = wx.MenuItem(popupmenu, REFRESH_MEDICATIONMOVEMENTS, self.t("refreshlabel"))
 		refresh.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refresh)
 		wx.EVT_MENU(popupmenu, REFRESH_MEDICATIONMOVEMENTS, self.RefreshList)
@@ -1087,7 +1087,7 @@ class MedicationMovementPanel(wx.Panel):
 		
 		movementdetails = self.medicationmovementlist.htmllist[listboxid]
 		
-		if movementdetails[6] != self.GetLabel("clientbalancelabel"):
+		if movementdetails[6] != self.t("clientbalancelabel"):
 			
 			self.EditMovementDialog(movementdetails)
 	
@@ -1106,7 +1106,7 @@ class MedicationMovementPanel(wx.Panel):
 			
 			unit = unicode(movementdetails[8], "utf8")
 			
-			batchno = unicode(movementdetails[4], "utf8").replace(self.GetLabel("medicationbatchnolabel"), "")
+			batchno = unicode(movementdetails[4], "utf8").replace(self.t("medicationbatchnolabel"), "")
 			
 			if movementdetails[7] == 0:
 				
@@ -1144,7 +1144,7 @@ class MedicationMovementPanel(wx.Panel):
 			destination = ""
 			fromtovalue = 1
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("editmovementlabel"))
+		dialog = wx.Dialog(self, -1, self.t("editmovementlabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -1158,7 +1158,7 @@ class MedicationMovementPanel(wx.Panel):
 		
 		movementbuttonssizer1.Add(wx.StaticText(panel, -1, "", size=(10,-1)), 0, wx.EXPAND)
 		
-		quantitylabel = wx.StaticText(panel, -1, " " + self.GetLabel("movelabel") + " ")
+		quantitylabel = wx.StaticText(panel, -1, " " + self.t("movelabel") + " ")
 		movementbuttonssizer1.Add(quantitylabel, 0, wx.ALIGN_CENTER)
 		
 		quantityentry = wx.TextCtrl(panel, -1, str(quantity))
@@ -1168,7 +1168,7 @@ class MedicationMovementPanel(wx.Panel):
 		unitlabel = wx.StaticText(panel, -1, " x " + unit + " ")
 		movementbuttonssizer1.Add(unitlabel, 0, wx.ALIGN_CENTER)
 		
-		fromto = wx.Choice(panel, -1, choices=(self.GetLabel("fromlabel"), self.GetLabel("tolabel")))
+		fromto = wx.Choice(panel, -1, choices=(self.t("fromlabel"), self.t("tolabel")))
 		fromto.Bind(wx.EVT_CHOICE, self.FromToChange)
 		fromto.SetSelection(fromtovalue)
 		
@@ -1187,21 +1187,21 @@ class MedicationMovementPanel(wx.Panel):
 		
 		movementbuttonssizer2.Add(wx.StaticText(panel, -1, "", size=(10,-1)), 0, wx.EXPAND)
 		
-		onlabel = wx.StaticText(panel, -1, self.GetLabel("onlabel") + " ")
+		onlabel = wx.StaticText(panel, -1, self.t("onlabel") + " ")
 		movementbuttonssizer2.Add(onlabel, 0, wx.ALIGN_CENTER)
 		
 		movementdate = customwidgets.DateCtrl(panel, self.localsettings)
 		movementdate.SetValue(date)
 		movementbuttonssizer2.Add(movementdate, 1, wx.EXPAND)
 		
-		batchlabel = wx.StaticText(panel, -1, " " + self.GetLabel("medicationbatchnolabel") + " ")
+		batchlabel = wx.StaticText(panel, -1, " " + self.t("medicationbatchnolabel") + " ")
 		movementbuttonssizer2.Add(batchlabel, 0, wx.ALIGN_CENTER)
 		
 		batchentry = wx.TextCtrl(panel, -1, batchno)
 		movementbuttonssizer2.Add(batchentry, 1, wx.EXPAND)
 		
 		
-		expireslabel = wx.StaticText(panel, -1, " " + self.GetLabel("medicationexpireslabel") + " ")
+		expireslabel = wx.StaticText(panel, -1, " " + self.t("medicationexpireslabel") + " ")
 		movementbuttonssizer2.Add(expireslabel, 0, wx.ALIGN_CENTER)
 		
 		expirydate = customwidgets.DateCtrl(panel, self.localsettings)
@@ -1227,7 +1227,7 @@ class MedicationMovementPanel(wx.Panel):
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(panel, -1, submitbitmap)
 		submitbutton.Bind(wx.EVT_BUTTON, self.SubmitMovement)
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		movementbuttonssizer2.Add(submitbutton, 0, wx.ALIGN_BOTTOM)
 		
 		movementbuttonssizer2.Add(wx.StaticText(panel, -1, "", size=(10,-1)), 0, wx.EXPAND)
@@ -1277,7 +1277,7 @@ class MedicationMovementPanel(wx.Panel):
 			
 			medicationname = unicode(results[0][1], "utf8")
 			
-			miscmethods.ShowChangeLog(medicationname + " " + self.GetLabel("movementmovementlabel").lower(), changelog, self.localsettings.dbconnection)
+			miscmethods.ShowChangeLog(medicationname + " " + self.t("movementmovementlabel").lower(), changelog, self.localsettings.dbconnection)
 			
 			
 	
@@ -1379,7 +1379,7 @@ class MedicationMovementPanel(wx.Panel):
 	def RefreshList(self, ID=False):
 		
 		self.medicationmovementlist.RefreshList()
-		self.totallabel.SetLabel(self.GetLabel("totallabel") + ": " + str(self.medicationmovementlist.total))
+		self.totallabel.SetLabel(self.t("totallabel") + ": " + str(self.medicationmovementlist.total))
 		self.topsizer.Layout()
 		
 	
@@ -1389,7 +1389,7 @@ class MedicationMovementPanel(wx.Panel):
 		
 		movementdetails = self.medicationmovementlist.htmllist[listboxid]
 		
-		if movementdetails[6] != self.GetLabel("clientbalancelabel"):
+		if movementdetails[6] != self.t("clientbalancelabel"):
 			
 			#self.deletebutton.Enable()
 			#self.editbutton.Enable()
@@ -1433,7 +1433,7 @@ class MedicationMovementPanel(wx.Panel):
 	
 	def DeleteMovement(self, ID):
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("movementconfirmdeletemovementmessage")) == True:
+		if miscmethods.ConfirmMessage(self.t("movementconfirmdeletemovementmessage")) == True:
 			
 			listboxid = self.medicationmovementlist.GetSelection()
 			movementdetails = self.medicationmovementlist.htmllist[listboxid]
@@ -1455,9 +1455,9 @@ class MedicationMovementPanel(wx.Panel):
 
 class MedicationSearchPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -1472,7 +1472,7 @@ class MedicationSearchPanel(wx.Panel):
 		
 		entrysizer = wx.BoxSizer(wx.VERTICAL)
 		
-		namelabel = wx.StaticText(self, -1, self.GetLabel("namelabel"))
+		namelabel = wx.StaticText(self, -1, self.t("namelabel"))
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -1482,7 +1482,7 @@ class MedicationSearchPanel(wx.Panel):
 		nameentry.Bind(wx.EVT_CHAR, self.KeyStroke)
 		entrysizer.Add(nameentry, 1, wx.EXPAND)
 		
-		descriptionlabel = wx.StaticText(self, -1, self.GetLabel("descriptionlabel"))
+		descriptionlabel = wx.StaticText(self, -1, self.t("descriptionlabel"))
 		descriptionlabel.SetFont(font)
 		entrysizer.Add(descriptionlabel, 0, wx.ALIGN_LEFT)
 		
@@ -1509,37 +1509,37 @@ class MedicationSearchPanel(wx.Panel):
 		checkboxsizer.Add(checkboxspacer1, 0, wx.EXPAND)
 		checkboxsizer.Add(checkboxspacer2, 0, wx.EXPAND)
 		
-		medicationcheckbox = wx.CheckBox(self, -1, self.GetLabel("randomdatamedicationlabel"))
+		medicationcheckbox = wx.CheckBox(self, -1, self.t("randomdatamedicationlabel"))
 		medicationcheckbox.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
 		medicationcheckbox.SetFont(font)
 		medicationcheckbox.SetValue(True)
 		checkboxsizer.Add(medicationcheckbox, 0, wx.EXPAND)
 		
-		vaccinationcheckbox = wx.CheckBox(self, -1, self.GetLabel("vaccinationsvaccinelabel"))
+		vaccinationcheckbox = wx.CheckBox(self, -1, self.t("vaccinationsvaccinelabel"))
 		vaccinationcheckbox.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
 		vaccinationcheckbox.SetFont(font)
 		vaccinationcheckbox.SetValue(True)
 		checkboxsizer.Add(vaccinationcheckbox, 0, wx.EXPAND)
 		
-		consumablecheckbox = wx.CheckBox(self, -1, self.GetLabel("consumablelabel"))
+		consumablecheckbox = wx.CheckBox(self, -1, self.t("consumablelabel"))
 		consumablecheckbox.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
 		consumablecheckbox.SetFont(font)
 		consumablecheckbox.SetValue(True)
 		checkboxsizer.Add(consumablecheckbox, 0, wx.EXPAND)
 		
-		shopcheckbox = wx.CheckBox(self, -1, self.GetLabel("shoplabel"))
+		shopcheckbox = wx.CheckBox(self, -1, self.t("shoplabel"))
 		shopcheckbox.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
 		shopcheckbox.SetFont(font)
 		shopcheckbox.SetValue(True)
 		checkboxsizer.Add(shopcheckbox, 0, wx.EXPAND)
 		
-		chipcheckbox = wx.CheckBox(self, -1, self.GetLabel("microchiplabel"))
+		chipcheckbox = wx.CheckBox(self, -1, self.t("microchiplabel"))
 		chipcheckbox.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
 		chipcheckbox.SetFont(font)
 		chipcheckbox.SetValue(True)
 		checkboxsizer.Add(chipcheckbox, 0, wx.EXPAND)
 		
-		runninglowentry = wx.CheckBox(self, -1, self.GetLabel("runninglowlabel"))
+		runninglowentry = wx.CheckBox(self, -1, self.t("runninglowlabel"))
 		runninglowentry.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
 		runninglowentry.SetFont(font)
 		checkboxsizer.Add(runninglowentry, 0, wx.EXPAND)
@@ -1586,9 +1586,9 @@ class MedicationSearchPanel(wx.Panel):
 
 class ShopSale(wx.Dialog):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, clientid, localsettings):
 		
@@ -1624,7 +1624,7 @@ class ShopSale(wx.Dialog):
 		
 		self.clientname = name
 		
-		wx.Dialog.__init__(self, parent, -1, self.GetLabel("shopitemstitle") + " - " + name)
+		wx.Dialog.__init__(self, parent, -1, self.t("shopitemstitle") + " - " + name)
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -1634,14 +1634,14 @@ class ShopSale(wx.Dialog):
 		
 		stocksizer = wx.BoxSizer(wx.VERTICAL)
 		
-		medicationnamelabel = wx.StaticText(panel, -1, self.GetLabel("searchlabel"))
+		medicationnamelabel = wx.StaticText(panel, -1, self.t("searchlabel"))
 		stocksizer.Add(medicationnamelabel, 0, wx.ALIGN_LEFT)
 		
 		nameentry = wx.TextCtrl(panel, -1, "")
 		nameentry.Bind(wx.wx.EVT_TEXT, self.KeyPress)
 		stocksizer.Add(nameentry, 0, wx.EXPAND)
 		
-		medicationlabel = wx.StaticText(panel, -1, self.GetLabel("shopitemstitle"))
+		medicationlabel = wx.StaticText(panel, -1, self.t("shopitemstitle"))
 		stocksizer.Add(medicationlabel, 0, wx.ALIGN_LEFT)
 		
 		listbox = wx.ListBox(panel, -1, size=(-1,150))
@@ -1655,7 +1655,7 @@ class ShopSale(wx.Dialog):
 		
 		quantitysizer = wx.BoxSizer(wx.VERTICAL)
 		
-		quantitylabel = wx.StaticText(panel, -1, self.GetLabel("quantitylabel"))
+		quantitylabel = wx.StaticText(panel, -1, self.t("quantitylabel"))
 		quantitysizer.Add(quantitylabel, 0, wx.ALIGN_LEFT)
 		
 		quantityentrysizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -1663,7 +1663,7 @@ class ShopSale(wx.Dialog):
 		removebitmap = wx.Bitmap("icons/out.png")
 		subtractbutton = wx.BitmapButton(panel, -1, removebitmap)
 		subtractbutton.Bind(wx.EVT_BUTTON, self.DecreaseQuantity)
-		subtractbutton.SetToolTipString(self.GetLabel("subtractlabel"))
+		subtractbutton.SetToolTipString(self.t("subtractlabel"))
 		quantityentrysizer.Add(subtractbutton, 0, wx.EXPAND)
 		
 		quantityentry = wx.TextCtrl(panel, -1, "1", size=(100,-1))
@@ -1672,10 +1672,10 @@ class ShopSale(wx.Dialog):
 		addbitmap = wx.Bitmap("icons/in.png")
 		plusbutton = wx.BitmapButton(panel, -1, addbitmap)
 		plusbutton.Bind(wx.EVT_BUTTON, self.IncreaseQuantity)
-		plusbutton.SetToolTipString(self.GetLabel("addlabel"))
+		plusbutton.SetToolTipString(self.t("addlabel"))
 		quantityentrysizer.Add(plusbutton, 0, wx.EXPAND)
 		
-		unittext = self.GetLabel("unitlabel").lower()
+		unittext = self.t("unitlabel").lower()
 		
 		unitlabel = wx.StaticText(panel, -1, miscmethods.NoWrap(" x " + unittext + " "))
 		quantityentrysizer.Add(unitlabel, 0, wx.ALIGN_CENTER)
@@ -1695,7 +1695,7 @@ class ShopSale(wx.Dialog):
 		submitbitmap = wx.Bitmap("icons/rightarrow.png")
 		submitbutton = wx.BitmapButton(panel, -1, submitbitmap)
 		submitbutton.Disable()
-		submitbutton.SetToolTipString(self.GetLabel("addtobaskettooltip"))
+		submitbutton.SetToolTipString(self.t("addtobaskettooltip"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.AddToBasket)
 		submitsizer.Add(submitbutton, 0, wx.ALIGN_BOTTOM)
 		
@@ -1704,7 +1704,7 @@ class ShopSale(wx.Dialog):
 		putbackbitmap = wx.Bitmap("icons/leftarrow.png")
 		putbackbutton = wx.BitmapButton(panel, -1, putbackbitmap)
 		putbackbutton.Disable()
-		putbackbutton.SetToolTipString(self.GetLabel("putbacktooltip"))
+		putbackbutton.SetToolTipString(self.t("putbacktooltip"))
 		putbackbutton.Bind(wx.EVT_BUTTON, self.RemoveFromBasket)
 		submitsizer.Add(putbackbutton, 0, wx.ALIGN_BOTTOM)
 		
@@ -1714,7 +1714,7 @@ class ShopSale(wx.Dialog):
 		
 		basketsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		basketlabel = wx.StaticText(panel, -1, self.GetLabel("basketlabel"))
+		basketlabel = wx.StaticText(panel, -1, self.t("basketlabel"))
 		basketsizer.Add(basketlabel, 0, wx.ALIGN_LEFT)
 		
 		self.basketlistbox = wx.ListCtrl(panel, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
@@ -1726,12 +1726,12 @@ class ShopSale(wx.Dialog):
 		
 		totalsizer = wx.BoxSizer(wx.HORIZONTAL)
 		
-		totallabel = wx.StaticText(panel, -1, self.GetLabel("totallabel") + ": 0")
+		totallabel = wx.StaticText(panel, -1, self.t("totallabel") + ": 0")
 		totalsizer.Add(totallabel, 0, wx.ALIGN_CENTER)
 		
 		totalsizer.Add(wx.StaticText(panel, -1, ""), 1, wx.EXPAND)
 		
-		markaspaidcheckbox = wx.CheckBox(panel, -1, self.GetLabel("markaspaidlabel"))
+		markaspaidcheckbox = wx.CheckBox(panel, -1, self.t("markaspaidlabel"))
 		totalsizer.Add(markaspaidcheckbox, 0, wx.ALIGN_CENTER)
 		
 		basketsizer.Add(totalsizer, 0, wx.EXPAND)
@@ -1743,7 +1743,7 @@ class ShopSale(wx.Dialog):
 		confirmbitmap = wx.Bitmap("icons/submit.png")
 		confirmbutton = wx.BitmapButton(panel, -1, confirmbitmap)
 		confirmbutton.Disable()
-		confirmbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		confirmbutton.SetToolTipString(self.t("submitlabel"))
 		confirmbutton.Bind(wx.EVT_BUTTON, self.SubmitBasket)
 		topsizer.Add(confirmbutton, 0, wx.ALIGN_CENTER)
 		
@@ -1801,7 +1801,7 @@ class ShopSale(wx.Dialog):
 			
 		except:
 			
-			miscmethods.ShowMessage(self.GetLabel("quantityerrormessage"), self)
+			miscmethods.ShowMessage(self.t("quantityerrormessage"), self)
 	
 	def DecreaseQuantity(self, ID):
 		
@@ -1818,7 +1818,7 @@ class ShopSale(wx.Dialog):
 			
 		except:
 			
-			miscmethods.ShowMessage(self.GetLabel("quantityerrormessage"), self)
+			miscmethods.ShowMessage(self.t("quantityerrormessage"), self)
 	
 	def BasketItemSelected(self, ID):
 		
@@ -1841,7 +1841,7 @@ class ShopSale(wx.Dialog):
 			
 		except:
 			
-			miscmethods.ShowMessage(self.GetLabel("quantityerrormessage"), self)
+			miscmethods.ShowMessage(self.t("quantityerrormessage"), self)
 		
 		if quantitycheck == True:
 			
@@ -1889,9 +1889,9 @@ class ShopSale(wx.Dialog):
 		
 		self.basketlistbox.ClearAll()
 		
-		self.basketlistbox.InsertColumn(0, self.GetLabel("namelabel"))
-		self.basketlistbox.InsertColumn(1, self.GetLabel("quantitylabel"))
-		self.basketlistbox.InsertColumn(2, self.GetLabel("pricelabel"))
+		self.basketlistbox.InsertColumn(0, self.t("namelabel"))
+		self.basketlistbox.InsertColumn(1, self.t("quantitylabel"))
+		self.basketlistbox.InsertColumn(2, self.t("pricelabel"))
 		
 		totalprice = 0
 		
@@ -1905,13 +1905,13 @@ class ShopSale(wx.Dialog):
 			
 			price = miscmethods.FormatPrice(price)
 			
-			if self.GetLabel("currency") == "&pound;":
+			if self.t("currency") == "&pound;":
 				
 				price = u"£" + price
 				
 			else:
 				
-				price = self.GetLabel("currency") + price
+				price = self.t("currency") + price
 			
 			self.itemDataMap[a[0]] = ( a[1], str(a[3]) + " x " + a[4], price )
 			
@@ -1937,15 +1937,15 @@ class ShopSale(wx.Dialog):
 		
 		totalprice = miscmethods.FormatPrice(totalprice)
 		
-		if self.GetLabel("currency") == "&pound;":
+		if self.t("currency") == "&pound;":
 			
 			totalprice = u"£" + totalprice
 			
 		else:
 			
-			totalprice = self.GetLabel("currency") + totalprice
+			totalprice = self.t("currency") + totalprice
 		
-		panel.totallabel.SetLabel(self.GetLabel("totallabel") + ": " + totalprice)
+		panel.totallabel.SetLabel(self.t("totallabel") + ": " + totalprice)
 		
 		panel.putbackbutton.Disable()
 		
@@ -2017,13 +2017,13 @@ class ShopSale(wx.Dialog):
 			
 			for a in filteredmedicationdata:
 				
-				if self.GetLabel("currency") == "&pound;":
+				if self.t("currency") == "&pound;":
 					
 					currencysymbol = u"£"
 					
 				else:
 					
-					currencysymbol = self.GetLabel("currency")
+					currencysymbol = self.t("currency")
 				
 				panel.listbox.Append(a[1] + "  (" + currencysymbol + miscmethods.FormatPrice(a[5]) + "/" + a[3] + ")")
 		
@@ -2033,7 +2033,7 @@ class ShopSale(wx.Dialog):
 			
 			panel.listbox.SetSelection(-1)
 			panel.submitbutton.Disable()
-			panel.unitlabel.SetLabel(miscmethods.NoWrap(" x " + self.GetLabel("unitlabel").lower() + " "))
+			panel.unitlabel.SetLabel(miscmethods.NoWrap(" x " + self.t("unitlabel").lower() + " "))
 			panel.horizontalsizer.Layout()
 			
 		else:
@@ -2055,7 +2055,7 @@ class ShopSale(wx.Dialog):
 			
 			medicationoutdata.amount = int(a[3])
 			medicationoutdata.batchno = u""
-			medicationoutdata.whereto = self.GetLabel("shopsalemenuitem") + " - " + self.clientname
+			medicationoutdata.whereto = self.t("shopsalemenuitem") + " - " + self.clientname
 			medicationoutdata.appointmentid = 0
 			
 			medicationoutdata.Submit(self.localsettings)
@@ -2076,21 +2076,21 @@ class ShopSale(wx.Dialog):
 		
 		if panel.markaspaidcheckbox.GetValue():
 			
-			dbmethods.WriteToReceiptTable(self.localsettings.dbconnection, False, miscmethods.GetSQLDateFromDate(date), self.GetLabel("clientpaymentinreceiptlabel"), self.totalprice, 4, self.clientid, 0, self.localsettings.userid)
+			dbmethods.WriteToReceiptTable(self.localsettings.dbconnection, False, miscmethods.GetSQLDateFromDate(date), self.t("clientpaymentinreceiptlabel"), self.totalprice, 4, self.clientid, 0, self.localsettings.userid)
 		
 		self.Close()
 
 class EditMarkUp(wx.Dialog):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
 		self.localsettings = localsettings
 		
-		wx.Dialog.__init__(self, parent, -1, self.GetLabel("editmarkupmenu")[0])
+		wx.Dialog.__init__(self, parent, -1, self.t("editmarkupmenu")[0])
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -2101,36 +2101,36 @@ class EditMarkUp(wx.Dialog):
 		gridsizer = wx.FlexGridSizer(cols=2)
 		gridsizer.AddGrowableCol(1)
 		
-		costpricelabel = wx.StaticText(panel, -1, self.GetLabel("costpricelabel"))
+		costpricelabel = wx.StaticText(panel, -1, self.t("costpricelabel"))
 		gridsizer.Add(costpricelabel, 0, wx.ALIGN_RIGHT)
 		
 		costpriceentry = wx.TextCtrl(panel, -1, "10.00")
 		costpriceentry.Bind(wx.EVT_TEXT, self.KeyPressed)
-		costpriceentry.SetToolTipString(self.GetLabel("costpriceentrytooltip"))
+		costpriceentry.SetToolTipString(self.t("costpriceentrytooltip"))
 		gridsizer.Add(costpriceentry, 1, wx.EXPAND)
 		
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
-		multiplybylabel = wx.StaticText(panel, -1, self.GetLabel("multiplybylabel"))
+		multiplybylabel = wx.StaticText(panel, -1, self.t("multiplybylabel"))
 		gridsizer.Add(multiplybylabel, 0, wx.ALIGN_RIGHT)
 		
 		multiplybyentry = wx.TextCtrl(panel, -1, str(self.localsettings.markupmultiplyby))
 		multiplybyentry.Bind(wx.EVT_TEXT, self.KeyPressed)
 		gridsizer.Add(multiplybyentry, 1, wx.EXPAND)
 		
-		roundtolabel = wx.StaticText(panel, -1, self.GetLabel("roundtolabel"))
+		roundtolabel = wx.StaticText(panel, -1, self.t("roundtolabel"))
 		gridsizer.Add(roundtolabel, 0, wx.ALIGN_RIGHT)
 		
 		roundtoentry = wx.TextCtrl(panel, -1, str(self.localsettings.markuproundto))
 		roundtoentry.Bind(wx.EVT_TEXT, self.KeyPressed)
-		roundtoentry.SetToolTipString(self.GetLabel("priceinpenniestooltip"))
+		roundtoentry.SetToolTipString(self.t("priceinpenniestooltip"))
 		gridsizer.Add(roundtoentry, 1, wx.EXPAND)
 		
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
-		unitpricelabel = wx.StaticText(panel, -1, self.GetLabel("customerpricelabel"))
+		unitpricelabel = wx.StaticText(panel, -1, self.t("customerpricelabel"))
 		gridsizer.Add(unitpricelabel, 0, wx.ALIGN_RIGHT)
 		
 		unitpriceentry = wx.TextCtrl(panel, -1, "", style=wx.TE_READONLY)
@@ -2144,13 +2144,13 @@ class EditMarkUp(wx.Dialog):
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(panel, -1, submitbitmap)
-		submitbutton.SetToolTipString(self.GetLabel("submitsettingstooltip"))
+		submitbutton.SetToolTipString(self.t("submitsettingstooltip"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.Submit)
 		buttonssizer.Add(submitbutton, 0, wx.EXPAND)
 		
 		applybitmap = wx.Bitmap("icons/refresh.png")
 		applybutton = wx.BitmapButton(panel, -1, applybitmap)
-		applybutton.SetToolTipString(self.GetLabel("applymarkuptostocktooltip"))
+		applybutton.SetToolTipString(self.t("applymarkuptostocktooltip"))
 		applybutton.Bind(wx.EVT_BUTTON, self.Apply)
 		buttonssizer.Add(applybutton, 0, wx.EXPAND)
 		
@@ -2190,7 +2190,7 @@ class EditMarkUp(wx.Dialog):
 		except:
 			
 			success = False
-			#miscmethods.ShowMessage(self.GetLabel("invalidpricemessage"), self)
+			#miscmethods.ShowMessage(self.t("invalidpricemessage"), self)
 		
 		try:
 			
@@ -2199,7 +2199,7 @@ class EditMarkUp(wx.Dialog):
 		except:
 			
 			success = False
-			#miscmethods.ShowMessage(self.GetLabel("quantityerrormessage"), self)
+			#miscmethods.ShowMessage(self.t("quantityerrormessage"), self)
 		
 		try:
 			
@@ -2208,7 +2208,7 @@ class EditMarkUp(wx.Dialog):
 		except:
 			
 			success = False
-			#miscmethods.ShowMessage(self.GetLabel("invalidpricemessage"), self)
+			#miscmethods.ShowMessage(self.t("invalidpricemessage"), self)
 		
 		if success == True:
 			
@@ -2268,13 +2268,13 @@ class EditMarkUp(wx.Dialog):
 			
 		else:
 			
-			self.unitpriceentry.SetValue(self.GetLabel("errorlabel"))
+			self.unitpriceentry.SetValue(self.t("errorlabel"))
 	
 	def Apply(self, ID):
 		
 		if self.CheckValues() == True:
 			
-			if miscmethods.ConfirmMessage(self.GetLabel("automarkupconfirmmessage"), self):
+			if miscmethods.ConfirmMessage(self.t("automarkupconfirmmessage"), self):
 				
 				multiplyby = float(self.multiplybyentry.GetValue())
 				roundto = int(self.roundtoentry.GetValue())
@@ -2295,4 +2295,4 @@ class EditMarkUp(wx.Dialog):
 					action = "UPDATE medication SET CurrentPrice = " + str(unitprice) + " WHERE ID = " + str(a[0])
 					db.SendSQL(action, self.localsettings.dbconnection)
 					
-				miscmethods.ShowMessage(self.GetLabel("markupappliedtoallmessage"), self)
+				miscmethods.ShowMessage(self.t("markupappliedtoallmessage"), self)

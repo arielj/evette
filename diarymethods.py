@@ -101,9 +101,9 @@ class DiarySettings:
 
 class EditDiaryPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
@@ -113,7 +113,7 @@ class EditDiaryPanel(wx.Panel):
 		
 		self.localsettings = localsettings
 		
-		self.pagetitle = self.GetLabel("editdiarypagetitle")
+		self.pagetitle = self.t("editdiarypagetitle")
 		
 		self.pagetitle = miscmethods.GetPageTitle(notebook, self.pagetitle)
 		self.pageimage = "icons/diary.png"
@@ -147,7 +147,7 @@ class EditDiaryPanel(wx.Panel):
 		
 		fromsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		fromlabel = wx.StaticText(self, -1, self.GetLabel("fromlabel") + ":")
+		fromlabel = wx.StaticText(self, -1, self.t("fromlabel") + ":")
 		font = fromlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		fromlabel.SetFont(font)
@@ -164,7 +164,7 @@ class EditDiaryPanel(wx.Panel):
 		
 		tosizer = wx.BoxSizer(wx.VERTICAL)
 		
-		todatelabel = wx.StaticText(self, -1, self.GetLabel("tolabel") + ":")
+		todatelabel = wx.StaticText(self, -1, self.t("tolabel") + ":")
 		todatelabel.SetFont(font)
 		tosizer.Add(todatelabel, 0, wx.ALIGN_LEFT)
 		
@@ -177,7 +177,7 @@ class EditDiaryPanel(wx.Panel):
 		filtersizer1.Add(wx.StaticText(self, -1, "", size=(10,-1)), 0, wx.EXPAND)
 		
 		usersizer = wx.BoxSizer(wx.VERTICAL)
-		userlabel = wx.StaticText(self, -1, self.GetLabel("usernamelabel") + ":")
+		userlabel = wx.StaticText(self, -1, self.t("usernamelabel") + ":")
 		userlabel.SetFont(font)
 		usersizer.Add(userlabel, 0, wx.ALIGN_LEFT)
 		
@@ -190,7 +190,7 @@ class EditDiaryPanel(wx.Panel):
 		
 		positionsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		positionlabel = wx.StaticText(self, -1, self.GetLabel("positionlabel") + ":")
+		positionlabel = wx.StaticText(self, -1, self.t("positionlabel") + ":")
 		positionlabel.SetFont(font)
 		positionsizer.Add(positionlabel, 0, wx.ALIGN_LEFT)
 		
@@ -207,7 +207,7 @@ class EditDiaryPanel(wx.Panel):
 		
 		clearbitmap = wx.Bitmap("icons/reset.png")
 		clearbutton = wx.BitmapButton(self, -1, clearbitmap)
-		clearbutton.SetToolTipString(self.GetLabel("cleardiarytooltip"))
+		clearbutton.SetToolTipString(self.t("cleardiarytooltip"))
 		clearbutton.Bind(wx.EVT_BUTTON, self.ClearEntries)
 		filtersizer2.Add(clearbutton, 0, wx.ALIGN_BOTTOM)
 		
@@ -215,7 +215,7 @@ class EditDiaryPanel(wx.Panel):
 		
 		subjectsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		subjectlabel = wx.StaticText(self, -1, self.GetLabel("subjectcontainslabel") + ":")
+		subjectlabel = wx.StaticText(self, -1, self.t("subjectcontainslabel") + ":")
 		subjectlabel.SetFont(font)
 		subjectsizer.Add(subjectlabel, 0, wx.ALIGN_LEFT)
 		
@@ -228,7 +228,7 @@ class EditDiaryPanel(wx.Panel):
 		
 		notesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		notelabel = wx.StaticText(self, -1, self.GetLabel("notecontainslabel") + ":")
+		notelabel = wx.StaticText(self, -1, self.t("notecontainslabel") + ":")
 		notelabel.SetFont(font)
 		notesizer.Add(notelabel, 0, wx.ALIGN_LEFT)
 		
@@ -239,7 +239,7 @@ class EditDiaryPanel(wx.Panel):
 		
 		filtersizer2.Add(wx.StaticText(self, -1, "", size=(10,-1)), 0, wx.EXPAND)
 		
-		removedcheckbox = wx.CheckBox(self, -1, self.GetLabel("showremovedlabel"))
+		removedcheckbox = wx.CheckBox(self, -1, self.t("showremovedlabel"))
 		removedcheckbox.SetFont(font)
 		filtersizer2.Add(removedcheckbox, 0, wx.ALIGN_BOTTOM)
 		
@@ -247,7 +247,7 @@ class EditDiaryPanel(wx.Panel):
 		
 		refreshbitmap = wx.Bitmap("icons/refresh.png")
 		refreshbutton = wx.BitmapButton(self, -1, refreshbitmap)
-		refreshbutton.SetToolTipString(self.GetLabel("refreshdiarytooltip"))
+		refreshbutton.SetToolTipString(self.t("refreshdiarytooltip"))
 		filtersizer2.Add(refreshbutton, 0, wx.ALIGN_BOTTOM)
 		
 		topsizer.Add(filtersizer2, 0, wx.EXPAND)
@@ -285,19 +285,19 @@ class EditDiaryPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		add = wx.MenuItem(popupmenu, ADD, self.GetLabel("addlabel"))
+		add = wx.MenuItem(popupmenu, ADD, self.t("addlabel"))
 		add.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(add)
 		wx.EVT_MENU(popupmenu, ADD, self.NewNote)
 		
 		if self.diarylistbox.listctrl.GetSelectedItemCount() > 0:
 			
-			edit = wx.MenuItem(popupmenu, EDIT, self.GetLabel("editlabel"))
+			edit = wx.MenuItem(popupmenu, EDIT, self.t("editlabel"))
 			edit.SetBitmap(wx.Bitmap("icons/edit.png"))
 			popupmenu.AppendItem(edit)
 			wx.EVT_MENU(popupmenu, EDIT, self.EditNote)
 			
-			delete = wx.MenuItem(popupmenu, DELETE, self.GetLabel("deletelabel"))
+			delete = wx.MenuItem(popupmenu, DELETE, self.t("deletelabel"))
 			delete.SetBitmap(wx.Bitmap("icons/delete.png"))
 			popupmenu.AppendItem(delete)
 			wx.EVT_MENU(popupmenu, DELETE, self.DeleteNote)
@@ -310,14 +310,14 @@ class EditDiaryPanel(wx.Panel):
 			
 			if linktype != "None":
 				
-				link = wx.MenuItem(popupmenu, OPEN_LINK, self.GetLabel("opentargetrecordtooltip"))
+				link = wx.MenuItem(popupmenu, OPEN_LINK, self.t("opentargetrecordtooltip"))
 				link.SetBitmap(wx.Bitmap("icons/uparrow.png"))
 				popupmenu.AppendItem(link)
 				wx.EVT_MENU(popupmenu, OPEN_LINK, self.OpenLink)
 				
 				popupmenu.AppendSeparator()
 		
-		refresh = wx.MenuItem(popupmenu, REFRESH, self.GetLabel("refreshlabel"))
+		refresh = wx.MenuItem(popupmenu, REFRESH, self.t("refreshlabel"))
 		refresh.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refresh)
 		wx.EVT_MENU(popupmenu, REFRESH, self.diarylistbox.RefreshList)
@@ -326,7 +326,7 @@ class EditDiaryPanel(wx.Panel):
 	
 	def NewNote(self, ID):
 		
-		title = self.GetLabel("nolinklabel")
+		title = self.t("nolinklabel")
 		diarynotepanel = DiaryNotePanel(self.notebook, self.localsettings, 0, 0, title, False, self)
 		self.notebook.AddPage(diarynotepanel)
 	
@@ -386,7 +386,7 @@ class EditDiaryPanel(wx.Panel):
 		
 		noteid = self.diarylistbox.htmllist[listboxid][0]
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("confirmdeletediarynotemessage")):
+		if miscmethods.ConfirmMessage(self.t("confirmdeletediarynotemessage")):
 			
 			action = "DELETE FROM diary WHERE ID = " + str(noteid)
 			results = db.SendSQL(action, self.localsettings.dbconnection)
@@ -426,9 +426,9 @@ class EditDiaryPanel(wx.Panel):
 
 class DiaryNotesListbox(customwidgets.ListCtrlWrapper):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field,idx)
 	
 	def __init__(self, parent):
 		
@@ -436,7 +436,7 @@ class DiaryNotesListbox(customwidgets.ListCtrlWrapper):
 		self.localsettings = parent.localsettings
 		self.parent = parent
 		
-		columnheadings = ( self.GetLabel("datelabel"), self.GetLabel("namelabel"), self.GetLabel("positionlabel"), self.GetLabel("linklabel"), self.GetLabel("subjectlabel"), self.GetLabel("removedlabel") )
+		columnheadings = ( self.t("datelabel"), self.t("namelabel"), self.t("positionlabel"), self.t("linklabel"), self.t("subjectlabel"), self.t("removedlabel") )
 		
 		#print "columnheadings = " + str(columnheadings)
 		
@@ -461,7 +461,7 @@ class DiaryNotesListbox(customwidgets.ListCtrlWrapper):
 			
 			removed = miscmethods.GetDateFromSQLDate(rowdata[6])
 			removed = miscmethods.FormatDate(removed, self.localsettings)
-			#isremoved = "<font color=red size=3><b>" + self.parent.GetLabel("removedlabel") + "</b></font>"
+			#isremoved = "<font color=red size=3><b>" + self.parent.t("removedlabel") + "</b></font>"
 			
 		else:
 			
@@ -485,7 +485,7 @@ class DiaryNotesListbox(customwidgets.ListCtrlWrapper):
 		note = self.parent.noteentry.GetValue()
 		removed = self.parent.removedcheckbox.GetValue()
 		
-		action = "SELECT diary.ID, diary.Date, diary.Name, diary.Position, diary.Subject, diary.Note, diary.Removed, diary.ChangeLog, diary.LinkType, diary.LinkID, CASE WHEN diary.LinkType = 1 THEN CONCAT(\"" + self.parent.GetLabel("clientlabel") + ": \", client.ClientTitle, \" \", client.ClientSurname) WHEN diary.LinkType = 2 THEN CONCAT(\"" + self.parent.GetLabel("animallabel") + ": \", animal.Name, \" \", client.ClientSurname, \" (\", animal.Species, \")\") WHEN diary.LinkType = 3 THEN CONCAT(\"" + self.parent.GetLabel("appointmentappointmentforlabel") + ": \", animal.Name, \" \", client.ClientSurname, \" (\", animal.Species, \")\") ELSE \"\" END AS LinkInfo FROM diary LEFT JOIN appointment ON diary.LinkType = 3 AND diary.LinkID = appointment.ID LEFT JOIN animal ON ( diary.LinkType = 2 AND diary.LinkID = animal.ID ) OR ( diary.LinkType = 3 AND appointment.AnimalID = animal.ID ) LEFT JOIN client ON ( diary.LinkType = 1 AND diary.LinkID = client.ID ) OR ( diary.LinkType = 2 AND animal.OwnerID = client.ID ) OR ( diary.LinkType = 3 AND appointment.OwnerID = client.ID ) WHERE "
+		action = "SELECT diary.ID, diary.Date, diary.Name, diary.Position, diary.Subject, diary.Note, diary.Removed, diary.ChangeLog, diary.LinkType, diary.LinkID, CASE WHEN diary.LinkType = 1 THEN CONCAT(\"" + self.parent.t("clientlabel") + ": \", client.ClientTitle, \" \", client.ClientSurname) WHEN diary.LinkType = 2 THEN CONCAT(\"" + self.parent.t("animallabel") + ": \", animal.Name, \" \", client.ClientSurname, \" (\", animal.Species, \")\") WHEN diary.LinkType = 3 THEN CONCAT(\"" + self.parent.t("appointmentappointmentforlabel") + ": \", animal.Name, \" \", client.ClientSurname, \" (\", animal.Species, \")\") ELSE \"\" END AS LinkInfo FROM diary LEFT JOIN appointment ON diary.LinkType = 3 AND diary.LinkID = appointment.ID LEFT JOIN animal ON ( diary.LinkType = 2 AND diary.LinkID = animal.ID ) OR ( diary.LinkType = 3 AND appointment.AnimalID = animal.ID ) LEFT JOIN client ON ( diary.LinkType = 1 AND diary.LinkID = client.ID ) OR ( diary.LinkType = 2 AND animal.OwnerID = client.ID ) OR ( diary.LinkType = 3 AND appointment.OwnerID = client.ID ) WHERE "
 		
 		sqlconditions = ""
 		
@@ -555,9 +555,9 @@ class DiaryNotesListbox(customwidgets.ListCtrlWrapper):
 		
 class DiaryNotePanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings, linktype, linkid, title, ID=False, parent=False):
 		
@@ -570,7 +570,7 @@ class DiaryNotePanel(wx.Panel):
 		self.diarydata.linktype = linktype
 		self.diarydata.linkid = linkid
 		
-		self.pagetitle = self.GetLabel("diarynotelabel") + " - " + title
+		self.pagetitle = self.t("diarynotelabel") + " - " + title
 		
 		self.pagetitle = miscmethods.GetPageTitle(notebook, self.pagetitle)
 		
@@ -606,37 +606,37 @@ class DiaryNotePanel(wx.Panel):
 		gridsizer.AddGrowableRow(4)
 		gridsizer.AddGrowableRow(6)
 		
-		datelabel = wx.StaticText(self, -1, self.GetLabel("datelabel") + ":")
+		datelabel = wx.StaticText(self, -1, self.t("datelabel") + ":")
 		gridsizer.Add(datelabel, 0, wx.ALIGN_RIGHT)
 		
 		dateentry = customwidgets.DateCtrl(self, self.localsettings)
 		gridsizer.Add(dateentry, 0, wx.ALIGN_LEFT)
 		
-		namelabel = wx.StaticText(self, -1, self.GetLabel("usernamelabel") + ":")
+		namelabel = wx.StaticText(self, -1, self.t("usernamelabel") + ":")
 		gridsizer.Add(namelabel, 0, wx.ALIGN_RIGHT)
 		
 		nameentry = wx.ComboBox(self, -1, self.diarydata.name, choices=users, size=(300,-1))
 		gridsizer.Add(nameentry, 0, wx.ALIGN_LEFT)
 		
-		positionlabel = wx.StaticText(self, -1, self.GetLabel("positionlabel") + ":")
+		positionlabel = wx.StaticText(self, -1, self.t("positionlabel") + ":")
 		gridsizer.Add(positionlabel, 0, wx.ALIGN_RIGHT)
 		
 		positionentry = wx.ComboBox(self, -1, self.diarydata.position, choices=positions, size=(300,-1))
 		gridsizer.Add(positionentry, 0, wx.ALIGN_LEFT)
 		
-		subjectlabel = wx.StaticText(self, -1, self.GetLabel("subjectlabel") + ":")
+		subjectlabel = wx.StaticText(self, -1, self.t("subjectlabel") + ":")
 		gridsizer.Add(subjectlabel, 0, wx.ALIGN_RIGHT)
 		
 		subjectentry = wx.TextCtrl(self, -1, self.diarydata.subject)
 		gridsizer.Add(subjectentry, 1, wx.EXPAND)
 		
-		notelabel = wx.StaticText(self, -1, self.GetLabel("notelabel") + ":")
+		notelabel = wx.StaticText(self, -1, self.t("notelabel") + ":")
 		gridsizer.Add(notelabel, 0, wx.ALIGN_RIGHT)
 		
 		noteentry = wx.TextCtrl(self, -1, self.diarydata.note, style=wx.TE_MULTILINE)
 		gridsizer.Add(noteentry, 1, wx.EXPAND)
 		
-		removedlabel = wx.StaticText(self, -1, self.GetLabel("removedlabel") + ":")
+		removedlabel = wx.StaticText(self, -1, self.t("removedlabel") + ":")
 		gridsizer.Add(removedlabel, 0, wx.ALIGN_RIGHT)
 		
 		removedentry = customwidgets.DateCtrl(self, self.localsettings)
@@ -647,7 +647,7 @@ class DiaryNotePanel(wx.Panel):
 			removedentry.SetValue(removeddate)
 		gridsizer.Add(removedentry, 1, wx.EXPAND)
 		
-		changeloglabel = wx.StaticText(self, -1, self.GetLabel("changelog") + ":")
+		changeloglabel = wx.StaticText(self, -1, self.t("changelog") + ":")
 		gridsizer.Add(changeloglabel, 0, wx.ALIGN_RIGHT)
 		
 		if self.diarydata.ID == False:
@@ -656,7 +656,7 @@ class DiaryNotePanel(wx.Panel):
 			
 		else:
 			
-			changelog = miscmethods.FormatChangeLog(self.diarydata.changelog, self.GetLabel("diarynotelabel"), self.localsettings.dbconnection)
+			changelog = miscmethods.FormatChangeLog(self.diarydata.changelog, self.t("diarynotelabel"), self.localsettings.dbconnection)
 			
 		
 		changelogentry = wx.TextCtrl(self, -1, changelog, style=wx.TE_MULTILINE)
@@ -667,7 +667,7 @@ class DiaryNotePanel(wx.Panel):
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(self, -1, submitbitmap)
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.Submit)
 		gridsizer.Add(submitbutton, 0, wx.ALIGN_CENTER_HORIZONTAL)
 		

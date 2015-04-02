@@ -25,10 +25,6 @@ import datetime
 
 versionno = "1.3.2"
 
-def GetLabel(localsettings, field):
-	
-	return  localsettings.dictionary[field][localsettings.language]
-
 def GetCurrentVersion():
 	
 	return versionno
@@ -45,7 +41,7 @@ def CheckVersion(localsettings):
 		connection.close()
 		success = True
 	except:
-		if miscmethods.ConfirmMessage(GetLabel(localsettings, "versiontablenotfoundquestion")):
+		if miscmethods.ConfirmMessage(localsettings.t("versiontablenotfoundquestion")):
 			
 			action = "CREATE TABLE version (ID int unsigned not null auto_increment primary key, VersionNo varchar(10))"
 			db.SendSQL(action, localsettings.dbconnection)
@@ -61,7 +57,7 @@ def CheckVersion(localsettings):
 		
 		if versionno > oldversion:
 			
-			if miscmethods.ConfirmMessage(GetLabel(localsettings, "versionupdatequestion1") + " " + versionno + ", " + GetLabel(localsettings, "versionupdatequestion2") + " " + oldversion + ". " + GetLabel(localsettings, "versionupdatequestion3")):
+			if miscmethods.ConfirmMessage(localsettings.t("versionupdatequestion1") + " " + versionno + ", " + localsettings.t("versionupdatequestion2") + " " + oldversion + ". " + localsettings.t("versionupdatequestion3")):
 				
 				if oldversion == "1.1.2":
 					
@@ -386,7 +382,7 @@ Thank you in advance
 						
 							vaccinationid = a[0]
 						
-							action = "INSERT INTO medication (Name, description, Unit, BatchNo, CurrentPrice, ChangeLog, ReOrderNo, ExpiryDate, Type) VALUES (\"" + a[1] + "\", \"" + a[2] + "\", \"" + GetLabel(localsettings, "vaccinationsvaccinelabel").lower() + "\", \"" + a[3] + "\", " + str(a[4]) + ", \"" + a[5] + "\", 0, \"0000-00-00\", 1)"
+							action = "INSERT INTO medication (Name, description, Unit, BatchNo, CurrentPrice, ChangeLog, ReOrderNo, ExpiryDate, Type) VALUES (\"" + a[1] + "\", \"" + a[2] + "\", \"" + localsettings.t("vaccinationsvaccinelabel").lower() + "\", \"" + a[3] + "\", " + str(a[4]) + ", \"" + a[5] + "\", 0, \"0000-00-00\", 1)"
 							db.SendSQL(action, localsettings.dbconnection)
 						
 							#action = "SELECT LAST_INSERT_ID() FROM medication" 
@@ -543,10 +539,10 @@ Thank you in advance
 					action = "UPDATE animal SET TempSex = 0"
 					db.SendSQL(action, localsettings.dbconnection)
 					
-					action = "UPDATE animal SET TempSex = 1 WHERE Sex = \"" + GetLabel(localsettings, "malelabel") + "\""
+					action = "UPDATE animal SET TempSex = 1 WHERE Sex = \"" + localsettings.t("malelabel") + "\""
 					db.SendSQL(action, localsettings.dbconnection)
 					
-					action = "UPDATE animal SET TempSex = 2 WHERE Sex = \"" + GetLabel(localsettings, "femalelabel") + "\""
+					action = "UPDATE animal SET TempSex = 2 WHERE Sex = \"" + localsettings.t("femalelabel") + "\""
 					db.SendSQL(action, localsettings.dbconnection)
 					
 					action = "ALTER TABLE animal MODIFY Sex int"
@@ -626,7 +622,7 @@ Thank you in advance
 		
 		elif versionno < oldversion:
 			
-			miscmethods.ShowMessage(GetLabel(localsettings, "clientolderthanservermessage"))
+			miscmethods.ShowMessage(localsettings.t("clientolderthanservermessage"))
 			
 			success = False
 	

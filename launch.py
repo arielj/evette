@@ -37,10 +37,6 @@ else:
 	from wx import StaticText as GenStaticText
 
 
-def GetLabel(field, localsettings):
-	
-	return  localsettings.dictionary[field][localsettings.language]
-
 def LaunchDialog(localsettings, splashimagepath=False):
 	
 	dialog = wx.Dialog(None, -1, "Evette")
@@ -79,7 +75,7 @@ def LaunchDialog(localsettings, splashimagepath=False):
 	
 	infosizer.Add(GenStaticText(panel, 1, ""), 1, wx.EXPAND)
 	
-	versionnolabel = GenStaticText(panel, -1, GetLabel("versionlabel", localsettings))
+	versionnolabel = GenStaticText(panel, -1, localsettings.t("versionlabel"))
 	font = versionnolabel.GetFont()
 	font.SetPointSize(font.GetPointSize() - 2)
 	versionnolabel.SetFont(font)
@@ -101,7 +97,7 @@ def LaunchDialog(localsettings, splashimagepath=False):
 	
 	entrysizer = wx.BoxSizer(wx.VERTICAL)
 	
-	userlabel = GenStaticText(panel, -1, GetLabel("usernamelabel", localsettings) + ":")
+	userlabel = GenStaticText(panel, -1, localsettings.t("usernamelabel") + ":")
 	font = userlabel.GetFont()
 	font.SetPointSize(font.GetPointSize() - 2)
 	userlabel.SetFont(font)
@@ -110,11 +106,11 @@ def LaunchDialog(localsettings, splashimagepath=False):
 	userentry = wx.TextCtrl(panel, -1, localsettings.lastuser, size=(150,-1), style=wx.TE_PROCESS_ENTER)
 	userentry.description = "username"
 	userentry.Bind(wx.EVT_CHAR, ButtonPressed)
-	userentry.SetToolTipString(GetLabel("tabbetweenentriestooltip", localsettings))
+	userentry.SetToolTipString(localsettings.t("tabbetweenentriestooltip"))
 	userentry.SetFocus()
 	entrysizer.Add(userentry, 0, wx.EXPAND)
 	
-	passwordlabel = GenStaticText(panel, -1, GetLabel("passwordlabel", localsettings) + ":")
+	passwordlabel = GenStaticText(panel, -1, localsettings.t("passwordlabel") + ":")
 	passwordlabel.SetFont(font)
 	entrysizer.Add(passwordlabel, 0, wx.ALIGN_LEFT)
 	
@@ -196,9 +192,9 @@ def ExitApp(ID):
 
 def AdjustSettingsDialog(parent, localsettings):
 	
-	if miscmethods.ConfirmMessage(GetLabel("launchnodatabaseservermessage", localsettings), parent):
+	if miscmethods.ConfirmMessage(localsettings.t("launchnodatabaseservermessage"), parent):
 		
-		dialog = wx.Dialog(parent, -1, GetLabel("launchdbiplabel", localsettings))
+		dialog = wx.Dialog(parent, -1, localsettings.t("launchdbiplabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -209,17 +205,17 @@ def AdjustSettingsDialog(parent, localsettings):
 		gridsizer = wx.FlexGridSizer(cols=2)
 		gridsizer.AddGrowableCol(1)
 		
-		dbiplabel = wx.StaticText(panel, -1, miscmethods.NoWrap(GetLabel("launchdbiplabel", localsettings)))
+		dbiplabel = wx.StaticText(panel, -1, miscmethods.NoWrap(localsettings.t("launchdbiplabel")))
 		gridsizer.Add(dbiplabel, 0, wx.EXPAND)
 		dbipentry = wx.TextCtrl(panel, -1, localsettings.dbip, size=(200,-1))
 		gridsizer.Add(dbipentry, 1, wx.EXPAND)
 		
-		dbuserlabel = wx.StaticText(panel, -1, miscmethods.NoWrap(GetLabel("launchdbuserlabel", localsettings)))
+		dbuserlabel = wx.StaticText(panel, -1, miscmethods.NoWrap(localsettings.t("launchdbuserlabel")))
 		gridsizer.Add(dbuserlabel, 0, wx.EXPAND)
 		dbuserentry = wx.TextCtrl(panel, -1, localsettings.dbuser)
 		gridsizer.Add(dbuserentry, 1, wx.EXPAND)
 		
-		dbpasslabel = wx.StaticText(panel, -1, miscmethods.NoWrap(GetLabel("launchdbpasslabel", localsettings)))
+		dbpasslabel = wx.StaticText(panel, -1, miscmethods.NoWrap(localsettings.t("launchdbpasslabel")))
 		gridsizer.Add(dbpasslabel, 0, wx.EXPAND)
 		dbpassentry = wx.TextCtrl(panel, -1, localsettings.dbpass)
 		gridsizer.Add(dbpassentry, 1, wx.EXPAND)
@@ -228,7 +224,7 @@ def AdjustSettingsDialog(parent, localsettings):
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(panel, -1, submitbitmap)
-		submitbutton.SetToolTipString(GetLabel("submitlabel", localsettings))
+		submitbutton.SetToolTipString(localsettings.t("submitlabel"))
 		submitbutton.Bind(wx.EVT_BUTTON, SubmitSettings)
 		topsizer.Add(submitbutton, 0, wx.ALIGN_CENTER)
 		
@@ -307,7 +303,7 @@ if localsettings.dbconnection == False:
 		
 	else:
 		
-		miscmethods.ShowMessage(GetLabel("launchdatabasecreatedmessage", localsettings), None)
+		miscmethods.ShowMessage(localsettings.t("launchdatabasecreatedmessage"), None)
 		
 		localsettings.dbconnection = db.GetConnection(localsettings)
 

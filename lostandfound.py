@@ -119,7 +119,7 @@ class LostAndFoundSettings:
 				
 				locked = True
 				
-				miscmethods.ShowMessage(self.localsettings.dictionary["filealteredmessage"][self.localsettings.language])
+				miscmethods.ShowMessage(self.localsettings.t("filealteredmessage"))
 		
 		if locked == False:
 			
@@ -135,16 +135,16 @@ class LostAndFoundSettings:
 
 class LostAndFoundPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
 		self.localsettings = localsettings
 		self.notebook = notebook
 		
-		self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("lostandfoundmenu")[0])
+		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("lostandfoundmenu"))
 		self.pageimage = "icons/lostandfound.png"
 		
 		wx.Panel.__init__(self, notebook)
@@ -155,7 +155,7 @@ class LostAndFoundPanel(wx.Panel):
 		
 		idsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		idlabel = wx.StaticText(self, -1, self.GetLabel("idlabel"))
+		idlabel = wx.StaticText(self, -1, self.t("idlabel"))
 		font = idlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		idlabel.SetFont(font)
@@ -175,7 +175,7 @@ class LostAndFoundPanel(wx.Panel):
 		
 		fromsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		fromlabel = wx.StaticText(self, -1, " " + self.GetLabel("fromlabel") + " ", style=wx.EXPAND)
+		fromlabel = wx.StaticText(self, -1, " " + self.t("fromlabel") + " ", style=wx.EXPAND)
 		fromlabel.SetFont(font)
 		fromsizer.Add(fromlabel, 0, wx.ALIGN_LEFT)
 		
@@ -191,7 +191,7 @@ class LostAndFoundPanel(wx.Panel):
 		
 		tosizer = wx.BoxSizer(wx.VERTICAL)
 		
-		tolabel = wx.StaticText(self, -1, " " + self.GetLabel("tolabel") + " ", style=wx.EXPAND)
+		tolabel = wx.StaticText(self, -1, " " + self.t("tolabel") + " ", style=wx.EXPAND)
 		tolabel.SetFont(font)
 		tosizer.Add(tolabel, 0, wx.ALIGN_LEFT)
 		
@@ -200,7 +200,7 @@ class LostAndFoundPanel(wx.Panel):
 		
 		datefiltersizer.Add(tosizer, 0, wx.EXPAND)
 		
-		includecompletecheckbox = wx.CheckBox(self, -1, self.GetLabel("includecompletelabel"))
+		includecompletecheckbox = wx.CheckBox(self, -1, self.t("includecompletelabel"))
 		includecompletecheckbox.SetFont(font)
 		datefiltersizer.Add(includecompletecheckbox, 0, wx.ALIGN_LEFT)
 		
@@ -210,7 +210,7 @@ class LostAndFoundPanel(wx.Panel):
 		
 		areasizer = wx.BoxSizer(wx.VERTICAL)
 		
-		arealabel = wx.StaticText(self, -1, self.GetLabel("arealabel"))
+		arealabel = wx.StaticText(self, -1, self.t("arealabel"))
 		arealabel.SetFont(font)
 		areasizer.Add(arealabel, 0, wx.ALIGN_LEFT)
 		
@@ -222,17 +222,17 @@ class LostAndFoundPanel(wx.Panel):
 		
 		buttonssizer = wx.BoxSizer(wx.HORIZONTAL)
 		
-		reset = wx.Button(self, -1, self.GetLabel("resetlabel"))
+		reset = wx.Button(self, -1, self.t("resetlabel"))
 		reset.SetBackgroundColour("red")
 		reset.SetForegroundColour("white")
-		reset.SetToolTipString(self.GetLabel("resetlabel"))
+		reset.SetToolTipString(self.t("resetlabel"))
 		reset.Bind(wx.EVT_BUTTON, self.Reset)
 		buttonssizer.Add(reset, 1, wx.EXPAND)
 		
-		refreshbutton = wx.Button(self, -1, self.GetLabel("searchlabel"))
+		refreshbutton = wx.Button(self, -1, self.t("searchlabel"))
 		refreshbutton.SetBackgroundColour("green")
 		refreshbutton.SetForegroundColour("black")
-		refreshbutton.SetToolTipString(self.GetLabel("searchlabel"))
+		refreshbutton.SetToolTipString(self.t("searchlabel"))
 		refreshbutton.Bind(wx.EVT_BUTTON, self.RefreshLists)
 		buttonssizer.Add(refreshbutton, 1, wx.EXPAND)
 		
@@ -248,7 +248,7 @@ class LostAndFoundPanel(wx.Panel):
 		
 		speciessizer = wx.BoxSizer(wx.VERTICAL)
 		
-		specieslabel = wx.StaticText(self, -1, self.GetLabel("animalspecieslabel"))
+		specieslabel = wx.StaticText(self, -1, self.t("animalspecieslabel"))
 		specieslabel.SetFont(font)
 		speciessizer.Add(specieslabel, 0, wx.ALIGN_LEFT)
 		
@@ -260,7 +260,7 @@ class LostAndFoundPanel(wx.Panel):
 		
 		coloursizer = wx.BoxSizer(wx.VERTICAL)
 		
-		colourlabel = wx.StaticText(self, -1, self.GetLabel("animalcolourlabel"))
+		colourlabel = wx.StaticText(self, -1, self.t("animalcolourlabel"))
 		colourlabel.SetFont(font)
 		coloursizer.Add(colourlabel, 0, wx.ALIGN_LEFT)
 		
@@ -272,11 +272,11 @@ class LostAndFoundPanel(wx.Panel):
 		
 		sexsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		sexlabel = wx.StaticText(self, -1, self.GetLabel("animalsexlabel"))
+		sexlabel = wx.StaticText(self, -1, self.t("animalsexlabel"))
 		sexlabel.SetFont(font)
 		sexsizer.Add(sexlabel, 0, wx.ALIGN_LEFT)
 		
-		sexentry = wx.Choice(self, -1, choices=(self.GetLabel("unknownlabel"), self.GetLabel("malelabel"), self.GetLabel("femalelabel")))
+		sexentry = wx.Choice(self, -1, choices=(self.t("unknownlabel"), self.t("malelabel"), self.t("femalelabel")))
 		sexentry.SetSelection(0)
 		#sexentry.Bind(wx.EVT_CHAR, self.KeyPressed)
 		sexsizer.Add(sexentry, 0, wx.EXPAND)
@@ -285,11 +285,11 @@ class LostAndFoundPanel(wx.Panel):
 		
 		neuteredsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		neuteredlabel = wx.StaticText(self, -1, self.GetLabel("neuteredlabel"))
+		neuteredlabel = wx.StaticText(self, -1, self.t("neuteredlabel"))
 		neuteredlabel.SetFont(font)
 		neuteredsizer.Add(neuteredlabel, 0, wx.ALIGN_LEFT)
 		
-		neuteredentry = wx.Choice(self, -1, choices=(self.GetLabel("unknownlabel"), self.GetLabel("yeslabel"), self.GetLabel("nolabel")))
+		neuteredentry = wx.Choice(self, -1, choices=(self.t("unknownlabel"), self.t("yeslabel"), self.t("nolabel")))
 		neuteredentry.SetSelection(0)
 		#neuteredentry.Bind(wx.EVT_CHAR, self.KeyPressed)
 		neuteredsizer.Add(neuteredentry, 0, wx.EXPAND)
@@ -298,11 +298,11 @@ class LostAndFoundPanel(wx.Panel):
 		
 		agesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		agelabel = wx.StaticText(self, -1, self.GetLabel("agelabel"))
+		agelabel = wx.StaticText(self, -1, self.t("agelabel"))
 		agelabel.SetFont(font)
 		agesizer.Add(agelabel, 0, wx.ALIGN_LEFT)
 		
-		ageentry = wx.Choice(self, -1, choices=(self.GetLabel("unknownlabel"), self.GetLabel("juvenilelabel"), self.GetLabel("adultlabel"), self.GetLabel("elderlylabel")))
+		ageentry = wx.Choice(self, -1, choices=(self.t("unknownlabel"), self.t("juvenilelabel"), self.t("adultlabel"), self.t("elderlylabel")))
 		#ageentry.Bind(wx.EVT_CHAR, self.KeyPressed)
 		agesizer.Add(ageentry, 0, wx.EXPAND)
 		
@@ -318,7 +318,7 @@ class LostAndFoundPanel(wx.Panel):
 		
 		leftsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		lostlabel = wx.StaticText(leftpanel, -1, self.GetLabel("lostlabel"))
+		lostlabel = wx.StaticText(leftpanel, -1, self.t("lostlabel"))
 		font = lostlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() + 4)
 		lostlabel.SetFont(font)
@@ -330,7 +330,7 @@ class LostAndFoundPanel(wx.Panel):
 		lostlistbox.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.Edit)
 		leftsizer.Add(lostlistbox, 1, wx.EXPAND)
 		
-		lostlistbox.totallabel = wx.StaticText(leftpanel, -1, self.GetLabel("totallabel") + ": 0")
+		lostlistbox.totallabel = wx.StaticText(leftpanel, -1, self.t("totallabel") + ": 0")
 		leftsizer.Add(lostlistbox.totallabel, 0, wx.ALIGN_LEFT)
 		
 		leftpanel.SetSizer(leftsizer)
@@ -343,7 +343,7 @@ class LostAndFoundPanel(wx.Panel):
 		
 		rightsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		foundlabel = wx.StaticText(rightpanel, -1, self.GetLabel("foundlabel"))
+		foundlabel = wx.StaticText(rightpanel, -1, self.t("foundlabel"))
 		font = foundlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() + 4)
 		foundlabel.SetFont(font)
@@ -355,7 +355,7 @@ class LostAndFoundPanel(wx.Panel):
 		foundlistbox.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.Edit)
 		rightsizer.Add(foundlistbox, 1, wx.EXPAND)
 		
-		foundlistbox.totallabel = wx.StaticText(rightpanel, -1, self.GetLabel("totallabel") + ": 0")
+		foundlistbox.totallabel = wx.StaticText(rightpanel, -1, self.t("totallabel") + ": 0")
 		rightsizer.Add(foundlistbox.totallabel, 0, wx.ALIGN_LEFT)
 		
 		rightpanel.SetSizer(rightsizer)
@@ -445,7 +445,7 @@ class LostAndFoundPanel(wx.Panel):
                 
                 popupmenu = wx.Menu()
                 
-                addlost = wx.MenuItem(popupmenu, NEW_LOST, self.GetLabel("addlabel"))
+                addlost = wx.MenuItem(popupmenu, NEW_LOST, self.t("addlabel"))
                 addlost.SetBitmap(wx.Bitmap("icons/new.png"))
                 popupmenu.AppendItem(addlost)
                 
@@ -457,12 +457,12 @@ class LostAndFoundPanel(wx.Panel):
                         
                         popupmenu.lostandfoundid = lostandfoundid
                         
-                        editlost = wx.MenuItem(popupmenu, EDIT_LOST, self.GetLabel("editlabel"))
+                        editlost = wx.MenuItem(popupmenu, EDIT_LOST, self.t("editlabel"))
                         editlost.SetBitmap(wx.Bitmap("icons/edit.png"))
                         popupmenu.AppendItem(editlost)
                         wx.EVT_MENU(popupmenu, EDIT_LOST, self.EditLost)
                         
-                        deletelost = wx.MenuItem(popupmenu, DELETE_LOST, self.GetLabel("deletelabel"))
+                        deletelost = wx.MenuItem(popupmenu, DELETE_LOST, self.t("deletelabel"))
                         deletelost.SetBitmap(wx.Bitmap("icons/delete.png"))
                         popupmenu.AppendItem(deletelost)
                         wx.EVT_MENU(popupmenu, DELETE_LOST, self.DeleteLost)
@@ -490,7 +490,7 @@ class LostAndFoundPanel(wx.Panel):
 	
 	def DeleteLost(self, ID):
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("medicationconfirmdeletemessage")):
+		if miscmethods.ConfirmMessage(self.t("medicationconfirmdeletemessage")):
 			
 			menuitem = ID.GetEventObject()
 			
@@ -509,7 +509,7 @@ class LostAndFoundPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		addfound = wx.MenuItem(popupmenu, NEW_LOST, self.GetLabel("addlabel"))
+		addfound = wx.MenuItem(popupmenu, NEW_LOST, self.t("addlabel"))
 		addfound.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(addfound)
 		wx.EVT_MENU(popupmenu, NEW_LOST, self.NewFound)
@@ -520,12 +520,12 @@ class LostAndFoundPanel(wx.Panel):
                         
                         popupmenu.lostandfoundid = lostandfoundid
 			
-			editfound = wx.MenuItem(popupmenu, EDIT_LOST, self.GetLabel("editlabel"))
+			editfound = wx.MenuItem(popupmenu, EDIT_LOST, self.t("editlabel"))
 			editfound.SetBitmap(wx.Bitmap("icons/edit.png"))
 			popupmenu.AppendItem(editfound)
 			wx.EVT_MENU(popupmenu, EDIT_LOST, self.EditFound)
 			
-			deletefound = wx.MenuItem(popupmenu, DELETE_LOST, self.GetLabel("deletelabel"))
+			deletefound = wx.MenuItem(popupmenu, DELETE_LOST, self.t("deletelabel"))
 			deletefound.SetBitmap(wx.Bitmap("icons/delete.png"))
 			popupmenu.AppendItem(deletefound)
 			wx.EVT_MENU(popupmenu, DELETE_LOST, self.DeleteFound)
@@ -553,7 +553,7 @@ class LostAndFoundPanel(wx.Panel):
 	
 	def DeleteFound(self, ID):
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("medicationconfirmdeletemessage")):
+		if miscmethods.ConfirmMessage(self.t("medicationconfirmdeletemessage")):
 			
 			menuitem = ID.GetEventObject()
 			
@@ -566,9 +566,9 @@ class LostAndFoundPanel(wx.Panel):
 
 class EditLostAndFoundPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, lostorfounddata):
 		
@@ -578,13 +578,13 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		if self.lostorfounddata.lostorfound == 0:
 			
-			pagetitle = self.GetLabel("lostanimallabel")
-			datelabel = self.GetLabel("datelostlabel")
+			pagetitle = self.t("lostanimallabel")
+			datelabel = self.t("datelostlabel")
 			
 		else:
 			
-			pagetitle = self.GetLabel("foundanimallabel")
-			datelabel = self.GetLabel("datefoundlabel")
+			pagetitle = self.t("foundanimallabel")
+			datelabel = self.t("datefoundlabel")
 		
 		if lostorfounddata.ID != False:
 			
@@ -605,7 +605,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		savebitmap = wx.Bitmap("icons/save.png")
 		savebutton = wx.BitmapButton(self, -1, savebitmap)
-		savebutton.SetToolTipString(self.GetLabel("savetooltip"))
+		savebutton.SetToolTipString(self.t("savetooltip"))
 		savebutton.Bind(wx.EVT_BUTTON, self.Save)
 		contactsizer.Add(savebutton, 0, wx.ALIGN_TOP)
 		
@@ -613,7 +613,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		matchbitmap = wx.Bitmap("icons/search.png")
 		matchbutton = wx.BitmapButton(self, -1, matchbitmap)
-		matchbutton.SetToolTipString(self.GetLabel("lostandfoundsearchtooltip"))
+		matchbutton.SetToolTipString(self.t("lostandfoundsearchtooltip"))
 		matchbutton.Bind(wx.EVT_BUTTON, self.Match)
 		contactsizer.Add(matchbutton, 0, wx.ALIGN_TOP)
 		
@@ -626,7 +626,7 @@ class EditLostAndFoundPanel(wx.Panel):
 			
 		else:
 			
-			idnumber = miscmethods.NoWrap(" " + self.GetLabel("idlabel") + ": " + str(self.lostorfounddata.ID))
+			idnumber = miscmethods.NoWrap(" " + self.t("idlabel") + ": " + str(self.lostorfounddata.ID))
 		
 		contactsizer.Add(wx.StaticText(self, -1, ""), 1, wx.EXPAND)
 		
@@ -667,19 +667,19 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		clientsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		clientlabel = wx.StaticText(self, -1, self.GetLabel("contacttooltip"))
+		clientlabel = wx.StaticText(self, -1, self.t("contacttooltip"))
 		clientlabel.SetFont(font)
 		clientsizer.Add(clientlabel, 0, wx.ALIGN_LEFT)
 		
 		cliententrysizer = wx.BoxSizer(wx.HORIZONTAL)
 		
-		cliententry = wx.StaticText(self, -1, self.GetLabel("nonelabel"))
+		cliententry = wx.StaticText(self, -1, self.t("nonelabel"))
 		
 		cliententry.SetForegroundColour("blue")
 		font = cliententry.GetFont()
 		font.SetPointSize(font.GetPointSize() + 2)
 		cliententry.SetFont(font)
-		cliententry.SetToolTipString(self.GetLabel("rightclickformenutooltip"))
+		cliententry.SetToolTipString(self.t("rightclickformenutooltip"))
 		cliententry.Bind(wx.EVT_RIGHT_DOWN, self.ClientPopup)
 		
 		cliententrysizer.Add(cliententry, 0, wx.ALIGN_CENTER)
@@ -701,7 +701,7 @@ class EditLostAndFoundPanel(wx.Panel):
 				
 				animalsizer = wx.BoxSizer(wx.VERTICAL)
 				
-				animallabel = wx.StaticText(self, -1, self.GetLabel("animallabel"))
+				animallabel = wx.StaticText(self, -1, self.t("animallabel"))
 				font = animallabel.GetFont()
 				font.SetPointSize(font.GetPointSize() - 2)
 				animallabel.SetFont(font)
@@ -713,7 +713,7 @@ class EditLostAndFoundPanel(wx.Panel):
 				font = animalentry.GetFont()
 				font.SetPointSize(font.GetPointSize() + 2)
 				animalentry.SetFont(font)
-				animalentry.SetToolTipString(self.GetLabel("rightclickformenutooltip"))
+				animalentry.SetToolTipString(self.t("rightclickformenutooltip"))
 				animalentry.Bind(wx.EVT_RIGHT_DOWN, self.AnimalPopup)
 				
 				animalsizer.Add(animalentry, 0, wx.ALIGN_LEFT)
@@ -732,7 +732,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		speciessizer = wx.BoxSizer(wx.VERTICAL)
 		
-		specieslabel = wx.StaticText(self, -1, self.GetLabel("animalspecieslabel"))
+		specieslabel = wx.StaticText(self, -1, self.t("animalspecieslabel"))
 		font = specieslabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		specieslabel.SetFont(font)
@@ -758,11 +758,11 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		sexsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		sexlabel = wx.StaticText(self, -1, self.GetLabel("animalsexlabel"))
+		sexlabel = wx.StaticText(self, -1, self.t("animalsexlabel"))
 		sexlabel.SetFont(font)
 		sexsizer.Add(sexlabel, 0, wx.ALIGN_LEFT)
 		
-		sexentry = wx.Choice(self, -1, choices=(self.GetLabel("unknownlabel"), self.GetLabel("malelabel"), self.GetLabel("femalelabel")))
+		sexentry = wx.Choice(self, -1, choices=(self.t("unknownlabel"), self.t("malelabel"), self.t("femalelabel")))
 		sexentry.SetSelection(self.lostorfounddata.sex)
 		sexentry.Bind(wx.EVT_CHOICE, self.EnableSave)
 		#sexentry.Bind(wx.EVT_CHAR, self.KeyPressed)
@@ -774,11 +774,11 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		neuteredsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		neuteredlabel = wx.StaticText(self, -1, self.GetLabel("neuteredlabel"))
+		neuteredlabel = wx.StaticText(self, -1, self.t("neuteredlabel"))
 		neuteredlabel.SetFont(font)
 		neuteredsizer.Add(neuteredlabel, 0, wx.ALIGN_LEFT)
 		
-		neuteredentry = wx.Choice(self, -1, choices=(self.GetLabel("unknownlabel"), self.GetLabel("yeslabel"), self.GetLabel("nolabel")))
+		neuteredentry = wx.Choice(self, -1, choices=(self.t("unknownlabel"), self.t("yeslabel"), self.t("nolabel")))
 		neuteredentry.SetSelection(self.lostorfounddata.neutered)
 		neuteredentry.Bind(wx.EVT_CHOICE, self.EnableSave)
 		#neuteredentry.Bind(wx.EVT_CHAR, self.KeyPressed)
@@ -790,11 +790,11 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		agesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		agelabel = wx.StaticText(self, -1, self.GetLabel("agelabel"))
+		agelabel = wx.StaticText(self, -1, self.t("agelabel"))
 		agelabel.SetFont(font)
 		agesizer.Add(agelabel, 0, wx.ALIGN_LEFT)
 		
-		ageentry = wx.Choice(self, -1, choices=(self.GetLabel("unknownlabel"), self.GetLabel("juvenilelabel"), self.GetLabel("adultlabel"), self.GetLabel("elderlylabel")))
+		ageentry = wx.Choice(self, -1, choices=(self.t("unknownlabel"), self.t("juvenilelabel"), self.t("adultlabel"), self.t("elderlylabel")))
 		ageentry.SetSelection(self.lostorfounddata.age)
 		ageentry.Bind(wx.EVT_CHOICE, self.EnableSave)
 		#ageentry.Bind(wx.EVT_CHAR, self.KeyPressed)
@@ -804,7 +804,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		colour1sizer = wx.BoxSizer(wx.VERTICAL)
 		
-		colour1label = wx.StaticText(self, -1, self.GetLabel("animalcolourlabel") + " 1")
+		colour1label = wx.StaticText(self, -1, self.t("animalcolourlabel") + " 1")
 		colour1label.SetFont(font)
 		colour1sizer.Add(colour1label, 0, wx.ALIGN_LEFT)
 		
@@ -817,7 +817,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		colour2sizer = wx.BoxSizer(wx.VERTICAL)
 		
-		colour2label = wx.StaticText(self, -1, self.GetLabel("animalcolourlabel") + " 2")
+		colour2label = wx.StaticText(self, -1, self.t("animalcolourlabel") + " 2")
 		colour2label.SetFont(font)
 		colour2sizer.Add(colour2label, 0, wx.ALIGN_LEFT)
 		
@@ -830,7 +830,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		colour3sizer = wx.BoxSizer(wx.VERTICAL)
 		
-		colour3label = wx.StaticText(self, -1, self.GetLabel("animalcolourlabel") + " 3")
+		colour3label = wx.StaticText(self, -1, self.t("animalcolourlabel") + " 3")
 		colour3label.SetFont(font)
 		colour3sizer.Add(colour3label, 0, wx.ALIGN_LEFT)
 		
@@ -843,11 +843,11 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		furlengthsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		furlengthlabel = wx.StaticText(self, -1, self.GetLabel("furlengthlabel"))
+		furlengthlabel = wx.StaticText(self, -1, self.t("furlengthlabel"))
 		furlengthlabel.SetFont(font)
 		furlengthsizer.Add(furlengthlabel, 0, wx.ALIGN_LEFT)
 		
-		furlengthentry = wx.Choice(self, -1, choices=(self.GetLabel("unknownlabel"), self.GetLabel("shortlabel"), self.GetLabel("fluffylabel"), self.GetLabel("longlabel"), self.GetLabel("hairlesslabel")))
+		furlengthentry = wx.Choice(self, -1, choices=(self.t("unknownlabel"), self.t("shortlabel"), self.t("fluffylabel"), self.t("longlabel"), self.t("hairlesslabel")))
 		furlengthentry.SetSelection(self.lostorfounddata.furlength)
 		furlengthentry.Bind(wx.EVT_CHOICE, self.EnableSave)
 		#furlengthentry.Bind(wx.EVT_CHAR, self.KeyPressed)
@@ -857,11 +857,11 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		bodysizesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		bodysizelabel = wx.StaticText(self, -1, self.GetLabel("sizelabel"))
+		bodysizelabel = wx.StaticText(self, -1, self.t("sizelabel"))
 		bodysizelabel.SetFont(font)
 		bodysizesizer.Add(bodysizelabel, 0, wx.ALIGN_LEFT)
 		
-		bodysizeentry = wx.Choice(self, -1, choices=(self.GetLabel("unknownlabel"), self.GetLabel("smalllabel"), self.GetLabel("mediumlabel"), self.GetLabel("largelabel")))
+		bodysizeentry = wx.Choice(self, -1, choices=(self.t("unknownlabel"), self.t("smalllabel"), self.t("mediumlabel"), self.t("largelabel")))
 		bodysizeentry.SetSelection(self.lostorfounddata.size)
 		bodysizeentry.Bind(wx.EVT_CHOICE, self.EnableSave)
 		#bodysizeentry.Bind(wx.EVT_CHAR, self.KeyPressed)
@@ -877,11 +877,11 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		chippedsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		chippedlabel = wx.StaticText(self, -1, self.GetLabel("microchiplabel"))
+		chippedlabel = wx.StaticText(self, -1, self.t("microchiplabel"))
 		chippedlabel.SetFont(font)
 		chippedsizer.Add(chippedlabel, 0, wx.ALIGN_LEFT)
 		
-		chippedentry = wx.Choice(self, -1, choices=(self.GetLabel("unknownlabel"), self.GetLabel("yeslabel"), self.GetLabel("nolabel")))
+		chippedentry = wx.Choice(self, -1, choices=(self.t("unknownlabel"), self.t("yeslabel"), self.t("nolabel")))
 		chippedentry.SetSelection(self.lostorfounddata.ischipped)
 		chippedentry.Bind(wx.EVT_CHOICE, self.EnableSave)
 		#chippedentry.Bind(wx.EVT_CHAR, self.KeyPressed)
@@ -891,11 +891,11 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		temperamentsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		temperamentlabel = wx.StaticText(self, -1, self.GetLabel("temperamentlabel"))
+		temperamentlabel = wx.StaticText(self, -1, self.t("temperamentlabel"))
 		temperamentlabel.SetFont(font)
 		temperamentsizer.Add(temperamentlabel, 0, wx.ALIGN_LEFT)
 		
-		temperamententry = wx.Choice(self, -1, choices=(self.GetLabel("unknownlabel"), self.GetLabel("friendlylabel"), self.GetLabel("timidlabel"), self.GetLabel("aggressivelabel")))
+		temperamententry = wx.Choice(self, -1, choices=(self.t("unknownlabel"), self.t("friendlylabel"), self.t("timidlabel"), self.t("aggressivelabel")))
 		temperamententry.SetSelection(self.lostorfounddata.temperament)
 		temperamententry.Bind(wx.EVT_CHOICE, self.EnableSave)
 		#temperamententry.Bind(wx.EVT_CHAR, self.KeyPressed)
@@ -905,13 +905,13 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		collarsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		collarlabel = wx.StaticText(self, -1, self.GetLabel("collarlabel"))
+		collarlabel = wx.StaticText(self, -1, self.t("collarlabel"))
 		collarlabel.SetFont(font)
 		collarsizer.Add(collarlabel, 0, wx.ALIGN_LEFT)
 		
 		collardescriptionsizer = wx.BoxSizer(wx.HORIZONTAL)
 		
-		collarchoice = wx.Choice(self, -1, choices=(self.GetLabel("unknownlabel"), self.GetLabel("yeslabel"), self.GetLabel("nolabel")))
+		collarchoice = wx.Choice(self, -1, choices=(self.t("unknownlabel"), self.t("yeslabel"), self.t("nolabel")))
 		collarchoice.SetSelection(self.lostorfounddata.collar)
 		collarchoice.Bind(wx.EVT_CHOICE, self.EnableSave)
 		#collarentry.Bind(wx.EVT_CHAR, self.KeyPressed)
@@ -919,7 +919,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		collarentry = wx.TextCtrl(self, -1, self.lostorfounddata.collardescription)
 		collarentry.Bind(wx.EVT_TEXT, self.EnableSave)
-		collarentry.SetToolTipString(self.GetLabel("collardescriptiontooltip"))
+		collarentry.SetToolTipString(self.t("collardescriptiontooltip"))
 		#collarentry.Bind(wx.EVT_CHAR, self.KeyPressed)
 		collardescriptionsizer.Add(collarentry, 1, wx.EXPAND)
 		
@@ -929,13 +929,13 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		areasizer = wx.BoxSizer(wx.VERTICAL)
 		
-		arealabel = wx.StaticText(self, -1, self.GetLabel("arealabel"))
+		arealabel = wx.StaticText(self, -1, self.t("arealabel"))
 		arealabel.SetFont(font)
 		areasizer.Add(arealabel, 0, wx.ALIGN_LEFT)
 		
 		areaentry = wx.TextCtrl(self, -1, self.lostorfounddata.area)
 		areaentry.Bind(wx.EVT_TEXT, self.EnableSave)
-		areaentry.SetToolTipString(self.GetLabel("areatooltip"))
+		areaentry.SetToolTipString(self.t("areatooltip"))
 		#areaentry.Bind(wx.EVT_CHAR, self.KeyPressed)
 		areasizer.Add(areaentry, 0, wx.EXPAND)
 		
@@ -949,7 +949,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		datecompletedsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		datecompletedlabel = wx.StaticText(self, -1, self.GetLabel("datecompletelabel"))
+		datecompletedlabel = wx.StaticText(self, -1, self.t("datecompletelabel"))
 		datecompletedlabel.SetFont(font)
 		datecompletedsizer.Add(datecompletedlabel, 0, wx.ALIGN_LEFT)
 		
@@ -973,7 +973,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		commentssizer = wx.BoxSizer(wx.VERTICAL)
 		
-		commentslabel = wx.StaticText(self, -1, self.GetLabel("clientcommentslabel"))
+		commentslabel = wx.StaticText(self, -1, self.t("clientcommentslabel"))
 		commentslabel.SetFont(font)
 		commentssizer.Add(commentslabel, 0, wx.ALIGN_LEFT)
 		
@@ -1035,7 +1035,7 @@ class EditLostAndFoundPanel(wx.Panel):
 	
 	def Match(self, ID):
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("datelabel"))
+		dialog = wx.Dialog(self, -1, self.t("datelabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -1045,11 +1045,11 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		if self.lostorfounddata.lostorfound == 0:
 			
-			instructions = self.GetLabel("searchuptolabel")
+			instructions = self.t("searchuptolabel")
 			
 		else:
 			
-			instructions = self.GetLabel("searchfromlabel")
+			instructions = self.t("searchfromlabel")
 		
 		instructionslabel = wx.StaticText(panel, -1, instructions)
 		topsizer.Add(instructionslabel, 1, wx.EXPAND)
@@ -1063,7 +1063,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(panel, -1, submitbitmap)
 		submitbutton.Bind(wx.EVT_BUTTON, self.MatchLostAndFound)
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		datesizer.Add(submitbutton, 0, wx.EXPAND)
 		
 		topsizer.Add(datesizer, 0, wx.ALIGN_CENTER_HORIZONTAL)
@@ -1307,7 +1307,7 @@ class EditLostAndFoundPanel(wx.Panel):
 	
 	def MatchResultsDialog(self, possiblematches):
 		
-		title = self.GetLabel("lostandfoundsearchresultspagetitle") + " #" + str(self.lostorfounddata.ID)
+		title = self.t("lostandfoundsearchresultspagetitle") + " #" + str(self.lostorfounddata.ID)
 		
 		panel = wx.Panel(self.notebook)
 		panel.pagetitle = title
@@ -1340,7 +1340,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		if listctrl.GetSelectedItemCount() > 0:
 			
-			editlost = wx.MenuItem(popupmenu, EDIT_LOST, self.GetLabel("editlabel"))
+			editlost = wx.MenuItem(popupmenu, EDIT_LOST, self.t("editlabel"))
 			editlost.SetBitmap(wx.Bitmap("icons/edit.png"))
 			popupmenu.AppendItem(editlost)
 			wx.EVT_MENU(popupmenu, EDIT_LOST, self.EditMatchFromMenu)
@@ -1377,24 +1377,24 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		addclient = wx.MenuItem(popupmenu, ADD_CLIENT, self.GetLabel("addlabel"))
+		addclient = wx.MenuItem(popupmenu, ADD_CLIENT, self.t("addlabel"))
 		addclient.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(addclient)
 		wx.EVT_MENU(popupmenu, ADD_CLIENT, self.AddClient)
 		
-		findclient = wx.MenuItem(popupmenu, FIND_CLIENT, self.GetLabel("searchlabel"))
+		findclient = wx.MenuItem(popupmenu, FIND_CLIENT, self.t("searchlabel"))
 		findclient.SetBitmap(wx.Bitmap("icons/search.png"))
 		popupmenu.AppendItem(findclient)
 		wx.EVT_MENU(popupmenu, FIND_CLIENT, self.FindClient)
 		
 		if self.lostorfounddata.contactid > 0:
 			
-			editclient = wx.MenuItem(popupmenu, EDIT_CLIENT, self.GetLabel("editlabel"))
+			editclient = wx.MenuItem(popupmenu, EDIT_CLIENT, self.t("editlabel"))
 			editclient.SetBitmap(wx.Bitmap("icons/edit.png"))
 			popupmenu.AppendItem(editclient)
 			wx.EVT_MENU(popupmenu, EDIT_CLIENT, self.EditClient)
 			
-			contactclient = wx.MenuItem(popupmenu, CONTACT_CLIENT, self.GetLabel("contacttooltip"))
+			contactclient = wx.MenuItem(popupmenu, CONTACT_CLIENT, self.t("contacttooltip"))
 			contactclient.SetBitmap(wx.Bitmap("icons/contact.png"))
 			popupmenu.AppendItem(contactclient)
 			wx.EVT_MENU(popupmenu, CONTACT_CLIENT, self.ContactClient)
@@ -1407,7 +1407,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		editanimal = wx.MenuItem(popupmenu, EDIT_ANIMAL, self.GetLabel("editlabel"))
+		editanimal = wx.MenuItem(popupmenu, EDIT_ANIMAL, self.t("editlabel"))
 		editanimal.SetBitmap(wx.Bitmap("icons/edit.png"))
 		popupmenu.AppendItem(editanimal)
 		wx.EVT_MENU(popupmenu, EDIT_ANIMAL, self.EditAnimal)
@@ -1455,7 +1455,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		if self.idlabel.GetLabel() == "":
 			
-			self.idlabel.SetLabel(miscmethods.NoWrap(" " + self.GetLabel("idlabel") + ": " + str(self.lostorfounddata.ID)))
+			self.idlabel.SetLabel(miscmethods.NoWrap(" " + self.t("idlabel") + ": " + str(self.lostorfounddata.ID)))
 			self.contactsizer.Layout()
 	
 	def ContactClient(self, ID):
@@ -1477,7 +1477,7 @@ class EditLostAndFoundPanel(wx.Panel):
 			
 			name = name + results[0][2]
 		
-		dialog = wx.Frame(self, -1, self.GetLabel("contacttooltip") + ": " + name)
+		dialog = wx.Frame(self, -1, self.t("contacttooltip") + ": " + name)
 		iconFile = "icons/evette.ico"
 		icon1 = wx.Icon(iconFile, wx.BITMAP_TYPE_ICO)
 		dialog.SetIcon(icon1)
@@ -1488,7 +1488,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		namelabel = wx.StaticText(panel, -1, self.GetLabel("animalnamelabel"))
+		namelabel = wx.StaticText(panel, -1, self.t("animalnamelabel"))
 		topsizer.Add(namelabel, 0, wx.ALIGN_LEFT)
 		
 		namevalue = wx.StaticText(panel, -1, name)
@@ -1499,7 +1499,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		topsizer.Add(namevalue, 0, wx.ALIGN_LEFT)
 		
-		hometelephonelabel = wx.StaticText(panel, -1, self.GetLabel("clienthomephonelabel"))
+		hometelephonelabel = wx.StaticText(panel, -1, self.t("clienthomephonelabel"))
 		topsizer.Add(hometelephonelabel, 0, wx.ALIGN_LEFT)
 		
 		hometelephonevalue = wx.StaticText(panel, -1, results[0][6])
@@ -1517,7 +1517,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		topsizer.Add(hometelephonevalue, 0, wx.ALIGN_LEFT)
 		
-		mobiletelephonelabel = wx.StaticText(panel, -1, self.GetLabel("clientmobilephonelabel"))
+		mobiletelephonelabel = wx.StaticText(panel, -1, self.t("clientmobilephonelabel"))
 		topsizer.Add(mobiletelephonelabel, 0, wx.ALIGN_LEFT)
 		
 		mobiletelephonevalue = wx.StaticText(panel, -1, results[0][7])
@@ -1535,7 +1535,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		topsizer.Add(mobiletelephonevalue, 0, wx.ALIGN_LEFT)
 		
-		worktelephonelabel = wx.StaticText(panel, -1, self.GetLabel("clientworkphonelabel"))
+		worktelephonelabel = wx.StaticText(panel, -1, self.t("clientworkphonelabel"))
 		topsizer.Add(worktelephonelabel, 0, wx.ALIGN_LEFT)
 		
 		worktelephonevalue = wx.StaticText(panel, -1, results[0][8])
@@ -1553,7 +1553,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		topsizer.Add(worktelephonevalue, 0, wx.ALIGN_LEFT)
 		
-		emailaddresslabel = wx.StaticText(panel, -1, self.GetLabel("clientemailaddresslabel"))
+		emailaddresslabel = wx.StaticText(panel, -1, self.t("clientemailaddresslabel"))
 		topsizer.Add(emailaddresslabel, 0, wx.ALIGN_LEFT)
 		
 		emailaddressvalue = wx.StaticText(panel, -1, results[0][5])
@@ -1563,7 +1563,7 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		topsizer.Add(emailaddressvalue, 0, wx.ALIGN_LEFT)
 		
-		addresslabel = wx.StaticText(panel, -1, self.GetLabel("clientaddresslabel"))
+		addresslabel = wx.StaticText(panel, -1, self.t("clientaddresslabel"))
 		topsizer.Add(addresslabel, 0, wx.ALIGN_LEFT)
 		
 		addressvalue = wx.StaticText(panel, -1, results[0][3])
@@ -1677,9 +1677,9 @@ class AddClientPanel:
 
 class LostAndFoundListCtrl(customwidgets.ListCtrlWrapper):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field)
 	
 	def __init__(self, parent, lostorfound):
 		
@@ -1687,7 +1687,7 @@ class LostAndFoundListCtrl(customwidgets.ListCtrlWrapper):
 		self.localsettings = parent.GetParent().localsettings
 		self.parent = parent
 		
-		columnheadings = (self.GetLabel("idlabel"), self.GetLabel("datelabel"), self.GetLabel("animalspecieslabel"), self.GetLabel("animalsexlabel"), self.GetLabel("neuteredlabel"), self.GetLabel("arealabel"), self.GetLabel("animalcolourlabel"), self.GetLabel("contacttooltip"), self.GetLabel("completelabel"))
+		columnheadings = (self.t("idlabel"), self.t("datelabel"), self.t("animalspecieslabel"), self.t("animalsexlabel"), self.t("neuteredlabel"), self.t("arealabel"), self.t("animalcolourlabel"), self.t("contacttooltip"), self.t("completelabel"))
 		
 		customwidgets.ListCtrlWrapper.__init__(self, parent, self.localsettings, columnheadings, ("icons/editanimal.png", "icons/evettelogo.png", "icons/asm.png"))
 	
@@ -1835,11 +1835,11 @@ class LostAndFoundListCtrl(customwidgets.ListCtrlWrapper):
 					
 				elif a[3] == 1:
 					
-					sex = self.GetLabel("malelabel")
+					sex = self.t("malelabel")
 					
 				else:
 					
-					sex = self.GetLabel("femalelabel")
+					sex = self.t("femalelabel")
 				
 				if a[4] == 0:
 					
@@ -1847,11 +1847,11 @@ class LostAndFoundListCtrl(customwidgets.ListCtrlWrapper):
 					
 				elif a[4] == 1:
 					
-					neutered = self.GetLabel("yeslabel")
+					neutered = self.t("yeslabel")
 					
 				else:
 					
-					neutered = self.GetLabel("nolabel")
+					neutered = self.t("nolabel")
 				
 				date = miscmethods.FormatSQLDate(a[1], self.localsettings)
 				
@@ -1859,11 +1859,11 @@ class LostAndFoundListCtrl(customwidgets.ListCtrlWrapper):
 				
 				if complete != None:
 					
-					complete = self.GetLabel("yeslabel")
+					complete = self.t("yeslabel")
 					
 				else:
 					
-					complete = self.GetLabel("nolabel")
+					complete = self.t("nolabel")
 				
 				area = a[12]
 				
@@ -1873,13 +1873,13 @@ class LostAndFoundListCtrl(customwidgets.ListCtrlWrapper):
 		
 		customwidgets.ListCtrlWrapper.RefreshList(self)
 		
-		self.totallabel.SetLabel(miscmethods.NoWrap(self.GetLabel("totallabel") + ": " + str(len(results))))
+		self.totallabel.SetLabel(miscmethods.NoWrap(self.t("totallabel") + ": " + str(len(results))))
 
 class LostAndFoundMatchListCtrl(wx.ListCtrl, listmix.ColumnSorterMixin):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field)
 	
 	def __init__(self, parent, possiblematches, localsettings):
 		
@@ -1897,15 +1897,15 @@ class LostAndFoundMatchListCtrl(wx.ListCtrl, listmix.ColumnSorterMixin):
 		#self.listctrl.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.Edit)
 		#self.listctrl.Bind(wx.wx.EVT_RIGHT_DOWN, self.ClientPopupMenu)
 		
-		self.InsertColumn(0,self.GetLabel("idlabel"))
-		self.InsertColumn(1,self.GetLabel("scorelabel"))
-		self.InsertColumn(2,self.GetLabel("datelabel"))
-		self.InsertColumn(3,self.GetLabel("animalspecieslabel"))
-		self.InsertColumn(4,self.GetLabel("animalsexlabel"))
-		self.InsertColumn(5,self.GetLabel("neuteredlabel"))
-		self.InsertColumn(6,self.GetLabel("arealabel"))
-		self.InsertColumn(7,self.GetLabel("animalcolourlabel"))
-		self.InsertColumn(8,self.GetLabel("contacttooltip"))
+		self.InsertColumn(0,self.t("idlabel"))
+		self.InsertColumn(1,self.t("scorelabel"))
+		self.InsertColumn(2,self.t("datelabel"))
+		self.InsertColumn(3,self.t("animalspecieslabel"))
+		self.InsertColumn(4,self.t("animalsexlabel"))
+		self.InsertColumn(5,self.t("neuteredlabel"))
+		self.InsertColumn(6,self.t("arealabel"))
+		self.InsertColumn(7,self.t("animalcolourlabel"))
+		self.InsertColumn(8,self.t("contacttooltip"))
 		
 		self.SetColumnWidth(0, wx.LIST_AUTOSIZE_USEHEADER)
 		self.SetColumnWidth(1, wx.LIST_AUTOSIZE_USEHEADER)
@@ -1939,15 +1939,15 @@ class LostAndFoundMatchListCtrl(wx.ListCtrl, listmix.ColumnSorterMixin):
 		
 		if len(results) < 1001:
 			
-			self.InsertColumn(0,self.GetLabel("idlabel"))
-			self.InsertColumn(1,self.GetLabel("scorelabel"))
-			self.InsertColumn(2,self.GetLabel("datelabel"))
-			self.InsertColumn(3,self.GetLabel("animalspecieslabel"))
-			self.InsertColumn(4,self.GetLabel("animalsexlabel"))
-			self.InsertColumn(5,self.GetLabel("neuteredlabel"))
-			self.InsertColumn(6,self.GetLabel("arealabel"))
-			self.InsertColumn(7,self.GetLabel("animalcolourlabel"))
-			self.InsertColumn(8,self.GetLabel("contacttooltip"))
+			self.InsertColumn(0,self.t("idlabel"))
+			self.InsertColumn(1,self.t("scorelabel"))
+			self.InsertColumn(2,self.t("datelabel"))
+			self.InsertColumn(3,self.t("animalspecieslabel"))
+			self.InsertColumn(4,self.t("animalsexlabel"))
+			self.InsertColumn(5,self.t("neuteredlabel"))
+			self.InsertColumn(6,self.t("arealabel"))
+			self.InsertColumn(7,self.t("animalcolourlabel"))
+			self.InsertColumn(8,self.t("contacttooltip"))
 			
 			#foundID = a[0]
 			##foundlostorfound = a[1]
@@ -2011,11 +2011,11 @@ class LostAndFoundMatchListCtrl(wx.ListCtrl, listmix.ColumnSorterMixin):
 					
 				elif a[5] == 1:
 					
-					sex = self.GetLabel("malelabel")
+					sex = self.t("malelabel")
 					
 				else:
 					
-					sex = self.GetLabel("femalelabel")
+					sex = self.t("femalelabel")
 				
 				if a[6] == 0:
 					
@@ -2023,11 +2023,11 @@ class LostAndFoundMatchListCtrl(wx.ListCtrl, listmix.ColumnSorterMixin):
 					
 				elif a[6] == 1:
 					
-					neutered = self.GetLabel("yeslabel")
+					neutered = self.t("yeslabel")
 					
 				else:
 					
-					neutered = self.GetLabel("nolabel")
+					neutered = self.t("nolabel")
 				
 				date = miscmethods.FormatSQLDate(a[4], self.localsettings)
 				
@@ -2035,11 +2035,11 @@ class LostAndFoundMatchListCtrl(wx.ListCtrl, listmix.ColumnSorterMixin):
 				
 				if complete != None:
 					
-					complete = self.GetLabel("yeslabel")
+					complete = self.t("yeslabel")
 					
 				else:
 					
-					complete = self.GetLabel("nolabel")
+					complete = self.t("nolabel")
 				
 				area = a[21]
 				
@@ -2102,4 +2102,4 @@ class LostAndFoundMatchListCtrl(wx.ListCtrl, listmix.ColumnSorterMixin):
 						columnwidth = self.GetColumnWidth(a)
 						self.SetColumnWidth(a, columnwidth + 10)
 		
-		#self.totallabel.SetLabel(miscmethods.NoWrap(self.GetLabel("totallabel") + ": " + str(len(results))))
+		#self.totallabel.SetLabel(miscmethods.NoWrap(self.t("totallabel") + ": " + str(len(results))))

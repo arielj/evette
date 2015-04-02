@@ -29,9 +29,9 @@ REFRESH_LOOKUPS = 1104
 
 class EditLookup(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, lookup, localsettings):
 		
@@ -41,19 +41,19 @@ class EditLookup(wx.Panel):
 		
 		if lookup == "colour":
 			
-			self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("lookupscolourpagetitle"))
+			self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("lookupscolourpagetitle"))
 			
 		elif lookup == "breed":
 			
-			self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("lookupsbreedpagetitle"))
+			self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("lookupsbreedpagetitle"))
 			
 		elif lookup == "species":
 			
-			self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("lookupsspeciespagetitle"))
+			self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("lookupsspeciespagetitle"))
 			
 		elif lookup == "reason":
 			
-			self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("lookupsreasonpagetitle"))
+			self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("lookupsreasonpagetitle"))
 		
 		self.lookup = lookup
 		
@@ -73,26 +73,26 @@ class EditLookup(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		add = wx.MenuItem(popupmenu, ADD_LOOKUP, self.GetLabel("addlabel"))
+		add = wx.MenuItem(popupmenu, ADD_LOOKUP, self.t("addlabel"))
 		add.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(add)
 		wx.EVT_MENU(popupmenu, ADD_LOOKUP, self.AddLookup)
 		
 		if self.listbox.GetSelection() > -1:
 			
-			edit = wx.MenuItem(popupmenu, EDIT_LOOKUP, self.GetLabel("editlabel"))
+			edit = wx.MenuItem(popupmenu, EDIT_LOOKUP, self.t("editlabel"))
 			edit.SetBitmap(wx.Bitmap("icons/edit.png"))
 			popupmenu.AppendItem(edit)
 			wx.EVT_MENU(popupmenu, EDIT_LOOKUP, self.EditLookup)
 			
-			delete = wx.MenuItem(popupmenu, DELETE_LOOKUP, self.GetLabel("deletelabel"))
+			delete = wx.MenuItem(popupmenu, DELETE_LOOKUP, self.t("deletelabel"))
 			delete.SetBitmap(wx.Bitmap("icons/delete.png"))
 			popupmenu.AppendItem(delete)
 			wx.EVT_MENU(popupmenu, DELETE_LOOKUP, self.DeleteLookup)
 		
 		popupmenu.AppendSeparator()
 		
-		refresh = wx.MenuItem(popupmenu, REFRESH_LOOKUPS, self.GetLabel("refreshlabel"))
+		refresh = wx.MenuItem(popupmenu, REFRESH_LOOKUPS, self.t("refreshlabel"))
 		refresh.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refresh)
 		wx.EVT_MENU(popupmenu, REFRESH_LOOKUPS, self.RefreshLookups)
@@ -113,7 +113,7 @@ class EditLookup(wx.Panel):
 	
 	def EditLookupDialog(self, lookupid=False):
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("lookupslabel"))
+		dialog = wx.Dialog(self, -1, self.t("lookupslabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -122,7 +122,7 @@ class EditLookup(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		namelabel = wx.StaticText(panel, -1, self.GetLabel("namelabel") + ":")
+		namelabel = wx.StaticText(panel, -1, self.t("namelabel") + ":")
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -139,9 +139,9 @@ class EditLookup(wx.Panel):
 			
 			nameentry.SetValue(lookupname)
 		
-		submitbutton = wx.Button(panel, -1, self.GetLabel("submitlabel"))
+		submitbutton = wx.Button(panel, -1, self.t("submitlabel"))
 		submitbutton.SetBackgroundColour("green")
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.SubmitLookup)
 		topsizer.Add(submitbutton, 0, wx.ALIGN_CENTER_HORIZONTAL)
 		
@@ -168,7 +168,7 @@ class EditLookup(wx.Panel):
 			
 		if name == "":
 			
-			miscmethods.ShowMessage(self.GetLabel("lookupsnonamemessage"))
+			miscmethods.ShowMessage(self.t("lookupsnonamemessage"))
 			
 		else:
 			
@@ -191,7 +191,7 @@ class EditLookup(wx.Panel):
 		listboxid = self.listbox.GetSelection()
 		lookupid = self.lookupsdata[listboxid][0]
 		
-		query = miscmethods.ConfirmMessage(self.GetLabel("lookupsdeletemessage"))
+		query = miscmethods.ConfirmMessage(self.t("lookupsdeletemessage"))
 		
 		if query == True:
 			
