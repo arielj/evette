@@ -106,13 +106,8 @@ ADD_FOUND = 151
 
 class Evette:
 	
-	def GetLabel(self, field, index):
-		
-		return  (self.localsettings.dictionary[field][self.localsettings.language][index])
-	
-	def GetMenu(self, field):
-		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+	def t(self, field, index = 0):
+		return self.localsettings.t(field,index)
 	
 	def __init__(self, parent, userid):
 		
@@ -139,34 +134,34 @@ class Evette:
 		
 		frame.mainfilemenu = wx.Menu()
 		
-		closeallwindowsmenuitem = wx.MenuItem(frame.mainfilemenu, CLOSE_ALL_WINDOWS, self.GetLabel("fileclosewindowsmenu", 0) + "\tCTRL+W", self.GetLabel("fileclosewindowsmenu", 1))
+		closeallwindowsmenuitem = wx.MenuItem(frame.mainfilemenu, CLOSE_ALL_WINDOWS, self.t("fileclosewindowsmenu") + "\tCTRL+W", self.t("fileclosewindowsmenu", 1))
 		closeallwindowsmenuitem.SetBitmap(wx.Bitmap("icons/close.png"))
 		frame.mainfilemenu.AppendItem(closeallwindowsmenuitem)
 		wx.EVT_MENU(frame, CLOSE_ALL_WINDOWS, self.CloseAllWindows)
 		
 		if self.localsettings.editsettings == 1:
 			
-			editsettingsmenuitem = wx.MenuItem(frame.mainfilemenu, EDIT_SETTINGS, self.GetLabel("editsettingsmenu", 0), self.GetLabel("editsettingsmenu", 1))
+			editsettingsmenuitem = wx.MenuItem(frame.mainfilemenu, EDIT_SETTINGS, self.t("editsettingsmenu"), self.t("editsettingsmenu", 1))
 			editsettingsmenuitem.SetBitmap(wx.Bitmap("icons/system.png"))
 			frame.mainfilemenu.AppendItem(editsettingsmenuitem)
 			wx.EVT_MENU(frame, EDIT_SETTINGS, self.EditSettings)
 			
-			editfiletypesmenuitem = wx.MenuItem(frame.mainfilemenu, FILE_TYPES, self.GetLabel("fileaccosiationmenu", 0), self.GetLabel("fileaccosiationmenu", 1))
+			editfiletypesmenuitem = wx.MenuItem(frame.mainfilemenu, FILE_TYPES, self.t("fileaccosiationmenu"), self.t("fileaccosiationmenu", 1))
 			editfiletypesmenuitem.SetBitmap(wx.Bitmap("icons/filetypes.png"))
 			frame.mainfilemenu.AppendItem(editfiletypesmenuitem)
 			wx.EVT_MENU(frame, FILE_TYPES, self.EditFileAssociations)
 			
-			randomdatamenuitem = wx.MenuItem(frame.mainfilemenu, RANDOM_DATA, self.GetLabel("randomdatamenu", 0), self.GetLabel("randomdatamenu", 1))
+			randomdatamenuitem = wx.MenuItem(frame.mainfilemenu, RANDOM_DATA, self.t("randomdatamenu"), self.t("randomdatamenu", 1))
 			randomdatamenuitem.SetBitmap(wx.Bitmap("icons/caution.png"))
 			frame.mainfilemenu.AppendItem(randomdatamenuitem)
 			wx.EVT_MENU(frame, RANDOM_DATA, self.RandomData)
 			
-			resetdatabasemenuitem = wx.MenuItem(frame.mainfilemenu, RESET_ALL, self.GetLabel("resettablesmenu", 0), self.GetLabel("resettablesmenu", 1))
+			resetdatabasemenuitem = wx.MenuItem(frame.mainfilemenu, RESET_ALL, self.t("resettablesmenu"), self.t("resettablesmenu", 1))
 			resetdatabasemenuitem.SetBitmap(wx.Bitmap("icons/caution.png"))
 			frame.mainfilemenu.AppendItem(resetdatabasemenuitem)
 			wx.EVT_MENU(frame, RESET_ALL, self.ResetAllTables)
 		
-		quitmenuitem = wx.MenuItem(frame.mainfilemenu, CLOSE_EVETTE, self.GetLabel("fileexitmenu", 0) + "\tCTRL+Q", self.GetLabel("fileexitmenu", 1))
+		quitmenuitem = wx.MenuItem(frame.mainfilemenu, CLOSE_EVETTE, self.t("fileexitmenu") + "\tCTRL+Q", self.t("fileexitmenu", 1))
 		quitmenuitem.SetBitmap(wx.Bitmap("icons/quit.png"))
 		frame.mainfilemenu.AppendItem(quitmenuitem)
 		wx.EVT_MENU(frame, CLOSE_EVETTE, self.CloseEvette)
@@ -174,14 +169,14 @@ class Evette:
 		#Creating the diary menu
 		frame.diarymenu = wx.Menu()
 		
-		editdiarymenuitem = wx.MenuItem(frame.diarymenu, EDIT_DIARY, self.GetLabel("editdiarytoolbar", 0) + "\tCTRL+D", self.GetLabel("editdiarytoolbar", 1))
+		editdiarymenuitem = wx.MenuItem(frame.diarymenu, EDIT_DIARY, self.t("editdiarytoolbar") + "\tCTRL+D", self.t("editdiarytoolbar", 1))
 		editdiarymenuitem.SetBitmap(wx.Bitmap("icons/diary.png"))
 		frame.diarymenu.AppendItem(editdiarymenuitem)
 		wx.EVT_MENU(frame, EDIT_DIARY, self.EditDiary)
 		
 		if self.localsettings.addtodiary == 1:
 			
-			addtodiarymenuitem = wx.MenuItem(frame.diarymenu, ADD_TO_DIARY, self.GetMenu("adddiarynotes") + "\tSHIFT+CTRL+D", self.GetMenu("adddiarynotes"))
+			addtodiarymenuitem = wx.MenuItem(frame.diarymenu, ADD_TO_DIARY, self.t("adddiarynotes") + "\tSHIFT+CTRL+D", self.t("adddiarynotes"))
 			addtodiarymenuitem.SetBitmap(wx.Bitmap("icons/new.png"))
 			frame.diarymenu.AppendItem(addtodiarymenuitem)
 			wx.EVT_MENU(frame, ADD_TO_DIARY, self.NewDiaryNote)
@@ -192,27 +187,27 @@ class Evette:
 		if self.localsettings.editclients == 1:
 			
 			
-			addclientmenuitem = wx.MenuItem(frame.clientmenu, ADD_CLIENT, self.GetLabel("addclientmenu", 0) + "\tCTRL+N", self.GetLabel("addclientmenu", 1))
+			addclientmenuitem = wx.MenuItem(frame.clientmenu, ADD_CLIENT, self.t("addclientmenu") + "\tCTRL+N", self.t("addclientmenu", 1))
 			addclientmenuitem.SetBitmap(wx.Bitmap("icons/new.png"))
 			frame.clientmenu.AppendItem(addclientmenuitem)
 			wx.EVT_MENU(frame, ADD_CLIENT, self.AddClient)
 			
-			findclientsmenuitem = wx.MenuItem(frame.clientmenu, FIND_CLIENT, self.GetLabel("findclientmenu", 0) + "\tCTRL+F", self.GetLabel("findclientmenu", 1))
+			findclientsmenuitem = wx.MenuItem(frame.clientmenu, FIND_CLIENT, self.t("findclientmenu") + "\tCTRL+F", self.t("findclientmenu", 1))
 			findclientsmenuitem.SetBitmap(wx.Bitmap("icons/search.png"))
 			frame.clientmenu.AppendItem(findclientsmenuitem)
 			wx.EVT_MENU(frame, FIND_CLIENT, self.FindClient)
 			
-			asmimportmenuitem = wx.MenuItem(frame.clientmenu, ASM_CLIENT_IMPORT, self.GetLabel("asmimportmenu", 0) + "\tCTRL+I", self.GetLabel("asmimportmenu", 1))
+			asmimportmenuitem = wx.MenuItem(frame.clientmenu, ASM_CLIENT_IMPORT, self.t("asmimportmenu") + "\tCTRL+I", self.t("asmimportmenu", 1))
 			asmimportmenuitem.SetBitmap(wx.Bitmap("icons/asm.png"))
 			frame.clientmenu.AppendItem(asmimportmenuitem)
 			wx.EVT_MENU(frame, ASM_CLIENT_IMPORT, self.ASMImport)
 			
-			asmclientimportmenuitem = wx.MenuItem(frame.clientmenu, ASM_IMPORT, self.GetLabel("asmclientimportmenu", 0) + "\tCTRL+SHIFT+I", self.GetLabel("asmclientimportmenu", 1))
+			asmclientimportmenuitem = wx.MenuItem(frame.clientmenu, ASM_IMPORT, self.t("asmclientimportmenu") + "\tCTRL+SHIFT+I", self.t("asmclientimportmenu", 1))
 			asmclientimportmenuitem.SetBitmap(wx.Bitmap("icons/asm.png"))
 			frame.clientmenu.AppendItem(asmclientimportmenuitem)
 			wx.EVT_MENU(frame, ASM_IMPORT, self.ASMClientImport)
 			
-			mailshotmenuitem = wx.MenuItem(frame.clientmenu, MAIL_SHOT, self.GetLabel("mailshotmenu", 0), self.GetLabel("mailshotmenu", 1))
+			mailshotmenuitem = wx.MenuItem(frame.clientmenu, MAIL_SHOT, self.t("mailshotmenu"), self.t("mailshotmenu", 1))
 			mailshotmenuitem.SetBitmap(wx.Bitmap("icons/mail.png"))
 			frame.clientmenu.AppendItem(mailshotmenuitem)
 			wx.EVT_MENU(frame, MAIL_SHOT, self.MailShot)
@@ -222,14 +217,14 @@ class Evette:
 		
 		if self.localsettings.editusers == 1:
 			
-			editstaffmenuitem = wx.MenuItem(frame.filemenu, EDIT_STAFF, self.GetLabel("editusersmenu", 0), self.GetLabel("editusersmenu", 1))
+			editstaffmenuitem = wx.MenuItem(frame.filemenu, EDIT_STAFF, self.t("editusersmenu"), self.t("editusersmenu", 1))
 			editstaffmenuitem.SetBitmap(wx.Bitmap("icons/users.png"))
 			frame.filemenu.AppendItem(editstaffmenuitem)
 			wx.EVT_MENU(frame, EDIT_STAFF, self.EditStaff)
 		
 		if self.localsettings.editrota == 1:
 			
-			editrotamenuitem = wx.MenuItem(frame.filemenu, EDIT_ROTA, self.GetLabel("editrotamenu", 0), self.GetLabel("editrotamenu", 1))
+			editrotamenuitem = wx.MenuItem(frame.filemenu, EDIT_ROTA, self.t("editrotamenu"), self.t("editrotamenu", 1))
 			editrotamenuitem.SetBitmap(wx.Bitmap("icons/diary.png"))
 			frame.filemenu.AppendItem(editrotamenuitem)
 			wx.EVT_MENU(frame, EDIT_ROTA, self.EditRota)
@@ -241,22 +236,22 @@ class Evette:
 		
 		if self.localsettings.editappointments == 1:
 			
-			viewappointmentsmenuitem = wx.MenuItem(frame.appointmentmenu, VIEW_APPOINTMENTS, self.GetLabel("viewappointmentsmenu", 0) + "\tCTRL+T", self.GetLabel("viewappointmentsmenu", 1))
+			viewappointmentsmenuitem = wx.MenuItem(frame.appointmentmenu, VIEW_APPOINTMENTS, self.t("viewappointmentsmenu") + "\tCTRL+T", self.t("viewappointmentsmenu", 1))
 			viewappointmentsmenuitem.SetBitmap(wx.Bitmap("icons/appointment.png"))
 			frame.appointmentmenu.AppendItem(viewappointmentsmenuitem)
 			wx.EVT_MENU(frame, VIEW_APPOINTMENTS, self.ViewAppointments)
 			
-			viewoperationsmenuitem = wx.MenuItem(frame.appointmentmenu, VIEW_OPS, self.GetLabel("viewoperationsmenu", 0) + "\tSHIFT+CTRL+T", self.GetLabel("viewoperationsmenu", 1))
+			viewoperationsmenuitem = wx.MenuItem(frame.appointmentmenu, VIEW_OPS, self.t("viewoperationsmenu") + "\tSHIFT+CTRL+T", self.t("viewoperationsmenu", 1))
 			viewoperationsmenuitem.SetBitmap(wx.Bitmap("icons/operation.png"))
 			frame.appointmentmenu.AppendItem(viewoperationsmenuitem)
 			wx.EVT_MENU(frame, VIEW_OPS, self.ViewOps)
 			
-			appointmentsearchmenuitem = wx.MenuItem(frame.appointmentmenu, APPOINTMENT_SEARCH, self.GetLabel("appointmentsearchmenu", 0), self.GetLabel("appointmentsearchmenu", 1))
+			appointmentsearchmenuitem = wx.MenuItem(frame.appointmentmenu, APPOINTMENT_SEARCH, self.t("appointmentsearchmenu"), self.t("appointmentsearchmenu", 1))
 			appointmentsearchmenuitem.SetBitmap(wx.Bitmap("icons/search.png"))
 			frame.appointmentmenu.AppendItem(appointmentsearchmenuitem)
 			wx.EVT_MENU(frame, APPOINTMENT_SEARCH, self.AppointmentSearch)
 			
-			browseappointmentsmenuitem = wx.MenuItem(frame.appointmentmenu, BROWSE_APPOINTMENTS, self.GetLabel("browseappointmentsmenu", 0) + "\tCTRL+B", self.GetLabel("browseappointmentsmenu", 1))
+			browseappointmentsmenuitem = wx.MenuItem(frame.appointmentmenu, BROWSE_APPOINTMENTS, self.t("browseappointmentsmenu") + "\tCTRL+B", self.t("browseappointmentsmenu", 1))
 			browseappointmentsmenuitem.SetBitmap(wx.Bitmap("icons/appointment.png"))
 			frame.appointmentmenu.AppendItem(browseappointmentsmenuitem)
 			wx.EVT_MENU(frame, BROWSE_APPOINTMENTS, self.BrowseAppointments)
@@ -265,12 +260,12 @@ class Evette:
 		frame.kennelsmenu = wx.Menu()
 		
 		
-		editkennelsmenuitem = wx.MenuItem(frame.kennelsmenu, EDIT_KENNELS, self.GetLabel("editkennelsmenu", 0), self.GetLabel("editkennelsmenu", 1))
+		editkennelsmenuitem = wx.MenuItem(frame.kennelsmenu, EDIT_KENNELS, self.t("editkennelsmenu"), self.t("editkennelsmenu", 1))
 		editkennelsmenuitem.SetBitmap(wx.Bitmap("icons/edit.png"))
 		frame.kennelsmenu.AppendItem(editkennelsmenuitem)
 		wx.EVT_MENU(frame, EDIT_KENNELS, self.EditKennels)
 		
-		browsekennelsmenuitem = wx.MenuItem(frame.kennelsmenu, VIEW_KENNELS, self.GetLabel("viewkennelsmenu", 0) + "\tCTRL+K", self.GetLabel("viewkennelsmenu", 1))
+		browsekennelsmenuitem = wx.MenuItem(frame.kennelsmenu, VIEW_KENNELS, self.t("viewkennelsmenu") + "\tCTRL+K", self.t("viewkennelsmenu"))
 		browsekennelsmenuitem.SetBitmap(wx.Bitmap("icons/kennel.png"))
 		frame.kennelsmenu.AppendItem(browsekennelsmenuitem)
 		wx.EVT_MENU(frame, VIEW_KENNELS, self.ViewKennels)
@@ -280,17 +275,17 @@ class Evette:
 		
 		if self.localsettings.editmedication == 1:
 			
-			editstockmenuitem = wx.MenuItem(frame.medicationdatabasemenu, EDIT_MEDICATION, self.GetLabel("editstockmenu", 0) + "\tCTRL+S", self.GetLabel("editstockmenu", 1))
+			editstockmenuitem = wx.MenuItem(frame.medicationdatabasemenu, EDIT_MEDICATION, self.t("editstockmenu") + "\tCTRL+S", self.t("editstockmenu", 1))
 			editstockmenuitem.SetBitmap(wx.Bitmap("icons/edit.png"))
 			frame.medicationdatabasemenu.AppendItem(editstockmenuitem)
 			wx.EVT_MENU(frame, EDIT_MEDICATION, self.EditMedication)
 			
-			batchsearchmenuitem = wx.MenuItem(frame.medicationdatabasemenu, BATCH_SEARCH, self.GetLabel("batchsearchmenu", 0), self.GetLabel("batchsearchmenu", 1))
+			batchsearchmenuitem = wx.MenuItem(frame.medicationdatabasemenu, BATCH_SEARCH, self.t("batchsearchmenu"), self.t("batchsearchmenu", 1))
 			batchsearchmenuitem.SetBitmap(wx.Bitmap("icons/search.png"))
 			frame.medicationdatabasemenu.AppendItem(batchsearchmenuitem)
 			wx.EVT_MENU(frame, BATCH_SEARCH, self.GetBatchNo)
 			
-			editmarkupmenuitem = wx.MenuItem(frame.medicationdatabasemenu, EDIT_MARKUP, self.GetLabel("editmarkupmenu", 0), self.GetLabel("editmarkupmenu", 1))
+			editmarkupmenuitem = wx.MenuItem(frame.medicationdatabasemenu, EDIT_MARKUP, self.t("editmarkupmenu"), self.t("editmarkupmenu", 1))
 			editmarkupmenuitem.SetBitmap(wx.Bitmap("icons/edit.png"))
 			frame.medicationdatabasemenu.AppendItem(editmarkupmenuitem)
 			wx.EVT_MENU(frame, EDIT_MARKUP, self.EditMarkUp)
@@ -304,29 +299,29 @@ class Evette:
 		if self.localsettings.editlookups == 1:
 			
 			#Adding items to lookups menu
-			editcoloursmenuitem = wx.MenuItem(frame.lookupsmenu, EDIT_COLOURS, self.GetLabel("editcoloursmenu", 0), self.GetLabel("editcoloursmenu", 1))
+			editcoloursmenuitem = wx.MenuItem(frame.lookupsmenu, EDIT_COLOURS, self.t("editcoloursmenu"), self.t("editcoloursmenu", 1))
 			editcoloursmenuitem.SetBitmap(wx.Bitmap("icons/edit.png"))
 			frame.lookupsmenu.AppendItem(editcoloursmenuitem)
 			wx.EVT_MENU(frame, EDIT_COLOURS, self.EditColours)
 			
-			editbreedsmenuitem = wx.MenuItem(frame.lookupsmenu, EDIT_BREEDS, self.GetLabel("editbreedsmenu", 0), self.GetLabel("editbreedsmenu", 1))
+			editbreedsmenuitem = wx.MenuItem(frame.lookupsmenu, EDIT_BREEDS, self.t("editbreedsmenu"), self.t("editbreedsmenu", 1))
 			editbreedsmenuitem.SetBitmap(wx.Bitmap("icons/edit.png"))
 			frame.lookupsmenu.AppendItem(editbreedsmenuitem)
 			wx.EVT_MENU(frame, EDIT_BREEDS, self.EditBreeds)
 			
-			editspeciesmenuitem = wx.MenuItem(frame.lookupsmenu, EDIT_SPECIES, self.GetLabel("editspeciesmenu", 0), self.GetLabel("editspeciesmenu", 1))
+			editspeciesmenuitem = wx.MenuItem(frame.lookupsmenu, EDIT_SPECIES, self.t("editspeciesmenu"), self.t("editspeciesmenu", 1))
 			editspeciesmenuitem.SetBitmap(wx.Bitmap("icons/edit.png"))
 			frame.lookupsmenu.AppendItem(editspeciesmenuitem)
 			wx.EVT_MENU(frame, EDIT_SPECIES, self.EditSpecies)
 			
-			editreasonsmenuitem = wx.MenuItem(frame.lookupsmenu, EDIT_REASONS, self.GetLabel("editreasonsmenu", 0), self.GetLabel("editreasonsmenu", 1))
+			editreasonsmenuitem = wx.MenuItem(frame.lookupsmenu, EDIT_REASONS, self.t("editreasonsmenu"), self.t("editreasonsmenu", 1))
 			editreasonsmenuitem.SetBitmap(wx.Bitmap("icons/edit.png"))
 			frame.lookupsmenu.AppendItem(editreasonsmenuitem)
 			wx.EVT_MENU(frame, EDIT_REASONS, self.EditReasons)
 		
 		if self.localsettings.editprocedures == 1:
 			
-			editproceduresmenuitem = wx.MenuItem(frame.lookupsmenu, EDIT_PROCEDURES, self.GetLabel("editproceduresmenu", 0), self.GetLabel("editproceduresmenu", 1))
+			editproceduresmenuitem = wx.MenuItem(frame.lookupsmenu, EDIT_PROCEDURES, self.t("editproceduresmenu"), self.t("editproceduresmenu", 1))
 			editproceduresmenuitem.SetBitmap(wx.Bitmap("icons/edit.png"))
 			frame.lookupsmenu.AppendItem(editproceduresmenuitem)
 			wx.EVT_MENU(frame, EDIT_PROCEDURES, self.EditProcedures)
@@ -336,22 +331,22 @@ class Evette:
 		
 		if self.localsettings.editforms == 1:
 			
-			editanimalformsmenuitem = wx.MenuItem(frame.formsmenu, EDIT_ANIMALFORMS, self.GetLabel("animalformsmenu", 0), self.GetLabel("animalformsmenu", 1))
+			editanimalformsmenuitem = wx.MenuItem(frame.formsmenu, EDIT_ANIMALFORMS, self.t("animalformsmenu"), self.t("animalformsmenu", 1))
 			editanimalformsmenuitem.SetBitmap(wx.Bitmap("icons/form.png"))
 			frame.formsmenu.AppendItem(editanimalformsmenuitem)
 			wx.EVT_MENU(frame, EDIT_ANIMALFORMS, self.EditAnimalForms)
 			
-			editclientformsmenuitem = wx.MenuItem(frame.formsmenu, EDIT_CLIENTFORMS, self.GetLabel("clientformsmenu", 0), self.GetLabel("clientformsmenu", 1))
+			editclientformsmenuitem = wx.MenuItem(frame.formsmenu, EDIT_CLIENTFORMS, self.t("clientformsmenu"), self.t("clientformsmenu", 1))
 			editclientformsmenuitem.SetBitmap(wx.Bitmap("icons/form.png"))
 			frame.formsmenu.AppendItem(editclientformsmenuitem)
 			wx.EVT_MENU(frame, EDIT_CLIENTFORMS, self.EditClientForms)
 			
-			editmedicationformsmenuitem = wx.MenuItem(frame.formsmenu, EDIT_MEDICATIONFORMS, self.GetLabel("medicationformsmenu", 0), self.GetLabel("medicationformsmenu", 1))
+			editmedicationformsmenuitem = wx.MenuItem(frame.formsmenu, EDIT_MEDICATIONFORMS, self.t("medicationformsmenu"), self.t("medicationformsmenu", 1))
 			editmedicationformsmenuitem.SetBitmap(wx.Bitmap("icons/form.png"))
 			frame.formsmenu.AppendItem(editmedicationformsmenuitem)
 			wx.EVT_MENU(frame, EDIT_MEDICATIONFORMS, self.EditMedicationForms)
 			
-			editinvoicesmenuitem = wx.MenuItem(frame.formsmenu, EDIT_INVOICE, self.GetLabel("invoiceformsmenu", 0), self.GetLabel("invoiceformsmenu", 1))
+			editinvoicesmenuitem = wx.MenuItem(frame.formsmenu, EDIT_INVOICE, self.t("invoiceformsmenu"), self.t("invoiceformsmenu", 1))
 			editinvoicesmenuitem.SetBitmap(wx.Bitmap("icons/form.png"))
 			frame.formsmenu.AppendItem(editinvoicesmenuitem)
 			wx.EVT_MENU(frame, EDIT_INVOICE, self.EditInvoice)
@@ -360,19 +355,19 @@ class Evette:
 		frame.lostandfoundmenu = wx.Menu()
 		
 		addlostmenuitem = wx.MenuItem(frame.
-		lostandfoundmenu, ADD_LOST, self.GetLabel("addlostmenu", 0) + "\tCTRL+SHIFT+L", self.GetLabel("addlostmenu", 1))
+		lostandfoundmenu, ADD_LOST, self.t("addlostmenu") + "\tCTRL+SHIFT+L", self.t("addlostmenu", 1))
 		wx.EVT_MENU(frame, ADD_LOST, self.AddLost)
 		addlostmenuitem.SetBitmap(wx.Bitmap("icons/lostandfound.png"))
 		frame.lostandfoundmenu.AppendItem(addlostmenuitem)
 		
 		addfoundmenuitem = wx.MenuItem(frame.
-		lostandfoundmenu, ADD_FOUND, self.GetLabel("addfoundmenu", 0) + "\tCTRL+SHIFT+F", self.GetLabel("addfoundmenu", 1))
+		lostandfoundmenu, ADD_FOUND, self.t("addfoundmenu") + "\tCTRL+SHIFT+F", self.t("addfoundmenu", 1))
 		wx.EVT_MENU(frame, ADD_FOUND, self.AddFound)
 		addfoundmenuitem.SetBitmap(wx.Bitmap("icons/lostandfound.png"))
 		frame.lostandfoundmenu.AppendItem(addfoundmenuitem)
 		
 		lostandfoundmenuitem = wx.MenuItem(frame.
-		lostandfoundmenu, LOST_AND_FOUND, self.GetLabel("lostandfoundmenu", 0) + "\tCTRL+L", self.GetLabel("lostandfoundmenu", 1))
+		lostandfoundmenu, LOST_AND_FOUND, self.t("lostandfoundmenu") + "\tCTRL+L", self.t("lostandfoundmenu", 1))
 		wx.EVT_MENU(frame, LOST_AND_FOUND, self.LostAndFound)
 		lostandfoundmenuitem.SetBitmap(wx.Bitmap("icons/lostandfound.png"))
 		frame.lostandfoundmenu.AppendItem(lostandfoundmenuitem)
@@ -381,17 +376,17 @@ class Evette:
 		frame.helpmenu = wx.Menu()
 		
 		helpmenuitem = wx.MenuItem(frame.
-		helpmenu, HELP, self.GetLabel("gethelpmenu", 0), self.GetLabel("gethelpmenu", 1))
+		helpmenu, HELP, self.t("gethelpmenu"), self.t("gethelpmenu", 1))
 		wx.EVT_MENU(frame, HELP, self.Help)
 		helpmenuitem.SetBitmap(wx.Bitmap("icons/help.png"))
 		frame.helpmenu.AppendItem(helpmenuitem)
 		
-		aboutmenuitem = wx.MenuItem(frame.helpmenu, ABOUT, self.GetLabel("aboutmenu", 0), self.GetLabel("aboutmenu", 1))
+		aboutmenuitem = wx.MenuItem(frame.helpmenu, ABOUT, self.t("aboutmenu"), self.t("aboutmenu", 1))
 		aboutmenuitem.SetBitmap(wx.Bitmap("icons/help.png"))
 		frame.helpmenu.AppendItem(aboutmenuitem)
 		wx.EVT_MENU(frame, ABOUT, self.About)
 		
-		showlicensemenuitem = wx.MenuItem(frame.helpmenu, SHOW_LICENSE, self.GetLabel("viewlicensemenu", 0), self.GetLabel("viewlicensemenu", 1))
+		showlicensemenuitem = wx.MenuItem(frame.helpmenu, SHOW_LICENSE, self.t("viewlicensemenu"), self.t("viewlicensemenu", 1))
 		showlicensemenuitem.SetBitmap(wx.Bitmap("icons/help.png"))
 		frame.helpmenu.AppendItem(showlicensemenuitem)
 		wx.EVT_MENU(frame, SHOW_LICENSE, self.ViewLicense)
@@ -405,28 +400,28 @@ class Evette:
 		frame.menubar = wx.MenuBar()
 		
 		#Adding the menus to the menubar
-		frame.menubar.Append(frame.mainfilemenu, self.GetMenu("systemlabel"))
+		frame.menubar.Append(frame.mainfilemenu, self.t("systemlabel"))
 		
-		frame.menubar.Append(frame.diarymenu, self.GetMenu("diarymenu"))
+		frame.menubar.Append(frame.diarymenu, self.t("diarymenu"))
 		
 		if self.localsettings.editclients == 1:
-			frame.menubar.Append(frame.clientmenu, self.GetMenu("clientmenu"))
+			frame.menubar.Append(frame.clientmenu, self.t("clientmenu"))
 		if self.localsettings.editappointments == 1:
-			frame.menubar.Append(frame.appointmentmenu, self.GetMenu("appointmentsmenu"))
+			frame.menubar.Append(frame.appointmentmenu, self.t("appointmentsmenu"))
 		
-		frame.menubar.Append(frame.kennelsmenu, self.GetMenu("kennelsmenu"))
+		frame.menubar.Append(frame.kennelsmenu, self.t("kennelsmenu"))
 		
 		if self.localsettings.editmedication == 1:
-			frame.menubar.Append(frame.medicationdatabasemenu, self.GetMenu("stocklabel"))
+			frame.menubar.Append(frame.medicationdatabasemenu, self.t("stocklabel"))
 		if self.localsettings.editlookups == 1 or self.localsettings.editprocedures == 1:
-			frame.menubar.Append(frame.lookupsmenu, self.GetMenu("lookupsmenu"))
+			frame.menubar.Append(frame.lookupsmenu, self.t("lookupsmenu"))
 		if self.localsettings.editforms == 1:
-			frame.menubar.Append(frame.formsmenu, self.GetMenu("formsmenu"))
+			frame.menubar.Append(frame.formsmenu, self.t("formsmenu"))
 		if self.localsettings.editusers == 1 or self.localsettings.editrota:
-			frame.menubar.Append(frame.filemenu, self.GetMenu("staffmenu"))
+			frame.menubar.Append(frame.filemenu, self.t("staffmenu"))
 		
-		frame.menubar.Append(frame.lostandfoundmenu, self.GetMenu("lostandfoundmenu")[0])
-		frame.menubar.Append(frame.helpmenu, self.GetMenu("helpmenu"))
+		frame.menubar.Append(frame.lostandfoundmenu, self.t("lostandfoundmenu"))
+		frame.menubar.Append(frame.helpmenu, self.t("helpmenu"))
 		
 		if sound == True:
 			
@@ -450,7 +445,7 @@ class Evette:
 			
 			if self.localsettings.editclients == 1:
 				
-				self.bAddClient = wx.Button(panel, ADD_CLIENT, self.GetLabel("addclienttoolbar", 0))
+				self.bAddClient = wx.Button(panel, ADD_CLIENT, self.t("addclienttoolbar"))
 				#self.bAddClient.SetBackgroundColour("#0000ff")
 				self.bAddClient.SetForegroundColour("blue")
 				
@@ -458,11 +453,11 @@ class Evette:
 				font.SetPointSize(font.GetPointSize() + 2)
 				self.bAddClient.SetFont(font)
 				
-				self.bAddClient.SetToolTipString(self.GetLabel("addclienttoolbar", 1))
+				self.bAddClient.SetToolTipString(self.t("addclienttoolbar", 1))
 				self.bAddClient.Bind(wx.EVT_BUTTON, self.AddClient)
 				toolbarsizer.Add(self.bAddClient, 0, wx.EXPAND)
 				
-				self.bViewClients = wx.Button(panel, FIND_CLIENT, self.GetLabel("findclienttoolbar", 0))
+				self.bViewClients = wx.Button(panel, FIND_CLIENT, self.t("findclienttoolbar"))
 				#self.bViewClients.SetBackgroundColour("red")
 				self.bViewClients.SetForegroundColour("red")
 				
@@ -470,13 +465,13 @@ class Evette:
 				font.SetPointSize(font.GetPointSize() + 2)
 				self.bViewClients.SetFont(font)
 				
-				self.bViewClients.SetToolTipString(self.GetLabel("findclienttoolbar", 1))
+				self.bViewClients.SetToolTipString(self.t("findclienttoolbar", 1))
 				self.bViewClients.Bind(wx.EVT_BUTTON, self.FindClient)
 				toolbarsizer.Add(self.bViewClients, 0, wx.EXPAND)
 			
 			if self.localsettings.editappointments == 1:
 				
-				self.bViewAppointments = wx.Button(panel, VIEW_APPOINTMENTS, self.GetLabel("viewappointmentstoolbar", 0))
+				self.bViewAppointments = wx.Button(panel, VIEW_APPOINTMENTS, self.t("viewappointmentstoolbar"))
 				#self.bViewAppointments.SetBackgroundColour("yellow")
 				self.bViewAppointments.SetForegroundColour('#555555')
 				
@@ -484,11 +479,11 @@ class Evette:
 				font.SetPointSize(font.GetPointSize() + 2)
 				self.bViewAppointments.SetFont(font)
 				
-				self.bViewAppointments.SetToolTipString(self.GetLabel("viewappointmentstoolbar", 1))
+				self.bViewAppointments.SetToolTipString(self.t("viewappointmentstoolbar", 1))
 				self.bViewAppointments.Bind(wx.EVT_BUTTON, self.ViewAppointments)
 				toolbarsizer.Add(self.bViewAppointments, 0, wx.EXPAND)
 				
-				self.bViewOps = wx.Button(panel, VIEW_OPS, self.GetLabel("viewoperationstoolbar", 0))
+				self.bViewOps = wx.Button(panel, VIEW_OPS, self.t("viewoperationstoolbar"))
 				#self.bViewOps.SetBackgroundColour("green")
 				self.bViewOps.SetForegroundColour("green")
 				
@@ -496,14 +491,14 @@ class Evette:
 				font.SetPointSize(font.GetPointSize() + 2)
 				self.bViewOps.SetFont(font)
 				
-				self.bViewOps.SetToolTipString(self.GetLabel("viewoperationstoolbar", 1))
+				self.bViewOps.SetToolTipString(self.t("viewoperationstoolbar", 1))
 				self.bViewOps.Bind(wx.EVT_BUTTON, self.ViewOps)
 				toolbarsizer.Add(self.bViewOps, 0, wx.EXPAND)
 			
 			
 			
-			editdiarybutton = wx.Button(panel, -1, self.GetLabel("editdiarytoolbar", 0))
-			editdiarybutton.SetToolTipString(self.GetLabel("editdiarytoolbar", 1))
+			editdiarybutton = wx.Button(panel, -1, self.t("editdiarytoolbar"))
+			editdiarybutton.SetToolTipString(self.t("editdiarytoolbar", 1))
 			#editdiarybutton.SetBackgroundColour("#ffacfe")
 			editdiarybutton.SetForegroundColour("#33acfe")
 			font = editdiarybutton.GetFont()
@@ -512,8 +507,8 @@ class Evette:
 			editdiarybutton.Bind(wx.EVT_BUTTON, self.EditDiary)
 			toolbarsizer.Add(editdiarybutton, 0, wx.EXPAND)
 			
-			editstockbutton = wx.Button(panel, -1, self.GetLabel("editstockmenu", 0))
-			editstockbutton.SetToolTipString(self.GetLabel("editstockmenu", 1))
+			editstockbutton = wx.Button(panel, -1, self.t("editstockmenu"))
+			editstockbutton.SetToolTipString(self.t("editstockmenu", 1))
 			editstockbutton.SetBackgroundColour("blue")
 			editstockbutton.SetForegroundColour("black")
 			font = editstockbutton.GetFont()
@@ -593,7 +588,7 @@ class Evette:
 		
 		inputsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		refnolabel = wx.StaticText(panel, -1, self.GetMenu("clientrefnolabel"))
+		refnolabel = wx.StaticText(panel, -1, self.t("clientrefnolabel"))
 		font = refnolabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		refnolabel.SetFont(font)
@@ -603,7 +598,7 @@ class Evette:
 		refnoentry.Bind(wx.EVT_CHAR, self.ASMImportButtonPressed)
 		inputsizer.Add(refnoentry, 0, wx.EXPAND)
 		
-		namelabel = wx.StaticText(panel, -1, self.GetMenu("namelabel"))
+		namelabel = wx.StaticText(panel, -1, self.t("namelabel"))
 		namelabel.SetFont(font)
 		inputsizer.Add(namelabel, 0, wx.ALIGN_LEFT)
 		
@@ -612,7 +607,7 @@ class Evette:
 		nameentry.Bind(wx.EVT_CHAR, self.ASMImportButtonPressed)
 		inputsizer.Add(nameentry, 0, wx.EXPAND)
 		
-		specieslabel = wx.StaticText(panel, -1, self.GetMenu("animalspecieslabel"))
+		specieslabel = wx.StaticText(panel, -1, self.t("animalspecieslabel"))
 		specieslabel.SetFont(font)
 		inputsizer.Add(specieslabel, 0, wx.ALIGN_LEFT)
 		
@@ -620,7 +615,7 @@ class Evette:
 		speciesentry.Bind(wx.EVT_CHAR, self.ASMImportButtonPressed)
 		inputsizer.Add(speciesentry, 0, wx.EXPAND)
 		
-		locationlabel = wx.StaticText(panel, -1, self.GetMenu("locationlabel"))
+		locationlabel = wx.StaticText(panel, -1, self.t("locationlabel"))
 		locationlabel.SetFont(font)
 		inputsizer.Add(locationlabel, 0, wx.ALIGN_LEFT)
 		
@@ -639,11 +634,11 @@ class Evette:
 		
 		listbox = customwidgets.ASMAnimalListbox(panel, self.localsettings)
 		listbox.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.SubmitASMImport)
-		listbox.SetToolTipString(self.GetMenu("doubleclicktoselecttooltip"))
+		listbox.SetToolTipString(self.t("doubleclicktoselecttooltip"))
 		customwidgets.ListCtrlWrapper.RefreshList(listbox)
 		resultssizer.Add(listbox, 1, wx.EXPAND)
 		
-		totallabel = wx.StaticText(panel, -1, self.GetMenu("totallabel") + ": 0 ")
+		totallabel = wx.StaticText(panel, -1, self.t("totallabel") + ": 0 ")
 		resultssizer.Add(totallabel, 0, wx.ALIGN_RIGHT)
 		
 		topsizer.Add(resultssizer, 1, wx.EXPAND)
@@ -706,7 +701,7 @@ class Evette:
 			
 			if len(results) > 0:
 				
-				if miscmethods.ConfirmMessage(self.GetMenu("alreadyimportedmessage"), self.notebook):
+				if miscmethods.ConfirmMessage(self.t("alreadyimportedmessage"), self.notebook):
 					
 					animalsettings = animalmethods.AnimalSettings(self.localsettings, False, results[0][0])
 					
@@ -894,11 +889,11 @@ class Evette:
 ##                                        
 ##                                        print "sex = " + str(animalsettings.sex)
                                         
-                                        if animaldata[2] == self.GetMenu("malelabel"):
+                                        if animaldata[2] == self.t("malelabel"):
                                                 
                                                 animalsettings.sex = 1
                                                 
-                                        elif animaldata[2] == self.GetMenu("femalelabel"):
+                                        elif animaldata[2] == self.t("femalelabel"):
                                                 
                                                 animalsettings.sex = 2
                                         else:
@@ -938,7 +933,7 @@ class Evette:
 					
 				else:
 					
-					miscmethods.ShowMessage(self.GetMenu("errorobtainingownermessage"), panel)
+					miscmethods.ShowMessage(self.t("errorobtainingownermessage"), panel)
 	
 	def SelectOwner(self, ID):
 		
@@ -1004,7 +999,7 @@ class Evette:
 		
 		for a in self.notebook.pages:
 			
-			if a.pagetitle == self.GetMenu("viewappointmentspagetitle"):
+			if a.pagetitle == self.t("viewappointmentspagetitle"):
 				
 				pageno = count
 			
@@ -1029,7 +1024,7 @@ class Evette:
 		
 		for a in self.notebook.pages:
 			
-			if a.pagetitle == self.GetMenu("viewoperationsspagetitle"):
+			if a.pagetitle == self.t("viewoperationsspagetitle"):
 				
 				pageno = count
 			
@@ -1054,7 +1049,7 @@ class Evette:
 	
 	def ResetAllTables(self, ID=False):
 		
-		if miscmethods.ConfirmMessage(self.GetMenu("resetdatabasequestion")) == True:
+		if miscmethods.ConfirmMessage(self.t("resetdatabasequestion")) == True:
 			connection = db.GetConnection(self.localsettings)
 			action = "DROP DATABASE evette"
 			db.SendSQL(action, connection)
@@ -1062,7 +1057,7 @@ class Evette:
 			
 			db.CreateDatabase(self.localsettings)
 			
-			miscmethods.ShowMessage(self.GetMenu("alltablesresetmessage"))
+			miscmethods.ShowMessage(self.t("alltablesresetmessage"))
 	
 	def EditColours(self, ID):
 		editcolourpanel = lookupmethods.EditLookup(self.notebook, "colour", self.localsettings)
@@ -1123,7 +1118,7 @@ class Evette:
 		
 		helppanel.SetSizer(topsizer)
 		
-		helppanel.pagetitle = miscmethods.GetPageTitle(self.notebook, self.GetMenu("helpmenu"))
+		helppanel.pagetitle = miscmethods.GetPageTitle(self.notebook, self.t("helpmenu"))
 		helppanel.pageimage = "icons/help.png"
 		
 		self.notebook.AddPage(helppanel)
@@ -1141,7 +1136,7 @@ class Evette:
 		
 		aboutpanel.SetSizer(topsizer)
 		
-		aboutpanel.pagetitle = miscmethods.GetPageTitle(self.notebook, self.GetMenu("aboutlabel"))
+		aboutpanel.pagetitle = miscmethods.GetPageTitle(self.notebook, self.t("aboutlabel"))
 		aboutpanel.pageimage = "icons/help.png"
 		
 		self.notebook.AddPage(aboutpanel)
@@ -1165,7 +1160,7 @@ class Evette:
 	
 	def NewDiaryNote(self, ID=False):
 		
-		title = self.GetMenu("nolinklabel")
+		title = self.t("nolinklabel")
 		diarynotepanel = diarymethods.DiaryNotePanel(self.notebook, self.localsettings, 0, 0, title, False, self)
 		self.notebook.AddPage(diarynotepanel)
 	
@@ -1180,7 +1175,7 @@ class Evette:
 		
 		licensepanel.SetSizer(topsizer)
 		
-		licensepanel.pagetitle = miscmethods.GetPageTitle(self.notebook, self.GetMenu("licenselabel"))
+		licensepanel.pagetitle = miscmethods.GetPageTitle(self.notebook, self.t("licenselabel"))
 		licensepanel.pageimage = "icons/help.png"
 		
 		self.notebook.AddPage(licensepanel)
@@ -1219,7 +1214,7 @@ class Evette:
 	
 	def GetBatchNo(self, ID):
 		
-		dialog = wx.Dialog(self.frame, -1, self.GetMenu("medicationbatchnolabel"))
+		dialog = wx.Dialog(self.frame, -1, self.t("medicationbatchnolabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -1227,21 +1222,21 @@ class Evette:
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		topsizer.Add(wx.StaticText(panel, -1, self.GetMenu("medicationbatchnolabel")), 0, wx.ALIGN_LEFT)
+		topsizer.Add(wx.StaticText(panel, -1, self.t("medicationbatchnolabel")), 0, wx.ALIGN_LEFT)
 		
 		batchinput = wx.TextCtrl(panel, -1, "", size=(200,-1))
 		topsizer.Add(batchinput, 0, wx.EXPAND)
 		
 		submitsizer = wx.BoxSizer(wx.HORIZONTAL)
 		
-		containscheckbox = wx.CheckBox(panel, -1, self.GetMenu("containslabel").lower())
+		containscheckbox = wx.CheckBox(panel, -1, self.t("containslabel").lower())
 		submitsizer.Add(containscheckbox, 0, wx.ALIGN_CENTER)
 		
 		submitsizer.Add(wx.Panel(panel), 1, wx.EXPAND)
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(panel, -1, submitbitmap)
-		submitbutton.SetToolTipString(self.GetMenu("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.GenerateBatchMovementReport)
 		submitsizer.Add(submitbutton, 0, wx.EXPAND)
 		
@@ -1284,7 +1279,7 @@ class Evette:
 			action = "SELECT medicationout.Date, medication.Name, medicationout.MedicationID, medicationout.Amount, medicationout.BatchNo, 0, medicationout.WhereTo, 1, medication.Unit FROM medicationout INNER JOIN medication ON medicationout.MedicationID = medication.ID WHERE medicationout.BatchNo = \"" + str(batchno) + "\""
 			resultsout = db.SendSQL(action, self.localsettings.dbconnection)
 		
-		header = "<h1 align=center><u>" + self.GetMenu("medicationmovementsofbatchnumberlabel") + str(batchno) + "</u></h1><table align=center>"
+		header = "<h1 align=center><u>" + self.t("medicationmovementsofbatchnumberlabel") + str(batchno) + "</u></h1><table align=center>"
 		
 		results = []
 		
@@ -1305,9 +1300,9 @@ class Evette:
 			name = a[1]
 			
 			if a[7] == 0:
-				fromorto = self.GetMenu("fromlabel").lower()
+				fromorto = self.t("fromlabel").lower()
 			else:
-				fromorto = self.GetMenu("tolabel").lower()
+				fromorto = self.t("tolabel").lower()
 			
 			quantity = a[3]
 			
@@ -1325,7 +1320,7 @@ class Evette:
 	
 	def CloseAllWindows(self, ID):
 		
-		if miscmethods.ConfirmMessage(self.GetMenu("confirmcloseallwindowsmessage"), self.frame):
+		if miscmethods.ConfirmMessage(self.t("confirmcloseallwindowsmessage"), self.frame):
 			
 			while len(self.notebook.pages) > 0:
 				

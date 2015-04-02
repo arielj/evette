@@ -146,6 +146,12 @@ class settings:
 		out.close()
 		
 		self.GetSettings()
+	
+	def t(self, langkey, idx = 0):
+	  v = self.dictionary[langkey][self.language]
+	  if type(v).__name__ == 'tuple':
+	    v = v[idx]
+ 	  return v
 
 def CreateConfFile():
 	
