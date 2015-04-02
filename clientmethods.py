@@ -120,9 +120,9 @@ class ClientSettings:
 
 class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 	
-	def GetLabel(self, field):
+	def t(self, field):
 		
-		return  self.clientdata.localsettings.dictionary[field][self.clientdata.localsettings.language]
+		return  self.clientdata.localsettings.t(field)
 	
 	def GetButtonLabel(self, field, index):
 		
@@ -135,7 +135,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 		self.clientdata = clientdata
 		
 		if clientdata.ID == False:
-			pagetitle = self.GetLabel("newclientpagetitle")
+			pagetitle = self.t("newclientpagetitle")
 		else:
 			pagetitle = clientdata.title + " " + clientdata.surname
 		
@@ -147,7 +147,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		self.viewappointmentspanel = False
 		
-		fields = ( (clientdata.title, self.GetLabel("clienttitlelabel"), "title"), (clientdata.forenames, self.GetLabel("clientforenameslabel"), "small"), (clientdata.surname, self.GetLabel("clientsurnamelabel"), "small"), (clientdata.address, self.GetLabel("clientaddresslabel"), "large"), (clientdata.postcode, self.GetLabel("clientpostcodelabel"), "small"), (clientdata.hometelephone, self.GetLabel("clienthomephonelabel"), "telephone", 1),  (clientdata.mobiletelephone, self.GetLabel("clientmobilephonelabel"), "telephone", 2), (clientdata.worktelephone, self.GetLabel("clientworkphonelabel"), "telephone", 3), (clientdata.emailaddress, self.GetLabel("clientemailaddresslabel"), "small"), (clientdata.comments, self.GetLabel("clientcommentslabel"), "large") )
+		fields = ( (clientdata.title, self.t("clienttitlelabel"), "title"), (clientdata.forenames, self.t("clientforenameslabel"), "small"), (clientdata.surname, self.t("clientsurnamelabel"), "small"), (clientdata.address, self.t("clientaddresslabel"), "large"), (clientdata.postcode, self.t("clientpostcodelabel"), "small"), (clientdata.hometelephone, self.t("clienthomephonelabel"), "telephone", 1),  (clientdata.mobiletelephone, self.t("clientmobilephonelabel"), "telephone", 2), (clientdata.worktelephone, self.t("clientworkphonelabel"), "telephone", 3), (clientdata.emailaddress, self.t("clientemailaddresslabel"), "small"), (clientdata.comments, self.t("clientcommentslabel"), "large") )
 		
 		noofrows = len(fields)
 		
@@ -192,7 +192,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 			elif fields[a][2] == "telephone":
 				
 				inputfield = wx.TextCtrl(self, -1, fields[a][0])
-				inputfield.SetToolTipString(self.GetLabel("phonenumbertooltip"))
+				inputfield.SetToolTipString(self.t("phonenumbertooltip"))
 				inputfield.phoneid = 0
 				inputfield.slotid = fields[a][3]
 				inputfield.flexvalue = 0
@@ -281,26 +281,26 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 			
 			self.animallistbox.Disable()
 		
-		animaltotallabel = wx.StaticText(animalpanel, -1, self.GetLabel("totallabel") + ": 0 ")
+		animaltotallabel = wx.StaticText(animalpanel, -1, self.t("totallabel") + ": 0 ")
 		
 		animalsizer.Add(self.animallistbox, 1, wx.EXPAND)
 		animalsizer.Add(animaltotallabel, 0, wx.ALIGN_RIGHT)
 		
 		animalpanel.SetSizer(animalsizer)
 		
-		billnotebook.AddPage(animalpanel, self.GetLabel("clientanimalslabel"), select=True)
+		billnotebook.AddPage(animalpanel, self.t("clientanimalslabel"), select=True)
 		
 		#billsummarypanel = BillSummaryPanel(billnotebook, clientdata)
-		#billnotebook.AddPage(billsummarypanel, self.GetLabel("clientbalancelabel"), select=False)
+		#billnotebook.AddPage(billsummarypanel, self.t("clientbalancelabel"), select=False)
 		
 		receiptpanel = ClientReceiptPanel(billnotebook, clientdata)
-		billnotebook.AddPage(receiptpanel, self.GetLabel("clientdetailedbilllabel"), select=False)
+		billnotebook.AddPage(receiptpanel, self.t("clientdetailedbilllabel"), select=False)
 		
 		invoicepanel = ClientInvoicePanel(billnotebook, clientdata)
-		billnotebook.AddPage(invoicepanel, self.GetLabel("invoicespagetitle"), select=False)
+		billnotebook.AddPage(invoicepanel, self.t("invoicespagetitle"), select=False)
 		
 		attachedfilespanel = attachedfilemethods.AttachedFilesPanel(billnotebook, clientdata.localsettings, 0, clientdata.ID)
-		billnotebook.AddPage(attachedfilespanel, self.GetLabel("attachedfileslabel"), select=False)
+		billnotebook.AddPage(attachedfilespanel, self.t("attachedfileslabel"), select=False)
 		
 		billnotebooksizer.Add(billnotebook, 1, wx.EXPAND)
 		
@@ -313,7 +313,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 		savebuttonbitmap = wx.Bitmap("icons/save.png")
 		
 		savebutton = wx.BitmapButton(self, -1, savebuttonbitmap)
-		savebutton.SetToolTipString(self.GetLabel("clientsavetooltip"))
+		savebutton.SetToolTipString(self.t("clientsavetooltip"))
 		savebutton.Bind(wx.EVT_BUTTON, self.SaveClient)
 		savebutton.Disable()
 		
@@ -322,7 +322,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 		mergebuttonbitmap = wx.Bitmap("icons/users.png")
 		
 		mergebutton = wx.BitmapButton(self, -1, mergebuttonbitmap)
-		mergebutton.SetToolTipString(self.GetLabel("clientmergetooltip"))
+		mergebutton.SetToolTipString(self.t("clientmergetooltip"))
 		mergebutton.Bind(wx.EVT_BUTTON, self.MergeClient)
 		closebuttonsizer.Add(mergebutton, 0, wx.EXPAND)
 		
@@ -332,7 +332,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		bookbitmap = wx.Bitmap("icons/diary.png")
 		creatediarynotebutton = wx.BitmapButton(self, -1, bookbitmap)
-		creatediarynotebutton.SetToolTipString(self.GetLabel("createassociateddiarynotetooltip"))
+		creatediarynotebutton.SetToolTipString(self.t("createassociateddiarynotetooltip"))
 		creatediarynotebutton.Bind(wx.EVT_BUTTON, self.CreateDiaryNote)
 		
 		if self.clientdata.ID == False or self.clientdata.localsettings.addtodiary == 0:
@@ -343,7 +343,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		formbitmap = wx.Bitmap("icons/form.png")
 		formbutton = wx.BitmapButton(self, -1, formbitmap)
-		formbutton.SetToolTipString(self.GetLabel("clientgenerateformtooltip"))
+		formbutton.SetToolTipString(self.t("clientgenerateformtooltip"))
 		formbutton.Bind(wx.EVT_BUTTON, self.GenerateForm)
 		closebuttonsizer.Add(formbutton, 0, wx.EXPAND)
 		
@@ -353,7 +353,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		shopsalebitmap = wx.Bitmap("icons/calculator.png")
 		shopsalebutton = wx.BitmapButton(self, -1, shopsalebitmap)
-		shopsalebutton.SetToolTipString(self.GetLabel("shopsalemenuitem"))
+		shopsalebutton.SetToolTipString(self.t("shopsalemenuitem"))
 		shopsalebutton.Bind(wx.EVT_BUTTON, self.ShopSale)
 		closebuttonsizer.Add(shopsalebutton, 0, wx.EXPAND)
 		
@@ -487,7 +487,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 			action = "DELETE FROM client WHERE ID = " + str(clientid)
 			db.SendSQL(action, self.clientdata.localsettings.dbconnection)
 			
-			miscmethods.ShowMessage(self.GetLabel("clientsmergedmessage"), self)
+			miscmethods.ShowMessage(self.t("clientsmergedmessage"), self)
 	
 	def AnimalMenuPopup(self, ID):
 		
@@ -495,7 +495,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		if self.clientdata.localsettings.editanimals == 1:
 			
-			addanimal = wx.MenuItem(popupmenu, ADD_ANIMAL, self.GetLabel("addlabel"))
+			addanimal = wx.MenuItem(popupmenu, ADD_ANIMAL, self.t("addlabel"))
 			addanimal.SetBitmap(wx.Bitmap("icons/new.png"))
 			popupmenu.AppendItem(addanimal)
 			wx.EVT_MENU(popupmenu, ADD_ANIMAL, self.AddAnimal)
@@ -513,31 +513,31 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 			
 			if self.clientdata.localsettings.editanimals == 1:
 				
-				editanimal = wx.MenuItem(popupmenu, EDIT_ANIMAL, self.GetLabel("editlabel"))
+				editanimal = wx.MenuItem(popupmenu, EDIT_ANIMAL, self.t("editlabel"))
 				editanimal.SetBitmap(wx.Bitmap("icons/edit.png"))
 				popupmenu.AppendItem(editanimal)
 				wx.EVT_MENU(popupmenu, EDIT_ANIMAL, self.EditAnimal)
 			
 			if self.clientdata.localsettings.deleteanimals == 1:
 				
-				deleteanimal = wx.MenuItem(popupmenu, DELETE_ANIMAL, self.GetLabel("deletelabel"))
+				deleteanimal = wx.MenuItem(popupmenu, DELETE_ANIMAL, self.t("deletelabel"))
 				deleteanimal.SetBitmap(wx.Bitmap("icons/delete.png"))
 				popupmenu.AppendItem(deleteanimal)
 				wx.EVT_MENU(popupmenu, DELETE_ANIMAL, self.DeleteAnimal)
 			
 			if self.clientdata.localsettings.editappointments == 1:
 				
-				createappointment = wx.MenuItem(popupmenu, MAKE_APPOINTMENT, self.GetLabel("createappointmentlabel"))
+				createappointment = wx.MenuItem(popupmenu, MAKE_APPOINTMENT, self.t("createappointmentlabel"))
 				createappointment.SetBitmap(wx.Bitmap("icons/new.png"))
 				popupmenu.AppendItem(createappointment)
 				wx.EVT_MENU(popupmenu, MAKE_APPOINTMENT, self.CreateAppointment)
 		
-		filteranimals = wx.MenuItem(popupmenu, FILTER_ANIMALS, self.GetLabel("filteranimalslabel"))
+		filteranimals = wx.MenuItem(popupmenu, FILTER_ANIMALS, self.t("filteranimalslabel"))
 		filteranimals.SetBitmap(wx.Bitmap("icons/search.png"))
 		popupmenu.AppendItem(filteranimals)
 		wx.EVT_MENU(popupmenu, FILTER_ANIMALS, self.FilterAnimals)
 		
-		refreshanimals = wx.MenuItem(popupmenu, REFRESH_ANIMALS, self.GetLabel("refreshlabel"))
+		refreshanimals = wx.MenuItem(popupmenu, REFRESH_ANIMALS, self.t("refreshlabel"))
 		refreshanimals.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refreshanimals)
 		wx.EVT_MENU(popupmenu, REFRESH_ANIMALS, self.RefreshAnimals)
@@ -546,7 +546,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 	
 	def FilterAnimals(self, ID):
 		
-		dialog = wx.Dialog(self.notebook, -1, self.GetLabel("chooseananimaltitle"))
+		dialog = wx.Dialog(self.notebook, -1, self.t("chooseananimaltitle"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -554,7 +554,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		namelabel = wx.StaticText(panel, -1, self.GetLabel("appointmentsearchanimalnamelabel"))
+		namelabel = wx.StaticText(panel, -1, self.t("appointmentsearchanimalnamelabel"))
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -594,11 +594,11 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 			
 			if name == "":
 				
-				name = self.GetLabel("alllabel")
+				name = self.t("alllabel")
 			
 			self.RefreshAnimals()
 			
-			#self.animaltotallabel.SetLabel(miscmethods.NoWrap(self.GetLabel("filterlabel") + " (" + name + ")" + " " + self.animaltotallabel.GetLabel()))
+			#self.animaltotallabel.SetLabel(miscmethods.NoWrap(self.t("filterlabel") + " (" + name + ")" + " " + self.animaltotallabel.GetLabel()))
 			
 			#self.animallistsizer.Layout()
 			
@@ -727,7 +727,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		if self.savebutton.IsEnabled() == True:
 			
-			return miscmethods.ConfirmMessage(self.GetLabel("clientunsavedchangesmessage"))
+			return miscmethods.ConfirmMessage(self.t("clientunsavedchangesmessage"))
 			
 		else:
 			
@@ -737,7 +737,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		if self.animalnamefilter == "":
 			
-			name = self.GetLabel("alllabel")
+			name = self.t("alllabel")
 			
 		else:
 			
@@ -745,7 +745,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		self.animallistbox.RefreshList()
 		
-		self.animaltotallabel.SetLabel(miscmethods.NoWrap(self.GetLabel("filterlabel") + " (" + name + ")" + " " + self.clientdata.localsettings.dictionary["totallabel"][self.clientdata.localsettings.language] + ": " + str(len(self.animallistbox.htmllist))))
+		self.animaltotallabel.SetLabel(miscmethods.NoWrap(self.t("filterlabel") + " (" + name + ")" + " " + self.clientdata.localsettings.dictionary["totallabel"][self.clientdata.localsettings.language] + ": " + str(len(self.animallistbox.htmllist))))
 		
 		self.animallistsizer.Layout()
 		
@@ -761,7 +761,7 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 		listboxid = self.animallistbox.GetSelection()
 		animalid = self.animallistbox.htmllist[listboxid][0]
 		
-		confirm = miscmethods.ConfirmMessage(self.GetLabel("clientdeleteanimalmessage"))
+		confirm = miscmethods.ConfirmMessage(self.t("clientdeleteanimalmessage"))
 		
 		if confirm == True:
 			
@@ -797,9 +797,9 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
 
 class ClientReceiptPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field):
 		
-		return  self.clientdata.localsettings.dictionary[field][self.clientdata.localsettings.language]
+		return  self.clientdata.localsettings.t(field)
 	
 	def GetButtonLabel(self, field, index):
 		
@@ -829,7 +829,7 @@ class ClientReceiptPanel(wx.Panel):
 		
 		fromsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		fromlabel = wx.StaticText(self, -1, " " + self.GetLabel("fromlabel") + " ", style=wx.EXPAND)
+		fromlabel = wx.StaticText(self, -1, " " + self.t("fromlabel") + " ", style=wx.EXPAND)
 		font = fromlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		fromlabel.SetFont(font)
@@ -842,7 +842,7 @@ class ClientReceiptPanel(wx.Panel):
 		
 		tosizer = wx.BoxSizer(wx.VERTICAL)
 		
-		tolabel = wx.StaticText(self, -1, " " + self.GetLabel("tolabel") + " ", style=wx.EXPAND)
+		tolabel = wx.StaticText(self, -1, " " + self.t("tolabel") + " ", style=wx.EXPAND)
 		tolabel.SetFont(font)
 		tosizer.Add(tolabel, 0, wx.ALIGN_LEFT)
 		
@@ -855,7 +855,7 @@ class ClientReceiptPanel(wx.Panel):
 		
 		refreshbitmap = wx.Bitmap("icons/refresh.png")
 		refreshbutton = wx.BitmapButton(self, -1, refreshbitmap)
-		refreshbutton.SetToolTipString(self.GetLabel("clientrefreshbilltooltip"))
+		refreshbutton.SetToolTipString(self.t("clientrefreshbilltooltip"))
 		refreshbutton.Bind(wx.EVT_BUTTON, self.RefreshList)
 		summarytoolssizer.Add(refreshbutton, 0, wx.ALIGN_BOTTOM)
 		
@@ -904,26 +904,26 @@ class ClientReceiptPanel(wx.Panel):
 		
 		if self.clientdata.localsettings.editfinances == 1:
 			
-			add = wx.MenuItem(popupmenu, ADD_RECEIPT, self.GetLabel("addlabel"))
+			add = wx.MenuItem(popupmenu, ADD_RECEIPT, self.t("addlabel"))
 			add.SetBitmap(wx.Bitmap("icons/new.png"))
 			popupmenu.AppendItem(add)
 			wx.EVT_MENU(popupmenu, ADD_RECEIPT, self.CreateReceiptItem)
 			
 			if self.receiptlistbox.GetSelection() > 0:
 				
-				edit = wx.MenuItem(popupmenu, EDIT_RECEIPT, self.GetLabel("editlabel"))
+				edit = wx.MenuItem(popupmenu, EDIT_RECEIPT, self.t("editlabel"))
 				edit.SetBitmap(wx.Bitmap("icons/edit.png"))
 				popupmenu.AppendItem(edit)
 				wx.EVT_MENU(popupmenu, EDIT_RECEIPT, self.EditReceiptItem)
 				
-				delete = wx.MenuItem(popupmenu, DELETE_RECEIPT, self.GetLabel("deletelabel"))
+				delete = wx.MenuItem(popupmenu, DELETE_RECEIPT, self.t("deletelabel"))
 				delete.SetBitmap(wx.Bitmap("icons/delete.png"))
 				popupmenu.AppendItem(delete)
 				wx.EVT_MENU(popupmenu, DELETE_RECEIPT, self.Delete)
 			
 			popupmenu.AppendSeparator()
 		
-		refresh = wx.MenuItem(popupmenu, REFRESH_RECEIPTS, self.GetLabel("refreshlabel"))
+		refresh = wx.MenuItem(popupmenu, REFRESH_RECEIPTS, self.t("refreshlabel"))
 		refresh.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refresh)
 		wx.EVT_MENU(popupmenu, REFRESH_RECEIPTS, self.RefreshList)
@@ -967,7 +967,7 @@ class ClientReceiptPanel(wx.Panel):
 			description = ""
 			price = "0.00"
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("vetformreceiptitemlabel"))
+		dialog = wx.Dialog(self, -1, self.t("vetformreceiptitemlabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -975,7 +975,7 @@ class ClientReceiptPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		descriptionlabel = wx.StaticText(panel, -1, self.GetLabel("descriptionlabel"))
+		descriptionlabel = wx.StaticText(panel, -1, self.t("descriptionlabel"))
 		font = descriptionlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		descriptionlabel.SetFont(font)
@@ -984,7 +984,7 @@ class ClientReceiptPanel(wx.Panel):
 		descriptionentry = wx.TextCtrl(panel, -1, description, style=wx.TE_MULTILINE, size=(200,-1))
 		topsizer.Add(descriptionentry, 1, wx.EXPAND)
 		
-		pricelabel = wx.StaticText(panel, -1, self.GetLabel("pricelabel"))
+		pricelabel = wx.StaticText(panel, -1, self.t("pricelabel"))
 		pricelabel.SetFont(font)
 		topsizer.Add(pricelabel, 0, wx.ALIGN_LEFT)
 		
@@ -996,9 +996,9 @@ class ClientReceiptPanel(wx.Panel):
 		pricesizer.Add(wx.StaticText(panel, -1, ""), 1, wx.EXPAND)
 		
 		#submitbitmap = wx.Bitmap("icons/submit.png")
-		submitbutton = wx.Button(panel, -1, self.GetLabel("submitlabel"))
+		submitbutton = wx.Button(panel, -1, self.t("submitlabel"))
 		submitbutton.SetBackgroundColour("green")
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.Submit)
 		pricesizer.Add(submitbutton, 0, wx.EXPAND)
 		
@@ -1034,7 +1034,7 @@ class ClientReceiptPanel(wx.Panel):
 			description = results[0][1]
 			
 			
-			miscmethods.ShowChangeLog(self.GetLabel("clientreceiptchangeloglabel") + description, changelog, self.localsettings.dbconnection)
+			miscmethods.ShowChangeLog(self.t("clientreceiptchangeloglabel") + description, changelog, self.localsettings.dbconnection)
 			
 	
 	def Submit(self, ID):
@@ -1081,7 +1081,7 @@ class ClientReceiptPanel(wx.Panel):
 	
 	def Delete(self, ID=False):
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("clientreceiptdeletemessage")) == True:
+		if miscmethods.ConfirmMessage(self.t("clientreceiptdeletemessage")) == True:
 			listboxid = self.receiptlistbox.GetSelection()
 			receiptid = self.receiptlistbox.htmllist[listboxid][3]
 			
@@ -1143,9 +1143,9 @@ class ClientReceiptPanel(wx.Panel):
 
 class BillSummaryPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field):
 		
-		return  self.clientdata.localsettings.dictionary[field][self.clientdata.localsettings.language]
+		return  self.clientdata.localsettings.t(field)
 	
 	def __init__(self, parent, clientdata):
 		
@@ -1157,7 +1157,7 @@ class BillSummaryPanel(wx.Panel):
 		
 		balancesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		balancelabel = wx.StaticText(self, -1, self.GetLabel("clientbalancelabel"))
+		balancelabel = wx.StaticText(self, -1, self.t("clientbalancelabel"))
 		font = balancelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		balancelabel.SetFont(font)
@@ -1175,7 +1175,7 @@ class BillSummaryPanel(wx.Panel):
 		
 		paymentsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		paymentlabel = wx.StaticText(self, -1,self.GetLabel("clientpaymentlabel") + ":")
+		paymentlabel = wx.StaticText(self, -1,self.t("clientpaymentlabel") + ":")
 		font = paymentlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		paymentlabel.SetFont(font)
@@ -1193,19 +1193,19 @@ class BillSummaryPanel(wx.Panel):
 		
 		self.invoicenumberselectsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		invoicelabel = wx.StaticText(self, -1, self.GetLabel("invoiceidlabel"))
+		invoicelabel = wx.StaticText(self, -1, self.t("invoiceidlabel"))
 		invoicelabel.SetFont(font)
 		self.invoicenumberselectsizer.Add(invoicelabel, 0, wx.ALIGN_LEFT)
 		
 		self.invoicenumberselect = wx.Choice(self, -1, choices=self.invoiceids)
 		self.invoicenumberselect.SetSelection(0)
-		self.invoicenumberselect.SetToolTipString(self.GetLabel("invoiceidchoicetooltip"))
+		self.invoicenumberselect.SetToolTipString(self.t("invoiceidchoicetooltip"))
 		self.invoicenumberselectsizer.Add(self.invoicenumberselect, 0, wx.EXPAND)
 		topsizer.Add(self.invoicenumberselectsizer, 0, wx.EXPAND)
 		
 		#submitbitmap = wx.Bitmap("icons/submit.png")
 		#submitbutton = wx.BitmapButton(self, -1, submitbitmap)
-		#submitbutton.SetToolTipString(self.GetLabel("clientsubmitpaymenttooltip"))
+		#submitbutton.SetToolTipString(self.t("clientsubmitpaymenttooltip"))
 		#submitbutton.Bind(wx.EVT_BUTTON, self.Submit)
 		#topsizer.Add(submitbutton, 0, wx.EXPAND)
 		
@@ -1236,7 +1236,7 @@ class BillSummaryPanel(wx.Panel):
 		results = db.SendSQL(action, self.clientdata.localsettings.dbconnection)
 		
 		
-		self.invoiceids = [self.GetLabel("invoiceidlabel"),]
+		self.invoiceids = [self.t("invoiceidlabel"),]
 		
 		for a in results:
 			
@@ -1255,9 +1255,9 @@ class BillSummaryPanel(wx.Panel):
 		
 		balance = miscmethods.FormatPrice(self.clientpanel.receiptlistbox.totalprice)
 		
-		#output = "<center><u>" + self.GetLabel("clientbalancelabel") + "</u><br><font color=" + colour + " size=5><large>" + self.GetLabel("currency") + balance + "</large></font></center>"
+		#output = "<center><u>" + self.t("clientbalancelabel") + "</u><br><font color=" + colour + " size=5><large>" + self.t("currency") + balance + "</large></font></center>"
 		
-		currencyunit = self.GetLabel("currency")
+		currencyunit = self.t("currency")
 		
 		if currencyunit == "&pound;":
 			
@@ -1282,7 +1282,7 @@ class BillSummaryPanel(wx.Panel):
 		self.invoicenumberselect.Destroy()
 		
 		self.invoicenumberselect = wx.Choice(self, -1, choices=self.invoiceids)
-		self.invoicenumberselect.SetToolTipString(self.GetLabel("invoiceidchoicetooltip"))
+		self.invoicenumberselect.SetToolTipString(self.t("invoiceidchoicetooltip"))
 		self.invoicenumberselectsizer.Add(self.invoicenumberselect, 0, wx.EXPAND)
 		self.invoicenumberselectsizer.Layout()
 		
@@ -1317,7 +1317,7 @@ class BillSummaryPanel(wx.Panel):
 				action = "UPDATE invoice SET Paid = " + str(paid) + " WHERE ID = " + str(invoiceid)
 				db.SendSQL(action, self.clientdata.localsettings.dbconnection)
 			
-			dbmethods.WriteToReceiptTable(self.clientdata.localsettings.dbconnection, False, date, self.GetLabel("clientpaymentinreceiptlabel"), price, 4, clientid, 0, self.clientdata.localsettings.userid)
+			dbmethods.WriteToReceiptTable(self.clientdata.localsettings.dbconnection, False, date, self.t("clientpaymentinreceiptlabel"), price, 4, clientid, 0, self.clientdata.localsettings.userid)
 			
 			
 			
@@ -1434,9 +1434,9 @@ class AnimalsListbox(wx.HtmlListBox):
 
 class ClientInvoicePanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field):
 		
-		return  self.clientdata.localsettings.dictionary[field][self.clientdata.localsettings.language]
+		return  self.clientdata.localsettings.t(field)
 	
 	def __init__(self, parent, clientdata):
 		
@@ -1462,31 +1462,31 @@ class ClientInvoicePanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		addinvoice = wx.MenuItem(popupmenu, ADD_INVOICE, self.GetLabel("addlabel"))
+		addinvoice = wx.MenuItem(popupmenu, ADD_INVOICE, self.t("addlabel"))
 		addinvoice.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(addinvoice)
 		wx.EVT_MENU(popupmenu, ADD_INVOICE, self.GenerateInvoice)
 		
 		if self.invoiceslistbox.GetSelection() > -1:
 			
-			viewinvoice = wx.MenuItem(popupmenu, VIEW_INVOICE, self.GetLabel("viewlabel"))
+			viewinvoice = wx.MenuItem(popupmenu, VIEW_INVOICE, self.t("viewlabel"))
 			viewinvoice.SetBitmap(wx.Bitmap("icons/view.png"))
 			popupmenu.AppendItem(viewinvoice)
 			wx.EVT_MENU(popupmenu, VIEW_INVOICE, self.ViewInvoice)
 			
-			editinvoice = wx.MenuItem(popupmenu, EDIT_INVOICE, self.GetLabel("editlabel"))
+			editinvoice = wx.MenuItem(popupmenu, EDIT_INVOICE, self.t("editlabel"))
 			editinvoice.SetBitmap(wx.Bitmap("icons/edit.png"))
 			popupmenu.AppendItem(editinvoice)
 			wx.EVT_MENU(popupmenu, EDIT_INVOICE, self.EditInvoicePayment)
 			
-			deleteinvoice = wx.MenuItem(popupmenu, DELETE_INVOICE, self.GetLabel("deletelabel"))
+			deleteinvoice = wx.MenuItem(popupmenu, DELETE_INVOICE, self.t("deletelabel"))
 			deleteinvoice.SetBitmap(wx.Bitmap("icons/delete.png"))
 			popupmenu.AppendItem(deleteinvoice)
 			wx.EVT_MENU(popupmenu, DELETE_INVOICE, self.DeleteInvoice)
 		
 		popupmenu.AppendSeparator()
 		
-		refreshinvoice = wx.MenuItem(popupmenu, REFRESH_INVOICES, self.GetLabel("refreshlabel"))
+		refreshinvoice = wx.MenuItem(popupmenu, REFRESH_INVOICES, self.t("refreshlabel"))
 		refreshinvoice.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refreshinvoice)
 		wx.EVT_MENU(popupmenu, REFRESH_INVOICES, self.invoiceslistbox.RefreshList)
@@ -1505,7 +1505,7 @@ class ClientInvoicePanel(wx.Panel):
 		
 		paid = miscmethods.FormatPrice(paid)
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("editinvoicepaymenttitle"))
+		dialog = wx.Dialog(self, -1, self.t("editinvoicepaymenttitle"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -1515,7 +1515,7 @@ class ClientInvoicePanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		pricelabel = wx.StaticText(panel, -1, self.GetLabel("pricelabel"))
+		pricelabel = wx.StaticText(panel, -1, self.t("pricelabel"))
 		font = pricelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		pricelabel.SetFont(font)
@@ -1567,7 +1567,7 @@ class ClientInvoicePanel(wx.Panel):
 		
 		clientdata = self.clientdata
 	
-		dialog = wx.Dialog(self, -1, self.GetLabel("newinvoicetooltip"))
+		dialog = wx.Dialog(self, -1, self.t("newinvoicetooltip"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -1604,7 +1604,7 @@ class ClientInvoicePanel(wx.Panel):
 		
 		#gridsizer = wx.FlexGridSizer(cols=2)
 		
-		fromlabel = wx.StaticText(panel, -1, self.GetLabel("fromlabel") + ":")
+		fromlabel = wx.StaticText(panel, -1, self.t("fromlabel") + ":")
 		font = fromlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		fromlabel.SetFont(font)
@@ -1613,7 +1613,7 @@ class ClientInvoicePanel(wx.Panel):
 		fromentry = customwidgets.DateCtrl(panel, self.clientdata.localsettings)
 		rightsizer.Add(fromentry, 0, wx.EXPAND)
 		
-		tolabel = wx.StaticText(panel, -1, self.GetLabel("tolabel") + ":")
+		tolabel = wx.StaticText(panel, -1, self.t("tolabel") + ":")
 		tolabel.SetFont(font)
 		rightsizer.Add(tolabel, 0, wx.EXPAND)
 		
@@ -1623,9 +1623,9 @@ class ClientInvoicePanel(wx.Panel):
 		rightsizer.Add(wx.Panel(panel), 1, wx.EXPAND)
 		
 		#submitbitmap = wx.Bitmap("icons/submit.png")
-		submitbutton = wx.Button(panel, -1, self.GetLabel("submitlabel"))
+		submitbutton = wx.Button(panel, -1, self.t("submitlabel"))
 		submitbutton.SetBackgroundColour("green")
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.CreateInvoice)
 		rightsizer.Add(submitbutton, 0, wx.ALIGN_CENTER)
 		
@@ -1675,7 +1675,7 @@ class ClientInvoicePanel(wx.Panel):
 		if len(results) > 0:
 			
 			
-			miscmethods.ShowMessage(self.GetLabel("invoiceoverlapmessage"))
+			miscmethods.ShowMessage(self.t("invoiceoverlapmessage"))
 			
 		else:
 			
@@ -1830,9 +1830,9 @@ def GenerateClientForm(ID):
 
 class InvoicesListbox(customwidgets.ListCtrlWrapper):
 	
-	def GetLabel(self, field):
+	def t(self, field):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field)
 	
 	def __init__(self, parent, clientdata):
 		
@@ -1841,7 +1841,7 @@ class InvoicesListbox(customwidgets.ListCtrlWrapper):
 		self.parent = parent
 		self.clientdata = clientdata
 		
-		columnheadings = (self.GetLabel("invoiceidlabel"), self.GetLabel("fromlabel"), self.GetLabel("tolabel"), self.GetLabel("totallabel"), self.GetLabel("paidlabel"))
+		columnheadings = (self.t("invoiceidlabel"), self.t("fromlabel"), self.t("tolabel"), self.t("totallabel"), self.t("paidlabel"))
 		
 		imageslist = ("icons/ontime.png", "icons/dna.png")
 		
@@ -1853,7 +1853,7 @@ class InvoicesListbox(customwidgets.ListCtrlWrapper):
 		fromdate = miscmethods.FormatSQLDate(rowdata[2], self.localsettings)
 		todate = miscmethods.FormatSQLDate(rowdata[3], self.localsettings)
 		
-		currency = self.GetLabel("currency")
+		currency = self.t("currency")
 		
 		if currency == "&pound;":
 			
@@ -1883,9 +1883,9 @@ class InvoicesListbox(customwidgets.ListCtrlWrapper):
 
 #class InvoicesListbox(wx.HtmlListBox):
 	
-	#def GetLabel(self, field):
+	#def t(self, field):
 		
-		#return  self.clientdata.localsettings.dictionary[field][self.clientdata.localsettings.language]
+		#return  self.clientdata.localsettings.t(field)
 	
 	#def __init__(self, parent, clientdata):
 		
@@ -1906,13 +1906,13 @@ class InvoicesListbox(customwidgets.ListCtrlWrapper):
 			
 			#if self.htmllist[n][6] != self.htmllist[n][4]:
 				
-				#invoicepaid = "<font size=2 color=red>" + self.GetLabel("paidlabel") + " " + self.GetLabel("currency") + miscmethods.FormatPrice(self.htmllist[n][6]) + "</font>"
+				#invoicepaid = "<font size=2 color=red>" + self.t("paidlabel") + " " + self.t("currency") + miscmethods.FormatPrice(self.htmllist[n][6]) + "</font>"
 				
 			#else:
 				
-				#invoicepaid = "<font size=2 color=green>" + self.GetLabel("paidlabel") + " " + self.GetLabel("currency") + miscmethods.FormatPrice(self.htmllist[n][6]) + "</font>"
+				#invoicepaid = "<font size=2 color=green>" + self.t("paidlabel") + " " + self.t("currency") + miscmethods.FormatPrice(self.htmllist[n][6]) + "</font>"
 			
-			#output = "<table cellpadding=0 cellspacing=5><tr><td><font size=2 color=red>#" + str(self.htmllist[n][0]) + "</font></td><td><font size=2 color=blue> " + self.GetLabel("fromlabel").lower() + " " + miscmethods.FormatSQLDate(self.htmllist[n][2], self.clientdata.localsettings) + " " + self.GetLabel("tolabel").lower() + " " + miscmethods.FormatSQLDate(self.htmllist[n][3], self.clientdata.localsettings) + "</font></td><td><font size=2 color=red>" + self.GetLabel("totallabel") + ": " + self.GetLabel("currency") + miscmethods.FormatPrice(self.htmllist[n][4]) + "</font></td><td>" + invoicepaid + "</td>"
+			#output = "<table cellpadding=0 cellspacing=5><tr><td><font size=2 color=red>#" + str(self.htmllist[n][0]) + "</font></td><td><font size=2 color=blue> " + self.t("fromlabel").lower() + " " + miscmethods.FormatSQLDate(self.htmllist[n][2], self.clientdata.localsettings) + " " + self.t("tolabel").lower() + " " + miscmethods.FormatSQLDate(self.htmllist[n][3], self.clientdata.localsettings) + "</font></td><td><font size=2 color=red>" + self.t("totallabel") + ": " + self.t("currency") + miscmethods.FormatPrice(self.htmllist[n][4]) + "</font></td><td>" + invoicepaid + "</td>"
 			
 			#output = output + "</tr></table>"
 			
@@ -1933,16 +1933,16 @@ class InvoicesListbox(customwidgets.ListCtrlWrapper):
 
 class FindClientDialog(wx.Dialog, listmix.ColumnSorterMixin):
 	
-	def GetLabel(self, field):
+	def t(self, field):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field)
 	
 	def __init__(self, parent, localsettings):
 		
 		self.parent = parent
 		self.localsettings = localsettings
 		
-		wx.Dialog.__init__(self, parent, -1, self.GetLabel("clientsearchpagetitle"))
+		wx.Dialog.__init__(self, parent, -1, self.t("clientsearchpagetitle"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -1952,7 +1952,7 @@ class FindClientDialog(wx.Dialog, listmix.ColumnSorterMixin):
 		
 		inputsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		namelabel = wx.StaticText(panel, -1, self.GetLabel("namelabel"))
+		namelabel = wx.StaticText(panel, -1, self.t("namelabel"))
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -1963,7 +1963,7 @@ class FindClientDialog(wx.Dialog, listmix.ColumnSorterMixin):
 		nameentry.SetFocus()
 		inputsizer.Add(nameentry, 0, wx.EXPAND)
 		
-		addresslabel = wx.StaticText(panel, -1, self.GetLabel("clientaddresslabel"))
+		addresslabel = wx.StaticText(panel, -1, self.t("clientaddresslabel"))
 		addresslabel.SetFont(font)
 		inputsizer.Add(addresslabel, 0, wx.ALIGN_LEFT)
 		
@@ -1971,7 +1971,7 @@ class FindClientDialog(wx.Dialog, listmix.ColumnSorterMixin):
 		addressentry.Bind(wx.EVT_CHAR, self.ButtonPressed)
 		inputsizer.Add(addressentry, 0, wx.EXPAND)
 		
-		postcodelabel = wx.StaticText(panel, -1, self.GetLabel("clientpostcodelabel"))
+		postcodelabel = wx.StaticText(panel, -1, self.t("clientpostcodelabel"))
 		postcodelabel.SetFont(font)
 		inputsizer.Add(postcodelabel, 0, wx.ALIGN_LEFT)
 		
@@ -1989,16 +1989,16 @@ class FindClientDialog(wx.Dialog, listmix.ColumnSorterMixin):
 		self.listctrl = wx.ListCtrl(panel, -1, size=(500, 300), style=wx.LC_REPORT)
 		listmix.ColumnSorterMixin.__init__(self, 4)
 		
-		self.listctrl.InsertColumn(0,self.GetLabel("namelabel"))
-		self.listctrl.InsertColumn(1,self.GetLabel("clientaddresslabel"))
-		self.listctrl.InsertColumn(2,self.GetLabel("clientpostcodelabel"))
+		self.listctrl.InsertColumn(0,self.t("namelabel"))
+		self.listctrl.InsertColumn(1,self.t("clientaddresslabel"))
+		self.listctrl.InsertColumn(2,self.t("clientpostcodelabel"))
 		
 		self.listctrl.SetColumnWidth(0, wx.LIST_AUTOSIZE_USEHEADER)
 		self.listctrl.SetColumnWidth(1, wx.LIST_AUTOSIZE_USEHEADER)
 		self.listctrl.SetColumnWidth(2, wx.LIST_AUTOSIZE_USEHEADER)
 		
 		self.listctrl.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.ClientSelected)
-		self.listctrl.SetToolTipString(self.GetLabel("doubleclicktoselecttooltip"))
+		self.listctrl.SetToolTipString(self.t("doubleclicktoselecttooltip"))
 		topsizer.Add(self.listctrl, 1, wx.EXPAND)
 		
 		panel.SetSizer(topsizer)
@@ -2046,9 +2046,9 @@ class FindClientDialog(wx.Dialog, listmix.ColumnSorterMixin):
 		
 		self.listctrl.ClearAll()
 		
-		self.listctrl.InsertColumn(0,self.GetLabel("namelabel"))
-		self.listctrl.InsertColumn(1,self.GetLabel("clientaddresslabel"))
-		self.listctrl.InsertColumn(2,self.GetLabel("clientpostcodelabel"))
+		self.listctrl.InsertColumn(0,self.t("namelabel"))
+		self.listctrl.InsertColumn(1,self.t("clientaddresslabel"))
+		self.listctrl.InsertColumn(2,self.t("clientpostcodelabel"))
 		
 		count = 0
 		
@@ -2105,9 +2105,9 @@ class FindClientDialog(wx.Dialog, listmix.ColumnSorterMixin):
 
 class ASMClientImport:
 	
-	def GetLabel(self, field):
+	def t(self, field):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field)
 	
 	def __init__(self, notebook, localsettings, opennewclient=True):
 		
@@ -2120,7 +2120,7 @@ class ASMClientImport:
 		
 		asmconnection = db.GetASMConnection()
 		
-		dialog = wx.Dialog(self.notebook, -1, self.GetLabel("chooseclientlabel"))
+		dialog = wx.Dialog(self.notebook, -1, self.t("chooseclientlabel"))
 		
 		iconFile = "icons/asm.ico"
 		icon1 = wx.Icon(iconFile, wx.BITMAP_TYPE_ICO)
@@ -2134,7 +2134,7 @@ class ASMClientImport:
 		
 		inputsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		namelabel = wx.StaticText(panel, -1, self.GetLabel("namelabel"))
+		namelabel = wx.StaticText(panel, -1, self.t("namelabel"))
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -2145,7 +2145,7 @@ class ASMClientImport:
 		nameentry.Bind(wx.EVT_CHAR, self.ASMClientImportButtonPressed)
 		inputsizer.Add(nameentry, 0, wx.EXPAND)
 		
-		addresslabel = wx.StaticText(panel, -1, self.GetLabel("clientaddresslabel"))
+		addresslabel = wx.StaticText(panel, -1, self.t("clientaddresslabel"))
 		addresslabel.SetFont(font)
 		inputsizer.Add(addresslabel, 0, wx.ALIGN_LEFT)
 		
@@ -2153,7 +2153,7 @@ class ASMClientImport:
 		addressentry.Bind(wx.EVT_CHAR, self.ASMClientImportButtonPressed)
 		inputsizer.Add(addressentry, 0, wx.EXPAND)
 		
-		postcodelabel = wx.StaticText(panel, -1, self.GetLabel("clientpostcodelabel"))
+		postcodelabel = wx.StaticText(panel, -1, self.t("clientpostcodelabel"))
 		postcodelabel.SetFont(font)
 		inputsizer.Add(postcodelabel, 0, wx.ALIGN_LEFT)
 		
@@ -2169,11 +2169,11 @@ class ASMClientImport:
 		
 		listbox = customwidgets.ClientImportListCtrl(panel, self.localsettings)
 		listbox.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.SubmitASMClientImport)
-		listbox.SetToolTipString(self.GetLabel("doubleclicktoselecttooltip"))
+		listbox.SetToolTipString(self.t("doubleclicktoselecttooltip"))
 		customwidgets.ListCtrlWrapper.RefreshList(listbox)
 		resultssizer.Add(listbox, 1, wx.EXPAND)
 		
-		totallabel = wx.StaticText(panel, -1, self.GetLabel("totallabel") + ": 0 ")
+		totallabel = wx.StaticText(panel, -1, self.t("totallabel") + ": 0 ")
 		resultssizer.Add(totallabel, 0, wx.ALIGN_RIGHT)
 		
 		topsizer.Add(wx.StaticText(panel, -1, "", size=(10,-1)), 0, wx.EXPAND)
@@ -2375,9 +2375,9 @@ class ASMClientImport:
 
 class CheckForExistingClient:
 	
-	def GetLabel(self, label):
+	def t(self, label):
 		
-		return miscmethods.GetLabel(label, self.localsettings)
+		return miscmethods.t(label, self.localsettings)
 	
 	def __init__(self, parent, clientdata, notebook=False):
 		
@@ -2403,9 +2403,9 @@ class CheckForExistingClient:
 			
 			if len(possiblematches) > 0:
 				
-				if miscmethods.ConfirmMessage(self.GetLabel("possibleduplicateownermessage"), self.parent):
+				if miscmethods.ConfirmMessage(self.t("possibleduplicateownermessage"), self.parent):
 					
-					dialog = wx.Dialog(self.parent, -1, self.GetLabel("animalownerlabel"))
+					dialog = wx.Dialog(self.parent, -1, self.t("animalownerlabel"))
 					
 					dialogsizer = wx.BoxSizer(wx.VERTICAL)
 					
@@ -2414,7 +2414,7 @@ class CheckForExistingClient:
 					topsizer = wx.BoxSizer(wx.VERTICAL)
 					
 					listbox = wx.ListBox(panel, size=(300,200))
-					listbox.SetToolTipString(self.GetLabel("doubleclicktoselecttooltip"))
+					listbox.SetToolTipString(self.t("doubleclicktoselecttooltip"))
 					listbox.Bind(wx.EVT_LISTBOX_DCLICK, self.SelectClient)
 					topsizer.Add(listbox, 1, wx.EXPAND)
 					

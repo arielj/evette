@@ -30,9 +30,9 @@ import appointmentmethods
 
 class MailShotPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field, idx)
 	
 	def __init__(self, notebook, localsettings):
 		
@@ -40,7 +40,7 @@ class MailShotPanel(wx.Panel):
 		
 		self.localsettings = localsettings
 		
-		self.pagetitle = self.GetLabel("mailshotpagetitle")
+		self.pagetitle = self.t("mailshotpagetitle")
 		
 		self.pagetitle = miscmethods.GetPageTitle(notebook, self.pagetitle)
 		
@@ -52,7 +52,7 @@ class MailShotPanel(wx.Panel):
 		
 		self.vaccinationspanel = VaccinationsPanel(mainnotebook, self.localsettings)
 		
-		mainnotebook.AddPage(self.vaccinationspanel, self.GetLabel("animalvaccinationslabel"), select=True)
+		mainnotebook.AddPage(self.vaccinationspanel, self.t("animalvaccinationslabel"), select=True)
 		
 		topsizer.Add(mainnotebook, 1, wx.EXPAND)
 		
@@ -62,9 +62,9 @@ class MailShotPanel(wx.Panel):
 
 class VaccinationsPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field)
 	
 	def GetButtonLabel(self, field, index):
 		
@@ -86,19 +86,19 @@ class VaccinationsPanel(wx.Panel):
 		gridsizer.AddGrowableRow(4)
 		gridsizer.AddGrowableRow(7)
 		
-		fromdatelabel = wx.StaticText(self, -1, self.GetLabel("fromlabel") + ": ")
+		fromdatelabel = wx.StaticText(self, -1, self.t("fromlabel") + ": ")
 		gridsizer.Add(fromdatelabel, 0, wx.ALIGN_RIGHT)
 		
 		fromdateentry = customwidgets.DateCtrl(self, self.localsettings)
 		gridsizer.Add(fromdateentry, 1, wx.EXPAND)
 		
-		todatelabel = wx.StaticText(self, -1, self.GetLabel("tolabel") + ": ")
+		todatelabel = wx.StaticText(self, -1, self.t("tolabel") + ": ")
 		gridsizer.Add(todatelabel, 0, wx.ALIGN_RIGHT)
 		
 		todateentry = customwidgets.DateCtrl(self, self.localsettings)
 		gridsizer.Add(todateentry, 1, wx.EXPAND)
 		
-		specieslabel = wx.StaticText(self, -1, self.GetLabel("animalspecieslabel") + ": ")
+		specieslabel = wx.StaticText(self, -1, self.t("animalspecieslabel") + ": ")
 		gridsizer.Add(specieslabel, 0, wx.ALIGN_RIGHT)
 		
 		action = "SELECT * FROM species ORDER BY SpeciesName"
@@ -114,7 +114,7 @@ class VaccinationsPanel(wx.Panel):
 		specieschoice.Disable()
 		specieschoicesizer.Add(specieschoice, 1, wx.EXPAND)
 		
-		speciestickbox = wx.CheckBox(self, -1, self.GetLabel("anyspecies"))
+		speciestickbox = wx.CheckBox(self, -1, self.t("anyspecies"))
 		speciestickbox.Bind(wx.EVT_CHECKBOX, self.AnySpecies)
 		speciestickbox.SetValue(True)
 		specieschoicesizer.Add(speciestickbox, 0, wx.EXPAND)
@@ -160,7 +160,7 @@ class VaccinationsPanel(wx.Panel):
 		#gridsizer.Add(wx.StaticText(self, -1, ""), 0, wx.EXPAND)
 		#gridsizer.Add(wx.StaticText(self, -1, ""), 0, wx.EXPAND)
 		
-		vaccinelabel = wx.StaticText(self, -1, self.GetLabel("animalvaccinelabel") + ": ")
+		vaccinelabel = wx.StaticText(self, -1, self.t("animalvaccinelabel") + ": ")
 		gridsizer.Add(vaccinelabel, 0, wx.ALIGN_RIGHT)
 		
 		action = "SELECT * FROM medication WHERE Type = 1 ORDER BY Name"
@@ -178,7 +178,7 @@ class VaccinationsPanel(wx.Panel):
 		vaccinechoice.Disable()
 		vaccinechoicesizer.Add(vaccinechoice, 1, wx.EXPAND)
 		
-		vaccinetickbox = wx.CheckBox(self, -1, self.GetLabel("anyvaccine"))
+		vaccinetickbox = wx.CheckBox(self, -1, self.t("anyvaccine"))
 		vaccinetickbox.Bind(wx.EVT_CHECKBOX, self.AnyVaccine)
 		vaccinetickbox.SetValue(True)
 		vaccinechoicesizer.Add(vaccinetickbox, 0, wx.EXPAND)
@@ -224,7 +224,7 @@ class VaccinationsPanel(wx.Panel):
 		
 		#topsizer.Add(wx.StaticText(self, -1, ""), 1, wx.EXPAND)
 		
-		gobutton = wx.Button(self, -1, self.GetLabel("searchlabel"))
+		gobutton = wx.Button(self, -1, self.t("searchlabel"))
 		gobutton.Bind(wx.EVT_BUTTON, self.Go)
 		topsizer.Add(gobutton, 0, wx.ALIGN_CENTER_HORIZONTAL)
 		
@@ -279,7 +279,7 @@ class VaccinationsPanel(wx.Panel):
 		listbox.Bind(wx.EVT_LISTBOX, self.VaccinationSelected)
 		rightsizer.Add(listbox, 1, wx.EXPAND)
 		
-		totallabel = wx.StaticText(self, -1, self.GetLabel("totallabel") + ": 0 ")
+		totallabel = wx.StaticText(self, -1, self.t("totallabel") + ": 0 ")
 		rightsizer.Add(totallabel, 0, wx.ALIGN_RIGHT)
 		
 		horizontalsizer.Add(rightsizer, 2, wx.EXPAND)
@@ -601,7 +601,7 @@ class VaccinationsPanel(wx.Panel):
 		out.write(output)
 		out.close()
 		
-		miscmethods.ShowMessage(self.GetLabel("csvsavedtolabel") + " " + path)
+		miscmethods.ShowMessage(self.t("csvsavedtolabel") + " " + path)
 
 class VaccineMailShotListbox(wx.HtmlListBox):
 	
@@ -734,5 +734,5 @@ class VaccineMailShotListbox(wx.HtmlListBox):
 		self.parent.editownerbutton.Disable()
 		self.parent.createappointmentbutton.Disable()
 		
-		self.parent.totallabel.SetLabel(self.parent.GetLabel("totallabel") + ": " + str(len(self.htmllist)) + " ")
+		self.parent.totallabel.SetLabel(self.parent.t("totallabel") + ": " + str(len(self.htmllist)) + " ")
 		self.parent.rightsizer.Layout()

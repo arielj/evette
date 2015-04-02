@@ -101,13 +101,8 @@ class AppointmentSettings:
 
 class AppointmentPanel(wx.Panel):
 	
-	def GetLabel(self, field):
-		
-		return  self.appointmentdata.localsettings.dictionary[field][self.appointmentdata.localsettings.language]
-	
-	def GetButtonLabel(self, field, index):
-		
-		return  self.appointmentdata.localsettings.dictionary[field][self.appointmentdata.localsettings.language][index]
+	def t(self, field, idx = 0):
+		return  self.appointmentdata.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, appointmentdata):
 		
@@ -118,9 +113,9 @@ class AppointmentPanel(wx.Panel):
 		self.viewappointmentspanel = False
 		
 		if self.appointmentdata.operation == 0:
-			pagetitle = self.GetLabel("appointmentappointmentforlabel") + " " + self.appointmentdata.animaldata.name + " " + self.appointmentdata.clientdata.surname
+			pagetitle = self.t("appointmentappointmentforlabel") + " " + self.appointmentdata.animaldata.name + " " + self.appointmentdata.clientdata.surname
 		else:
-			pagetitle = self.GetLabel("appointmentoperationforlabel") + " " + self.appointmentdata.animaldata.name + " " + self.appointmentdata.clientdata.surname
+			pagetitle = self.t("appointmentoperationforlabel") + " " + self.appointmentdata.animaldata.name + " " + self.appointmentdata.clientdata.surname
 		self.pagetitle = miscmethods.GetPageTitle(notebook, pagetitle)
 		
 		datesizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -141,20 +136,20 @@ class AppointmentPanel(wx.Panel):
 		if self.appointmentdata.vet != "None":
 			self.vetcombobox.SetValue(str(self.appointmentdata.vet))
 		self.vetcombobox.Bind(wx.EVT_CHAR, self.UseVetComboBox)
-		self.vetcombobox.SetToolTipString(self.GetLabel("appointmententervettooltip"))
+		self.vetcombobox.SetToolTipString(self.t("appointmententervettooltip"))
 		
 		
 		refreshbitmap = wx.Bitmap("icons/refresh.png")
 		refreshappointmentsbutton = wx.BitmapButton(self, -1, refreshbitmap)
 		refreshappointmentsbutton.Bind(wx.EVT_BUTTON, self.RefreshAppointment)
-		refreshappointmentsbutton.SetToolTipString(self.GetLabel("appointmentrefreshtooltip"))
+		refreshappointmentsbutton.SetToolTipString(self.t("appointmentrefreshtooltip"))
 		
 		datesizer.Add(self.appointmententry, 1, wx.EXPAND)
 		datesizer.Add(self.vetcombobox, 1, wx.EXPAND)
 		datesizer.Add(refreshappointmentsbutton, 0, wx.ALIGN_LEFT)
 		
 		reasonsizer = wx.BoxSizer(wx.VERTICAL)
-		self.reasonlabel = wx.StaticText(self, -1, self.GetLabel("appointmentreasonlabel"))
+		self.reasonlabel = wx.StaticText(self, -1, self.t("appointmentreasonlabel"))
 		reasonsizer.Add(self.reasonlabel, 0, wx.ALIGN_LEFT)
 		
 		self.reasonentry = wx.TextCtrl(self, -1, self.appointmentdata.reason, style=wx.TE_MULTILINE, size=(-1,100))
@@ -170,7 +165,7 @@ class AppointmentPanel(wx.Panel):
 		searchsizer.Add(searchspacer2, 0, wx.EXPAND)
 		
 		appointmenttimesizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.appointmenttimelabel = wx.StaticText(self, -1, self.GetLabel("appointmenttimelabel"))
+		self.appointmenttimelabel = wx.StaticText(self, -1, self.t("appointmenttimelabel"))
 		
 		time = str(self.appointmentdata.time)
 		
@@ -186,9 +181,9 @@ class AppointmentPanel(wx.Panel):
 		appointmenttimespacer = wx.StaticText(self, -1, "")
 		appointmenttimesizer.Add(appointmenttimespacer, 1, wx.EXPAND)
 		
-		self.opcheckbox = wx.CheckBox(self, -1, self.GetButtonLabel("appointmentisopcheckbox", 0))
+		self.opcheckbox = wx.CheckBox(self, -1, self.t("appointmentisopcheckbox", 0))
 		self.opcheckbox.Bind(wx.EVT_CHECKBOX, self.SwitchToOps)
-		self.opcheckbox.SetToolTipString(self.GetButtonLabel("appointmentisopcheckbox", 1))
+		self.opcheckbox.SetToolTipString(self.t("appointmentisopcheckbox", 1))
 		appointmenttimesizer.Add(self.opcheckbox, 0, wx.ALIGN_CENTER)
 		
 		appointmenttimespacer1 = wx.StaticText(self, -1, "")
@@ -197,7 +192,7 @@ class AppointmentPanel(wx.Panel):
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		appointmentsubmitbutton = wx.BitmapButton(self, -1, submitbitmap)
 		appointmentsubmitbutton.Bind(wx.EVT_BUTTON, self.Submit)
-		appointmentsubmitbutton.SetToolTipString(self.GetLabel("appointmentsubmittooltip"))
+		appointmentsubmitbutton.SetToolTipString(self.t("appointmentsubmittooltip"))
 		appointmenttimesizer.Add(appointmentsubmitbutton)
 		
 		searchsizer.Add(appointmenttimesizer, 0, wx.EXPAND)
@@ -209,7 +204,7 @@ class AppointmentPanel(wx.Panel):
 		
 		deletebitmap = wx.Bitmap("icons/delete.png")
 		deletebutton = wx.BitmapButton(self, -1, deletebitmap)
-		deletebutton.SetToolTipString(self.GetLabel("appointmentdeletetooltip"))
+		deletebutton.SetToolTipString(self.t("appointmentdeletetooltip"))
 		deletebutton.Bind(wx.EVT_BUTTON, self.Delete)
 		buttonssizer.Add(deletebutton, 0, wx.EXPAND)
 		
@@ -219,10 +214,10 @@ class AppointmentPanel(wx.Panel):
 		buttonsspacer = wx.StaticText(self, -1, "")
 		buttonssizer.Add(buttonsspacer, 1, wx.EXPAND)
 		
-		statuslabel = wx.StaticText(self, -1, self.GetLabel("appointmentstatuslabel"))
+		statuslabel = wx.StaticText(self, -1, self.t("appointmentstatuslabel"))
 		buttonssizer.Add(statuslabel, 0, wx.ALIGN_CENTER)
 		
-		statuschoice = wx.Choice(self, -1, choices=(self.GetLabel("appointmentnotarrivedlabel"), self.GetLabel("appointmentwaitinglabel"), self.GetLabel("appointmentwithvetlabel"), self.GetLabel("appointmentdonelabel")))
+		statuschoice = wx.Choice(self, -1, choices=(self.t("appointmentnotarrivedlabel"), self.t("appointmentwaitinglabel"), self.t("appointmentwithvetlabel"), self.t("appointmentdonelabel")))
 		if self.appointmentdata.done == 1:
 			statuschoice.SetSelection(3)
 		elif self.appointmentdata.withvet == 1:
@@ -241,9 +236,9 @@ class AppointmentPanel(wx.Panel):
 		
 		owneranimalsizer = wx.BoxSizer(wx.HORIZONTAL)
 		
-		editownerbutton = wx.Button(self, -1, self.GetButtonLabel("appointmenteditownerbutton", 0))
+		editownerbutton = wx.Button(self, -1, self.t("appointmenteditownerbutton", 0))
 		editownerbutton.SetForegroundColour("blue")
-		editownerbutton.SetToolTipString(self.GetButtonLabel("appointmenteditownerbutton", 1))
+		editownerbutton.SetToolTipString(self.t("appointmenteditownerbutton", 1))
 		editownerbutton.Bind(wx.EVT_BUTTON, self.OpenClientRecord)
 		owneranimalsizer.Add(editownerbutton, 0, wx.EXPAND)
 		
@@ -253,9 +248,9 @@ class AppointmentPanel(wx.Panel):
 		owneranimalspacer = wx.StaticText(self, -1, "")
 		owneranimalsizer.Add(owneranimalspacer, 1, wx.EXPAND)
 		
-		editanimalbutton = wx.Button(self, -1, self.GetButtonLabel("appointmenteditanimalbutton", 0))
+		editanimalbutton = wx.Button(self, -1, self.t("appointmenteditanimalbutton", 0))
 		editanimalbutton.SetForegroundColour("blue")
-		editanimalbutton.SetToolTipString(self.GetButtonLabel("appointmenteditanimalbutton", 1))
+		editanimalbutton.SetToolTipString(self.t("appointmenteditanimalbutton", 1))
 		editanimalbutton.Bind(wx.EVT_BUTTON, self.OpenAnimalRecord)
 		owneranimalsizer.Add(editanimalbutton, 0, wx.EXPAND)
 		
@@ -273,7 +268,7 @@ class AppointmentPanel(wx.Panel):
 		date = miscmethods.GetDateFromWXDate(date)
 		date = miscmethods.FormatDate(date, self.appointmentdata.localsettings)
 		
-		appointmentslistboxlabeltext = self.GetLabel("appointmentappointmentsforlabel") + " "  + str(date)
+		appointmentslistboxlabeltext = self.t("appointmentappointmentsforlabel") + " "  + str(date)
 		
 		self.appointmentslistboxlabel = wx.StaticText(self, -1, appointmentslistboxlabeltext)
 		
@@ -285,7 +280,7 @@ class AppointmentPanel(wx.Panel):
 		appointmentslistboxsizer.Add(self.appointmentslistboxlabel, 0, wx.EXPAND)
 		appointmentslistboxsizer.Add(self.appointmentslistbox, 1, wx.EXPAND)
 		
-		self.appointmentlistboxtotal = wx.StaticText(self, -1, self.GetLabel("totallabel") + ": 0")
+		self.appointmentlistboxtotal = wx.StaticText(self, -1, self.t("totallabel") + ": 0")
 		appointmentslistboxsizer.Add(self.appointmentlistboxtotal, 0, wx.ALIGN_RIGHT)
 		
 		mainsizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -343,7 +338,7 @@ class AppointmentPanel(wx.Panel):
 		
 		total = len(results)
 		
-		self.appointmentlistboxtotal.SetLabel(self.GetLabel("totallabel") + ": " + str(total))
+		self.appointmentlistboxtotal.SetLabel(self.t("totallabel") + ": " + str(total))
 		
 		self.appointmentslistboxsizer.Layout()
 	
@@ -430,11 +425,11 @@ class AppointmentPanel(wx.Panel):
 					time = time[:2] + ":" + time[3:5]
 					success = True
 				else:
-					failurereason = self.GetLabel("appointmenttimetooearlymessage")
+					failurereason = self.t("appointmenttimetooearlymessage")
 			else:
-				failurereason = self.GetLabel("appointmenttimetoolatemessage")
+				failurereason = self.t("appointmenttimetoolatemessage")
 		else:
-			failurereason = self.GetLabel("appointmentinvalidtimemessage")
+			failurereason = self.t("appointmentinvalidtimemessage")
 		
 		if success == True:
 			
@@ -494,9 +489,9 @@ class AppointmentPanel(wx.Panel):
 		isop = self.opcheckbox.GetValue()
 		
 		if isop == True:
-			appointmentslistboxlabeltext = self.GetLabel("appointmentoperationsforlabel") + " " + weekday + " " + str(datestring)
+			appointmentslistboxlabeltext = self.t("appointmentoperationsforlabel") + " " + weekday + " " + str(datestring)
 		else:
-			appointmentslistboxlabeltext = self.GetLabel("appointmentappointmentsforlabel") + " " + weekday + " " + str(datestring)
+			appointmentslistboxlabeltext = self.t("appointmentappointmentsforlabel") + " " + weekday + " " + str(datestring)
 		self.appointmentslistboxlabel.SetLabel(appointmentslistboxlabeltext)
 		
 		self.appointmentslistbox.sqldate = sqldate

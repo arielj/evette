@@ -1248,6 +1248,6 @@ def CorrectNullString(string):
 	
 	return string
 
-def GetLabel(label, localsettings):
+def t(label, localsettings):
 	
-	return localsettings.dictionary[label][localsettings.language]
+	return localsettings.t(label)

@@ -142,9 +142,9 @@ class DayPlannerListbox(wx.HtmlListBox):
       
       if vets == "":
         
-        vets = self.localsettings.dictionary["nonelabel"][self.localsettings.language]
+        vets = self.localsettings.t("nonelabel")
       
-      dialog = wx.Dialog(self, -1, self.localsettings.dictionary["viewappointmentsvetsonlabel"][self.localsettings.language])
+      dialog = wx.Dialog(self, -1, self.localsettings.t("viewappointmentsvetsonlabel"))
       
       dialogsizer = wx.BoxSizer(wx.VERTICAL)
       
@@ -197,7 +197,7 @@ class DayPlannerListbox(wx.HtmlListBox):
     
     if appointmentinfo == "":
       
-      output = output + "<font color=green><b>" + self.localsettings.dictionary["nonelabel"][self.localsettings.language] + "</b></font>"
+      output = output + "<font color=green><b>" + self.localsettings.t("nonelabel") + "</b></font>"
       
     else:
       
@@ -235,6 +235,9 @@ class DayPlannerListbox(wx.HtmlListBox):
     del busy
 
 class AppointmentListbox(wx.Panel, listmix.ColumnSorterMixin):
+  
+  def t(self, key, idx = 0):
+    return self.localsettings.t(key,idx)
   
   def __init__(self, parent, localsettings, index):
     
@@ -307,25 +310,25 @@ class AppointmentListbox(wx.Panel, listmix.ColumnSorterMixin):
     
     if self.index == 3:
       
-      self.listctrl.InsertColumn(0, self.localsettings.dictionary["timelabel"][self.localsettings.language])
-      self.listctrl.InsertColumn(1, self.localsettings.dictionary["animalownerlabel"][self.localsettings.language])
-      self.listctrl.InsertColumn(2, self.localsettings.dictionary["animallabel"][self.localsettings.language])
-      self.listctrl.InsertColumn(3, self.localsettings.dictionary["clientbalancelabel"][self.localsettings.language])
+      self.listctrl.InsertColumn(0, self.t("timelabel"))
+      self.listctrl.InsertColumn(1, self.t("animalownerlabel"))
+      self.listctrl.InsertColumn(2, self.t("animallabel"))
+      self.listctrl.InsertColumn(3, self.t("clientbalancelabel"))
       
     elif self.index == 1:
       
-      self.listctrl.InsertColumn(0, self.localsettings.dictionary["timelabel"][self.localsettings.language])
-      self.listctrl.InsertColumn(1, self.localsettings.dictionary["appointmentwaitinglabel"][self.localsettings.language])
-      self.listctrl.InsertColumn(2, self.localsettings.dictionary["animalownerlabel"][self.localsettings.language])
-      self.listctrl.InsertColumn(3, self.localsettings.dictionary["animallabel"][self.localsettings.language])
-      self.listctrl.InsertColumn(4, self.localsettings.dictionary["vetlabel"][self.localsettings.language])
+      self.listctrl.InsertColumn(0, self.t("timelabel"))
+      self.listctrl.InsertColumn(1, self.t("appointmentwaitinglabel"))
+      self.listctrl.InsertColumn(2, self.t("animalownerlabel"))
+      self.listctrl.InsertColumn(3, self.t("animallabel"))
+      self.listctrl.InsertColumn(4, self.t("vetlabel"))
       
     else:
       
-      self.listctrl.InsertColumn(0, self.localsettings.dictionary["timelabel"][self.localsettings.language])
-      self.listctrl.InsertColumn(1, self.localsettings.dictionary["animalownerlabel"][self.localsettings.language])
-      self.listctrl.InsertColumn(2, self.localsettings.dictionary["animallabel"][self.localsettings.language])
-      self.listctrl.InsertColumn(3, self.localsettings.dictionary["vetlabel"][self.localsettings.language])
+      self.listctrl.InsertColumn(0, self.t("timelabel"))
+      self.listctrl.InsertColumn(1, self.t("animalownerlabel"))
+      self.listctrl.InsertColumn(2, self.t("animallabel"))
+      self.listctrl.InsertColumn(3, self.t("vetlabel"))
     
     count = 0
     
@@ -351,7 +354,7 @@ class AppointmentListbox(wx.Panel, listmix.ColumnSorterMixin):
       
       asmref = a[16]
       
-      currencyunit = self.localsettings.dictionary["currency"][self.localsettings.language]
+      currencyunit = self.t("currency")
       
       if currencyunit == "&pound;":
         
@@ -395,7 +398,7 @@ class AppointmentListbox(wx.Panel, listmix.ColumnSorterMixin):
           
           totalarrivalminutes = ( int(hours) * 60 ) + int(minutes)
           
-          waiting = str(totalcurrentminutes - totalarrivalminutes) + " " + self.localsettings.dictionary["minslabel"][self.localsettings.language]
+          waiting = str(totalcurrentminutes - totalarrivalminutes) + " " + self.t("minslabel")
           
           appointmenttime = time
           
@@ -408,13 +411,13 @@ class AppointmentListbox(wx.Panel, listmix.ColumnSorterMixin):
           
           if totalarrivalminutes - totalappointmentminutes > 0:
             
-            waiting = waiting + " (" + self.localsettings.dictionary["latelabel"][self.localsettings.language].lower() + ")"
+            waiting = waiting + " (" + self.t("latelabel").lower() + ")"
             
             late = True
           
         else:
           
-          waiting = self.localsettings.dictionary["errorlabel"][self.localsettings.language]
+          waiting = self.t("errorlabel")
         
         self.itemDataMap[a[0]] = ( time, waiting, ownersurname, animal, vet )
         self.listctrl.InsertStringItem(count, time)
@@ -578,7 +581,7 @@ class MedicationListbox(wx.HtmlListBox):
       
       #print "balance = " + str(balance)
       
-      output = "<table width=100% cellpadding=0 cellspacing=0><tr><td valign=top width=100%><font size=3 color=blue><b>" + str(name) + "</b></font>&nbsp;<font size=2>(" + self.localsettings.dictionary["currency"][self.localsettings.language] + str(price) + " x " + str(unit) + ")</font>" + description + "</td><td align=right valign=top nowrap>" + str(balance) + "</font>&nbsp;</td></tr></table>"
+      output = "<table width=100% cellpadding=0 cellspacing=0><tr><td valign=top width=100%><font size=3 color=blue><b>" + str(name) + "</b></font>&nbsp;<font size=2>(" + self.localsettings.t("currency") + str(price) + " x " + str(unit) + ")</font>" + description + "</td><td align=right valign=top nowrap>" + str(balance) + "</font>&nbsp;</td></tr></table>"
       
       return output
   
@@ -747,7 +750,7 @@ class MedicationListbox(wx.HtmlListBox):
         
         if b[0] != 0:
           
-          batcheshtml = batcheshtml + "\n" + self.localsettings.dictionary["animalvaccinationbatchlabel"][self.localsettings.language] + unicode(b[1], "utf8") + " x " + str(b[0])
+          batcheshtml = batcheshtml + "\n" + self.localsettings.t("animalvaccinationbatchlabel") + unicode(b[1], "utf8") + " x " + str(b[0])
       
       output = list(a)
       output.append(balance)
@@ -839,18 +842,18 @@ class MedicationMovementListBox(wx.HtmlListBox):
         
         source = self.htmllist[n][6]
         
-        if source == self.localsettings.dictionary["clientbalancelabel"][self.localsettings.language]:
+        if source == self.localsettings.t("clientbalancelabel"):
           
           body = "<td valign=top nowrap><font color=blue>" + str(date) + "</font></td><td valign=top width=100%><font color=blue>" + source + "</font></td><td align=right valign=top nowrap><font color=blue>" + str(quantity) + " x " + unit + "</font></td>"
           
         else:
           
-          body = "<td valign=top nowrap>" + str(date) + "</td><td valign=top width=100%><font color=blue>" + batchno + "</font> " + self.localsettings.dictionary["fromlabel"][self.localsettings.language] + " " + source + "</td><td valign=top align=right nowrap><font color=green>+" + str(quantity) + " x " + unit + "</font></td>"
+          body = "<td valign=top nowrap>" + str(date) + "</td><td valign=top width=100%><font color=blue>" + batchno + "</font> " + self.localsettings.t("fromlabel") + " " + source + "</td><td valign=top align=right nowrap><font color=green>+" + str(quantity) + " x " + unit + "</font></td>"
         
       else:
         destination = unicode(self.htmllist[n][5], "utf8")
         #print "destination = " + destination
-        body = "<td valign=top nowrap>" + str(date) + "</td><td valign=top width=100%><font color=blue>" + batchno + "</font> " + self.localsettings.dictionary["tolabel"][self.localsettings.language] + " " + destination + "</td><td valign=top align=right nowrap><font color=red>-" + str(quantity) + " x " + unit + "</font></td>"
+        body = "<td valign=top nowrap>" + str(date) + "</td><td valign=top width=100%><font color=blue>" + batchno + "</font> " + self.localsettings.t("tolabel") + " " + destination + "</td><td valign=top align=right nowrap><font color=red>-" + str(quantity) + " x " + unit + "</font></td>"
       
       footer = "</tr></table>"
       
@@ -919,10 +922,10 @@ class MedicationMovementListBox(wx.HtmlListBox):
         
         balance = balance - a[0]
     
-    action = "SELECT medicationin.Date, medicationin.ID, medicationin.MedicationID, medicationin.Amount, CONCAT(\"" + self.localsettings.dictionary["medicationbatchnolabel"][self.localsettings.language] + "\", medicationin.BatchNo ), DATE_FORMAT(medicationin.Expires, \"%Y-%m-%d\"), medicationin.WhereFrom, 0, medication.Unit FROM medicationin INNER JOIN medication ON medicationin.MedicationID = medication.ID WHERE medicationin.MedicationID = " + str(self.parent.medicationid) + dateargumentsin
+    action = "SELECT medicationin.Date, medicationin.ID, medicationin.MedicationID, medicationin.Amount, CONCAT(\"" + self.localsettings.t("medicationbatchnolabel") + "\", medicationin.BatchNo ), DATE_FORMAT(medicationin.Expires, \"%Y-%m-%d\"), medicationin.WhereFrom, 0, medication.Unit FROM medicationin INNER JOIN medication ON medicationin.MedicationID = medication.ID WHERE medicationin.MedicationID = " + str(self.parent.medicationid) + dateargumentsin
     inresults = db.SendSQL(action, self.localsettings.dbconnection)
     
-    action = "SELECT medicationout.Date, medicationout.ID, medicationout.MedicationID, medicationout.Amount, CONCAT(\"" + self.localsettings.dictionary["medicationbatchnolabel"][self.localsettings.language] + "\", medicationout.BatchNo ), medicationout.WhereTo, medicationout.AppointmentID, 1, medication.Unit FROM medicationout INNER JOIN medication ON medicationout.MedicationID = medication.ID WHERE medicationout.MedicationID = " + str(self.parent.medicationid) + dateargumentsout
+    action = "SELECT medicationout.Date, medicationout.ID, medicationout.MedicationID, medicationout.Amount, CONCAT(\"" + self.localsettings.t("medicationbatchnolabel") + "\", medicationout.BatchNo ), medicationout.WhereTo, medicationout.AppointmentID, 1, medication.Unit FROM medicationout INNER JOIN medication ON medicationout.MedicationID = medication.ID WHERE medicationout.MedicationID = " + str(self.parent.medicationid) + dateargumentsout
     outresults = db.SendSQL(action, self.localsettings.dbconnection)
     
     
@@ -943,7 +946,7 @@ class MedicationMovementListBox(wx.HtmlListBox):
     
     if str(fromdate) != "":
       
-      balancetuple = ( (miscmethods.GetDateFromWXDate(fromdate), -1, self.parent.medicationid, balance, "", None,  self.localsettings.dictionary["clientbalancelabel"][self.localsettings.language], 0, unit), )
+      balancetuple = ( (miscmethods.GetDateFromWXDate(fromdate), -1, self.parent.medicationid, balance, "", None,  self.localsettings.t("clientbalancelabel"), 0, unit), )
       
       results = balancetuple + inresults + outresults
       
@@ -1018,7 +1021,7 @@ class ProceduresListBox(wx.HtmlListBox):
         
         description = "<font size=3>(" + description + ")</font>"
       
-      output = "<table cellpadding=0 cellspacing=0><tr><td align=left valign=top><font color=blue size=4>" + name + "</font>&nbsp;</td><td align=left valign=top>" + description + "&nbsp;</td><td align=left valign=top><font size=3 color=red><b>" + self.localsettings.dictionary["currency"][self.localsettings.language] + price + "</b></font></td></tr></table>"
+      output = "<table cellpadding=0 cellspacing=0><tr><td align=left valign=top><font color=blue size=4>" + name + "</font>&nbsp;</td><td align=left valign=top>" + description + "&nbsp;</td><td align=left valign=top><font size=3 color=red><b>" + self.localsettings.t("currency") + price + "</b></font></td></tr></table>"
       
       return output
   
@@ -1066,9 +1069,9 @@ class VaccinationListbox(wx.HtmlListBox):
       
       #print "balance = " + str(balance)
       
-      vaccine_t = self.localsettings.dictionary['animalvaccinelabel'][self.localsettings.language].lower()
+      vaccine_t = self.localsettings.t('animalvaccinelabel').lower()
       
-      output = "<table width=100% cellpadding=0 cellspacing=0><tr><td valign=top width=100%><font size=2 color=blue>" + str(name) + "</font>&nbsp;<font size=1>(" + self.localsettings.dictionary["currency"][self.localsettings.language] + str(price) + " x " + vaccine_t +")</font><br><font color=red size=1>" + str(description) + "</font></td><td align=right valign=top nowrap>" + balance + "</font></td></tr></table>"
+      output = "<table width=100% cellpadding=0 cellspacing=0><tr><td valign=top width=100%><font size=2 color=blue>" + str(name) + "</font>&nbsp;<font size=1>(" + self.localsettings.t("currency") + str(price) + " x " + vaccine_t +")</font><br><font color=red size=1>" + str(description) + "</font></td><td align=right valign=top nowrap>" + balance + "</font></td></tr></table>"
       
       return output
   
@@ -1210,7 +1213,7 @@ class VaccinationMovementListBox(wx.HtmlListBox):
       
       quantity = self.htmllist[n][3]
       
-      vaccine_t = self.localsettings.dictionary['animalvaccinelabel'][self.localsettings.language].lower()
+      vaccine_t = self.localsettings.t('animalvaccinelabel').lower()
       
       if self.htmllist[n][7] == 0:
         source = self.htmllist[n][6]
@@ -1309,10 +1312,10 @@ class ReceiptListbox(wx.HtmlListBox):
       price = miscmethods.FormatPrice(price * -1)
       
       #if n == 0:
-        #output = "<table width=100% cellpadding=0 cellspacing=0><tr><td align=left><b>Total:</b></td><td align=right><b>" + self.localsettings.dictionary["currency"][self.localsettings.language] + self.htmllist[-1] + "</b>&nbsp;</td></tr></table><table width=100% cellpadding=0 cellspacing=0><tr><td align=left valign=top>" + name + "</td><td align=right valign=top>" + self.localsettings.dictionary["currency"][self.localsettings.language] + price + "&nbsp;</td></tr></table>"
+        #output = "<table width=100% cellpadding=0 cellspacing=0><tr><td align=left><b>Total:</b></td><td align=right><b>" + self.localsettings.t("currency") + self.htmllist[-1] + "</b>&nbsp;</td></tr></table><table width=100% cellpadding=0 cellspacing=0><tr><td align=left valign=top>" + name + "</td><td align=right valign=top>" + self.localsettings.t("currency") + price + "&nbsp;</td></tr></table>"
         #return output
       #else:
-      output = "<table width=100% cellpadding=0 cellspacing=0><tr><td align=left valign=top><font size=2>" + name + "</font></td><td align=right valign=top><font size=2>" + self.localsettings.dictionary["currency"][self.localsettings.language] + price + "&nbsp;</font></td></tr></table>"
+      output = "<table width=100% cellpadding=0 cellspacing=0><tr><td align=left valign=top><font size=2>" + name + "</font></td><td align=right valign=top><font size=2>" + self.localsettings.t("currency") + price + "&nbsp;</font></td></tr></table>"
       
       return output
   
@@ -1340,13 +1343,13 @@ class ReceiptListbox(wx.HtmlListBox):
     
     self.SetSelection(-1)
     
-    currencysymbol = self.localsettings.dictionary["currency"][self.localsettings.language]
+    currencysymbol = self.localsettings.t("currency")
     
     if currencysymbol == "&pound;":
       
       currencysymbol = u"\xa3"
     
-    newtotal = self.localsettings.dictionary["totallabel"][self.localsettings.language] + ": " + currencysymbol + totalprice + " "
+    newtotal = self.localsettings.t("totallabel") + ": " + currencysymbol + totalprice + " "
     
     self.parent.receipttotallabel.SetLabel(miscmethods.NoWrap(newtotal))
     self.parent.prescribedbuttonssizer.Layout()
@@ -1441,9 +1444,9 @@ class ReceiptListbox(wx.HtmlListBox):
       #price = miscmethods.FormatPrice(price)
       
       #if description == "Balance":
-        #output = "<table width=100% cellpadding=5 cellspacing=0><tr><td valign=top align=left nowrap><font size=3 color=green>" + date + "</font></td><td valign=middle align=left width=100%><font size=2 color=green>" + description + "</font></td><td valign=top align=right nowrap><font color=" + colour + " size=3>" + self.localsettings.dictionary["currency"][self.localsettings.language] + price + "</font></td></tr></table>"
+        #output = "<table width=100% cellpadding=5 cellspacing=0><tr><td valign=top align=left nowrap><font size=3 color=green>" + date + "</font></td><td valign=middle align=left width=100%><font size=2 color=green>" + description + "</font></td><td valign=top align=right nowrap><font color=" + colour + " size=3>" + self.localsettings.t("currency" + price + "</font></td></tr></table>"
       #else:
-        #output = "<table width=100% cellpadding=5 cellspacing=0><tr><td valign=top align=left nowrap><font size=3>" + date + "</font></td><td valign=middle align=left width=100%><font size=2>" + description + "</font></td><td valign=top align=right nowrap><font color=" + colour + " size=3>" + self.localsettings.dictionary["currency"][self.localsettings.language] + price + "</font></td></tr></table>"
+        #output = "<table width=100% cellpadding=5 cellspacing=0><tr><td valign=top align=left nowrap><font size=3>" + date + "</font></td><td valign=middle align=left width=100%><font size=2>" + description + "</font></td><td valign=top align=right nowrap><font color=" + colour + " size=3>" + self.localsettings.t("currency") + price + "</font></td></tr></table>"
       
       #return output
   
@@ -1553,15 +1556,15 @@ class VaccinationSummaryListbox(wx.HtmlListBox):
         
         if daypivot == 0:
           
-          today_t = self.localsettings.dictionary["today"][self.localsettings.language].upper()
+          today_t = self.localsettings.t("today").upper()
           
           daypivot = "<font size=2 color=green><b> " + today_t +"</b></font>"
           
         elif daypivot > 0:
           
-          in_t = self.localsettings.dictionary["in"][self.localsettings.language].lower()
-          day_t = self.localsettings.dictionary["day"][self.localsettings.language].lower()
-          days_t = self.localsettings.dictionary["days"][self.localsettings.language].lower()
+          in_t = self.localsettings.t("in").lower()
+          day_t = self.localsettings.t("day").lower()
+          days_t = self.localsettings.t("days").lower()
           
           daypivot_s = "<font size=2 color=green> "+ in_t +" " + str(daypivot) + " "
           
@@ -1576,8 +1579,8 @@ class VaccinationSummaryListbox(wx.HtmlListBox):
           
           daypivot = daypivot * -1
           
-          day_ago_t = self.localsettings.dictionary["day_ago"][self.localsettings.language].lower()
-          days_ago_t = self.localsettings.dictionary["days_ago"][self.localsettings.language].lower()
+          day_ago_t = self.localsettings.t("day_ago").lower()
+          days_ago_t = self.localsettings.t("days_ago").lower()
           
           daypivot_s = "<font size=2 color=red> " + str(daypivot) + " "
           if daypivot == 1:
@@ -1594,9 +1597,9 @@ class VaccinationSummaryListbox(wx.HtmlListBox):
       
       #print str(daypivot)
       
-      given_t = self.localsettings.dictionary["animalgivenlabel"][self.localsettings.language]
-      batch_t = self.localsettings.dictionary["animalvaccinationbatchlabel"][self.localsettings.language]
-      next_t = self.localsettings.dictionary["animalnextlabel"][self.localsettings.language]
+      given_t = self.localsettings.t("animalgivenlabel")
+      batch_t = self.localsettings.t("animalvaccinationbatchlabel")
+      next_t = self.localsettings.t("animalnextlabel")
       
       return "<table width=100% cellpadding=0 cellspacing=5><tr><td valign=top><font size=2>" + given_t + "<br></font><font color=red>" + date + "</font></td><td valign=top width=100%><font color=blue>" + name + "<br></font><font size=2>"+ batch_t + " " + batchno + "</font></td><td valign=top><font size=2>" + next_t + "<br></font>" + nextdue + "<br>" + daypivot_s + "</td></tr></table>"
   
@@ -1652,13 +1655,13 @@ class DateCtrl(wx.TextCtrl):
     date = miscmethods.FormatDate(self.date, localsettings)
     
     wx.TextCtrl.__init__(self, parent, -1, date, size=(100,-1))
-    self.SetToolTipString(self.localsettings.dictionary["datectrltooltip"][self.localsettings.language])
+    self.SetToolTipString(self.localsettings.t("datectrltooltip"))
     self.Bind(wx.EVT_CHAR, self.ButtonPressed)
     self.Bind(wx.EVT_LEFT_DCLICK, self.PopupCalendar)
   
   def PopupCalendar(self, ID):
     
-    dialog = wx.Dialog(self, -1, self.localsettings.dictionary["choosedatetitle"][self.localsettings.language])
+    dialog = wx.Dialog(self, -1, self.localsettings.t("choosedatetitle"))
     
     dialogsizer = wx.BoxSizer(wx.VERTICAL)
     
@@ -1694,11 +1697,11 @@ class DateCtrl(wx.TextCtrl):
         
         value = wx.TextCtrl.GetValue(self)
         
-        if self.localsettings.dictionary["dateformat"][self.localsettings.language] == "DDMMYYYY":
+        if self.localsettings.t("dateformat") == "DDMMYYYY":
           day = value[0:2]
           month = value[3:5]
           year = value[6:10]
-        elif self.localsettings.dictionary["dateformat"][self.localsettings.language] == "MMDDYYYY":
+        elif self.localsettings.t("dateformat") == "MMDDYYYY":
           day = value[3:5]
           month = value[0:2]
           year = value[6:10]
@@ -1916,7 +1919,7 @@ class DateCtrl(wx.TextCtrl):
         
       else:
         
-        if self.localsettings.dictionary["dateformat"][self.localsettings.language] == "DDMMYYYY":
+        if self.localsettings.t("dateformat") == "DDMMYYYY":
           
           if len(value) == 4:
             
@@ -1936,7 +1939,7 @@ class DateCtrl(wx.TextCtrl):
             month = value[3:5]
             year = value[6:10]
           
-        elif self.localsettings.dictionary["dateformat"][self.localsettings.language] == "MMDDYYYY":
+        elif self.localsettings.t("dateformat") == "MMDDYYYY":
           
           if len(value) == 4:
             
@@ -2130,7 +2133,7 @@ class Notebook(wx.Panel):
       closebitmap = wx.Bitmap("icons/close.png")
       tabpanel.closebutton = wx.StaticBitmap(tabpanel, -1, closebitmap)
       tabpanel.closebutton.ID = self.currentid
-      tabpanel.closebutton.SetToolTipString(self.localsettings.dictionary["closelabel"][self.localsettings.language])
+      tabpanel.closebutton.SetToolTipString(self.localsettings.t("closelabel"))
       tabpanel.closebutton.Bind(wx.EVT_LEFT_DOWN, self.ClosePage)
       closesizer.Add(tabpanel.closebutton, 0, wx.EXPAND)
       tabsizer.Add(closesizer, 0, wx.EXPAND)
@@ -2316,7 +2319,7 @@ class Notebook(wx.Panel):
     
     popupmenu.parent = ID.GetEventObject()
     
-    detatchmenu = wx.MenuItem(popupmenu, DETATCH_TAB, self.localsettings.dictionary["closelabel"][self.localsettings.language])
+    detatchmenu = wx.MenuItem(popupmenu, DETATCH_TAB, self.localsettings.t("closelabel"))
     detatchmenu.SetBitmap(wx.Bitmap("icons/close.png"))
     popupmenu.AppendItem(detatchmenu)
     wx.EVT_MENU(popupmenu, DETATCH_TAB, self.ClosePageFromMenu)
@@ -2486,9 +2489,9 @@ class ListCtrlWrapper(wx.Panel, listmix.ColumnSorterMixin):
 
 class AppointmentsSummaryListbox(ListCtrlWrapper):
   
-  def GetLabel(self, field):
+  def t(self, field, idx = 0):
     
-    return  self.animaldata.localsettings.dictionary[field][self.animaldata.localsettings.language]
+    return  self.animaldata.localsettings.t(field, idx)
   
   def __init__(self, parent, animaldata, excludetoday=False):
     
@@ -2498,7 +2501,7 @@ class AppointmentsSummaryListbox(ListCtrlWrapper):
     self.animaldata = animaldata
     self.excludetoday = excludetoday
     
-    columnheadings = (self.GetLabel("datelabel"), self.GetLabel("timelabel"), self.GetLabel("reasonlabel"))
+    columnheadings = (self.t("datelabel"), self.t("timelabel"), self.t("reasonlabel"))
     
     ListCtrlWrapper.__init__(self, parent, animaldata.localsettings, columnheadings, ("icons/clock.png", "icons/ontime.png", "icons/late.png", "icons/dna.png"))
   
@@ -2555,9 +2558,9 @@ class AppointmentsSummaryListbox(ListCtrlWrapper):
 
 class ReceiptSummaryListbox(ListCtrlWrapper):
   
-  def GetLabel(self, field):
+  def t(self, field, idx = 0):
     
-    return  self.localsettings.dictionary[field][self.localsettings.language]
+    return  self.localsettings.t(field, idx)
   
   def __init__(self, parent, clientdata):
     
@@ -2567,7 +2570,7 @@ class ReceiptSummaryListbox(ListCtrlWrapper):
     self.clientdata = clientdata
     self.totalprice = 0.00
     
-    columnheadings = (self.GetLabel("datelabel"), self.GetLabel("descriptionlabel"), self.GetLabel("pricelabel"))
+    columnheadings = (self.t("datelabel"), self.t("descriptionlabel"), self.t("pricelabel"))
     
     ListCtrlWrapper.__init__(self, parent, self.localsettings, columnheadings, ("icons/downarrowred.png", "icons/uparrow.png", "icons/rightarrow.png"))
     
@@ -2602,7 +2605,7 @@ class ReceiptSummaryListbox(ListCtrlWrapper):
       
       colour = "green"
     
-    currencyunit = self.GetLabel("currency")
+    currencyunit = self.t("currency")
     
     if currencyunit == "&pound;":
       
@@ -2695,9 +2698,9 @@ class ReceiptSummaryListbox(ListCtrlWrapper):
 
 class AnimalListCtrl(ListCtrlWrapper):
   
-  def GetLabel(self, field):
+  def t(self, field, idx = 0):
     
-    return  self.localsettings.dictionary[field][self.localsettings.language]
+    return  self.localsettings.t(field, idx)
   
   def __init__(self, animalpanel, clientdata):
     
@@ -2707,7 +2710,7 @@ class AnimalListCtrl(ListCtrlWrapper):
     self.parent = animalpanel
     self.clientpanel = animalpanel.GetGrandParent()
     
-    columnheadings = (self.GetLabel("namelabel"), self.GetLabel("animalsexlabel"), self.GetLabel("animalspecieslabel"), self.GetLabel("agelabel"))
+    columnheadings = (self.t("namelabel"), self.t("animalsexlabel"), self.t("animalspecieslabel"), self.t("agelabel"))
     
     ListCtrlWrapper.__init__(self, self.parent, self.localsettings, columnheadings, ("icons/asm.png", "icons/editanimal.png", "icons/ghost.png"))
   
@@ -2748,9 +2751,9 @@ class AnimalListCtrl(ListCtrlWrapper):
 
 class ASMAnimalListbox(ListCtrlWrapper):
   
-  def GetLabel(self, field):
+  def t(self, field, idx = 0):
     
-    return  self.localsettings.dictionary[field][self.localsettings.language]
+    return  self.localsettings.t(field, idx)
   
   def __init__(self, parent, localsettings):
     
@@ -2758,7 +2761,7 @@ class ASMAnimalListbox(ListCtrlWrapper):
     self.localsettings = localsettings
     self.parent = parent
     
-    columnheadings = (self.GetLabel("asmreflabel"), self.GetLabel("animalnamelabel"), self.GetLabel("animalsexlabel"), self.GetLabel("animalspecieslabel"), self.GetLabel("agelabel"), self.GetLabel("animalcolourlabel"))
+    columnheadings = (self.t("asmreflabel"), self.t("animalnamelabel"), self.t("animalsexlabel"), self.t("animalspecieslabel"), self.t("agelabel"), self.t("animalcolourlabel"))
     
     ListCtrlWrapper.__init__(self, self.parent, self.localsettings, columnheadings, ("icons/asm.png",))
   
@@ -2799,14 +2802,14 @@ class ASMAnimalListbox(ListCtrlWrapper):
     action = action + " AND animal.ShelterCode LIKE \"%" + refno + "%\" AND animal.AnimalName LIKE \"%" + name + "%\" AND species.SpeciesName LIKE \"%" + species + "%\" AND animal.DeceasedDate IS NULL AND animal.NonShelterAnimal = 0 ORDER BY animal.ShelterCode desc"
     results = db.SendSQL(action, asmconnection)
     
-    self.parent.totallabel.SetLabel(self.GetLabel("totallabel") + ": " + str(len(results)) + " ")
+    self.parent.totallabel.SetLabel(self.t("totallabel") + ": " + str(len(results)) + " ")
     self.parent.resultssizer.Layout()
     
     self.parent.animaldata = results
     
     if len(results) > 1000:
       
-      miscmethods.ShowMessage(self.GetLabel("toomanyresultsmessage"), self.notebook)
+      miscmethods.ShowMessage(self.t("toomanyresultsmessage"), self.notebook)
       
     else:
       count = 0
@@ -2834,9 +2837,9 @@ class ASMAnimalListbox(ListCtrlWrapper):
 
 class ClientImportListCtrl(ListCtrlWrapper):
   
-  def GetLabel(self, field):
+  def t(self, field, idx = 0):
     
-    return  self.localsettings.dictionary[field][self.localsettings.language]
+    return  self.localsettings.t(field, idx)
   
   def __init__(self, parent, localsettings):
     
@@ -2844,7 +2847,7 @@ class ClientImportListCtrl(ListCtrlWrapper):
     self.localsettings = localsettings
     self.parent = parent
     
-    columnheadings = (self.GetLabel("animalnamelabel"), self.GetLabel("clientaddresslabel"), self.GetLabel("clientpostcodelabel"))
+    columnheadings = (self.t("animalnamelabel"), self.t("clientaddresslabel"), self.t("clientpostcodelabel"))
     
     ListCtrlWrapper.__init__(self, self.parent, self.localsettings, columnheadings, ("icons/editclient.png",))
   
@@ -2872,14 +2875,14 @@ class ClientImportListCtrl(ListCtrlWrapper):
     action = "SELECT ID, OwnerName, OwnerAddress, OwnerPostcode, OwnerTitle, OwnerForenames, OwnerSurname, HomeTelephone, MobileTelephone, WorkTelephone, EmailAddress, Comments FROM owner WHERE OwnerName LIKE \"%" + name + "%\" AND OwnerAddress LIKE \"%" + address + "%\" AND OwnerPostcode LIKE \"%" + postcode + "%\""
     results = db.SendSQL(action, asmconnection)
     
-    panel.totallabel.SetLabel(self.GetLabel("totallabel") + ": " + str(len(results)) + " ")
+    panel.totallabel.SetLabel(self.t("totallabel") + ": " + str(len(results)) + " ")
     panel.resultssizer.Layout()
     
     panel.clientdata = results
     
     if len(results) > 1000:
       
-      miscmethods.ShowMessage(self.GetLabel("toomanyresultsmessage"), panel)
+      miscmethods.ShowMessage(self.t("toomanyresultsmessage"), panel)
       
     else:
       

@@ -38,9 +38,9 @@ SAVE_MEDIA = 8006
 
 class AttachedFilesPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field)
 	
 	def __init__(self, parent, localsettings, linktype, linkid):
 		
@@ -68,34 +68,34 @@ class AttachedFilesPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		addmedia = wx.MenuItem(popupmenu, ADD_MEDIA, self.GetLabel("addlabel"))
+		addmedia = wx.MenuItem(popupmenu, ADD_MEDIA, self.t("addlabel"))
 		addmedia.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(addmedia)
 		wx.EVT_MENU(popupmenu, ADD_MEDIA, self.AddMedia)
 		
 		if self.listbox.listctrl.GetSelectedItemCount() > 0:
 			
-			viewmedia = wx.MenuItem(popupmenu, VIEW_MEDIA, self.GetLabel("viewlabel"))
+			viewmedia = wx.MenuItem(popupmenu, VIEW_MEDIA, self.t("viewlabel"))
 			viewmedia.SetBitmap(wx.Bitmap("icons/view.png"))
 			popupmenu.AppendItem(viewmedia)
 			wx.EVT_MENU(popupmenu, VIEW_MEDIA, self.OpenMedia)
 			
-			savemedia = wx.MenuItem(popupmenu, SAVE_MEDIA, self.GetLabel("savetooltip"))
+			savemedia = wx.MenuItem(popupmenu, SAVE_MEDIA, self.t("savetooltip"))
 			savemedia.SetBitmap(wx.Bitmap("icons/save.png"))
 			popupmenu.AppendItem(savemedia)
 			wx.EVT_MENU(popupmenu, SAVE_MEDIA, self.SaveMedia)
 			
-			editmedia = wx.MenuItem(popupmenu, EDIT_MEDIA, self.GetLabel("renamelabel"))
+			editmedia = wx.MenuItem(popupmenu, EDIT_MEDIA, self.t("renamelabel"))
 			editmedia.SetBitmap(wx.Bitmap("icons/edit.png"))
 			popupmenu.AppendItem(editmedia)
 			wx.EVT_MENU(popupmenu, EDIT_MEDIA, self.RenameMedia)
 			
-			deletemedia = wx.MenuItem(popupmenu, DELETE_MEDIA, self.GetLabel("deletelabel"))
+			deletemedia = wx.MenuItem(popupmenu, DELETE_MEDIA, self.t("deletelabel"))
 			deletemedia.SetBitmap(wx.Bitmap("icons/delete.png"))
 			popupmenu.AppendItem(deletemedia)
 			wx.EVT_MENU(popupmenu, DELETE_MEDIA, self.DeleteMedia)
 		
-		refreshmedia = wx.MenuItem(popupmenu, REFRESH_MEDIA, self.GetLabel("refreshlabel"))
+		refreshmedia = wx.MenuItem(popupmenu, REFRESH_MEDIA, self.t("refreshlabel"))
 		refreshmedia.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refreshmedia)
 		wx.EVT_MENU(popupmenu, REFRESH_MEDIA, self.listbox.RefreshList)
@@ -161,7 +161,7 @@ class AttachedFilesPanel(wx.Panel):
 			
 			if size > 20480:
 				
-				miscmethods.ShowMessage(self.GetLabel("mediatoolargemessage"))
+				miscmethods.ShowMessage(self.t("mediatoolargemessage"))
 				
 			else:
 				
@@ -189,7 +189,7 @@ class AttachedFilesPanel(wx.Panel):
 		listboxid = self.listbox.GetSelection()
 		description = self.listbox.htmllist[listboxid][4]
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("renamelabel"))
+		dialog = wx.Dialog(self, -1, self.t("renamelabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -197,7 +197,7 @@ class AttachedFilesPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		descriptionlabel = wx.StaticText(panel, -1, self.GetLabel("descriptionlabel"))
+		descriptionlabel = wx.StaticText(panel, -1, self.t("descriptionlabel"))
 		font = descriptionlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		descriptionlabel.SetFont(font)
@@ -257,7 +257,7 @@ class AttachedFilesPanel(wx.Panel):
 	
 	def DeleteMedia(self, ID):
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("deleteattachedfileconfirm")):
+		if miscmethods.ConfirmMessage(self.t("deleteattachedfileconfirm")):
 			
 			listboxid = self.listbox.GetSelection()
 			
@@ -278,9 +278,9 @@ class AttachedFilesListbox(customwidgets.ListCtrlWrapper):
 	
 	def __init__(self, parent, localsettings, linktype, linkid):
 		
-		date_t = localsettings.dictionary["attachmentdatelabel"][localsettings.language]
-		title_t = localsettings.dictionary["attachmenttitlelabel"][localsettings.language]
-		size_t =  localsettings.dictionary["attachmentsizelabel"][localsettings.language]
+		date_t = localsettings.t("attachmentdatelabel")
+		title_t = localsettings.t("attachmenttitlelabel")
+		size_t =  localsettings.t("attachmentsizelabel")
 		
 		columnheadings = (date_t, title_t, size_t)
 		

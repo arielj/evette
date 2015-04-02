@@ -154,13 +154,8 @@ class AnimalSettings:
 
 class AnimalPanel(wx.Panel):
 	
-	def GetLabel(self, field):
-		
-		return  self.animaldata.localsettings.dictionary[field][self.animaldata.localsettings.language]
-	
-	def GetButtonLabel(self, field, index):
-		
-		return  self.animaldata.localsettings.dictionary[field][self.animaldata.localsettings.language][index]
+	def t(self, field, idx = 0):
+		return  self.animaldata.localsettings.t(field, idx)
 	
 	def __init__(self, notebook, animaldata, clientpanel=False):
 		
@@ -174,7 +169,7 @@ class AnimalPanel(wx.Panel):
 		
 		if self.animaldata.ID == False:
 			
-			self.pagetitle = self.GetLabel("newanimalpagetitle")
+			self.pagetitle = self.t("newanimalpagetitle")
 			
 		else:
 			
@@ -201,11 +196,11 @@ class AnimalPanel(wx.Panel):
 			
 			if results[0][1] == 0:
 				
-				lostandfound.SetLabel(miscmethods.NoWrap(self.GetLabel("lostanimallabel") + ": " + str(results[0][0])))
+				lostandfound.SetLabel(miscmethods.NoWrap(self.t("lostanimallabel") + ": " + str(results[0][0])))
 				
 			else:
 				
-				lostandfound.SetLabel(miscmethods.NoWrap(self.GetLabel("foundanimallabel") + ": " + str(results[0][0])))
+				lostandfound.SetLabel(miscmethods.NoWrap(self.t("foundanimallabel") + ": " + str(results[0][0])))
 			
 			lostandfound.Bind(wx.EVT_RIGHT_DOWN, self.LostAndFoundPopup)
 			
@@ -215,7 +210,7 @@ class AnimalPanel(wx.Panel):
 			
 			self.animallostorfound = False
 		
-		fields = ( (animaldata.name, self.GetLabel("animalnamelabel"), "small"), (animaldata.sex, self.GetLabel("animalsexlabel"), "sex"), (animaldata.species, self.GetLabel("animalspecieslabel"), "species"), (animaldata.breed, self.GetLabel("animalbreedlabel"), "breed"), (animaldata.colour, self.GetLabel("animalcolourlabel"), "colour"), (animaldata.dob, self.GetLabel("animaldoblabel"), "small"), (animaldata.chipno, self.GetLabel("animalchipnolabel"), "small"), (animaldata.comments, self.GetLabel("animalcommentslabel"), "large") )
+		fields = ( (animaldata.name, self.t("animalnamelabel"), "small"), (animaldata.sex, self.t("animalsexlabel"), "sex"), (animaldata.species, self.t("animalspecieslabel"), "species"), (animaldata.breed, self.t("animalbreedlabel"), "breed"), (animaldata.colour, self.t("animalcolourlabel"), "colour"), (animaldata.dob, self.t("animaldoblabel"), "small"), (animaldata.chipno, self.t("animalchipnolabel"), "small"), (animaldata.comments, self.t("animalcommentslabel"), "large") )
 		
 		#noofrows = len(fields) + 1
 		
@@ -227,7 +222,7 @@ class AnimalPanel(wx.Panel):
 		#labels = []
 		#inputfields = []
 		
-		label = wx.StaticText(self, -1, self.GetLabel("animalownerlabel") + ": ", style=wx.ALIGN_RIGHT)
+		label = wx.StaticText(self, -1, self.t("animalownerlabel") + ": ", style=wx.ALIGN_RIGHT)
 		font = label.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		label.SetFont(font)
@@ -241,13 +236,13 @@ class AnimalPanel(wx.Panel):
 		font.SetPointSize(font.GetPointSize() + 3)
 		ownernamelabel.SetFont(font)
 		ownernamelabel.SetForegroundColour("blue")
-		ownernamelabel.SetToolTipString(self.GetLabel("rightclickformenutooltip"))
+		ownernamelabel.SetToolTipString(self.t("rightclickformenutooltip"))
 		ownernamelabel.Bind(wx.EVT_RIGHT_DOWN, self.OwnerPopup)
 		ownerdetailssizer.Add(ownernamelabel, 1, wx.ALIGN_CENTER)
 		
 		sizer.Add(ownerdetailssizer, 0, wx.EXPAND)
 		
-		namelabel = wx.StaticText(self, -1, self.GetLabel("animalnamelabel") + ":")
+		namelabel = wx.StaticText(self, -1, self.t("animalnamelabel") + ":")
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -257,22 +252,22 @@ class AnimalPanel(wx.Panel):
 		nameentry.Bind(wx.EVT_CHAR, self.EnableSave)
 		sizer.Add(nameentry, 0, wx.EXPAND)
 		
-		sexlabel = wx.StaticText(self, -1, self.GetLabel("animalsexlabel") + ":")
+		sexlabel = wx.StaticText(self, -1, self.t("animalsexlabel") + ":")
 		sexlabel.SetFont(font)
 		sizer.Add(sexlabel, 0, wx.EXPAND)
 		
 		sexsizer  = wx.BoxSizer(wx.HORIZONTAL)
 		
-		sexentry = wx.Choice(self, -1, choices=(self.GetLabel("unknownlabel"), self.GetLabel("malelabel"), self.GetLabel("femalelabel")))
+		sexentry = wx.Choice(self, -1, choices=(self.t("unknownlabel"), self.t("malelabel"), self.t("femalelabel")))
 		sexentry.SetSelection(self.animaldata.sex)
 		sexentry.Bind(wx.EVT_CHAR, self.EnableSave)
 		sexentry.Bind(wx.EVT_CHOICE, self.EnableSave)
 		sexsizer.Add(sexentry, 1, wx.EXPAND)
 		
-		self.neuteredcheckbox = wx.CheckBox(self, -1, self.GetLabel("neuteredlabel"))
+		self.neuteredcheckbox = wx.CheckBox(self, -1, self.t("neuteredlabel"))
 		self.neuteredcheckbox.SetFont(font)
 		self.neuteredcheckbox.Bind(wx.EVT_CHECKBOX, self.EnableSave)
-		self.neuteredcheckbox.SetToolTipString(self.GetLabel("animalneuteredtooltip"))
+		self.neuteredcheckbox.SetToolTipString(self.t("animalneuteredtooltip"))
 		sexsizer.Add(self.neuteredcheckbox, 0, wx.EXPAND)
 		
 		if self.animaldata.neutered == 1:
@@ -280,7 +275,7 @@ class AnimalPanel(wx.Panel):
 		
 		sizer.Add(sexsizer, 0, wx.EXPAND)
 		
-		specieslabel = wx.StaticText(self, -1, self.GetLabel("animalspecieslabel") + ":")
+		specieslabel = wx.StaticText(self, -1, self.t("animalspecieslabel") + ":")
 		specieslabel.SetFont(font)
 		sizer.Add(specieslabel, 0, wx.EXPAND)
 		
@@ -290,7 +285,7 @@ class AnimalPanel(wx.Panel):
 		speciesentry.Bind(wx.EVT_COMBOBOX, self.EnableSave)
 		sizer.Add(speciesentry, 0, wx.EXPAND)
 		
-		breedlabel = wx.StaticText(self, -1, self.GetLabel("animalbreedlabel") + ":")
+		breedlabel = wx.StaticText(self, -1, self.t("animalbreedlabel") + ":")
 		breedlabel.SetFont(font)
 		sizer.Add(breedlabel, 0, wx.EXPAND)
 		
@@ -300,7 +295,7 @@ class AnimalPanel(wx.Panel):
 		breedentry.Bind(wx.EVT_COMBOBOX, self.EnableSave)
 		sizer.Add(breedentry, 0, wx.EXPAND)
 		
-		colourlabel = wx.StaticText(self, -1, self.GetLabel("animalcolourlabel") + ":")
+		colourlabel = wx.StaticText(self, -1, self.t("animalcolourlabel") + ":")
 		colourlabel.SetFont(font)
 		sizer.Add(colourlabel, 0, wx.EXPAND)
 		
@@ -310,7 +305,7 @@ class AnimalPanel(wx.Panel):
 		colourentry.Bind(wx.EVT_COMBOBOX, self.EnableSave)
 		sizer.Add(colourentry, 0, wx.EXPAND)
 		
-		chipnolabel = wx.StaticText(self, -1, self.GetLabel("animalchipnolabel") + ":")
+		chipnolabel = wx.StaticText(self, -1, self.t("animalchipnolabel") + ":")
 		chipnolabel.SetFont(font)
 		sizer.Add(chipnolabel, 0, wx.EXPAND)
 		
@@ -318,7 +313,7 @@ class AnimalPanel(wx.Panel):
 		chipnoentry.Bind(wx.EVT_CHAR, self.EnableSave)
 		sizer.Add(chipnoentry, 0, wx.EXPAND)
 		
-		doblabel = wx.StaticText(self, -1, self.GetLabel("animaldoblabel") + ":")
+		doblabel = wx.StaticText(self, -1, self.t("animaldoblabel") + ":")
 		doblabel.SetFont(font)
 		sizer.Add(doblabel, 0, wx.EXPAND)
 		
@@ -331,7 +326,7 @@ class AnimalPanel(wx.Panel):
 		
 		sizer.Add(dobsizer, 0, wx.EXPAND)
 		
-		commentslabel = wx.StaticText(self, -1, self.GetLabel("animalcommentslabel") + ":")
+		commentslabel = wx.StaticText(self, -1, self.t("animalcommentslabel") + ":")
 		commentslabel.SetFont(font)
 		sizer.Add(commentslabel, 0, wx.EXPAND)
 		
@@ -339,7 +334,7 @@ class AnimalPanel(wx.Panel):
 		commentsentry.Bind(wx.EVT_CHAR, self.EnableSave)
 		sizer.Add(commentsentry, 1, wx.EXPAND)
 		
-		deceasedtickbox = wx.CheckBox(self, -1, self.GetLabel("deceasedlabel"))
+		deceasedtickbox = wx.CheckBox(self, -1, self.t("deceasedlabel"))
 		deceasedtickbox.SetFont(font)
 		deceasedtickbox.Bind(wx.EVT_CHECKBOX, self.DeathTickBox)
 		sizer.Add(deceasedtickbox, 0, wx.ALIGN_LEFT)
@@ -354,7 +349,7 @@ class AnimalPanel(wx.Panel):
 		
 		deathsizer.Add(wx.StaticText(deathpanel, -1, "", size=(5,5)), 0, wx.EXPAND)
 		
-		deceaseddatelabel = wx.StaticText(deathpanel, -1, self.GetLabel("datelabel") + ": ")
+		deceaseddatelabel = wx.StaticText(deathpanel, -1, self.t("datelabel") + ": ")
 		deceaseddatelabel.SetFont(font)
 		deathsizer.Add(deceaseddatelabel, 0, wx.ALIGN_LEFT)
 		
@@ -362,7 +357,7 @@ class AnimalPanel(wx.Panel):
 		deceaseddatectrl.Bind(wx.EVT_CHAR, self.EnableSave)
 		deathsizer.Add(deceaseddatectrl, 0, wx.EXPAND)
 		
-		deathreasonlabel = wx.StaticText(deathpanel, -1, self.GetLabel("causeofdeathlabel"))
+		deathreasonlabel = wx.StaticText(deathpanel, -1, self.t("causeofdeathlabel"))
 		deathreasonlabel.SetFont(font)
 		deathsizer.Add(deathreasonlabel, 0, wx.ALIGN_LEFT)
 		
@@ -418,7 +413,7 @@ class AnimalPanel(wx.Panel):
 		
 		animaldetailspanel = AnimalAppointmentBrowser(animalnotebook, self.animaldata)
 		
-		animalnotebook.AddPage(animaldetailspanel, self.GetLabel("animalappointmentslabel"), select=True)
+		animalnotebook.AddPage(animaldetailspanel, self.t("animalappointmentslabel"), select=True)
 		
 		#Vaccinations sizer
 		
@@ -438,15 +433,15 @@ class AnimalPanel(wx.Panel):
 		
 		vaccinationlistpanel.SetSizer(vaccinationssizer)
 		
-		animalnotebook.AddPage(vaccinationlistpanel, self.GetLabel("animalvaccinationslabel"), select=False)
+		animalnotebook.AddPage(vaccinationlistpanel, self.t("animalvaccinationslabel"), select=False)
 		
 		weightpanel = WeightPanel(animalnotebook, animaldata)
 		
-		animalnotebook.AddPage(weightpanel, self.GetLabel("weightpanelpagetitle"), select=False)
+		animalnotebook.AddPage(weightpanel, self.t("weightpanelpagetitle"), select=False)
 		
 		mediapanel = attachedfilemethods.AttachedFilesPanel(animalnotebook, self.animaldata.localsettings, 1, self.animaldata.ID)
 		
-		animalnotebook.AddPage(mediapanel, self.GetLabel("attachedfileslabel"), select=False)
+		animalnotebook.AddPage(mediapanel, self.t("attachedfileslabel"), select=False)
 		
 		mainsizer.Add(animalnotebook, 2, wx.EXPAND)
 		
@@ -461,14 +456,14 @@ class AnimalPanel(wx.Panel):
 		savebuttonbitmap = wx.Bitmap("icons/save.png")
 		
 		savebutton = wx.BitmapButton(self, -1, savebuttonbitmap)
-		savebutton.SetToolTipString(self.GetLabel("animalsavebuttontooltip"))
+		savebutton.SetToolTipString(self.t("animalsavebuttontooltip"))
 		savebutton.Bind(wx.EVT_BUTTON, self.Save)
 		savebutton.Disable()
 		closebuttonsizer.Add(savebutton, 0, wx.ALIGN_RIGHT)
 		
 		bookbitmap = wx.Bitmap("icons/diary.png")
 		creatediarynotebutton = wx.BitmapButton(self, -1, bookbitmap)
-		creatediarynotebutton.SetToolTipString(self.GetLabel("createassociateddiarynotetooltip"))
+		creatediarynotebutton.SetToolTipString(self.t("createassociateddiarynotetooltip"))
 		creatediarynotebutton.Bind(wx.EVT_BUTTON, self.CreateDiaryNote)
 		
 		if self.animaldata.ID == False or self.animaldata.localsettings.addtodiary == 0:
@@ -482,24 +477,24 @@ class AnimalPanel(wx.Panel):
 		printbuttonbitmap = wx.Bitmap("icons/printer.png")
 		printbutton = wx.BitmapButton(self, -1, printbuttonbitmap)
 		printbutton.Bind(wx.EVT_BUTTON, self.PrintAllAppointmentDetails)
-		printbutton.SetToolTipString(self.GetLabel("animalprintentirerecordtooltip"))
+		printbutton.SetToolTipString(self.t("animalprintentirerecordtooltip"))
 		closebuttonsizer.Add(printbutton, 0, wx.EXPAND)
 		
 		formbitmap = wx.Bitmap("icons/form.png")
 		formbutton = wx.BitmapButton(self, -1, formbitmap)
-		formbutton.SetToolTipString(self.GetLabel("animalgenerateformtooltip"))
+		formbutton.SetToolTipString(self.t("animalgenerateformtooltip"))
 		formbutton.Bind(wx.EVT_BUTTON, self.GenerateForm)
 		closebuttonsizer.Add(formbutton, 0, wx.EXPAND)
 		
 		#changeownerbitmap = wx.Bitmap("icons/reset.png")
 		#changeownerbutton = wx.BitmapButton(self, -1, changeownerbitmap)
-		#changeownerbutton.SetToolTipString(self.GetLabel("changeownershiptooltip"))
+		#changeownerbutton.SetToolTipString(self.t("changeownershiptooltip"))
 		#changeownerbutton.Bind(wx.EVT_BUTTON, TransferOwnerShip)
 		#closebuttonsizer.Add(changeownerbutton, 0, wx.EXPAND)
 		
 		lostandfoundbitmap = wx.Bitmap("icons/lostandfound.png")
 		lostandfoundbutton = wx.BitmapButton(self, -1, lostandfoundbitmap)
-		lostandfoundbutton.SetToolTipString(self.GetLabel("lostandfoundmenu")[0])
+		lostandfoundbutton.SetToolTipString(self.t("lostandfoundmenu"))
 		lostandfoundbutton.Bind(wx.EVT_BUTTON, self.AddToLostAndFound)
 		closebuttonsizer.Add(lostandfoundbutton, 0, wx.EXPAND)
 		
@@ -509,7 +504,7 @@ class AnimalPanel(wx.Panel):
 				
 				asmbutton = wx.BitmapButton(self, -1, wx.Bitmap("icons/asm.png"))
 				asmbutton.Bind(wx.EVT_BUTTON, self.ASMSync)
-				asmbutton.SetToolTipString(self.GetLabel("asmsynctooltip"))
+				asmbutton.SetToolTipString(self.t("asmsynctooltip"))
 				closebuttonsizer.Add(asmbutton, 0, wx.EXPAND)
 				self.asmbutton = asmbutton
 				
@@ -517,7 +512,7 @@ class AnimalPanel(wx.Panel):
 					
 					asmbutton.Disable()
 			
-			asmreflabel = wx.StaticText(self, -1, miscmethods.NoWrap(" " + self.GetLabel("asmreflabel") + ": " + self.animaldata.asmref))
+			asmreflabel = wx.StaticText(self, -1, miscmethods.NoWrap(" " + self.t("asmreflabel") + ": " + self.animaldata.asmref))
 			asmreflabel.SetForegroundColour("red")
 			closebuttonsizer.Add(asmreflabel, 0, wx.ALIGN_CENTER)
 		
@@ -602,7 +597,7 @@ class AnimalPanel(wx.Panel):
 		
 		if self.animaldata.localsettings.editappointments == 1:
 			
-			addappointment = wx.MenuItem(popupmenu, ADD_APPOINTMENT, self.GetLabel("addlabel"))
+			addappointment = wx.MenuItem(popupmenu, ADD_APPOINTMENT, self.t("addlabel"))
 			addappointment.SetBitmap(wx.Bitmap("icons/new.png"))
 			popupmenu.AppendItem(addappointment)
 			wx.EVT_MENU(popupmenu, ADD_APPOINTMENT, self.CreateAppointment)
@@ -611,24 +606,24 @@ class AnimalPanel(wx.Panel):
 			
 			if self.animaldata.localsettings.editappointments == 1:
 				
-				editappointment = wx.MenuItem(popupmenu, EDIT_APPOINTMENT, self.GetLabel("editlabel"))
+				editappointment = wx.MenuItem(popupmenu, EDIT_APPOINTMENT, self.t("editlabel"))
 				editappointment.SetBitmap(wx.Bitmap("icons/edit.png"))
 				popupmenu.AppendItem(editappointment)
 				wx.EVT_MENU(popupmenu, EDIT_APPOINTMENT, self.Edit)
 			
 			if self.animaldata.localsettings.deleteappointments == 1:
 				
-				deleteappointment = wx.MenuItem(popupmenu, DELETE_APPOINTMENT, self.GetLabel("deletelabel"))
+				deleteappointment = wx.MenuItem(popupmenu, DELETE_APPOINTMENT, self.t("deletelabel"))
 				deleteappointment.SetBitmap(wx.Bitmap("icons/delete.png"))
 				popupmenu.AppendItem(deleteappointment)
 				wx.EVT_MENU(popupmenu, DELETE_APPOINTMENT, self.Delete)
 			
-			viewappointment = wx.MenuItem(popupmenu, VIEW_APPOINTMENT, self.GetLabel("viewvetnoteslabel"))
+			viewappointment = wx.MenuItem(popupmenu, VIEW_APPOINTMENT, self.t("viewvetnoteslabel"))
 			viewappointment.SetBitmap(wx.Bitmap("icons/form.png"))
 			popupmenu.AppendItem(viewappointment)
 			wx.EVT_MENU(popupmenu, VIEW_APPOINTMENT, self.ViewAppointment)
 			
-			printappointment = wx.MenuItem(popupmenu, PRINT_APPOINTMENT, self.GetLabel("printtooltip"))
+			printappointment = wx.MenuItem(popupmenu, PRINT_APPOINTMENT, self.t("printtooltip"))
 			printappointment.SetBitmap(wx.Bitmap("icons/printer.png"))
 			popupmenu.AppendItem(printappointment)
 			wx.EVT_MENU(popupmenu, PRINT_APPOINTMENT, self.PrintAppointmentDetails)
@@ -637,7 +632,7 @@ class AnimalPanel(wx.Panel):
 				
 				popupmenu.AppendSeparator()
 				
-				vetform = wx.MenuItem(popupmenu, VET_FORM, self.GetLabel("vetformpagetitle"))
+				vetform = wx.MenuItem(popupmenu, VET_FORM, self.t("vetformpagetitle"))
 				vetform.SetBitmap(wx.Bitmap("icons/vetform.png"))
 				popupmenu.AppendItem(vetform)
 				wx.EVT_MENU(popupmenu, VET_FORM, self.VetForm)
@@ -646,12 +641,12 @@ class AnimalPanel(wx.Panel):
 				
 				popupmenu.AppendSeparator()
 				
-				changelog = wx.MenuItem(popupmenu, APPOINTMENT_CHANGELOG, self.GetLabel("viewchangeloglabel"))
+				changelog = wx.MenuItem(popupmenu, APPOINTMENT_CHANGELOG, self.t("viewchangeloglabel"))
 				changelog.SetBitmap(wx.Bitmap("icons/log.png"))
 				popupmenu.AppendItem(changelog)
 				wx.EVT_MENU(popupmenu, APPOINTMENT_CHANGELOG, self.AppointmentChangeLog)
 		
-		refresh = wx.MenuItem(popupmenu, REFRESH_APPOINTMENTS, self.GetLabel("refreshlabel"))
+		refresh = wx.MenuItem(popupmenu, REFRESH_APPOINTMENTS, self.t("refreshlabel"))
 		refresh.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refresh)
 		wx.EVT_MENU(popupmenu, REFRESH_APPOINTMENTS, self.RefreshAppointments)
@@ -663,12 +658,12 @@ class AnimalPanel(wx.Panel):
 		popupmenu = wx.Menu()
 		popupmenu.animalpanel = self
 		
-		editowner = wx.MenuItem(popupmenu, EDIT_OWNER, self.GetLabel("appointmenteditownerbutton")[0])
+		editowner = wx.MenuItem(popupmenu, EDIT_OWNER, self.t("appointmenteditownerbutton")[0])
 		editowner.SetBitmap(wx.Bitmap("icons/edit.png"))
 		popupmenu.AppendItem(editowner)
 		wx.EVT_MENU(popupmenu, EDIT_OWNER, self.OpenClientRecord)
 		
-		changeowner = wx.MenuItem(popupmenu, CHANGE_OWNER, self.GetLabel("changeownershiptooltip"))
+		changeowner = wx.MenuItem(popupmenu, CHANGE_OWNER, self.t("changeownershiptooltip"))
 		changeowner.SetBitmap(wx.Bitmap("icons/reset.png"))
 		popupmenu.AppendItem(changeowner)
 		wx.EVT_MENU(popupmenu, CHANGE_OWNER, TransferOwnerShip)
@@ -682,26 +677,26 @@ class AnimalPanel(wx.Panel):
 		popupmenu = wx.Menu()
 		popupmenu.animalpanel = self
 		
-		addvaccination = wx.MenuItem(popupmenu, ADD_VACCINATION, self.GetLabel("addlabel"))
+		addvaccination = wx.MenuItem(popupmenu, ADD_VACCINATION, self.t("addlabel"))
 		addvaccination.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(addvaccination)
 		wx.EVT_MENU(popupmenu, ADD_VACCINATION, self.AddVaccination)
 		
 		if listbox.GetSelection() > -1:
 			
-			editvaccination = wx.MenuItem(popupmenu, EDIT_VACCINATION, self.GetLabel("editlabel"))
+			editvaccination = wx.MenuItem(popupmenu, EDIT_VACCINATION, self.t("editlabel"))
 			editvaccination.SetBitmap(wx.Bitmap("icons/edit.png"))
 			popupmenu.AppendItem(editvaccination)
 			wx.EVT_MENU(popupmenu, EDIT_VACCINATION, self.EditVaccination)
 			
-			deletevaccination = wx.MenuItem(popupmenu, DELETE_VACCINATION, self.GetLabel("deletelabel"))
+			deletevaccination = wx.MenuItem(popupmenu, DELETE_VACCINATION, self.t("deletelabel"))
 			deletevaccination.SetBitmap(wx.Bitmap("icons/delete.png"))
 			popupmenu.AppendItem(deletevaccination)
 			wx.EVT_MENU(popupmenu, DELETE_VACCINATION, self.DeleteVaccination)
 		
 		popupmenu.AppendSeparator()
 		
-		refreshvaccinations = wx.MenuItem(popupmenu, REFRESH_VACCINATIONS, self.GetLabel("refreshlabel"))
+		refreshvaccinations = wx.MenuItem(popupmenu, REFRESH_VACCINATIONS, self.t("refreshlabel"))
 		refreshvaccinations.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refreshvaccinations)
 		wx.EVT_MENU(popupmenu, REFRESH_VACCINATIONS, self.vaccinationlistpanel.vaccinationslistbox.RefreshList)
@@ -720,7 +715,7 @@ class AnimalPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		lostandfound = wx.MenuItem(popupmenu, EDIT_LOST_AND_FOUND, self.GetLabel("editlabel"))
+		lostandfound = wx.MenuItem(popupmenu, EDIT_LOST_AND_FOUND, self.t("editlabel"))
 		lostandfound.SetBitmap(wx.Bitmap("icons/edit.png"))
 		popupmenu.AppendItem(lostandfound)
 		wx.EVT_MENU(popupmenu, EDIT_LOST_AND_FOUND, self.EditLostAndFoundRecord)
@@ -749,12 +744,12 @@ class AnimalPanel(wx.Panel):
 			
 			#popupmenu.parent = ID.GetEventObject()
 			
-			lost = wx.MenuItem(popupmenu, ADD_LOST, self.GetLabel("lostlabel"))
+			lost = wx.MenuItem(popupmenu, ADD_LOST, self.t("lostlabel"))
 			lost.SetBitmap(wx.Bitmap("icons/lostandfound.png"))
 			popupmenu.AppendItem(lost)
 			wx.EVT_MENU(popupmenu, ADD_LOST, self.AddLost)
 			
-			found = wx.MenuItem(popupmenu, ADD_FOUND, self.GetLabel("foundlabel"))
+			found = wx.MenuItem(popupmenu, ADD_FOUND, self.t("foundlabel"))
 			found.SetBitmap(wx.Bitmap("icons/lostandfound.png"))
 			popupmenu.AppendItem(found)
 			wx.EVT_MENU(popupmenu, ADD_FOUND, self.AddFound)
@@ -763,7 +758,7 @@ class AnimalPanel(wx.Panel):
 			
 		else:
 			
-			miscmethods.ShowMessage(self.GetLabel("alreadyonlostandfoundmessage"), self)
+			miscmethods.ShowMessage(self.t("alreadyonlostandfoundmessage"), self)
 	
 	def AddLost(self, ID):
 		
@@ -871,7 +866,7 @@ class AnimalPanel(wx.Panel):
 			next = ""
 			batch = ""
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("vaccinationsvaccinelabel"))
+		dialog = wx.Dialog(self, -1, self.t("vaccinationsvaccinelabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -881,7 +876,7 @@ class AnimalPanel(wx.Panel):
 		
 		topsizer.Add(wx.StaticText(self, -1, "", size=(-1,10)), 0, wx.EXPAND)
 		
-		namelabel = wx.StaticText(panel, -1, self.GetLabel("animalvaccinelabel"))
+		namelabel = wx.StaticText(panel, -1, self.t("animalvaccinelabel"))
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -899,7 +894,7 @@ class AnimalPanel(wx.Panel):
 		namechoice = wx.ComboBox(panel, -1, name, choices=vaccinelist)
 		topsizer.Add(namechoice, 0, wx.EXPAND)
 		
-		batchlabel = wx.StaticText(panel, -1, self.GetLabel("animalvaccinationbatchlabel"))
+		batchlabel = wx.StaticText(panel, -1, self.t("animalvaccinationbatchlabel"))
 		batchlabel.SetFont(font)
 		topsizer.Add(batchlabel, 0, wx.ALIGN_LEFT)
 		
@@ -908,7 +903,7 @@ class AnimalPanel(wx.Panel):
 		
 		topsizer.Add(wx.StaticText(self, -1, "", size=(-1,10)), 0, wx.EXPAND)
 		
-		givenlabel = wx.StaticText(panel, -1, self.GetLabel("animalgivenlabel"))
+		givenlabel = wx.StaticText(panel, -1, self.t("animalgivenlabel"))
 		givenlabel.SetFont(font)
 		topsizer.Add(givenlabel, 0, wx.ALIGN_LEFT)
 		
@@ -919,7 +914,7 @@ class AnimalPanel(wx.Panel):
 		
 		topsizer.Add(givenentry, 0, wx.EXPAND)
 		
-		nextlabel = wx.StaticText(panel, -1, self.GetLabel("animalnextlabel"))
+		nextlabel = wx.StaticText(panel, -1, self.t("animalnextlabel"))
 		nextlabel.SetFont(font)
 		topsizer.Add(nextlabel, 0, wx.ALIGN_LEFT)
 		
@@ -932,10 +927,10 @@ class AnimalPanel(wx.Panel):
 		
 		topsizer.Add(wx.StaticText(self, -1, "", size=(-1,10)), 0, wx.EXPAND)
 		
-		submitbutton = wx.Button(panel, -1, self.GetLabel("submitlabel"))
+		submitbutton = wx.Button(panel, -1, self.t("submitlabel"))
 		submitbutton.SetBackgroundColour("green")
 		submitbutton.Bind(wx.EVT_BUTTON, self.SubmitVaccination)
-		submitbutton.SetToolTipString(self.GetLabel("animalsubmitvaccinationtooltip"))
+		submitbutton.SetToolTipString(self.t("animalsubmitvaccinationtooltip"))
 		
 		topsizer.Add(submitbutton, 0, wx.ALIGN_CENTER_HORIZONTAL)
 		
@@ -1010,7 +1005,7 @@ class AnimalPanel(wx.Panel):
 		ID = self.vaccinationlistpanel.vaccinationslistbox.htmllist[listboxid][1]
 		vaccinationid = self.vaccinationlistpanel.vaccinationslistbox.htmllist[listboxid][5]
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("animalconfirmdeletevaccinationmessage")):
+		if miscmethods.ConfirmMessage(self.t("animalconfirmdeletevaccinationmessage")):
 			
 			if vaccinationid == 0:
 				
@@ -1086,7 +1081,7 @@ class AnimalPanel(wx.Panel):
 		
 		output = miscmethods.GetAppointmentDetailsHtml(self.localsettings, appointmentid, False)
 		
-		#dialog = wx.Dialog(self, -1, self.GetLabel("viewvetnoteslabel"))
+		#dialog = wx.Dialog(self, -1, self.t("viewvetnoteslabel"))
 		
 		#dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -1107,7 +1102,7 @@ class AnimalPanel(wx.Panel):
 		
 		#self.appointmentdetailswindow.SetPage(output)
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("viewvetnoteslabel"))
+		dialog = wx.Dialog(self, -1, self.t("viewvetnoteslabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -1167,7 +1162,7 @@ class AnimalPanel(wx.Panel):
 		
 		if self.savebutton.IsEnabled() == True:
 			
-			return miscmethods.ConfirmMessage(self.GetLabel("animalunsavedchangesmessage"))
+			return miscmethods.ConfirmMessage(self.t("animalunsavedchangesmessage"))
 			
 		else:
 			
@@ -1273,7 +1268,7 @@ class AnimalPanel(wx.Panel):
 		
 		listboxid = self.animalappointmentslistbox.GetFocusedItem()
 		appointmentid = self.animalappointmentslistbox.GetItemData(listboxid)
-		if miscmethods.ConfirmMessage(self.GetLabel("animalconfirmdeleteappointmentmessage")):
+		if miscmethods.ConfirmMessage(self.t("animalconfirmdeleteappointmentmessage")):
 			
 			action = "DELETE FROM appointment WHERE ID = " + str(appointmentid)
 			db.SendSQL(action, self.animaldata.localsettings.dbconnection)
@@ -1282,7 +1277,7 @@ class AnimalPanel(wx.Panel):
 	
 	def ASMSync(self, ID):
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("asmsynctooltip"), size=(600,400))
+		dialog = wx.Dialog(self, -1, self.t("asmsynctooltip"), size=(600,400))
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		panel = wx.Panel(dialog)
 		topsizer = wx.BoxSizer(wx.VERTICAL)
@@ -1303,7 +1298,7 @@ class AnimalPanel(wx.Panel):
 		
 		########################################################################
 		
-		gridsizer.Add(wx.StaticText(panel, -1, self.GetLabel("appointmentsearchanimalnamelabel")), 0, wx.ALIGN_LEFT)
+		gridsizer.Add(wx.StaticText(panel, -1, self.t("appointmentsearchanimalnamelabel")), 0, wx.ALIGN_LEFT)
 		
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
@@ -1319,12 +1314,12 @@ class AnimalPanel(wx.Panel):
 		
 		panel.animalnamesyncbutton = wx.BitmapButton(panel, -1, wx.Bitmap("icons/refresh.png"))
 		panel.animalnamesyncbutton.Bind(wx.EVT_BUTTON, self.SyncAnimalName)
-		panel.animalnamesyncbutton.SetToolTipString(self.GetLabel("asmsyncbuttontooltip"))
+		panel.animalnamesyncbutton.SetToolTipString(self.t("asmsyncbuttontooltip"))
 		gridsizer.Add(panel.animalnamesyncbutton, 0, wx.ALIGN_CENTER)
 		
 		########################################################################
 		
-		gridsizer.Add(wx.StaticText(panel, -1, self.GetLabel("animaldoblabel")), 0, wx.ALIGN_LEFT)
+		gridsizer.Add(wx.StaticText(panel, -1, self.t("animaldoblabel")), 0, wx.ALIGN_LEFT)
 		
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
@@ -1340,12 +1335,12 @@ class AnimalPanel(wx.Panel):
 		
 		panel.animaldobsyncbutton = wx.BitmapButton(panel, -1, wx.Bitmap("icons/refresh.png"))
 		panel.animaldobsyncbutton.Bind(wx.EVT_BUTTON, self.SyncAnimalDOB)
-		panel.animaldobsyncbutton.SetToolTipString(self.GetLabel("asmsyncbuttontooltip"))
+		panel.animaldobsyncbutton.SetToolTipString(self.t("asmsyncbuttontooltip"))
 		gridsizer.Add(panel.animaldobsyncbutton, 0, wx.ALIGN_CENTER)
 		
 		########################################################################
 		
-		gridsizer.Add(wx.StaticText(panel, -1, self.GetLabel("deceasedlabel")), 0, wx.ALIGN_LEFT)
+		gridsizer.Add(wx.StaticText(panel, -1, self.t("deceasedlabel")), 0, wx.ALIGN_LEFT)
 		
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
@@ -1361,12 +1356,12 @@ class AnimalPanel(wx.Panel):
 		
 		panel.animaldeceaseddatesyncbutton = wx.BitmapButton(panel, -1, wx.Bitmap("icons/refresh.png"))
 		panel.animaldeceaseddatesyncbutton.Bind(wx.EVT_BUTTON, self.SyncAnimalDeceasedDate)
-		panel.animaldeceaseddatesyncbutton.SetToolTipString(self.GetLabel("asmsyncbuttontooltip"))
+		panel.animaldeceaseddatesyncbutton.SetToolTipString(self.t("asmsyncbuttontooltip"))
 		gridsizer.Add(panel.animaldeceaseddatesyncbutton, 0, wx.ALIGN_CENTER)
 		
 		########################################################################
 		
-		gridsizer.Add(wx.StaticText(panel, -1, self.GetLabel("animalchipnolabel")), 0, wx.ALIGN_LEFT)
+		gridsizer.Add(wx.StaticText(panel, -1, self.t("animalchipnolabel")), 0, wx.ALIGN_LEFT)
 		
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
@@ -1382,7 +1377,7 @@ class AnimalPanel(wx.Panel):
 		
 		panel.animalchipnosyncbutton = wx.BitmapButton(panel, -1, wx.Bitmap("icons/refresh.png"))
 		panel.animalchipnosyncbutton.Bind(wx.EVT_BUTTON, self.SyncAnimalChipNo)
-		panel.animalchipnosyncbutton.SetToolTipString(self.GetLabel("asmsyncbuttontooltip"))
+		panel.animalchipnosyncbutton.SetToolTipString(self.t("asmsyncbuttontooltip"))
 		gridsizer.Add(panel.animalchipnosyncbutton, 0, wx.ALIGN_CENTER)
 		
 		########################################################################
@@ -1397,7 +1392,7 @@ class AnimalPanel(wx.Panel):
 		
 		########################################################################
 		
-		gridsizer.Add(wx.StaticText(panel, -1, self.GetLabel("animalownerlabel")), 0, wx.ALIGN_LEFT)
+		gridsizer.Add(wx.StaticText(panel, -1, self.t("animalownerlabel")), 0, wx.ALIGN_LEFT)
 		
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
@@ -1413,13 +1408,13 @@ class AnimalPanel(wx.Panel):
 		
 		panel.ownersyncbutton = wx.BitmapButton(panel, -1, wx.Bitmap("icons/refresh.png"))
 		panel.ownersyncbutton.Bind(wx.EVT_BUTTON, self.SyncOwner)
-		panel.ownersyncbutton.SetToolTipString(self.GetLabel("asmsyncbuttontooltip"))
+		panel.ownersyncbutton.SetToolTipString(self.t("asmsyncbuttontooltip"))
 		gridsizer.Add(panel.ownersyncbutton, 0, wx.ALIGN_CENTER)
 		
 		
 		########################################################################
 		
-		gridsizer.Add(wx.StaticText(panel, -1, self.GetLabel("clientsearchaddresslabel")), 0, wx.ALIGN_LEFT)
+		gridsizer.Add(wx.StaticText(panel, -1, self.t("clientsearchaddresslabel")), 0, wx.ALIGN_LEFT)
 		
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
@@ -1434,13 +1429,13 @@ class AnimalPanel(wx.Panel):
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
 		#owneraddresssyncbutton = wx.BitmapButton(panel, -1, wx.Bitmap("icons/refresh.png"))
-		#owneraddresssyncbutton.SetToolTipString(self.GetLabel("asmsyncbuttontooltip"))
+		#owneraddresssyncbutton.SetToolTipString(self.t("asmsyncbuttontooltip"))
 		#gridsizer.Add(owneraddresssyncbutton, 0, wx.ALIGN_TOP)
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
 		########################################################################
 		
-		gridsizer.Add(wx.StaticText(panel, -1, self.GetLabel("clientsearchpostcodelabel")), 0, wx.ALIGN_LEFT)
+		gridsizer.Add(wx.StaticText(panel, -1, self.t("clientsearchpostcodelabel")), 0, wx.ALIGN_LEFT)
 		
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
@@ -1455,13 +1450,13 @@ class AnimalPanel(wx.Panel):
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
 		#ownerpostcodesyncbutton = wx.BitmapButton(panel, -1, wx.Bitmap("icons/refresh.png"))
-		#ownerpostcodesyncbutton.SetToolTipString(self.GetLabel("asmsyncbuttontooltip"))
+		#ownerpostcodesyncbutton.SetToolTipString(self.t("asmsyncbuttontooltip"))
 		#gridsizer.Add(ownerpostcodesyncbutton, 0, wx.ALIGN_CENTER)
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
 		########################################################################
 		
-		gridsizer.Add(wx.StaticText(panel, -1, self.GetLabel("clienthomephonelabel")), 0, wx.ALIGN_LEFT)
+		gridsizer.Add(wx.StaticText(panel, -1, self.t("clienthomephonelabel")), 0, wx.ALIGN_LEFT)
 		
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
@@ -1476,13 +1471,13 @@ class AnimalPanel(wx.Panel):
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
 		#ownerhometelephonesyncbutton = wx.BitmapButton(panel, -1, wx.Bitmap("icons/refresh.png"))
-		#ownerhometelephonesyncbutton.SetToolTipString(self.GetLabel("asmsyncbuttontooltip"))
+		#ownerhometelephonesyncbutton.SetToolTipString(self.t("asmsyncbuttontooltip"))
 		#gridsizer.Add(ownerhometelephonesyncbutton, 0, wx.ALIGN_CENTER)
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
 		########################################################################
 		
-		gridsizer.Add(wx.StaticText(panel, -1, self.GetLabel("clientmobilephonelabel")), 0, wx.ALIGN_LEFT)
+		gridsizer.Add(wx.StaticText(panel, -1, self.t("clientmobilephonelabel")), 0, wx.ALIGN_LEFT)
 		
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
@@ -1497,13 +1492,13 @@ class AnimalPanel(wx.Panel):
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
 		#ownermobiletelephonesyncbutton = wx.BitmapButton(panel, -1, wx.Bitmap("icons/refresh.png"))
-		#ownermobiletelephonesyncbutton.SetToolTipString(self.GetLabel("asmsyncbuttontooltip"))
+		#ownermobiletelephonesyncbutton.SetToolTipString(self.t("asmsyncbuttontooltip"))
 		#gridsizer.Add(ownermobiletelephonesyncbutton, 0, wx.ALIGN_CENTER)
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
 		########################################################################
 		
-		gridsizer.Add(wx.StaticText(panel, -1, self.GetLabel("clientworkphonelabel")), 0, wx.ALIGN_LEFT)
+		gridsizer.Add(wx.StaticText(panel, -1, self.t("clientworkphonelabel")), 0, wx.ALIGN_LEFT)
 		
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
@@ -1518,13 +1513,13 @@ class AnimalPanel(wx.Panel):
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
 		#ownerworktelephonesyncbutton = wx.BitmapButton(panel, -1, wx.Bitmap("icons/refresh.png"))
-		#ownerworktelephonesyncbutton.SetToolTipString(self.GetLabel("asmsyncbuttontooltip"))
+		#ownerworktelephonesyncbutton.SetToolTipString(self.t("asmsyncbuttontooltip"))
 		#gridsizer.Add(ownerworktelephonesyncbutton, 0, wx.ALIGN_CENTER)
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
 		########################################################################
 		
-		gridsizer.Add(wx.StaticText(panel, -1, self.GetLabel("clientemailaddresslabel")), 0, wx.ALIGN_LEFT)
+		gridsizer.Add(wx.StaticText(panel, -1, self.t("clientemailaddresslabel")), 0, wx.ALIGN_LEFT)
 		
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
@@ -1539,7 +1534,7 @@ class AnimalPanel(wx.Panel):
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
 		#owneremailaddresssyncbutton = wx.BitmapButton(panel, -1, wx.Bitmap("icons/refresh.png"))
-		#owneremailaddresssyncbutton.SetToolTipString(self.GetLabel("asmsyncbuttontooltip"))
+		#owneremailaddresssyncbutton.SetToolTipString(self.t("asmsyncbuttontooltip"))
 		#gridsizer.Add(owneremailaddresssyncbutton, 0, wx.ALIGN_CENTER)
 		gridsizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
@@ -1579,11 +1574,11 @@ class AnimalPanel(wx.Panel):
 			
 		elif self.animaldata.deceased == 1:
 			
-			panel.evetteanimaldeceaseddateentry.SetValue(self.GetLabel("yeslabel"))
+			panel.evetteanimaldeceaseddateentry.SetValue(self.t("yeslabel"))
 			
 		else:
 			
-			panel.evetteanimaldeceaseddateentry.SetValue(self.GetLabel("nolabel"))
+			panel.evetteanimaldeceaseddateentry.SetValue(self.t("nolabel"))
 		
 		
 		panel.evetteanimalchipnoentry.SetValue(self.animaldata.chipno)
@@ -1627,7 +1622,7 @@ class AnimalPanel(wx.Panel):
 			
 		except:
 			
-			miscmethods.ShowMessage(self.GetLabel("asmconnectionerrormessage"), panel)
+			miscmethods.ShowMessage(self.t("asmconnectionerrormessage"), panel)
 			
 			asmconnectionavailable = False
 		
@@ -1651,7 +1646,7 @@ class AnimalPanel(wx.Panel):
 				
 				if asmdeceaseddate == None:
 					
-					asmdeceaseddate = self.GetLabel("nolabel")
+					asmdeceaseddate = self.t("nolabel")
 					
 				else:
 					
@@ -1704,7 +1699,7 @@ class AnimalPanel(wx.Panel):
 				
 				if asmdeceaseddate == None:
 					
-					asmdeceaseddate = self.GetLabel("nolabel")
+					asmdeceaseddate = self.t("nolabel")
 					
 				else:
 					
@@ -1916,12 +1911,12 @@ class AnimalPanel(wx.Panel):
 		popupmenu.asmref = panel.asmref
 		popupmenu.panel = panel
 		
-		evettesync = wx.MenuItem(popupmenu, EVETTE_ANIMAL_NAME_SYNC, self.GetLabel("synctoevettelabel"))
+		evettesync = wx.MenuItem(popupmenu, EVETTE_ANIMAL_NAME_SYNC, self.t("synctoevettelabel"))
 		evettesync.SetBitmap(wx.Bitmap("icons/evettelogo.png"))
 		popupmenu.AppendItem(evettesync)
 		wx.EVT_MENU(popupmenu, EVETTE_ANIMAL_NAME_SYNC, self.SyncAnimalNameToEvette)
 		
-		asmsync = wx.MenuItem(popupmenu, ASM_ANIMAL_NAME_SYNC, self.GetLabel("synctoasmlabel"))
+		asmsync = wx.MenuItem(popupmenu, ASM_ANIMAL_NAME_SYNC, self.t("synctoasmlabel"))
 		asmsync.SetBitmap(wx.Bitmap("icons/asm.png"))
 		popupmenu.AppendItem(asmsync)
 		wx.EVT_MENU(popupmenu, ASM_ANIMAL_NAME_SYNC, self.SyncAnimalNameToASM)
@@ -1968,12 +1963,12 @@ class AnimalPanel(wx.Panel):
 		popupmenu.asmref = panel.asmref
 		popupmenu.panel = panel
 		
-		evettesync = wx.MenuItem(popupmenu, EVETTE_ANIMAL_DOB_SYNC, self.GetLabel("synctoevettelabel"))
+		evettesync = wx.MenuItem(popupmenu, EVETTE_ANIMAL_DOB_SYNC, self.t("synctoevettelabel"))
 		evettesync.SetBitmap(wx.Bitmap("icons/evettelogo.png"))
 		popupmenu.AppendItem(evettesync)
 		wx.EVT_MENU(popupmenu, EVETTE_ANIMAL_DOB_SYNC, self.SyncAnimalDOBToEvette)
 		
-		asmsync = wx.MenuItem(popupmenu, ASM_ANIMAL_DOB_SYNC, self.GetLabel("synctoasmlabel"))
+		asmsync = wx.MenuItem(popupmenu, ASM_ANIMAL_DOB_SYNC, self.t("synctoasmlabel"))
 		asmsync.SetBitmap(wx.Bitmap("icons/asm.png"))
 		popupmenu.AppendItem(asmsync)
 		wx.EVT_MENU(popupmenu, ASM_ANIMAL_DOB_SYNC, self.SyncAnimalDOBToASM)
@@ -2069,7 +2064,7 @@ class AnimalPanel(wx.Panel):
 			
 		except:
 			
-			miscmethods.ShowMessage(self.GetLabel("invaliddobtooltip"), panel)
+			miscmethods.ShowMessage(self.t("invaliddobtooltip"), panel)
 	
 	def SyncAnimalDOBToASM(self, ID):
 		
@@ -2093,12 +2088,12 @@ class AnimalPanel(wx.Panel):
 		popupmenu.asmref = panel.asmref
 		popupmenu.panel = panel
 		
-		evettesync = wx.MenuItem(popupmenu, EVETTE_ANIMAL_DECEASEDDATE_SYNC, self.GetLabel("synctoevettelabel"))
+		evettesync = wx.MenuItem(popupmenu, EVETTE_ANIMAL_DECEASEDDATE_SYNC, self.t("synctoevettelabel"))
 		evettesync.SetBitmap(wx.Bitmap("icons/evettelogo.png"))
 		popupmenu.AppendItem(evettesync)
 		wx.EVT_MENU(popupmenu, EVETTE_ANIMAL_DECEASEDDATE_SYNC, self.SyncAnimalDeceasedDateToEvette)
 		
-		asmsync = wx.MenuItem(popupmenu, ASM_ANIMAL_DECEASEDDATE_SYNC, self.GetLabel("synctoasmlabel"))
+		asmsync = wx.MenuItem(popupmenu, ASM_ANIMAL_DECEASEDDATE_SYNC, self.t("synctoasmlabel"))
 		asmsync.SetBitmap(wx.Bitmap("icons/asm.png"))
 		popupmenu.AppendItem(asmsync)
 		wx.EVT_MENU(popupmenu, ASM_ANIMAL_DECEASEDDATE_SYNC, self.SyncAnimalDeceasedDateToASM)
@@ -2123,7 +2118,7 @@ class AnimalPanel(wx.Panel):
 			action = "SELECT Archived FROM animal WHERE ShelterCode = \"" + str(asmref) + "\""
 			archived = db.SendSQL(action, asmconnection)[0][0]
 			
-			action = "UPDATE animal SET DeceasedDate = \"" + str(self.animaldata.deceaseddate) + "\", LastChangedBy = \"Evette\", LastChangedDate =\"" + str(datetime.datetime.today()) + "\", PTSReason = \"" + self.GetLabel("evettedeathreasonlabel") + "\" WHERE ShelterCode = \"" + str(asmref) + "\""
+			action = "UPDATE animal SET DeceasedDate = \"" + str(self.animaldata.deceaseddate) + "\", LastChangedBy = \"Evette\", LastChangedDate =\"" + str(datetime.datetime.today()) + "\", PTSReason = \"" + self.t("evettedeathreasonlabel") + "\" WHERE ShelterCode = \"" + str(asmref) + "\""
 			db.SendSQL(action, asmconnection)
 			
 			if archived == 1:
@@ -2144,11 +2139,11 @@ class AnimalPanel(wx.Panel):
 			
 		elif self.animaldata.deceased == 1:
 			
-			output = self.GetLabel("yeslabel")
+			output = self.t("yeslabel")
 			
 		else:
 			
-			output = self.GetLabel("nolabel")
+			output = self.t("nolabel")
 		
 		panel.asmanimaldeceaseddateentry.SetValue(output)
 		panel.asmanimaldeceaseddateentry.SetBackgroundColour("green")
@@ -2162,7 +2157,7 @@ class AnimalPanel(wx.Panel):
 		
 		deceaseddate = panel.asmanimaldeceaseddateentry.GetValue()
 		
-		if deceaseddate == self.GetLabel("nolabel"):
+		if deceaseddate == self.t("nolabel"):
 			
 			deceaseddate = "0000-00-00"
 			self.animaldata.deceased = 0
@@ -2178,8 +2173,8 @@ class AnimalPanel(wx.Panel):
 		else:
 			
 			self.animaldata.deceased = 1
-			self.animaldata.causeofdeath = self.GetLabel("asmdeathreasonlabel")
-			self.deathreasonentry.SetValue(self.GetLabel("asmdeathreasonlabel"))
+			self.animaldata.causeofdeath = self.t("asmdeathreasonlabel")
+			self.deathreasonentry.SetValue(self.t("asmdeathreasonlabel"))
 			
 			wx.TextCtrl.SetValue(self.deceaseddatectrl, deceaseddate)
 			
@@ -2268,12 +2263,12 @@ class AnimalPanel(wx.Panel):
 		popupmenu.asmref = panel.asmref
 		popupmenu.panel = panel
 		
-		evettesync = wx.MenuItem(popupmenu, EVETTE_ANIMAL_CHIPNO_SYNC, self.GetLabel("synctoevettelabel"))
+		evettesync = wx.MenuItem(popupmenu, EVETTE_ANIMAL_CHIPNO_SYNC, self.t("synctoevettelabel"))
 		evettesync.SetBitmap(wx.Bitmap("icons/evettelogo.png"))
 		popupmenu.AppendItem(evettesync)
 		wx.EVT_MENU(popupmenu, EVETTE_ANIMAL_CHIPNO_SYNC, self.SyncAnimalChipNoToEvette)
 		
-		asmsync = wx.MenuItem(popupmenu, ASM_ANIMAL_CHIPNO_SYNC, self.GetLabel("synctoasmlabel"))
+		asmsync = wx.MenuItem(popupmenu, ASM_ANIMAL_CHIPNO_SYNC, self.t("synctoasmlabel"))
 		asmsync.SetBitmap(wx.Bitmap("icons/asm.png"))
 		popupmenu.AppendItem(asmsync)
 		wx.EVT_MENU(popupmenu, ASM_ANIMAL_CHIPNO_SYNC, self.SyncAnimalChipNoToASM)
@@ -2353,31 +2348,31 @@ class AnimalPanel(wx.Panel):
 		
 		if self.animaldata.ownerid == self.localsettings.shelterid:
 			
-			importnewasmowner = wx.MenuItem(popupmenu, IMPORT_NEW_ASM_OWNER, self.GetLabel("importnewasmownermenuitem"))
+			importnewasmowner = wx.MenuItem(popupmenu, IMPORT_NEW_ASM_OWNER, self.t("importnewasmownermenuitem"))
 			importnewasmowner.SetBitmap(wx.Bitmap("icons/new.png"))
 			popupmenu.AppendItem(importnewasmowner)
 			wx.EVT_MENU(popupmenu, IMPORT_NEW_ASM_OWNER, self.ImportNewASMOwner)
 			
 		elif panel.asmonshelter == False:
 			
-			importnewasmowner = wx.MenuItem(popupmenu, IMPORT_NEW_ASM_OWNER, self.GetLabel("importnewasmownermenuitem"))
+			importnewasmowner = wx.MenuItem(popupmenu, IMPORT_NEW_ASM_OWNER, self.t("importnewasmownermenuitem"))
 			importnewasmowner.SetBitmap(wx.Bitmap("icons/new.png"))
 			popupmenu.AppendItem(importnewasmowner)
 			wx.EVT_MENU(popupmenu, IMPORT_NEW_ASM_OWNER, self.ImportNewASMOwner)
 			
-			evettesync = wx.MenuItem(popupmenu, UPDATE_OWNER_EVETTE_SYNC, self.GetLabel("updateownermenuitem") + " - " + self.GetLabel("synctoevettelabel"))
+			evettesync = wx.MenuItem(popupmenu, UPDATE_OWNER_EVETTE_SYNC, self.t("updateownermenuitem") + " - " + self.t("synctoevettelabel"))
 			evettesync.SetBitmap(wx.Bitmap("icons/evettelogo.png"))
 			popupmenu.AppendItem(evettesync)
 			wx.EVT_MENU(popupmenu, UPDATE_OWNER_EVETTE_SYNC, self.SyncOwnerToEvette)
 			
-			asmsync = wx.MenuItem(popupmenu, UPDATE_OWNER_ASM_SYNC, self.GetLabel("updateownermenuitem") + " - " + self.GetLabel("synctoasmlabel"))
+			asmsync = wx.MenuItem(popupmenu, UPDATE_OWNER_ASM_SYNC, self.t("updateownermenuitem") + " - " + self.t("synctoasmlabel"))
 			asmsync.SetBitmap(wx.Bitmap("icons/asm.png"))
 			popupmenu.AppendItem(asmsync)
 			wx.EVT_MENU(popupmenu, UPDATE_OWNER_ASM_SYNC, self.SyncOwnerToASM)
 			
 		else:
 			
-			returntoshelter = wx.MenuItem(popupmenu, IMPORT_NEW_ASM_OWNER, self.GetLabel("returntoshelterlabel"))
+			returntoshelter = wx.MenuItem(popupmenu, IMPORT_NEW_ASM_OWNER, self.t("returntoshelterlabel"))
 			returntoshelter.SetBitmap(wx.Bitmap("icons/asm.png"))
 			popupmenu.AppendItem(returntoshelter)
 			wx.EVT_MENU(popupmenu, IMPORT_NEW_ASM_OWNER, self.ReturnEvetteAnimalToShelter)
@@ -2433,7 +2428,7 @@ class AnimalPanel(wx.Panel):
 		clientsettings.mobiletelephone = str(mobiletelephone)
 		clientsettings.worktelephone = str(worktelephone)
 		clientsettings.emailaddress = str(emailaddress)
-		clientsettings.comments = self.GetLabel("asmimportlabel") + ":\n" + str(comments)
+		clientsettings.comments = self.t("asmimportlabel") + ":\n" + str(comments)
 		
 		clientsettings = clientmethods.CheckForExistingClient(self, clientsettings, False).clientdata
 		
@@ -2459,7 +2454,7 @@ class AnimalPanel(wx.Panel):
 		action = "SELECT owner.ID FROM animal INNER JOIN adoption ON animal.ActiveMovementID = adoption.ID INNER JOIN owner ON adoption.OwnerID = owner.ID WHERE animal.ShelterCode = \"" + str(panel.asmref) + "\""
 		clientid = db.SendSQL(action, asmconnection)[0][0]
 		
-		action = "UPDATE owner SET OwnerTitle = \"" + self.clientdata.title + "\", OwnerForenames = \"" + self.clientdata.forenames + "\", OwnerSurname = \"" + self.clientdata.surname + "\", OwnerAddress = \"" + self.clientdata.address + "\", OwnerPostcode = \"" + self.clientdata.postcode + "\", HomeTelephone = \"" + self.clientdata.hometelephone + "\", MobileTelephone = \"" + self.clientdata.mobiletelephone + "\", WorkTelephone = \"" + self.clientdata.worktelephone + "\", EmailAddress = \"" + self.clientdata.emailaddress + "\", Comments = CONCAT(Comments, \"" + "\n" + self.GetLabel("evettedeathreasonlabel") + "\"), LastChangedBy = \"Evette\", LastChangedDate = \"" + str(datetime.datetime.today()) + "\" WHERE ID = \"" + str(clientid) + "\""
+		action = "UPDATE owner SET OwnerTitle = \"" + self.clientdata.title + "\", OwnerForenames = \"" + self.clientdata.forenames + "\", OwnerSurname = \"" + self.clientdata.surname + "\", OwnerAddress = \"" + self.clientdata.address + "\", OwnerPostcode = \"" + self.clientdata.postcode + "\", HomeTelephone = \"" + self.clientdata.hometelephone + "\", MobileTelephone = \"" + self.clientdata.mobiletelephone + "\", WorkTelephone = \"" + self.clientdata.worktelephone + "\", EmailAddress = \"" + self.clientdata.emailaddress + "\", Comments = CONCAT(Comments, \"" + "\n" + self.t("evettedeathreasonlabel") + "\"), LastChangedBy = \"Evette\", LastChangedDate = \"" + str(datetime.datetime.today()) + "\" WHERE ID = \"" + str(clientid) + "\""
 		db.SendSQL(action, asmconnection)
 		
 		asmconnection.close()
@@ -2498,9 +2493,9 @@ class AnimalPanel(wx.Panel):
 
 class VaccinationPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.parent.animaldata.localsettings.dictionary[field][self.parent.animaldata.localsettings.language]
+		return  self.parent.animaldata.localsettings.t(field,idx)
 	
 	def __init__(self, parent):
 		
@@ -2520,12 +2515,12 @@ class VaccinationPanel(wx.Panel):
 		resetbitmap = wx.Bitmap("icons/reset.png")
 		resetbutton = wx.BitmapButton(self, -1, resetbitmap)
 		resetbutton.Bind(wx.EVT_BUTTON, self.Reset)
-		resetbutton.SetToolTipString(self.GetLabel("animalresetvaccinationentries"))
+		resetbutton.SetToolTipString(self.t("animalresetvaccinationentries"))
 		toolssizer1.Add(resetbutton, 0, wx.EXPAND)
 		
 		toolssizer1.Add(wx.StaticText(self, -1, "", size=(5,-1)), 0, wx.EXPAND)
 		
-		namelabel = wx.StaticText(self, -1, self.GetLabel("animalvaccinelabel") + ":")
+		namelabel = wx.StaticText(self, -1, self.t("animalvaccinelabel") + ":")
 		toolssizer1.Add(namelabel, 0, wx.ALIGN_CENTER)
 		
 		action = "SELECT Name FROM medication WHERE Type = 1"
@@ -2547,13 +2542,13 @@ class VaccinationPanel(wx.Panel):
 		
 		toolssizer2 = wx.BoxSizer(wx.HORIZONTAL)
 		
-		givenlabel = wx.StaticText(self, -1, self.GetLabel("animalgivenlabel"))
+		givenlabel = wx.StaticText(self, -1, self.t("animalgivenlabel"))
 		toolssizer2.Add(givenlabel, 0, wx.ALIGN_CENTER)
 		
 		givenentry = customwidgets.DateCtrl(self, self.parent.animaldata.localsettings)
 		toolssizer2.Add(givenentry, 1, wx.EXPAND)
 		
-		nextlabel = wx.StaticText(self, -1, self.GetLabel("animalnextlabel"))
+		nextlabel = wx.StaticText(self, -1, self.t("animalnextlabel"))
 		toolssizer2.Add(nextlabel, 0, wx.ALIGN_CENTER)
 		
 		nextentry = customwidgets.DateCtrl(self, self.parent.animaldata.localsettings)
@@ -2570,10 +2565,10 @@ class VaccinationPanel(wx.Panel):
 		deletebutton = wx.BitmapButton(self, -1, deletebitmap)
 		deletebutton.Bind(wx.EVT_BUTTON, self.Delete)
 		deletebutton.Disable()
-		deletebutton.SetToolTipString(self.GetLabel("animaldeletevaccinationtooltip"))
+		deletebutton.SetToolTipString(self.t("animaldeletevaccinationtooltip"))
 		toolssizer3.Add(deletebutton, 0, wx.EXPAND)
 		
-		batchlabel = wx.StaticText(self, -1, self.GetLabel("animalvaccinationbatchlabel"))
+		batchlabel = wx.StaticText(self, -1, self.t("animalvaccinationbatchlabel"))
 		toolssizer3.Add(batchlabel, 0, wx.ALIGN_CENTER)
 		
 		batchentry = wx.TextCtrl(self, -1, "", size=(300,-1))
@@ -2585,7 +2580,7 @@ class VaccinationPanel(wx.Panel):
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(self, -1, submitbitmap)
 		submitbutton.Bind(wx.EVT_BUTTON, self.Submit)
-		submitbutton.SetToolTipString(self.GetLabel("animalsubmitvaccinationtooltip"))
+		submitbutton.SetToolTipString(self.t("animalsubmitvaccinationtooltip"))
 		
 		toolssizer3.Add(submitbutton, 0, wx.EXPAND)
 		
@@ -2673,7 +2668,7 @@ class VaccinationPanel(wx.Panel):
 		ID = self.vaccinationslistbox.htmllist[listboxid][1]
 		vaccinationid = self.vaccinationslistbox.htmllist[listboxid][5]
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("animalconfirmdeletevaccinationmessage")):
+		if miscmethods.ConfirmMessage(self.t("animalconfirmdeletevaccinationmessage")):
 			
 			if vaccinationid == 0:
 				
@@ -2691,9 +2686,9 @@ class VaccinationPanel(wx.Panel):
 
 class WeightPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.animaldata.localsettings.dictionary[field][self.animaldata.localsettings.language]
+		return  self.animaldata.localsettings.t(field,idx)
 	
 	def __init__(self, parent, animaldata):
 		
@@ -2732,26 +2727,26 @@ class WeightPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		addweight = wx.MenuItem(popupmenu, ADD_WEIGHT, self.GetLabel("addlabel"))
+		addweight = wx.MenuItem(popupmenu, ADD_WEIGHT, self.t("addlabel"))
 		addweight.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(addweight)
 		wx.EVT_MENU(popupmenu, ADD_WEIGHT, self.NewWeight)
 		
 		if self.selectedweight != False:
 			
-			editweight = wx.MenuItem(popupmenu, EDIT_WEIGHT, self.GetLabel("editlabel"))
+			editweight = wx.MenuItem(popupmenu, EDIT_WEIGHT, self.t("editlabel"))
 			editweight.SetBitmap(wx.Bitmap("icons/edit.png"))
 			popupmenu.AppendItem(editweight)
 			wx.EVT_MENU(popupmenu, EDIT_WEIGHT, self.EditWeight)
 			
-			deleteweight = wx.MenuItem(popupmenu, DELETE_WEIGHT, self.GetLabel("deletelabel"))
+			deleteweight = wx.MenuItem(popupmenu, DELETE_WEIGHT, self.t("deletelabel"))
 			deleteweight.SetBitmap(wx.Bitmap("icons/delete.png"))
 			popupmenu.AppendItem(deleteweight)
 			wx.EVT_MENU(popupmenu, DELETE_WEIGHT, self.Delete)
 		
 		popupmenu.AppendSeparator()
 		
-		refreshweight = wx.MenuItem(popupmenu, REFRESH_WEIGHTS, self.GetLabel("refreshlabel"))
+		refreshweight = wx.MenuItem(popupmenu, REFRESH_WEIGHTS, self.t("refreshlabel"))
 		refreshweight.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refreshweight)
 		wx.EVT_MENU(popupmenu, REFRESH_WEIGHTS, self.listbox.RefreshList)
@@ -2768,7 +2763,7 @@ class WeightPanel(wx.Panel):
 	
 	def EditWeightDialog(self, newweight):
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("editweightlabel"))
+		dialog = wx.Dialog(self, -1, self.t("editweightlabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -2778,7 +2773,7 @@ class WeightPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.HORIZONTAL)
 		
-		datelabel = wx.StaticText(panel, -1, self.GetLabel("datelabel") + ":")
+		datelabel = wx.StaticText(panel, -1, self.t("datelabel") + ":")
 		topsizer.Add(datelabel, 0, wx.ALIGN_CENTER)
 		
 		dateentry = customwidgets.DateCtrl(panel, self.animaldata.localsettings)
@@ -2790,7 +2785,7 @@ class WeightPanel(wx.Panel):
 			date = miscmethods.GetWXDateFromSQLDate(date)
 			dateentry.SetValue(date)
 		
-		weightlabel = wx.StaticText(panel, -1, miscmethods.NoWrap(" " + self.GetLabel("weightpanelpagetitle") + ":"))
+		weightlabel = wx.StaticText(panel, -1, miscmethods.NoWrap(" " + self.t("weightpanelpagetitle") + ":"))
 		topsizer.Add(weightlabel, 0, wx.ALIGN_CENTER)
 		
 		weightentry = wx.TextCtrl(panel, -1, "")
@@ -2811,7 +2806,7 @@ class WeightPanel(wx.Panel):
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(panel, -1, submitbitmap)
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.SubmitWeight)
 		topsizer.Add(submitbutton, 0, wx.EXPAND)
 		
@@ -2839,7 +2834,7 @@ class WeightPanel(wx.Panel):
 	
 	def Delete(self, ID=False):
 		
-		if miscmethods.ConfirmMessage(self.animalpanel.GetLabel("deleteweightconfirm")):
+		if miscmethods.ConfirmMessage(self.t("deleteweightconfirm")):
 			
 			action = "DELETE FROM weight WHERE ID = " + str(self.selectedweight[0])
 			db.SendSQL(action, self.animaldata.localsettings.dbconnection)
@@ -2958,7 +2953,7 @@ class WeightListbox(wx.HtmlListBox):
 			
 			if difference == 0:
 				
-				difference = self.parent.animalpanel.GetLabel("samelabel")
+				difference = self.parent.t("samelabel")
 				
 			elif difference != "":
 				
@@ -3112,9 +3107,9 @@ def NewOwnerSelected(ID):
 
 class AnimalAppointmentBrowser(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.animaldata.localsettings.dictionary[field][self.animaldata.localsettings.language]
+		return  self.animaldata.localsettings.t(field, idx)
 	
 	def __init__(self, parent, animaldata):
 		
@@ -3139,17 +3134,17 @@ class AnimalAppointmentBrowser(wx.Panel):
 		legendsizer = wx.BoxSizer(wx.HORIZONTAL)
 		
 		legendsizer.Add(wx.StaticBitmap(self, -1, wx.Bitmap("icons/ontime.png")), 0, wx.ALIGN_CENTER)
-		legendsizer.Add(wx.StaticText(self, -1, self.GetLabel("ontimelabel")), 0, wx.ALIGN_CENTER)
+		legendsizer.Add(wx.StaticText(self, -1, self.t("ontimelabel")), 0, wx.ALIGN_CENTER)
 		
 		legendsizer.Add(wx.StaticText(self, -1,"", size=(10, 0)), 0, wx.ALIGN_CENTER)
 		
 		legendsizer.Add(wx.StaticBitmap(self, -1, wx.Bitmap("icons/late.png")), 0, wx.ALIGN_CENTER)
-		legendsizer.Add(wx.StaticText(self, -1, self.GetLabel("latelabel")), 0, wx.ALIGN_CENTER)
+		legendsizer.Add(wx.StaticText(self, -1, self.t("latelabel")), 0, wx.ALIGN_CENTER)
 		
 		legendsizer.Add(wx.StaticText(self, -1,"", size=(10, 0)), 0, wx.ALIGN_CENTER)
 		
 		legendsizer.Add(wx.StaticBitmap(self, -1, wx.Bitmap("icons/dna.png")), 0, wx.ALIGN_CENTER)
-		legendsizer.Add(wx.StaticText(self, -1, self.GetLabel("dnalabel")), 0, wx.ALIGN_CENTER)
+		legendsizer.Add(wx.StaticText(self, -1, self.t("dnalabel")), 0, wx.ALIGN_CENTER)
 		
 		topsizer.Add(legendsizer, 0, wx.ALIGN_RIGHT)
 		
