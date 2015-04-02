@@ -291,9 +291,9 @@ class RandomClientsThread(threading.Thread):
 
 class RandomDataPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
@@ -301,37 +301,37 @@ class RandomDataPanel(wx.Panel):
 		
 		wx.Panel.__init__(self, notebook)
 		
-		self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("randomdatapagetitle"))
+		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("randomdatapagetitle"))
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
 		gridsizer = wx.FlexGridSizer(rows=5, cols=2)
 		
-		noofclientslabel = wx.StaticText(self, -1, self.GetLabel("randomdatanoofclientslabel") + ": ")
+		noofclientslabel = wx.StaticText(self, -1, self.t("randomdatanoofclientslabel") + ": ")
 		gridsizer.Add(noofclientslabel, 0, wx.ALIGN_RIGHT)
 		
 		noofclientsentry = wx.TextCtrl(self, -1, "50")
 		gridsizer.Add(noofclientsentry, 0, wx.EXPAND)
 		
-		noofanimalslabel = wx.StaticText(self, -1, self.GetLabel("randomdatanoofanimalslabel") + ": ")
+		noofanimalslabel = wx.StaticText(self, -1, self.t("randomdatanoofanimalslabel") + ": ")
 		gridsizer.Add(noofanimalslabel, 0, wx.ALIGN_RIGHT)
 		
 		noofanimalsentry = wx.TextCtrl(self, -1, "100")
 		gridsizer.Add(noofanimalsentry, 0, wx.EXPAND)
 		
-		noofappointmentslabel = wx.StaticText(self, -1, self.GetLabel("randomdatanoofappointmentslabel") + ": ")
+		noofappointmentslabel = wx.StaticText(self, -1, self.t("randomdatanoofappointmentslabel") + ": ")
 		gridsizer.Add(noofappointmentslabel, 0, wx.ALIGN_RIGHT)
 		
 		noofappointmentsentry = wx.TextCtrl(self, -1, "30")
 		gridsizer.Add(noofappointmentsentry, 0, wx.EXPAND)
 		
-		noofoperationslabel = wx.StaticText(self, -1, self.GetLabel("randomdatanoofoperationslabel") + ": ")
+		noofoperationslabel = wx.StaticText(self, -1, self.t("randomdatanoofoperationslabel") + ": ")
 		gridsizer.Add(noofoperationslabel, 0, wx.ALIGN_RIGHT)
 		
 		noofoperationsentry = wx.TextCtrl(self, -1, "10")
 		gridsizer.Add(noofoperationsentry, 0, wx.EXPAND)
 		
-		noofmedicationslabel = wx.StaticText(self, -1, self.GetLabel("randomdatanoofmedicationslabel") + ": ")
+		noofmedicationslabel = wx.StaticText(self, -1, self.t("randomdatanoofmedicationslabel") + ": ")
 		gridsizer.Add(noofmedicationslabel, 0, wx.ALIGN_RIGHT)
 		
 		noofmedicationsentry = wx.TextCtrl(self, -1, "10")
@@ -341,7 +341,7 @@ class RandomDataPanel(wx.Panel):
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(self, -1, submitbitmap)
-		submitbutton.SetToolTipString(self.GetLabel("randomdatasubmittooltip"))
+		submitbutton.SetToolTipString(self.t("randomdatasubmittooltip"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.Submit)
 		topsizer.Add(submitbutton, 0, wx.ALIGN_CENTER)
 		
@@ -352,27 +352,27 @@ class RandomDataPanel(wx.Panel):
 		
 		gaugessizer = wx.BoxSizer(wx.VERTICAL)
 		
-		clientgaugelabel = wx.StaticText(self, -1, self.GetLabel("randomdataclientslabel") + ":")
+		clientgaugelabel = wx.StaticText(self, -1, self.t("randomdataclientslabel") + ":")
 		gaugessizer.Add(clientgaugelabel, 0, wx.ALIGN_CENTER)
 		clientgauge = wx.Gauge(self)
 		gaugessizer.Add(clientgauge, 0, wx.EXPAND)
 		
-		animalgaugelabel = wx.StaticText(self, -1, self.GetLabel("randomdataanimalslabel") + ":")
+		animalgaugelabel = wx.StaticText(self, -1, self.t("randomdataanimalslabel") + ":")
 		gaugessizer.Add(animalgaugelabel, 0, wx.ALIGN_CENTER)
 		animalgauge = wx.Gauge(self)
 		gaugessizer.Add(animalgauge, 0, wx.EXPAND)
 		
-		appointmentgaugelabel = wx.StaticText(self, -1, self.GetLabel("randomdataappointmentslabel") + ":")
+		appointmentgaugelabel = wx.StaticText(self, -1, self.t("randomdataappointmentslabel") + ":")
 		gaugessizer.Add(appointmentgaugelabel, 0, wx.ALIGN_CENTER)
 		appointmentgauge = wx.Gauge(self)
 		gaugessizer.Add(appointmentgauge, 0, wx.EXPAND)
 		
-		operationgaugelabel = wx.StaticText(self, -1, self.GetLabel("randomdataoperationslabel") + ":")
+		operationgaugelabel = wx.StaticText(self, -1, self.t("randomdataoperationslabel") + ":")
 		gaugessizer.Add(operationgaugelabel, 0, wx.ALIGN_CENTER)
 		operationgauge = wx.Gauge(self)
 		gaugessizer.Add(operationgauge, 0, wx.EXPAND)
 		
-		medicationgaugelabel = wx.StaticText(self, -1, self.GetLabel("randomdatamedicationlabel") + ":")
+		medicationgaugelabel = wx.StaticText(self, -1, self.t("randomdatamedicationlabel") + ":")
 		gaugessizer.Add(medicationgaugelabel, 0, wx.ALIGN_CENTER)
 		medicationgauge = wx.Gauge(self)
 		gaugessizer.Add(medicationgauge, 0, wx.EXPAND)
@@ -402,7 +402,7 @@ class RandomDataPanel(wx.Panel):
 	
 	def Submit(self, ID):
 		
-		miscmethods.ShowMessage(self.GetLabel("randomdatawarningmessage"))
+		miscmethods.ShowMessage(self.t("randomdatawarningmessage"))
 		RandomClientsThread(self)
 
 def GetRandomEntry(tuple):

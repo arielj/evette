@@ -32,9 +32,9 @@ REFRESH_USERS = 1305
 
 class GenericSettingsPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, title):
 		
@@ -44,11 +44,11 @@ class GenericSettingsPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		edit = wx.CheckBox(self, -1, self.GetLabel("editlabel"))
+		edit = wx.CheckBox(self, -1, self.t("editlabel"))
 		edit.Bind(wx.EVT_CHECKBOX, self.EditChecked)
 		topsizer.Add(edit, 0, wx.ALIGN_LEFT)
 		
-		delete = wx.CheckBox(self, -1, self.GetLabel("deletelabel"))
+		delete = wx.CheckBox(self, -1, self.t("deletelabel"))
 		delete.Bind(wx.EVT_CHECKBOX, self.DeleteChecked)
 		topsizer.Add(delete, 0, wx.ALIGN_LEFT)
 		
@@ -69,9 +69,9 @@ class GenericSettingsPanel(wx.Panel):
 
 class AppointmentSettingsPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, title):
 		
@@ -81,15 +81,15 @@ class AppointmentSettingsPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		edit = wx.CheckBox(self, -1, self.GetLabel("editlabel"))
+		edit = wx.CheckBox(self, -1, self.t("editlabel"))
 		edit.Bind(wx.EVT_CHECKBOX, self.EditChecked)
 		topsizer.Add(edit, 0, wx.ALIGN_LEFT)
 		
-		delete = wx.CheckBox(self, -1, self.GetLabel("deletelabel"))
+		delete = wx.CheckBox(self, -1, self.t("deletelabel"))
 		delete.Bind(wx.EVT_CHECKBOX, self.DeleteChecked)
 		topsizer.Add(delete, 0, wx.ALIGN_LEFT)
 		
-		vetform = wx.CheckBox(self, -1, self.GetLabel("editvetformlabel"))
+		vetform = wx.CheckBox(self, -1, self.t("editvetformlabel"))
 		vetform.Bind(wx.EVT_CHECKBOX, self.EditVetFormChecked)
 		topsizer.Add(vetform, 0, wx.ALIGN_LEFT)
 		
@@ -117,9 +117,9 @@ class AppointmentSettingsPanel(wx.Panel):
 
 class ClientSettingsPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, title):
 		
@@ -129,15 +129,15 @@ class ClientSettingsPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		edit = wx.CheckBox(self, -1, self.GetLabel("editlabel"))
+		edit = wx.CheckBox(self, -1, self.t("editlabel"))
 		edit.Bind(wx.EVT_CHECKBOX, self.EditChecked)
 		topsizer.Add(edit, 0, wx.ALIGN_LEFT)
 		
-		delete = wx.CheckBox(self, -1, self.GetLabel("deletelabel"))
+		delete = wx.CheckBox(self, -1, self.t("deletelabel"))
 		delete.Bind(wx.EVT_CHECKBOX, self.DeleteChecked)
 		topsizer.Add(delete, 0, wx.ALIGN_LEFT)
 		
-		editfinances = wx.CheckBox(self, -1, self.GetLabel("editfinanceslabel"))
+		editfinances = wx.CheckBox(self, -1, self.t("editfinanceslabel"))
 		topsizer.Add(editfinances, 0, wx.ALIGN_LEFT)
 		
 		self.SetSizer(topsizer)
@@ -158,9 +158,9 @@ class ClientSettingsPanel(wx.Panel):
 
 class MiscSettingsPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, title):
 		
@@ -170,19 +170,19 @@ class MiscSettingsPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		toolbar = wx.CheckBox(self, -1, self.GetLabel("showtoolbarlabel"))
+		toolbar = wx.CheckBox(self, -1, self.t("showtoolbarlabel"))
 		topsizer.Add(toolbar, 0, wx.ALIGN_LEFT)
 		
-		changelog = wx.CheckBox(self, -1, self.GetLabel("viewchangeloglabel"))
+		changelog = wx.CheckBox(self, -1, self.t("viewchangeloglabel"))
 		topsizer.Add(changelog, 0, wx.ALIGN_LEFT)
 		
-		editsettings = wx.CheckBox(self, -1, self.GetLabel("editsettingslabel"))
+		editsettings = wx.CheckBox(self, -1, self.t("editsettingslabel"))
 		topsizer.Add(editsettings, 0, wx.ALIGN_LEFT)
 		
-		multiplepanels = wx.CheckBox(self, -1, self.GetLabel("multiplepanellabel"))
+		multiplepanels = wx.CheckBox(self, -1, self.t("multiplepanellabel"))
 		topsizer.Add(multiplepanels, 0, wx.ALIGN_LEFT)
 		
-		asmsync = wx.CheckBox(self, -1, self.GetLabel("synctoasmlabel"))
+		asmsync = wx.CheckBox(self, -1, self.t("synctoasmlabel"))
 		topsizer.Add(asmsync, 0, wx.ALIGN_LEFT)
 		
 		self.SetSizer(topsizer)
@@ -195,9 +195,9 @@ class MiscSettingsPanel(wx.Panel):
 
 class DiarySettingsPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, title):
 		
@@ -207,13 +207,13 @@ class DiarySettingsPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		adddiarynotes = wx.CheckBox(self, -1, self.GetLabel("adddiarynotes"))
+		adddiarynotes = wx.CheckBox(self, -1, self.t("adddiarynotes"))
 		topsizer.Add(adddiarynotes, 0, wx.ALIGN_LEFT)
 		
-		editdiarynotes = wx.CheckBox(self, -1, self.GetLabel("editdiarynotes"))
+		editdiarynotes = wx.CheckBox(self, -1, self.t("editdiarynotes"))
 		topsizer.Add(editdiarynotes, 0, wx.ALIGN_LEFT)
 		
-		deletediarynotes = wx.CheckBox(self, -1, self.GetLabel("deletediarynotes"))
+		deletediarynotes = wx.CheckBox(self, -1, self.t("deletediarynotes"))
 		topsizer.Add(deletediarynotes, 0, wx.ALIGN_LEFT)
 		
 		self.SetSizer(topsizer)
@@ -224,9 +224,9 @@ class DiarySettingsPanel(wx.Panel):
 
 class UserSettingsPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, title):
 		
@@ -236,15 +236,15 @@ class UserSettingsPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		edit = wx.CheckBox(self, -1, self.GetLabel("editlabel"))
+		edit = wx.CheckBox(self, -1, self.t("editlabel"))
 		edit.Bind(wx.EVT_CHECKBOX, self.EditChecked)
 		topsizer.Add(edit, 0, wx.ALIGN_LEFT)
 		
-		delete = wx.CheckBox(self, -1, self.GetLabel("deletelabel"))
+		delete = wx.CheckBox(self, -1, self.t("deletelabel"))
 		delete.Bind(wx.EVT_CHECKBOX, self.DeleteChecked)
 		topsizer.Add(delete, 0, wx.ALIGN_LEFT)
 		
-		editrota = wx.CheckBox(self, -1, self.GetLabel("editrotalabel"))
+		editrota = wx.CheckBox(self, -1, self.t("editrotalabel"))
 		topsizer.Add(editrota, 0, wx.ALIGN_LEFT)
 		
 		self.SetSizer(topsizer)
@@ -265,15 +265,15 @@ class UserSettingsPanel(wx.Panel):
 
 class EditStaffPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
 		self.localsettings = localsettings
 		
-		self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("editstaffpagetitle"))
+		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("editstaffpagetitle"))
 		
 		wx.Panel.__init__(self, notebook)
 		
@@ -295,26 +295,26 @@ class EditStaffPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		add = wx.MenuItem(popupmenu, ADD_USER, self.GetLabel("addlabel"))
+		add = wx.MenuItem(popupmenu, ADD_USER, self.t("addlabel"))
 		add.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(add)
 		wx.EVT_MENU(popupmenu, ADD_USER, self.AddUser)
 		
 		if self.userlist.GetSelection() > -1:
 			
-			edit = wx.MenuItem(popupmenu, EDIT_USER, self.GetLabel("editlabel"))
+			edit = wx.MenuItem(popupmenu, EDIT_USER, self.t("editlabel"))
 			edit.SetBitmap(wx.Bitmap("icons/edit.png"))
 			popupmenu.AppendItem(edit)
 			wx.EVT_MENU(popupmenu, EDIT_USER, self.EditUser)
 			
-			delete = wx.MenuItem(popupmenu, DELETE_USER, self.GetLabel("deletelabel"))
+			delete = wx.MenuItem(popupmenu, DELETE_USER, self.t("deletelabel"))
 			delete.SetBitmap(wx.Bitmap("icons/delete.png"))
 			popupmenu.AppendItem(delete)
 			wx.EVT_MENU(popupmenu, DELETE_USER, self.DeleteUser)
 		
 		popupmenu.AppendSeparator()
 		
-		refresh = wx.MenuItem(popupmenu, REFRESH_USERS, self.GetLabel("refreshlabel"))
+		refresh = wx.MenuItem(popupmenu, REFRESH_USERS, self.t("refreshlabel"))
 		refresh.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refresh)
 		wx.EVT_MENU(popupmenu, REFRESH_USERS, self.RefreshUsers)
@@ -351,7 +351,7 @@ class EditStaffPanel(wx.Panel):
 				
 				positions.append(a[0])
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("edituserlabel"))
+		dialog = wx.Dialog(self, -1, self.t("edituserlabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -369,7 +369,7 @@ class EditStaffPanel(wx.Panel):
 		
 		namesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		namelabel = wx.StaticText(panel, -1, self.GetLabel("namelabel") + ":")
+		namelabel = wx.StaticText(panel, -1, self.t("namelabel") + ":")
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -382,7 +382,7 @@ class EditStaffPanel(wx.Panel):
 		
 		passwordsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		passwordlabel = wx.StaticText(panel, -1, miscmethods.NoWrap(" " + self.GetLabel("passwordlabel") + ":"))
+		passwordlabel = wx.StaticText(panel, -1, miscmethods.NoWrap(" " + self.t("passwordlabel") + ":"))
 		passwordlabel.SetFont(font)
 		passwordsizer.Add(passwordlabel, 0, wx.ALIGN_LEFT)
 		
@@ -393,7 +393,7 @@ class EditStaffPanel(wx.Panel):
 		
 		positionsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		positionlabel = wx.StaticText(panel, -1, miscmethods.NoWrap(" " + self.GetLabel("positionlabel") + ":"))
+		positionlabel = wx.StaticText(panel, -1, miscmethods.NoWrap(" " + self.t("positionlabel") + ":"))
 		positionlabel.SetFont(font)
 		positionsizer.Add(positionlabel, 0, wx.ALIGN_LEFT)
 		
@@ -408,35 +408,35 @@ class EditStaffPanel(wx.Panel):
 		
 		permissionsnotebook = wx.Notebook(panel)
 		
-		clientpermissions = ClientSettingsPanel(permissionsnotebook, self.GetLabel("clientslabel"))
-		permissionsnotebook.AddPage(clientpermissions, self.GetLabel("clientslabel"), select=True)
+		clientpermissions = ClientSettingsPanel(permissionsnotebook, self.t("clientslabel"))
+		permissionsnotebook.AddPage(clientpermissions, self.t("clientslabel"), select=True)
 		
-		animalpermissions = GenericSettingsPanel(permissionsnotebook, self.GetLabel("animalslabel"))
-		permissionsnotebook.AddPage(animalpermissions, self.GetLabel("animalslabel"), select=False)
+		animalpermissions = GenericSettingsPanel(permissionsnotebook, self.t("animalslabel"))
+		permissionsnotebook.AddPage(animalpermissions, self.t("animalslabel"), select=False)
 		
-		appointmentpermissions = AppointmentSettingsPanel(permissionsnotebook, self.GetLabel("appointmentslabel"))
-		permissionsnotebook.AddPage(appointmentpermissions, self.GetLabel("appointmentslabel"), select=False)
+		appointmentpermissions = AppointmentSettingsPanel(permissionsnotebook, self.t("appointmentslabel"))
+		permissionsnotebook.AddPage(appointmentpermissions, self.t("appointmentslabel"), select=False)
 		
-		medicationpermissions = GenericSettingsPanel(permissionsnotebook, self.GetLabel("medicationlabel"))
-		permissionsnotebook.AddPage(medicationpermissions, self.GetLabel("medicationlabel"), select=False)
+		medicationpermissions = GenericSettingsPanel(permissionsnotebook, self.t("medicationlabel"))
+		permissionsnotebook.AddPage(medicationpermissions, self.t("medicationlabel"), select=False)
 		
-		procedurepermissions = GenericSettingsPanel(permissionsnotebook, self.GetLabel("procedureslabel"))
-		permissionsnotebook.AddPage(procedurepermissions, self.GetLabel("procedureslabel"), select=False)
+		procedurepermissions = GenericSettingsPanel(permissionsnotebook, self.t("procedureslabel"))
+		permissionsnotebook.AddPage(procedurepermissions, self.t("procedureslabel"), select=False)
 		
-		lookuppermissions = GenericSettingsPanel(permissionsnotebook, self.GetLabel("lookupslabel"))
-		permissionsnotebook.AddPage(lookuppermissions, self.GetLabel("lookupslabel"), select=False)
+		lookuppermissions = GenericSettingsPanel(permissionsnotebook, self.t("lookupslabel"))
+		permissionsnotebook.AddPage(lookuppermissions, self.t("lookupslabel"), select=False)
 		
-		formpermissions = GenericSettingsPanel(permissionsnotebook, self.GetLabel("formslabel"))
-		permissionsnotebook.AddPage(formpermissions, self.GetLabel("formslabel"), select=False)
+		formpermissions = GenericSettingsPanel(permissionsnotebook, self.t("formslabel"))
+		permissionsnotebook.AddPage(formpermissions, self.t("formslabel"), select=False)
 		
-		userpermissions = UserSettingsPanel(permissionsnotebook, self.GetLabel("userslabel"))
-		permissionsnotebook.AddPage(userpermissions, self.GetLabel("userslabel"), select=False)
+		userpermissions = UserSettingsPanel(permissionsnotebook, self.t("userslabel"))
+		permissionsnotebook.AddPage(userpermissions, self.t("userslabel"), select=False)
 		
-		diarypermissions = DiarySettingsPanel(permissionsnotebook, self.GetLabel("diarylabel"))
-		permissionsnotebook.AddPage(diarypermissions, self.GetLabel("diarylabel"), select=False)
+		diarypermissions = DiarySettingsPanel(permissionsnotebook, self.t("diarylabel"))
+		permissionsnotebook.AddPage(diarypermissions, self.t("diarylabel"), select=False)
 		
-		miscpermissions = MiscSettingsPanel(permissionsnotebook, self.GetLabel("misclabel"))
-		permissionsnotebook.AddPage(miscpermissions, self.GetLabel("misclabel"), select=False)
+		miscpermissions = MiscSettingsPanel(permissionsnotebook, self.t("misclabel"))
+		permissionsnotebook.AddPage(miscpermissions, self.t("misclabel"), select=False)
 		
 		permissionssizer.Add(permissionsnotebook, 1, wx.EXPAND)
 		
@@ -444,13 +444,13 @@ class EditStaffPanel(wx.Panel):
 		
 		untickallbitmap = wx.Bitmap("icons/reset.png")
 		untickallbutton = wx.BitmapButton(panel, -1, untickallbitmap)
-		untickallbutton.SetToolTipString(self.GetLabel("resetlabel"))
+		untickallbutton.SetToolTipString(self.t("resetlabel"))
 		untickallbutton.Bind(wx.EVT_BUTTON, self.UnTickAll)
 		tickallsizer.Add(untickallbutton, 0, wx.EXPAND)
 		
 		tickallbitmap = wx.Bitmap("icons/tickall.png")
 		tickallbutton = wx.BitmapButton(panel, -1, tickallbitmap)
-		tickallbutton.SetToolTipString(self.GetLabel("tickalltooltip"))
+		tickallbutton.SetToolTipString(self.t("tickalltooltip"))
 		tickallbutton.Bind(wx.EVT_BUTTON, self.TickAll)
 		tickallsizer.Add(tickallbutton, 0, wx.EXPAND)
 		
@@ -458,7 +458,7 @@ class EditStaffPanel(wx.Panel):
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(panel, -1, submitbitmap)
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.SubmitUser)
 		tickallsizer.Add(submitbutton, 0, wx.EXPAND)
 		
@@ -866,7 +866,7 @@ class EditStaffPanel(wx.Panel):
 		
 		self.selecteduserid = userid
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("userdeletemessage")) == True:
+		if miscmethods.ConfirmMessage(self.t("userdeletemessage")) == True:
 			
 			action = "DELETE FROM user WHERE ID = " + str(self.selecteduserid) + ";"
 			results = db.SendSQL(action, self.localsettings.dbconnection)
@@ -875,15 +875,15 @@ class EditStaffPanel(wx.Panel):
 
 class EditStaffRota(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
 		self.localsettings = localsettings
 		
-		self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("editrotapagetitle"))
+		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("editrotapagetitle"))
 		
 		wx.Panel.__init__(self, notebook)
 		
@@ -899,25 +899,25 @@ class EditStaffRota(wx.Panel):
 		
 		toolssizer = wx.FlexGridSizer(rows=1)
 		
-		vetlabel = wx.StaticText(self, -1, self.GetLabel("vetlabel") + ": ")
+		vetlabel = wx.StaticText(self, -1, self.t("vetlabel") + ": ")
 		toolssizer.Add(vetlabel, 0, wx.ALIGN_CENTER)
 		
 		vetentry = wx.ComboBox(self, -1, "", choices=vets)
 		toolssizer.Add(vetentry, 1, wx.EXPAND)
 		
-		timeonlabel = wx.StaticText(self, -1, " " + self.GetLabel("timeonlabel") + ": ")
+		timeonlabel = wx.StaticText(self, -1, " " + self.t("timeonlabel") + ": ")
 		toolssizer.Add(timeonlabel, 0, wx.ALIGN_CENTER)
 		
 		timeonentry = wx.TextCtrl(self, -1, "")
 		toolssizer.Add(timeonentry, 1, wx.EXPAND)
 		
-		timeofflabel = wx.StaticText(self, -1, " " + self.GetLabel("timeofflabel") + ": ")
+		timeofflabel = wx.StaticText(self, -1, " " + self.t("timeofflabel") + ": ")
 		toolssizer.Add(timeofflabel, 0, wx.ALIGN_CENTER)
 		
 		timeoffentry = wx.TextCtrl(self, -1, "")
 		toolssizer.Add(timeoffentry, 1, wx.EXPAND)
 		
-		operatingcheckbox = wx.CheckBox(self, -1, " " + self.GetLabel("operatinglabel") + ": ")
+		operatingcheckbox = wx.CheckBox(self, -1, " " + self.t("operatinglabel") + ": ")
 		toolssizer.Add(operatingcheckbox, 0, wx.ALIGN_CENTER)
 		
 		#spacer2 = wx.StaticText(self, -1, "")
@@ -940,7 +940,7 @@ class EditStaffRota(wx.Panel):
 		
 		datesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		datelabel = wx.StaticText(self, -1, self.GetLabel("datelabel") + ":")
+		datelabel = wx.StaticText(self, -1, self.t("datelabel") + ":")
 		datesizer.Add(datelabel, 0, wx.ALIGN_LEFT)
 		
 		datepickersizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -963,7 +963,7 @@ class EditStaffRota(wx.Panel):
 		
  		summarysizer = wx.BoxSizer(wx.VERTICAL)
 		
-		staffsummarylabel = wx.StaticText(self, -1, self.GetLabel("staffsummarylabel") + ":")
+		staffsummarylabel = wx.StaticText(self, -1, self.t("staffsummarylabel") + ":")
 		summarysizer.Add(staffsummarylabel, 0, wx.ALIGN_LEFT)
 		
 		staffsummarylistbox = customwidgets.StaffSummaryListbox(self, self.localsettings)
@@ -991,7 +991,7 @@ class EditStaffRota(wx.Panel):
 		
 		dayplansizer = wx.BoxSizer(wx.VERTICAL)
 		
-		dayplanlabel = wx.StaticText(self, -1,  self.GetLabel("dayplanlabel") + ":")
+		dayplanlabel = wx.StaticText(self, -1,  self.t("dayplanlabel") + ":")
 		dayplansizer.Add(dayplanlabel, 0, wx.ALIGN_LEFT)
 		
 		dayplan = wx.html.HtmlWindow(self)
@@ -1027,7 +1027,7 @@ class EditStaffRota(wx.Panel):
 		
 		if vet == "":
 			
-			miscmethods.ShowMessage(self.GetLabel("novetnamemessage"))
+			miscmethods.ShowMessage(self.t("novetnamemessage"))
 			
 		else:
 		
@@ -1037,7 +1037,7 @@ class EditStaffRota(wx.Panel):
 				if timeonint < timeoffint:
 					success = True
 				else:
-					miscmethods.ShowMessage(self.GetLabel("vetfinishedbeforestartingmessage"))
+					miscmethods.ShowMessage(self.t("vetfinishedbeforestartingmessage"))
 			
 			if success == True:
 				
@@ -1048,13 +1048,13 @@ class EditStaffRota(wx.Panel):
 				results = db.SendSQL(action, self.localsettings.dbconnection)
 				
 				if len(results) > 0:
-					miscmethods.ShowMessage(self.GetLabel("vettwoplacesatoncemessage"))
+					miscmethods.ShowMessage(self.t("vettwoplacesatoncemessage"))
 				else:
 					dbmethods.WriteToStaffTable(self.localsettings.dbconnection, date, vet, timeon, timeoff, operating)
 					
 					self.RefreshRota()
 			else:
-				miscmethods.ShowMessage(self.GetLabel("invalidtimemessage"))
+				miscmethods.ShowMessage(self.t("invalidtimemessage"))
 	
 	def Delete(self, ID):
 		
@@ -1101,7 +1101,7 @@ class EditStaffRota(wx.Panel):
 			if timeonint < timeoffint:
 				success = True
 			else:
-				miscmethods.ShowMessage(self.GetLabel("vetfinishedbeforestartingmessage"))
+				miscmethods.ShowMessage(self.t("vetfinishedbeforestartingmessage"))
 		
 		if success == True:
 			
@@ -1109,7 +1109,7 @@ class EditStaffRota(wx.Panel):
 			
 			self.RefreshRota()
 		else:
-			miscmethods.ShowMessage(self.GetLabel("invalidtimemessage"))
+			miscmethods.ShowMessage(self.t("invalidtimemessage"))
 	
 	def SlotSelected(self, ID):
 		

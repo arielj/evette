@@ -28,9 +28,9 @@ import appointmentmethods
 
 class EditRotaPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
@@ -38,7 +38,7 @@ class EditRotaPanel(wx.Panel):
 		
 		self.localsettings = localsettings
 		
-		self.pagetitle = self.GetLabel("editrotalabel")
+		self.pagetitle = self.t("editrotalabel")
 		
 		self.pagetitle = miscmethods.GetPageTitle(notebook, self.pagetitle)
 		
@@ -68,7 +68,7 @@ class EditRotaPanel(wx.Panel):
 		
 		previousbitmap = wx.Bitmap("icons/leftarrow.png")
 		previousbutton = wx.BitmapButton(monthpanel, -1, previousbitmap)
-		previousbutton.SetToolTipString(self.GetLabel("previousmonthtooltip"))
+		previousbutton.SetToolTipString(self.t("previousmonthtooltip"))
 		previousbutton.Bind(wx.EVT_BUTTON, self.PreviousMonth)
 		monthsizer.Add(previousbutton, 0, wx.EXPAND)
 		
@@ -88,13 +88,13 @@ class EditRotaPanel(wx.Panel):
 		
 		nextbitmap = wx.Bitmap("icons/rightarrow.png")
 		nextbutton = wx.BitmapButton(monthpanel, -1, nextbitmap)
-		nextbutton.SetToolTipString(self.GetLabel("nextmonthtooltip"))
+		nextbutton.SetToolTipString(self.t("nextmonthtooltip"))
 		nextbutton.Bind(wx.EVT_BUTTON, self.NextMonth)
 		monthsizer.Add(nextbutton, 0, wx.EXPAND)
 		
 		monthsizer.Add(wx.StaticText(monthpanel, -1, ""), 1, wx.EXPAND)
 		
-		addstaffcheckbox = wx.CheckBox(monthpanel, -1, self.GetLabel("addstafflabel"))
+		addstaffcheckbox = wx.CheckBox(monthpanel, -1, self.t("addstafflabel"))
 		addstaffcheckbox.Bind(wx.EVT_CHECKBOX, self.EnableQuickRota)
 		monthsizer.Add(addstaffcheckbox, 0, wx.ALIGN_BOTTOM)
 		
@@ -106,7 +106,7 @@ class EditRotaPanel(wx.Panel):
 		
 		namesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		namelabel = wx.StaticText(quickrotapanel, -1, self.GetLabel("namelabel") + ":")
+		namelabel = wx.StaticText(quickrotapanel, -1, self.t("namelabel") + ":")
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -120,7 +120,7 @@ class EditRotaPanel(wx.Panel):
 		
 		positionsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		positionlabel = wx.StaticText(quickrotapanel, -1, self.GetLabel("positionlabel") + ":")
+		positionlabel = wx.StaticText(quickrotapanel, -1, self.t("positionlabel") + ":")
 		font = positionlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		positionlabel.SetFont(font)
@@ -133,7 +133,7 @@ class EditRotaPanel(wx.Panel):
 		
 		timeonsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		timeonlabel = wx.StaticText(quickrotapanel, -1, self.GetLabel("timeonlabel") + ":")
+		timeonlabel = wx.StaticText(quickrotapanel, -1, self.t("timeonlabel") + ":")
 		font = timeonlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		timeonlabel.SetFont(font)
@@ -146,7 +146,7 @@ class EditRotaPanel(wx.Panel):
 		
 		timeoffsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		timeofflabel = wx.StaticText(quickrotapanel, -1, self.GetLabel("timeofflabel") + ":")
+		timeofflabel = wx.StaticText(quickrotapanel, -1, self.t("timeofflabel") + ":")
 		font = timeofflabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		timeofflabel.SetFont(font)
@@ -159,7 +159,7 @@ class EditRotaPanel(wx.Panel):
 		
 		operatingsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		operatinglabel = wx.StaticText(quickrotapanel, -1, self.GetLabel("operatinglabel") + ":")
+		operatinglabel = wx.StaticText(quickrotapanel, -1, self.t("operatinglabel") + ":")
 		font = operatinglabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		operatinglabel.SetFont(font)
@@ -342,9 +342,9 @@ class EditRotaPanel(wx.Panel):
 		
 class Calendar(wx.ScrolledWindow):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings, month, year):
 		
@@ -402,7 +402,7 @@ class Calendar(wx.ScrolledWindow):
 			
 			extradays = 6
 		
-		for a in (self.GetLabel("monday"), self.GetLabel("tuesday"), self.GetLabel("wednesday"), self.GetLabel("thursday"), self.GetLabel("friday"), self.GetLabel("saturday"), self.GetLabel("sunday")):
+		for a in (self.t("monday"), self.t("tuesday"), self.t("wednesday"), self.t("thursday"), self.t("friday"), self.t("saturday"), self.t("sunday")):
 			
 			gridsizer.Add(wx.StaticText(self, -1, a), 0, wx.ALIGN_CENTER_HORIZONTAL)
 		
@@ -448,9 +448,9 @@ class Calendar(wx.ScrolledWindow):
 
 class DayCell(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings, date):
 		
@@ -507,7 +507,7 @@ class DayCell(wx.Panel):
 		
 		leftsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		vetslabel = wx.StaticText(daycellpanel, -1, self.GetLabel("vetslabel") + u"\xa0")
+		vetslabel = wx.StaticText(daycellpanel, -1, self.t("vetslabel") + u"\xa0")
 		vetslabel.SetForegroundColour("red")
 		font = vetslabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
@@ -531,7 +531,7 @@ class DayCell(wx.Panel):
 		
 		centersizer = wx.BoxSizer(wx.VERTICAL)
 		
-		nurseslabel = wx.StaticText(daycellpanel, -1, self.GetLabel("nurseslabel") + u"\xa0")
+		nurseslabel = wx.StaticText(daycellpanel, -1, self.t("nurseslabel") + u"\xa0")
 		nurseslabel.SetForegroundColour("red")
 		font = nurseslabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
@@ -554,7 +554,7 @@ class DayCell(wx.Panel):
 		
 		rightsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		otherslabel = wx.StaticText(daycellpanel, -1, self.GetLabel("otherslabel"))
+		otherslabel = wx.StaticText(daycellpanel, -1, self.t("otherslabel"))
 		otherslabel.SetForegroundColour("red")
 		font = otherslabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
@@ -612,11 +612,11 @@ class DayCell(wx.Panel):
 		
 		for a in results:
 			
-			if a[1] == self.GetLabel("vetpositiontitle"):
+			if a[1] == self.t("vetpositiontitle"):
 				
 				vets.append(a[0])
 				
-			elif a[1] == self.GetLabel("vetnursepositiontitle"):
+			elif a[1] == self.t("vetnursepositiontitle"):
 				
 				nurses.append(a[0])
 				
@@ -633,9 +633,9 @@ class DayCell(wx.Panel):
 
 class DailyRota(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings, date):
 		
@@ -652,7 +652,7 @@ class DailyRota(wx.Panel):
 		
 		upbitmap = wx.Bitmap("icons/uparrow.png")
 		calendarbutton = wx.BitmapButton(self, -1, upbitmap)
-		calendarbutton.SetToolTipString(self.parent.GetLabel("backtocalendartooltip"))
+		calendarbutton.SetToolTipString(self.parent.t("backtocalendartooltip"))
 		calendarbutton.Bind(wx.EVT_BUTTON, self.parent.BackToCalendar)
 		titlesizer.Add(calendarbutton, 0, wx.EXPAND)
 		
@@ -750,7 +750,7 @@ class StaffTable(wx.Panel):
 		
 		newbitmap = wx.Bitmap("icons/new.png")
 		newbutton = wx.BitmapButton(self, -1, newbitmap)
-		newbutton.SetToolTipString(self.parent.GetLabel("addstafftodailyrotatooltip"))
+		newbutton.SetToolTipString(self.parent.t("addstafftodailyrotatooltip"))
 		newbutton.Bind(wx.EVT_BUTTON, self.NewRotaEntry)
 		
 		resetsizer.Add(newbutton, 0, wx.EXPAND)
@@ -764,7 +764,7 @@ class StaffTable(wx.Panel):
 		action = "SELECT ID, Name, Position, TimeOn, TimeOff, Operating FROM staff WHERE Date = \"" + sqldate + "\" ORDER BY TimeOn, Name"
 		results = db.SendSQL(action, self.localsettings.dbconnection)
 		
-		labelslist = (self.parent.GetLabel("namelabel"), self.parent.GetLabel("positionlabel"), self.parent.GetLabel("timeonlabel"), self.parent.GetLabel("timeofflabel"), self.parent.GetLabel("operatinglabel"))
+		labelslist = (self.parent.t("namelabel"), self.parent.t("positionlabel"), self.parent.t("timeonlabel"), self.parent.t("timeofflabel"), self.parent.t("operatinglabel"))
 		
 		labelssizer = wx.BoxSizer(wx.HORIZONTAL)
 		
@@ -812,11 +812,11 @@ class StaffTable(wx.Panel):
 				
 			if results[a][5] == 1:
 				
-				operating = self.parent.GetLabel("yeslabel")
+				operating = self.parent.t("yeslabel")
 				
 			else:
 				
-				operating = self.parent.GetLabel("nolabel")
+				operating = self.parent.t("nolabel")
 			
 			
 			listitems.append(wx.StaticText(panels[a], -1, operating))
@@ -845,7 +845,7 @@ class StaffTable(wx.Panel):
 		
 		namesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		namelabel = wx.StaticText(editpanel, -1, self.parent.GetLabel("namelabel") + ":")
+		namelabel = wx.StaticText(editpanel, -1, self.parent.t("namelabel") + ":")
 		namesizer.Add(namelabel, 0, wx.EXPAND)
 		
 		nameentry = wx.ComboBox(editpanel, -1, choices=self.parent.stafflist)
@@ -856,7 +856,7 @@ class StaffTable(wx.Panel):
 		
 		positionsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		positionlabel = wx.StaticText(editpanel, -1, self.parent.GetLabel("positionlabel") + ":")
+		positionlabel = wx.StaticText(editpanel, -1, self.parent.t("positionlabel") + ":")
 		positionsizer.Add(positionlabel, 0, wx.EXPAND)
 		
 		positionentry = wx.TextCtrl(editpanel, -1, "")
@@ -866,7 +866,7 @@ class StaffTable(wx.Panel):
 		
 		insizer = wx.BoxSizer(wx.VERTICAL)
 		
-		inlabel = wx.StaticText(editpanel, -1, self.parent.GetLabel("timeonlabel") + ":")
+		inlabel = wx.StaticText(editpanel, -1, self.parent.t("timeonlabel") + ":")
 		insizer.Add(inlabel, 0, wx.EXPAND)
 		
 		inentry = wx.TextCtrl(editpanel, -1, "")
@@ -876,7 +876,7 @@ class StaffTable(wx.Panel):
 		
 		outsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		outlabel = wx.StaticText(editpanel, -1, self.parent.GetLabel("timeofflabel") + ":")
+		outlabel = wx.StaticText(editpanel, -1, self.parent.t("timeofflabel") + ":")
 		outsizer.Add(outlabel, 0, wx.EXPAND)
 		
 		outentry = wx.TextCtrl(editpanel, -1, "")
@@ -886,7 +886,7 @@ class StaffTable(wx.Panel):
 		
 		operatingsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		operatinglabel = wx.StaticText(editpanel, -1, self.parent.GetLabel("operatinglabel") + ":")
+		operatinglabel = wx.StaticText(editpanel, -1, self.parent.t("operatinglabel") + ":")
 		operatingsizer.Add(operatinglabel, 0, wx.EXPAND)
 		
 		operatingentry = wx.CheckBox(editpanel, -1)
@@ -910,7 +910,7 @@ class StaffTable(wx.Panel):
 		
 		deletebitmap = wx.Bitmap("icons/delete.png")
 		deletebutton = wx.BitmapButton(self, -1, deletebitmap)
-		deletebutton.SetToolTipString(self.parent.GetLabel("deleterotaitemtooltip"))
+		deletebutton.SetToolTipString(self.parent.t("deleterotaitemtooltip"))
 		deletebutton.Bind(wx.EVT_BUTTON, self.Delete)
 		deletebutton.Disable()
 		submitsizer.Add(deletebutton, 0, wx.EXPAND)
@@ -919,7 +919,7 @@ class StaffTable(wx.Panel):
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(self, -1, submitbitmap)
-		submitbutton.SetToolTipString(self.parent.GetLabel("submitrotaitemtooltip"))
+		submitbutton.SetToolTipString(self.parent.t("submitrotaitemtooltip"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.Submit)
 		submitbutton.Disable()
 		

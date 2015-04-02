@@ -31,9 +31,9 @@ REFRESH_PROCEDURES = 1204
 
 class EditProceduresPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
@@ -43,7 +43,7 @@ class EditProceduresPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("editprocedurespagetitle"))
+		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("editprocedurespagetitle"))
 		
 		self.procedureslistbox = customwidgets.ProceduresListBox(self, localsettings)
 		self.procedureslistbox.Bind(wx.EVT_LISTBOX_DCLICK, self.EditProcedure)
@@ -59,26 +59,26 @@ class EditProceduresPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		add = wx.MenuItem(popupmenu, ADD_PROCEDURE, self.GetLabel("addlabel"))
+		add = wx.MenuItem(popupmenu, ADD_PROCEDURE, self.t("addlabel"))
 		add.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(add)
 		wx.EVT_MENU(popupmenu, ADD_PROCEDURE, self.AddProcedure)
 		
 		if self.procedureslistbox.GetSelection() > -1:
 			
-			edit = wx.MenuItem(popupmenu, EDIT_PROCEDURE, self.GetLabel("editlabel"))
+			edit = wx.MenuItem(popupmenu, EDIT_PROCEDURE, self.t("editlabel"))
 			edit.SetBitmap(wx.Bitmap("icons/edit.png"))
 			popupmenu.AppendItem(edit)
 			wx.EVT_MENU(popupmenu, EDIT_PROCEDURE, self.EditProcedure)
 			
-			delete = wx.MenuItem(popupmenu, DELETE_PROCEDURE, self.GetLabel("deletelabel"))
+			delete = wx.MenuItem(popupmenu, DELETE_PROCEDURE, self.t("deletelabel"))
 			delete.SetBitmap(wx.Bitmap("icons/delete.png"))
 			popupmenu.AppendItem(delete)
 			wx.EVT_MENU(popupmenu, DELETE_PROCEDURE, self.DeleteProcedure)
 		
 		popupmenu.AppendSeparator()
 		
-		refresh = wx.MenuItem(popupmenu, REFRESH_PROCEDURES, self.GetLabel("refreshlabel"))
+		refresh = wx.MenuItem(popupmenu, REFRESH_PROCEDURES, self.t("refreshlabel"))
 		refresh.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refresh)
 		wx.EVT_MENU(popupmenu, REFRESH_PROCEDURES, self.RefreshList)
@@ -99,7 +99,7 @@ class EditProceduresPanel(wx.Panel):
 	
 	def EditProcedureDialog(self, proceduredata=False):
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("editprocedurelabel"))
+		dialog = wx.Dialog(self, -1, self.t("editprocedurelabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -109,7 +109,7 @@ class EditProceduresPanel(wx.Panel):
 		
 		namesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		lname = wx.StaticText(panel, -1, self.GetLabel("namelabel") + ":")
+		lname = wx.StaticText(panel, -1, self.t("namelabel") + ":")
 		font = lname.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		lname.SetFont(font)
@@ -121,7 +121,7 @@ class EditProceduresPanel(wx.Panel):
 		
 		descriptionsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		ldescription = wx.StaticText(panel, -1, self.GetLabel("descriptionlabel") + ":")
+		ldescription = wx.StaticText(panel, -1, self.t("descriptionlabel") + ":")
 		ldescription.SetFont(font)
 		descriptionsizer.Add(ldescription, 0, wx.ALIGN_LEFT)
 		
@@ -130,7 +130,7 @@ class EditProceduresPanel(wx.Panel):
 		
 		pricesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		lprice = wx.StaticText(panel, -1, self.GetLabel("pricelabel") + ":")
+		lprice = wx.StaticText(panel, -1, self.t("pricelabel") + ":")
 		lprice.SetFont(font)
 		pricesizer.Add(lprice, 0, wx.ALIGN_LEFT)
 		
@@ -191,7 +191,7 @@ class EditProceduresPanel(wx.Panel):
 		
 		if name == "":
 			
-			miscmethods.ShowMessage(self.GetLabel("proceduresunnamedproceduremessage"))
+			miscmethods.ShowMessage(self.t("proceduresunnamedproceduremessage"))
 			
 		else:
 			
@@ -217,7 +217,7 @@ class EditProceduresPanel(wx.Panel):
 	
 	def DeleteProcedure(self, ID):
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("proceduresdeletemessage")) == True:
+		if miscmethods.ConfirmMessage(self.t("proceduresdeletemessage")) == True:
 			
 			listboxid = self.procedureslistbox.GetSelection()
 			procedureid = self.procedureslistbox.htmllist[listboxid][0]

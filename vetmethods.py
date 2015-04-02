@@ -32,9 +32,9 @@ import animalmethods
 
 class VetForm(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.appointmentdata.localsettings.dictionary[field][self.appointmentdata.localsettings.language]
+		return  self.appointmentdata.t(field,idx)
 
 	def __init__(self, notebook, appointmentdata, localsettings, parent):
 		
@@ -44,7 +44,7 @@ class VetForm(wx.Panel):
 		
 		wx.Panel.__init__(self, notebook)
 		
-		self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("vetformpagetitle"))
+		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("vetformpagetitle"))
 		self.pageimage = "icons/vetform.png"
 		
 		mainsizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -53,7 +53,7 @@ class VetForm(wx.Panel):
 		
 		previousappointmentssizer = wx.BoxSizer(wx.VERTICAL)
 		
-		previousappointmentlabel = wx.StaticText(self, -1, self.GetLabel("vetformotherappointmentslabel"))
+		previousappointmentlabel = wx.StaticText(self, -1, self.t("vetformotherappointmentslabel"))
 		font = previousappointmentlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		previousappointmentlabel.SetFont(font)
@@ -64,7 +64,7 @@ class VetForm(wx.Panel):
 		
 		previousappointmentssizer.Add(self.previousappointmentslistbox, 1, wx.EXPAND)
 		
-		previousappointmentdetailslabel = wx.StaticText(self, -1, self.GetLabel("vetformappointmentdetailslabel"))
+		previousappointmentdetailslabel = wx.StaticText(self, -1, self.t("vetformappointmentdetailslabel"))
 		previousappointmentdetailslabel.SetFont(font)
 		previousappointmentssizer.Add(previousappointmentdetailslabel, 0, wx.ALIGN_LEFT)
 		
@@ -76,7 +76,7 @@ class VetForm(wx.Panel):
 		middlesizer = wx.BoxSizer(wx.VERTICAL)
 		
 		reasonsizer = wx.BoxSizer(wx.VERTICAL)
-		#reasonlabel = wx.StaticText(self, -1, self.GetLabel("appointmentreasonlabel").replace(" ", u"\xa0") + ":")
+		#reasonlabel = wx.StaticText(self, -1, self.t("appointmentreasonlabel").replace(" ", u"\xa0") + ":")
 		
 		
 		
@@ -96,7 +96,7 @@ class VetForm(wx.Panel):
 		
 		problemsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		problemlabel = wx.StaticText(self, -1, self.GetLabel("problemlabel").replace(" ", u"\xa0") + ":")
+		problemlabel = wx.StaticText(self, -1, self.t("problemlabel").replace(" ", u"\xa0") + ":")
 		problemlabel.SetFont(font)
 		problemsizer.Add(problemlabel, 0, wx.ALIGN_LEFT)
 		
@@ -113,7 +113,7 @@ class VetForm(wx.Panel):
 		buttongridsizer.AddGrowableCol(3)
 		
 		buttongridsizer.Add(wx.Panel(self, size=(10,10)), 0, wx.EXPAND)
-		medicationbutton = wx.Button(self, -1, self.GetLabel("randomdatamedicationlabel"))
+		medicationbutton = wx.Button(self, -1, self.t("randomdatamedicationlabel"))
 		
 		font = medicationbutton.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
@@ -123,7 +123,7 @@ class VetForm(wx.Panel):
 		buttongridsizer.Add(medicationbutton, 0, wx.EXPAND)
 		
 		buttongridsizer.Add(wx.Panel(self, size=(10,10)), 0, wx.EXPAND)
-		procedurebutton = wx.Button(self, -1, self.GetLabel("procedurelabel"))
+		procedurebutton = wx.Button(self, -1, self.t("procedurelabel"))
 		procedurebutton.SetFont(font)
 		procedurebutton.Bind(wx.EVT_BUTTON, self.AddProcedure)
 		buttongridsizer.Add(procedurebutton, 0, wx.EXPAND)
@@ -134,13 +134,13 @@ class VetForm(wx.Panel):
 		buttongridsizer.Add(wx.Panel(self, size=(10,10)), 0, wx.EXPAND)
 		
 		buttongridsizer.Add(wx.Panel(self, size=(10,10)), 0, wx.EXPAND)
-		vaccinationbutton = wx.Button(self, -1, self.GetLabel("vaccinationsvaccinelabel"))
+		vaccinationbutton = wx.Button(self, -1, self.t("vaccinationsvaccinelabel"))
 		vaccinationbutton.SetFont(font)
 		vaccinationbutton.Bind(wx.EVT_BUTTON, self.AddVaccination)
 		buttongridsizer.Add(vaccinationbutton, 0, wx.EXPAND)
 		
 		buttongridsizer.Add(wx.Panel(self, size=(10,10)), 0, wx.EXPAND)
-		consumablebutton = wx.Button(self, -1, self.GetLabel("consumablelabel"))
+		consumablebutton = wx.Button(self, -1, self.t("consumablelabel"))
 		consumablebutton.SetFont(font)
 		consumablebutton.Bind(wx.EVT_BUTTON, self.AddConsumable)
 		buttongridsizer.Add(consumablebutton, 0, wx.EXPAND)
@@ -151,13 +151,13 @@ class VetForm(wx.Panel):
 		buttongridsizer.Add(wx.Panel(self, size=(10,10)), 0, wx.EXPAND)
 		
 		buttongridsizer.Add(wx.Panel(self, size=(10,10)), 0, wx.EXPAND)
-		shopbutton = wx.Button(self, -1, self.GetLabel("shoplabel"))
+		shopbutton = wx.Button(self, -1, self.t("shoplabel"))
 		shopbutton.SetFont(font)
 		shopbutton.Bind(wx.EVT_BUTTON, self.AddShopItem)
 		buttongridsizer.Add(shopbutton, 0, wx.EXPAND)
 		
 		buttongridsizer.Add(wx.Panel(self, size=(10,10)), 0, wx.EXPAND)
-		manualbutton = wx.Button(self, -1, self.GetLabel("manuallabel"))
+		manualbutton = wx.Button(self, -1, self.t("manuallabel"))
 		manualbutton.SetFont(font)
 		manualbutton.Bind(wx.EVT_BUTTON, self.AddManual)
 		buttongridsizer.Add(manualbutton, 0, wx.EXPAND)
@@ -170,7 +170,7 @@ class VetForm(wx.Panel):
 			buttongridsizer.Add(wx.Panel(self, size=(10,10)), 0, wx.EXPAND)
 			
 			buttongridsizer.Add(wx.Panel(self, size=(10,10)), 0, wx.EXPAND)
-			chipbutton = wx.Button(self, -1, self.GetLabel("microchiplabel"))
+			chipbutton = wx.Button(self, -1, self.t("microchiplabel"))
 			chipbutton.SetFont(font)
 			chipbutton.Bind(wx.EVT_BUTTON, self.Microchip)
 			buttongridsizer.Add(chipbutton, 0, wx.EXPAND)
@@ -186,7 +186,7 @@ class VetForm(wx.Panel):
 		
 		notessizer = wx.BoxSizer(wx.VERTICAL)
 		
-		noteslabel = wx.StaticText(self, -1, self.GetLabel("noteslabel") + ":")
+		noteslabel = wx.StaticText(self, -1, self.t("noteslabel") + ":")
 		noteslabel.SetFont(font)
 		notessizer.Add(noteslabel, 0, wx.ALIGN_LEFT)
 		
@@ -197,7 +197,7 @@ class VetForm(wx.Panel):
 		
 		plansizer = wx.BoxSizer(wx.VERTICAL)
 		
-		planlabel = wx.StaticText(self, -1, self.GetLabel("planlabel") + ":")
+		planlabel = wx.StaticText(self, -1, self.t("planlabel") + ":")
 		planlabel.SetFont(font)
 		plansizer.Add(planlabel, 0, wx.ALIGN_LEFT)
 		
@@ -208,7 +208,7 @@ class VetForm(wx.Panel):
 		
 		prescribedmedicationsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		lprescribed = wx.StaticText(self, -1, self.GetLabel("receiptlabel") + ":")
+		lprescribed = wx.StaticText(self, -1, self.t("receiptlabel") + ":")
 		lprescribed.SetFont(font)
 		prescribedmedicationsizer.Add(lprescribed, 0, wx.ALIGN_LEFT)
 		
@@ -228,7 +228,7 @@ class VetForm(wx.Panel):
 		deletebitmap = wx.Bitmap("icons/delete.png")
 		deletemedicationbutton = wx.BitmapButton(self, -1, deletebitmap)
 		deletemedicationbutton.Disable()
-		deletemedicationbutton.SetToolTipString(self.GetLabel("vetformdeletereceipttooltip"))
+		deletemedicationbutton.SetToolTipString(self.t("vetformdeletereceipttooltip"))
 		deletemedicationbutton.Bind(wx.EVT_BUTTON, self.DeleteReceiptEntry)
 		prescribedbuttonssizer.Add(deletemedicationbutton, 0, wx.ALIGN_LEFT)
 		
@@ -244,10 +244,10 @@ class VetForm(wx.Panel):
 		rightsizer.Add(prescribedmedicationsizer, 2, wx.EXPAND)
 		
 		#donebitmap = wx.Bitmap("icons/submit.png")
-		donebutton = wx.Button(self, -1, self.GetLabel("appointmentdonelabel"))
+		donebutton = wx.Button(self, -1, self.t("appointmentdonelabel"))
 		donebutton.SetBackgroundColour("green")
 		donebutton.Bind(wx.EVT_BUTTON, self.Done)
-		donebutton.SetToolTipString(self.GetLabel("vetformdonetooltip"))
+		donebutton.SetToolTipString(self.t("vetformdonetooltip"))
 		
 		middlesizer.Add(donebutton, 0, wx.ALIGN_CENTER_HORIZONTAL)
 		
@@ -296,7 +296,7 @@ class VetForm(wx.Panel):
 		
 		self.appointmentdata.animaldata = animaldata
 		
-		self.notesentry.AppendText("\n" + self.GetLabel("microchippedlabel") + " # " + chipno)
+		self.notesentry.AppendText("\n" + self.t("microchippedlabel") + " # " + chipno)
 	
 	def AddMedication(self, ID):
 		
@@ -318,23 +318,23 @@ class VetForm(wx.Panel):
 		
 		if Type == 0:
 			
-			title = self.GetLabel("prescribemedicationlabel")
+			title = self.t("prescribemedicationlabel")
 			
 		elif Type == 1:
 			
-			title = self.GetLabel("animalvaccinelabel")
+			title = self.t("animalvaccinelabel")
 			
 		elif Type == 2:
 			
-			title = self.GetLabel("consumablelabel")
+			title = self.t("consumablelabel")
 			
 		elif Type == 3:
 			
-			title = self.GetLabel("shoplabel")
+			title = self.t("shoplabel")
 			
 		else:
 			
-			title = self.GetLabel("microchiplabel")
+			title = self.t("microchiplabel")
 		
 		dialog = wx.Dialog(self, -1, title)
 		
@@ -344,7 +344,7 @@ class VetForm(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		medicationnamelabel = wx.StaticText(panel, -1, self.GetLabel("searchlabel"))
+		medicationnamelabel = wx.StaticText(panel, -1, self.t("searchlabel"))
 		font = medicationnamelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2 )
 		medicationnamelabel.SetFont(font)
@@ -354,7 +354,7 @@ class VetForm(wx.Panel):
 		medicationnameentry.Bind(wx.wx.EVT_TEXT, self.MedicationNameEntryKeyPress)
 		topsizer.Add(medicationnameentry, 0, wx.EXPAND)
 		
-		medicationlabel = wx.StaticText(panel, -1, self.GetLabel("randomdatamedicationlabel"))
+		medicationlabel = wx.StaticText(panel, -1, self.t("randomdatamedicationlabel"))
 		medicationlabel.SetFont(font)
 		topsizer.Add(medicationlabel, 0, wx.ALIGN_LEFT)
 		
@@ -369,7 +369,7 @@ class VetForm(wx.Panel):
 		
 		quantitysizer = wx.BoxSizer(wx.VERTICAL)
 		
-		quantitylabel = wx.StaticText(panel, -1, self.GetLabel("quantitylabel"))
+		quantitylabel = wx.StaticText(panel, -1, self.t("quantitylabel"))
 		quantitylabel.SetFont(font)
 		quantitysizer.Add(quantitylabel, 0, wx.ALIGN_LEFT)
 		
@@ -387,7 +387,7 @@ class VetForm(wx.Panel):
 		
 		unitssizer.Add(wx.StaticText(panel, -1, ""), 0, wx.EXPAND)
 		
-		unittext = self.GetLabel("unitlabel").lower()
+		unittext = self.t("unitlabel").lower()
 		
 		unitlabel = wx.StaticText(panel, -1, miscmethods.NoWrap(" x " + unittext + " "))
 		unitssizer.Add(unitlabel, 0, wx.ALIGN_CENTER)
@@ -396,7 +396,7 @@ class VetForm(wx.Panel):
 		
 		batchsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		batchlabel = wx.StaticText(panel, -1, self.GetLabel("medicationbatchnolabel"))
+		batchlabel = wx.StaticText(panel, -1, self.t("medicationbatchnolabel"))
 		batchlabel.SetFont(font)
 		batchsizer.Add(batchlabel, 0, wx.ALIGN_LEFT)
 		
@@ -407,7 +407,7 @@ class VetForm(wx.Panel):
 		
 		expiressizer = wx.BoxSizer(wx.VERTICAL)
 		
-		expireslabel = wx.StaticText(panel, -1, self.GetLabel("medicationexpireslabel"))
+		expireslabel = wx.StaticText(panel, -1, self.t("medicationexpireslabel"))
 		expireslabel.SetFont(font)
 		expiressizer.Add(expireslabel, 0, wx.ALIGN_LEFT)
 		
@@ -417,7 +417,7 @@ class VetForm(wx.Panel):
 		
 		expiressizer.Add(expiresentry, 1, wx.EXPAND)
 		
-		chipnolabel = wx.StaticText(panel, -1, self.GetLabel("animalchipnolabel"))
+		chipnolabel = wx.StaticText(panel, -1, self.t("animalchipnolabel"))
 		chipnolabel.SetFont(font)
 		expiressizer.Add(chipnolabel, 0, wx.ALIGN_LEFT)
 		panel.chipnoentry = wx.TextCtrl(panel, -1, "", size=(200,-1))
@@ -439,7 +439,7 @@ class VetForm(wx.Panel):
 		
 		topsizer.Add(wx.Panel(panel, size=(10,10)), 0, wx.EXPAND)
 		
-		instructionslabel = wx.StaticText(panel, -1, self.GetLabel("vetforminstructionslabel"))
+		instructionslabel = wx.StaticText(panel, -1, self.t("vetforminstructionslabel"))
 		instructionslabel.SetFont(font)
 		topsizer.Add(instructionslabel, 0, wx.ALIGN_LEFT)
 		
@@ -457,7 +457,7 @@ class VetForm(wx.Panel):
 		
 		nextduesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		nextduelabel = wx.StaticText(panel, -1, self.GetLabel("nextduelabel"))
+		nextduelabel = wx.StaticText(panel, -1, self.t("nextduelabel"))
 		nextduelabel.SetFont(font)
 		nextduesizer.Add(nextduelabel, 0, wx.ALIGN_LEFT)
 		
@@ -477,13 +477,13 @@ class VetForm(wx.Panel):
 			printbuttonbitmap = wx.Bitmap("icons/printer.png")
 			printbutton = wx.BitmapButton(panel, -1, printbuttonbitmap)
 			printbutton.Bind(wx.EVT_BUTTON, ChooseMedicationDocument)
-			printbutton.SetToolTipString(self.GetLabel("vetformprintlabeltooltip"))
+			printbutton.SetToolTipString(self.t("vetformprintlabeltooltip"))
 			submitsizer.Add(printbutton, 0, wx.EXPAND)
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(panel, -1, submitbitmap)
 		submitbutton.Disable()
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.SubmitMedication)
 		submitsizer.Add(submitbutton, 0, wx.ALIGN_BOTTOM)
 		
@@ -569,13 +569,13 @@ class VetForm(wx.Panel):
 			
 			for a in filteredmedicationdata:
 				
-				if self.GetLabel("currency") == "&pound;":
+				if self.t("currency") == "&pound;":
 					
 					currencysymbol = u"£"
 					
 				else:
 					
-					currencysymbol = self.GetLabel("currency")
+					currencysymbol = self.t("currency")
 				
 				panel.medicationlistbox.Append(unicode(a[1], "utf8") + "  (" + currencysymbol + miscmethods.FormatPrice(a[5]) + "/" + unicode(a[3], "utf8") + ")")
 		
@@ -587,7 +587,7 @@ class VetForm(wx.Panel):
 			panel.submitbutton.Disable()
 			panel.batchentry.Clear()
 			panel.expiresentry.Clear()
-			panel.unitlabel.SetLabel(miscmethods.NoWrap(" x " + self.GetLabel("unitlabel").lower() + " "))
+			panel.unitlabel.SetLabel(miscmethods.NoWrap(" x " + self.t("unitlabel").lower() + " "))
 			panel.horizontalsizer.Layout()
 			
 		else:
@@ -647,7 +647,7 @@ class VetForm(wx.Panel):
 				
 				formattedduedate = miscmethods.FormatDate(formattedduedate, self.localsettings)
 				
-				vetform.planentry.AppendText("\n" + parent.medicationdata[choiceid][1] + " " + self.GetLabel("nextduelabel") + " " + str(formattedduedate))
+				vetform.planentry.AppendText("\n" + parent.medicationdata[choiceid][1] + " " + self.t("nextduelabel") + " " + str(formattedduedate))
 				
 			else:
 				
@@ -741,7 +741,7 @@ class VetForm(wx.Panel):
 					
 					except:
 						
-						miscmethods.ShowMessage(self.GetLabel("asmerrormessage"), parent)
+						miscmethods.ShowMessage(self.t("asmerrormessage"), parent)
 			
 			dialog = parent.GetParent()
 			
@@ -749,7 +749,7 @@ class VetForm(wx.Panel):
 			
 		else:
 			
-			miscmethods.ShowMessage(self.GetLabel("quantityerrormessage"), parent)
+			miscmethods.ShowMessage(self.t("quantityerrormessage"), parent)
 	
 	def MedicationChoiceSelected(self, ID):
 		
@@ -794,17 +794,17 @@ class VetForm(wx.Panel):
 		
 		for a in proceduresdata:
 			
-			if self.GetLabel("currency") == "&pound;":
+			if self.t("currency") == "&pound;":
 				
 				currencysymbol = u"£"
 				
 			else:
 				
-				currencysymbol = self.GetLabel("currency")
+				currencysymbol = self.t("currency")
 			
 			procedures.append(a[1] + "  (" + currencysymbol + miscmethods.FormatPrice(a[3]) + ")")
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("procedurelabel"))
+		dialog = wx.Dialog(self, -1, self.t("procedurelabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -812,7 +812,7 @@ class VetForm(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		procedurenamelabel = wx.StaticText(panel, -1, self.GetLabel("searchlabel"))
+		procedurenamelabel = wx.StaticText(panel, -1, self.t("searchlabel"))
 		font = procedurenamelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		procedurenamelabel.SetFont(font)
@@ -822,7 +822,7 @@ class VetForm(wx.Panel):
 		procedurenameentry.Bind(wx.wx.EVT_TEXT, self.ProcedureNameEntryKeyPress)
 		topsizer.Add(procedurenameentry, 0, wx.EXPAND)
 		
-		procedurelabel = wx.StaticText(panel, -1, self.GetLabel("proceduresmenu"))
+		procedurelabel = wx.StaticText(panel, -1, self.t("proceduresmenu"))
 		procedurelabel.SetFont(font)
 		topsizer.Add(procedurelabel, 0, wx.ALIGN_LEFT)
 		
@@ -832,7 +832,7 @@ class VetForm(wx.Panel):
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(panel, -1, submitbitmap)
 		submitbutton.Disable()
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.SubmitProcedure)
 		topsizer.Add(submitbutton, 0, wx.ALIGN_CENTER_HORIZONTAL)
 		
@@ -895,13 +895,13 @@ class VetForm(wx.Panel):
 			
 			for a in filteredproceduredata:
 				
-				if self.GetLabel("currency") == "&pound;":
+				if self.t("currency") == "&pound;":
 					
 					currencysymbol = u"£"
 					
 				else:
 					
-					currencysymbol = self.GetLabel("currency")
+					currencysymbol = self.t("currency")
 				
 				panel.procedurelistbox.Append(a[1] + "  (" + currencysymbol + miscmethods.FormatPrice(a[3]) + ")")
 		
@@ -955,7 +955,7 @@ class VetForm(wx.Panel):
 	
 	def AddManualDialog(self):
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("manuallabel"))
+		dialog = wx.Dialog(self, -1, self.t("manuallabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -963,7 +963,7 @@ class VetForm(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		descriptionlabel = wx.StaticText(panel, -1, self.GetLabel("descriptionlabel"))
+		descriptionlabel = wx.StaticText(panel, -1, self.t("descriptionlabel"))
 		font = descriptionlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		descriptionlabel.SetFont(font)
@@ -974,7 +974,7 @@ class VetForm(wx.Panel):
 		
 		#topsizer.Add(wx.StaticText(panel, -1, "", size=(10,10)), 0, wx.EXPAND)
 		
-		pricelabel = wx.StaticText(panel, -1, self.GetLabel("pricelabel"))
+		pricelabel = wx.StaticText(panel, -1, self.t("pricelabel"))
 		pricelabel.SetFont(font)
 		topsizer.Add(pricelabel, 0, wx.ALIGN_LEFT)
 		
@@ -987,7 +987,7 @@ class VetForm(wx.Panel):
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitbutton = wx.BitmapButton(panel, -1, submitbitmap)
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.SubmitManual)
 		pricesizer.Add(submitbutton, 0, wx.ALIGN_BOTTOM)
 		
@@ -1026,7 +1026,7 @@ class VetForm(wx.Panel):
 		
 		if description == "":
 			
-			miscmethods.ShowMessage(self.GetLabel("vetformnodescriptionmessage"), parent)
+			miscmethods.ShowMessage(self.t("vetformnodescriptionmessage"), parent)
 			
 		else:
 			
@@ -1046,7 +1046,7 @@ class VetForm(wx.Panel):
 			
 			changelog = self.receiptlistbox.htmllist[listboxid][7]
 			
-			miscmethods.ShowChangeLog(self.GetLabel("vetformreceiptitemlabel"), changelog, self.localsettings.dbconnection)
+			miscmethods.ShowChangeLog(self.t("vetformreceiptitemlabel"), changelog, self.localsettings.dbconnection)
 	
 	def AppointmentSelected(self, ID):
 		
@@ -1078,7 +1078,7 @@ class VetForm(wx.Panel):
 		
 		if receipttype == 0:
 			
-			if miscmethods.ConfirmMessage(self.GetLabel("vetformdeletereceiptmessage")) == True:
+			if miscmethods.ConfirmMessage(self.t("vetformdeletereceiptmessage")) == True:
 				
 				action = "DELETE FROM receipt WHERE ID = " + str(receiptid)
 				db.SendSQL(action, self.localsettings.dbconnection)
@@ -1090,7 +1090,7 @@ class VetForm(wx.Panel):
 		
 		if receipttype == 1:
 			
-			if miscmethods.ConfirmMessage(self.GetLabel("vetformdeletereceiptmessage")) == True:
+			if miscmethods.ConfirmMessage(self.t("vetformdeletereceiptmessage")) == True:
 				
 				action = "DELETE FROM receipt WHERE ID = " + str(receiptid)
 				db.SendSQL(action, self.localsettings.dbconnection)
@@ -1099,7 +1099,7 @@ class VetForm(wx.Panel):
 		
 		if receipttype == 2:
 			
-			if miscmethods.ConfirmMessage(self.GetLabel("vetformdeletereceiptmessage")) == True:
+			if miscmethods.ConfirmMessage(self.t("vetformdeletereceiptmessage")) == True:
 				
 				action = "DELETE FROM receipt WHERE ID = " + str(receiptid)
 				db.SendSQL(action, self.localsettings.dbconnection)
@@ -1112,7 +1112,7 @@ class VetForm(wx.Panel):
 		
 		if receipttype == 3:
 			
-			if miscmethods.ConfirmMessage(self.GetLabel("vetformdeletereceiptmessage")) == True:
+			if miscmethods.ConfirmMessage(self.t("vetformdeletereceiptmessage")) == True:
 				
 				action = "DELETE FROM receipt WHERE ID = " + str(receiptid)
 				db.SendSQL(action, self.localsettings.dbconnection)
@@ -1153,9 +1153,9 @@ class VetForm(wx.Panel):
 
 class MedicationPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return  self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -1169,10 +1169,10 @@ class MedicationPanel(wx.Panel):
 		
 		resetbitmap = wx.Bitmap("icons/reset.png")
 		resetbutton = wx.BitmapButton(self, -1, resetbitmap)
-		resetbutton.SetToolTipString(self.GetLabel("vetformmedicationclearcontainstooltip"))
+		resetbutton.SetToolTipString(self.t("vetformmedicationclearcontainstooltip"))
 		entrysizer.Add(resetbutton, 0, wx.EXPAND)
 		
-		entrylabel = wx.StaticText(self, -1, " " + self.GetLabel("containslabel") + ": ")
+		entrylabel = wx.StaticText(self, -1, " " + self.t("containslabel") + ": ")
 		entrysizer.Add(entrylabel, 0, wx.ALIGN_CENTER)
 		
 		entry = wx.TextCtrl(self, -1, "")
@@ -1181,7 +1181,7 @@ class MedicationPanel(wx.Panel):
 		
 		refreshbitmap = wx.Bitmap("icons/refresh.png")
 		refreshbutton = wx.BitmapButton(self, -1, refreshbitmap)
-		refreshbutton.SetToolTipString(self.GetLabel("vetformrefreshmedicationtooltip"))
+		refreshbutton.SetToolTipString(self.t("vetformrefreshmedicationtooltip"))
 		
 		entrysizer.Add(refreshbutton, 0, wx.EXPAND)
 		
@@ -1205,22 +1205,22 @@ class MedicationPanel(wx.Panel):
 		
 		resetbitmap = wx.Bitmap("icons/reset.png")
 		resetsubmissionbutton = wx.BitmapButton(self, -1, resetbitmap)
-		resetsubmissionbutton.SetToolTipString(self.GetLabel("resetlabel"))
+		resetsubmissionbutton.SetToolTipString(self.t("resetlabel"))
 		resetsubmissionbutton.Bind(wx.EVT_BUTTON, self.UnSelectMedication)
 		resetsubmissionbutton.Disable()
 		submitsizer.Add(resetsubmissionbutton, 0, wx.EXPAND)
 		
 		quantityentry = wx.TextCtrl(self, -1, "")
 		quantityentry.Disable()
-		quantityentry.SetToolTipString(self.GetLabel("vetformnoofunitstooltip"))
+		quantityentry.SetToolTipString(self.t("vetformnoofunitstooltip"))
 		submitsizer.Add(quantityentry, 1, wx.EXPAND)
 		
-		unitlabel = wx.StaticText(self, -1, " x " + self.GetLabel("unitlabel") + " ")
+		unitlabel = wx.StaticText(self, -1, " x " + self.t("unitlabel") + " ")
 		submitsizer.Add(unitlabel, 0, wx.ALIGN_CENTER)
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitsubmissionbutton = wx.BitmapButton(self, -1, submitbitmap)
-		submitsubmissionbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitsubmissionbutton.SetToolTipString(self.t("submitlabel"))
 		submitsubmissionbutton.Bind(wx.EVT_BUTTON, self.Submit)
 		submitsubmissionbutton.Disable()
 		submitsizer.Add(submitsubmissionbutton, 0, wx.EXPAND)
@@ -1235,7 +1235,7 @@ class MedicationPanel(wx.Panel):
 		
 		instructionssizer = wx.BoxSizer(wx.VERTICAL)
 		
-		instructionslabel = wx.StaticText(self, -1, self.GetLabel("vetforminstructionslabel"))
+		instructionslabel = wx.StaticText(self, -1, self.t("vetforminstructionslabel"))
 		font = instructionslabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 3)
 		instructionslabel.SetFont(font)
@@ -1244,7 +1244,7 @@ class MedicationPanel(wx.Panel):
 		
 		instructionsentry = wx.TextCtrl(self, -1, "")
 		instructionsentry.Disable()
-		instructionsentry.SetToolTipString(self.GetLabel("vetforminstructionstooltip"))
+		instructionsentry.SetToolTipString(self.t("vetforminstructionstooltip"))
 		#instructionsentry.Bind(wx.EVT_CHAR, self.ClearEntryLabel)
 		instructionssizer.Add(instructionsentry, 0, wx.EXPAND)
 		
@@ -1259,7 +1259,7 @@ class MedicationPanel(wx.Panel):
 		
 		batchnosizer = wx.BoxSizer(wx.VERTICAL)
 		
-		batchlabel = wx.StaticText(self, -1, self.GetLabel("medicationbatchnolabel"))
+		batchlabel = wx.StaticText(self, -1, self.t("medicationbatchnolabel"))
 		font = batchlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 3)
 		batchlabel.SetFont(font)
@@ -1267,7 +1267,7 @@ class MedicationPanel(wx.Panel):
 		
 		batchentry = wx.TextCtrl(self, -1, "")
 		batchentry.Disable()
-		batchentry.SetToolTipString(self.GetLabel("vetformbatchnotooltip"))
+		batchentry.SetToolTipString(self.t("vetformbatchnotooltip"))
 		#batchentry.Bind(wx.EVT_CHAR, self.ClearEntryLabel)
 		batchnosizer.Add(batchentry, 1, wx.EXPAND)
 		
@@ -1275,7 +1275,7 @@ class MedicationPanel(wx.Panel):
 		
 		expirydatesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		expirylabel = wx.StaticText(self, -1, self.GetLabel("medicationexpireslabel"))
+		expirylabel = wx.StaticText(self, -1, self.t("medicationexpireslabel"))
 		font = expirylabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 3)
 		expirylabel.SetFont(font)
@@ -1294,7 +1294,7 @@ class MedicationPanel(wx.Panel):
 		printerbitmap = wx.Bitmap("icons/printer.png")
 		printlabelbutton = wx.BitmapButton(self, -1, printerbitmap)
 		printlabelbutton.Disable()
-		printlabelbutton.SetToolTipString(self.GetLabel("vetformprintlabeltooltip"))
+		printlabelbutton.SetToolTipString(self.t("vetformprintlabeltooltip"))
 		printlabelbutton.Bind(wx.EVT_BUTTON, ChooseMedicationDocument)
 		batchsizer.Add(printlabelbutton, 0, wx.EXPAND)
 		
@@ -1328,7 +1328,7 @@ class MedicationPanel(wx.Panel):
 		
 		self.printlabelbutton.Enable()
 		
-		if parent.GetValue() == self.GetLabel("vetforminstructionslabel") or parent.GetValue() == self.GetLabel("medicationbatchnolabel"):
+		if parent.GetValue() == self.t("vetforminstructionslabel") or parent.GetValue() == self.t("medicationbatchnolabel"):
 			parent.Clear()
 		
 		ID.Skip()
@@ -1377,7 +1377,7 @@ class MedicationPanel(wx.Panel):
 		self.batchentry.Clear()
 		self.expiryentry.Clear()
 		
-		self.unitlabel.SetLabel(" x " + self.GetLabel("unitlabel") + " ")
+		self.unitlabel.SetLabel(" x " + self.t("unitlabel") + " ")
 		self.submitsizer.Layout()
 		
 		self.resetsubmissionbutton.Disable()
@@ -1487,26 +1487,26 @@ class MedicationPanel(wx.Panel):
 			</tr>
 			<tr>
 				<td valign=top>
-					<fieldset><legend><font size=1>""" + self.GetLabel("clientlabel") + """</font></legend>
+					<fieldset><legend><font size=1>""" + self.t("clientlabel") + """</font></legend>
 					<font size=1>""" + title + " " + forenames + " " + surname + """<br>""" + address.replace("\n", "<br>") + "<br>" + postcode + """</font>
 					</fieldset>
 				</td>
 				<td valign=top>
-					<fieldset><legend><font size=1>""" + self.GetLabel("animallabel") + """</font></legend>
+					<fieldset><legend><font size=1>""" + self.t("animallabel") + """</font></legend>
 					<font size=1>""" + self.parent.GetParent().appointmentdata.animaldata.name + "<br>" + self.parent.GetParent().appointmentdata.animaldata.species + "<br>" + self.parent.GetParent().appointmentdata.animaldata.colour + """</font>
 					</fieldset>
 				</td>
 			</tr>
 			<tr>
 				<td colspan=2>
-					<fieldset><legend><font size=1>""" + self.GetLabel("medicationlabel") + """</font></legend>
+					<fieldset><legend><font size=1>""" + self.t("medicationlabel") + """</font></legend>
 					<font size=2><b>""" + name + " x " + quantity + """</b></font>
 					</fieldset>
 				</td>
 			</tr>
 			<tr>
 				<td colspan=2>
-					<fieldset><legend><font size=1>""" + self.GetLabel("vetforminstructionslabel") + """</font></legend>
+					<fieldset><legend><font size=1>""" + self.t("vetforminstructionslabel") + """</font></legend>
 					<font size=2><b>""" + instructions + """</b></font>
 					</fieldset>
 				</td>
@@ -1525,9 +1525,9 @@ class MedicationPanel(wx.Panel):
 
 class VaccinationPanel(MedicationPanel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -1541,10 +1541,10 @@ class VaccinationPanel(MedicationPanel):
 		
 		resetbitmap = wx.Bitmap("icons/reset.png")
 		resetbutton = wx.BitmapButton(self, -1, resetbitmap)
-		resetbutton.SetToolTipString(self.GetLabel("vetformmedicationclearcontainstooltip"))
+		resetbutton.SetToolTipString(self.t("vetformmedicationclearcontainstooltip"))
 		entrysizer.Add(resetbutton, 0, wx.EXPAND)
 		
-		entrylabel = wx.StaticText(self, -1, " " + self.GetLabel("containslabel") + ": ")
+		entrylabel = wx.StaticText(self, -1, " " + self.t("containslabel") + ": ")
 		entrysizer.Add(entrylabel, 0, wx.ALIGN_CENTER)
 		
 		entry = wx.TextCtrl(self, -1, "")
@@ -1553,7 +1553,7 @@ class VaccinationPanel(MedicationPanel):
 		
 		refreshbitmap = wx.Bitmap("icons/refresh.png")
 		refreshbutton = wx.BitmapButton(self, -1, refreshbitmap)
-		refreshbutton.SetToolTipString(self.GetLabel("vetformrefreshvaccinationtooltip"))
+		refreshbutton.SetToolTipString(self.t("vetformrefreshvaccinationtooltip"))
 		
 		entrysizer.Add(refreshbutton, 0, wx.EXPAND)
 		
@@ -1577,12 +1577,12 @@ class VaccinationPanel(MedicationPanel):
 		
 		resetbitmap = wx.Bitmap("icons/reset.png")
 		resetsubmissionbutton = wx.BitmapButton(self, -1, resetbitmap)
-		resetsubmissionbutton.SetToolTipString(self.GetLabel("resetlabel"))
+		resetsubmissionbutton.SetToolTipString(self.t("resetlabel"))
 		resetsubmissionbutton.Bind(wx.EVT_BUTTON, self.UnSelectVaccination)
 		resetsubmissionbutton.Disable()
 		submitsizer.Add(resetsubmissionbutton, 0, wx.EXPAND)
 		
-		nextvacclabel = wx.StaticText(self, -1, " " + self.GetLabel("nextduelabel") + ": ")
+		nextvacclabel = wx.StaticText(self, -1, " " + self.t("nextduelabel") + ": ")
 		submitsizer.Add(nextvacclabel, 0, wx.ALIGN_CENTER)
 		
 		nextvaccentry = customwidgets.DateCtrl(self, self.localsettings)
@@ -1591,14 +1591,14 @@ class VaccinationPanel(MedicationPanel):
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitsubmissionbutton = wx.BitmapButton(self, -1, submitbitmap)
-		submitsubmissionbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitsubmissionbutton.SetToolTipString(self.t("submitlabel"))
 		submitsubmissionbutton.Bind(wx.EVT_BUTTON, self.Submit)
 		submitsubmissionbutton.Disable()
 		submitsizer.Add(submitsubmissionbutton, 0, wx.EXPAND)
 		topsizer.Add(submitsizer, 0, wx.EXPAND)
 		
 		
-		batchlabel = wx.StaticText(self, -1, self.GetLabel("medicationbatchnolabel"))
+		batchlabel = wx.StaticText(self, -1, self.t("medicationbatchnolabel"))
 		font = batchlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 3)
 		batchlabel.SetFont(font)
@@ -1607,7 +1607,7 @@ class VaccinationPanel(MedicationPanel):
 		
 		batchentry = wx.TextCtrl(self, -1, "")
 		batchentry.Bind(wx.EVT_CHAR, self.ClearEntryLabel)
-		batchentry.SetToolTipString(self.GetLabel("vetformbatchnotooltip"))
+		batchentry.SetToolTipString(self.t("vetformbatchnotooltip"))
 		batchentry.Disable()
 		topsizer.Add(batchentry, 0, wx.EXPAND)
 		
@@ -1632,7 +1632,7 @@ class VaccinationPanel(MedicationPanel):
 		
 		parent = ID.GetEventObject()
 		
-		if parent.GetValue() == self.GetLabel("medicationbatchnolabel"):
+		if parent.GetValue() == self.t("medicationbatchnolabel"):
 			parent.Clear()
 		
 		ID.Skip()
@@ -1657,7 +1657,7 @@ class VaccinationPanel(MedicationPanel):
 		self.submitsubmissionbutton.Disable()
 		today = miscmethods.GetTodaysWXDate()
 		self.nextvaccentry.SetValue(today)
-		self.batchentry.SetValue(self.GetLabel("medicationbatchnolabel"))
+		self.batchentry.SetValue(self.t("medicationbatchnolabel"))
 		self.batchentry.Disable()
 		self.nextvaccentry.Disable()
 	
@@ -1716,13 +1716,13 @@ class VaccinationPanel(MedicationPanel):
 		nextduedate = miscmethods.FormatSQLDate(nextduedate, self.localsettings)
 		
 		self.parent.GetParent().notesentry.AppendText("\n" + name + " (" + vaccinationbatchno + ")")
-		self.parent.GetParent().planentry.AppendText("\n" + name + " " + self.GetLabel("nextduelabel") + " " + nextduedate)
+		self.parent.GetParent().planentry.AppendText("\n" + name + " " + self.t("nextduelabel") + " " + nextduedate)
 
 class ProcedurePanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -1736,10 +1736,10 @@ class ProcedurePanel(wx.Panel):
 		
 		resetbitmap = wx.Bitmap("icons/reset.png")
 		resetbutton = wx.BitmapButton(self, -1, resetbitmap)
-		resetbutton.SetToolTipString(self.GetLabel("vetformmedicationclearcontainstooltip"))
+		resetbutton.SetToolTipString(self.t("vetformmedicationclearcontainstooltip"))
 		entrysizer.Add(resetbutton, 0, wx.EXPAND)
 		
-		entrylabel = wx.StaticText(self, -1, " " + self.GetLabel("containslabel") + ": ")
+		entrylabel = wx.StaticText(self, -1, " " + self.t("containslabel") + ": ")
 		entrysizer.Add(entrylabel, 0, wx.ALIGN_CENTER)
 		
 		entry = wx.TextCtrl(self, -1, "")
@@ -1748,7 +1748,7 @@ class ProcedurePanel(wx.Panel):
 		
 		refreshbitmap = wx.Bitmap("icons/refresh.png")
 		refreshbutton = wx.BitmapButton(self, -1, refreshbitmap)
-		refreshbutton.SetToolTipString(self.GetLabel("vetformrefreshprocedurestooltip"))
+		refreshbutton.SetToolTipString(self.t("vetformrefreshprocedurestooltip"))
 		
 		entrysizer.Add(refreshbutton, 0, wx.EXPAND)
 		
@@ -1771,7 +1771,7 @@ class ProcedurePanel(wx.Panel):
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitsubmissionbutton = wx.BitmapButton(self, -1, submitbitmap)
-		submitsubmissionbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitsubmissionbutton.SetToolTipString(self.t("submitlabel"))
 		submitsubmissionbutton.Bind(wx.EVT_BUTTON, self.Submit)
 		submitsubmissionbutton.Disable()
 		topsizer.Add(submitsubmissionbutton, 0, wx.ALIGN_RIGHT)
@@ -1834,9 +1834,9 @@ class ProcedurePanel(wx.Panel):
 
 class ManualPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -1849,7 +1849,7 @@ class ManualPanel(wx.Panel):
 		spacer = wx.StaticText(self, -1, "", size=(-1,5))
 		topsizer.Add(spacer, 0, wx.EXPAND)
 		
-		descriptionlabel = wx.StaticText(self, -1, self.GetLabel("descriptionlabel") + ":")
+		descriptionlabel = wx.StaticText(self, -1, self.t("descriptionlabel") + ":")
 		font = descriptionlabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		descriptionlabel.SetFont(font)
@@ -1865,13 +1865,13 @@ class ManualPanel(wx.Panel):
 		
 		resetbitmap = wx.Bitmap("icons/reset.png")
 		resetbutton = wx.BitmapButton(self, -1, resetbitmap)
-		resetbutton.SetToolTipString(self.GetLabel("resetlabel"))
+		resetbutton.SetToolTipString(self.t("resetlabel"))
 		resetbutton.Bind(wx.EVT_BUTTON, self.ClearEntry)
 		pricesizer.Add(resetbutton, 0, wx.EXPAND)
 		
 		pricespacer = wx.StaticText(self, -1, "", size=(5,-1))
 		
-		pricelabel = wx.StaticText(self, -1, self.GetLabel("pricelabel") + ":")
+		pricelabel = wx.StaticText(self, -1, self.t("pricelabel") + ":")
 		pricelabel.SetFont(font)
 		pricesizer.Add(pricelabel, 0, wx.ALIGN_LEFT)
 		pricesizer.Add(pricespacer, 0, wx.EXPAND)
@@ -1884,7 +1884,7 @@ class ManualPanel(wx.Panel):
 		
 		submitbitmap = wx.Bitmap("icons/submit.png")
 		submitsubmissionbutton = wx.BitmapButton(self, -1, submitbitmap)
-		submitsubmissionbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitsubmissionbutton.SetToolTipString(self.t("submitlabel"))
 		submitsubmissionbutton.Bind(wx.EVT_BUTTON, self.Submit)
 		pricesizer.Add(submitsubmissionbutton, 0, wx.ALIGN_BOTTOM)
 		
@@ -1920,7 +1920,7 @@ class ManualPanel(wx.Panel):
 			description = self.descriptionentry.GetValue()
 			
 			if description == "":
-				miscmethods.ShowMessage(self.GetLabel("vetformnodescriptionmessage"))
+				miscmethods.ShowMessage(self.t("vetformnodescriptionmessage"))
 			else:
 				
 				dbmethods.WriteToReceiptTable(self.localsettings.dbconnection, False, date, description, price, 3, 0, appointmentid, self.localsettings.userid)

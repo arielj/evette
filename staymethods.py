@@ -46,9 +46,9 @@ ADD_KENNEL = 7013
 
 class EditKennelsPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
@@ -56,7 +56,7 @@ class EditKennelsPanel(wx.Panel):
 		
 		wx.Panel.__init__(self, notebook)
 		
-		self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("editkennelsmenu")[0])
+		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("editkennelsmenu")[0])
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -79,9 +79,9 @@ class EditKennelsPanel(wx.Panel):
 class KennelBlockPanel(wx.Panel):
 	
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -91,7 +91,7 @@ class KennelBlockPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		titlelabel = wx.StaticText(self, -1, miscmethods.NoWrap(self.GetLabel("kennelblocktitlelabel")))
+		titlelabel = wx.StaticText(self, -1, miscmethods.NoWrap(self.t("kennelblocktitlelabel")))
 		font = titlelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() + 4)
 		titlelabel.SetFont(font)
@@ -101,19 +101,19 @@ class KennelBlockPanel(wx.Panel):
 		
 		#newbitmap = wx.Bitmap("icons/new.png")
 		#newbutton = wx.BitmapButton(self, -1, newbitmap)
-		#newbutton.SetToolTipString(self.GetLabel("addkennelblocktooltip"))
+		#newbutton.SetToolTipString(self.t("addkennelblocktooltip"))
 		#newbutton.Bind(wx.EVT_BUTTON, self.AddKennelBlock)
 		#buttonssizer.Add(newbutton, 0, wx.EXPAND)
 		
 		#editbitmap = wx.Bitmap("icons/edit.png")
 		#editbutton = wx.BitmapButton(self, -1, editbitmap)
-		#editbutton.SetToolTipString(self.GetLabel("editkennelblocktitle"))
+		#editbutton.SetToolTipString(self.t("editkennelblocktitle"))
 		#editbutton.Bind(wx.EVT_BUTTON, self.EditKennelBlock)
 		#buttonssizer.Add(editbutton, 0, wx.EXPAND)
 		
 		#deletebitmap = wx.Bitmap("icons/delete.png")
 		#deletebutton = wx.BitmapButton(self, -1, deletebitmap)
-		#deletebutton.SetToolTipString(self.GetLabel("deletelabel"))
+		#deletebutton.SetToolTipString(self.t("deletelabel"))
 		#deletebutton.Bind(wx.EVT_BUTTON, self.DeleteKennelBlock)
 		#buttonssizer.Add(deletebutton, 0, wx.EXPAND)
 		
@@ -121,7 +121,7 @@ class KennelBlockPanel(wx.Panel):
 		
 		#refreshbitmap = wx.Bitmap("icons/refresh.png")
 		#refreshbutton = wx.BitmapButton(self, -1, refreshbitmap)
-		#refreshbutton.SetToolTipString(self.GetLabel("lookupsrefreshtooltip"))
+		#refreshbutton.SetToolTipString(self.t("lookupsrefreshtooltip"))
 		#refreshbutton.Bind(wx.EVT_BUTTON, self.RefreshList)
 		#buttonssizer.Add(refreshbutton, 0, wx.EXPAND)
 		
@@ -146,26 +146,26 @@ class KennelBlockPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		addblock = wx.MenuItem(popupmenu, ADD_BLOCK, self.GetLabel("addlabel"))
+		addblock = wx.MenuItem(popupmenu, ADD_BLOCK, self.t("addlabel"))
 		addblock.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(addblock)
 		wx.EVT_MENU(popupmenu, ADD_BLOCK, self.AddKennelBlock)
 		
 		if self.listbox.GetSelection() > -1:
 			
-			editblock = wx.MenuItem(popupmenu, EDIT_BLOCK, self.GetLabel("editlabel"))
+			editblock = wx.MenuItem(popupmenu, EDIT_BLOCK, self.t("editlabel"))
 			editblock.SetBitmap(wx.Bitmap("icons/new.png"))
 			popupmenu.AppendItem(editblock)
 			wx.EVT_MENU(popupmenu, EDIT_BLOCK, self.EditKennelBlock)
 			
-			deleteblock = wx.MenuItem(popupmenu, DELETE_BLOCK, self.GetLabel("deletelabel"))
+			deleteblock = wx.MenuItem(popupmenu, DELETE_BLOCK, self.t("deletelabel"))
 			deleteblock.SetBitmap(wx.Bitmap("icons/new.png"))
 			popupmenu.AppendItem(deleteblock)
 			wx.EVT_MENU(popupmenu, DELETE_BLOCK, self.DeleteKennelBlock)
 		
 		popupmenu.AppendSeparator()
 		
-		refresh = wx.MenuItem(popupmenu, REFRESH_BLOCKS, self.GetLabel("refreshlabel"))
+		refresh = wx.MenuItem(popupmenu, REFRESH_BLOCKS, self.t("refreshlabel"))
 		refresh.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refresh)
 		wx.EVT_MENU(popupmenu, REFRESH_BLOCKS, self.RefreshList)
@@ -207,7 +207,7 @@ class KennelBlockPanel(wx.Panel):
 	
 	def DeleteKennelBlock(self, ID):
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("deletekennelblockconfirmation"), self):
+		if miscmethods.ConfirmMessage(self.t("deletekennelblockconfirmation"), self):
 			
 			self.listbox.selectedid = 0
 			
@@ -226,14 +226,14 @@ class KennelBlockPanel(wx.Panel):
 			kennelblockid = 0
 			name = ""
 			description = ""
-			titlelabel = self.GetLabel("addkennelblocktooltip")
+			titlelabel = self.t("addkennelblocktooltip")
 			
 		else:
 			
 			kennelblockid = kennelblockdata[0]
 			name = kennelblockdata[1]
 			description = kennelblockdata[2]
-			titlelabel = self.GetLabel("editkennelblocktitle")
+			titlelabel = self.t("editkennelblocktitle")
 		
 		dialog = wx.Dialog(self, -1, titlelabel)
 		
@@ -245,7 +245,7 @@ class KennelBlockPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		namelabel = wx.StaticText(panel, -1, self.GetLabel("namelabel"))
+		namelabel = wx.StaticText(panel, -1, self.t("namelabel"))
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -254,17 +254,17 @@ class KennelBlockPanel(wx.Panel):
 		nameentry = wx.TextCtrl(panel, -1, name)
 		topsizer.Add(nameentry, 0, wx.EXPAND)
 		
-		descriptionlabel = wx.StaticText(panel, -1, self.GetLabel("descriptionlabel"))
+		descriptionlabel = wx.StaticText(panel, -1, self.t("descriptionlabel"))
 		descriptionlabel.SetFont(font)
 		topsizer.Add(descriptionlabel, 0, wx.ALIGN_LEFT)
 		
 		descriptionentry = wx.TextCtrl(panel, -1, description, style=wx.TE_MULTILINE)
 		topsizer.Add(descriptionentry, 1, wx.EXPAND)
 		
-		submitbutton = wx.Button(panel, -1, self.GetLabel("submitlabel"))
+		submitbutton = wx.Button(panel, -1, self.t("submitlabel"))
 		submitbutton.SetBackgroundColour("green")
 		submitbutton.Bind(wx.EVT_BUTTON, self.SubmitKennelBlock)
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		topsizer.Add(submitbutton, 0, wx.ALIGN_CENTER_HORIZONTAL)
 		
 		panel.SetSizer(topsizer)
@@ -383,9 +383,9 @@ class KennelBlockListbox(wx.HtmlListBox):
 class KennelsPanel(wx.Panel):
 	
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -397,7 +397,7 @@ class KennelsPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		titlelabel = wx.StaticText(self, -1, self.GetLabel("kennelstitlelabel"))
+		titlelabel = wx.StaticText(self, -1, self.t("kennelstitlelabel"))
 		font = titlelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() + 4)
 		titlelabel.SetFont(font)
@@ -407,19 +407,19 @@ class KennelsPanel(wx.Panel):
 		
 		#newbitmap = wx.Bitmap("icons/new.png")
 		#newbutton = wx.BitmapButton(self, -1, newbitmap)
-		#newbutton.SetToolTipString(self.GetLabel("addkenneltooltip"))
+		#newbutton.SetToolTipString(self.t("addkenneltooltip"))
 		#newbutton.Bind(wx.EVT_BUTTON, self.AddKennel)
 		#buttonssizer.Add(newbutton, 0, wx.EXPAND)
 		
 		#editbitmap = wx.Bitmap("icons/edit.png")
 		#editbutton = wx.BitmapButton(self, -1, editbitmap)
-		#editbutton.SetToolTipString(self.GetLabel("editkenneltitle"))
+		#editbutton.SetToolTipString(self.t("editkenneltitle"))
 		#editbutton.Bind(wx.EVT_BUTTON, self.EditKennel)
 		#buttonssizer.Add(editbutton, 0, wx.EXPAND)
 		
 		#deletebitmap = wx.Bitmap("icons/delete.png")
 		#deletebutton = wx.BitmapButton(self, -1, deletebitmap)
-		#deletebutton.SetToolTipString(self.GetLabel("deletelabel"))
+		#deletebutton.SetToolTipString(self.t("deletelabel"))
 		#deletebutton.Bind(wx.EVT_BUTTON, self.DeleteKennel)
 		#buttonssizer.Add(deletebutton, 0, wx.EXPAND)
 		
@@ -427,7 +427,7 @@ class KennelsPanel(wx.Panel):
 		
 		#refreshbitmap = wx.Bitmap("icons/refresh.png")
 		#refreshbutton = wx.BitmapButton(self, -1, refreshbitmap)
-		#refreshbutton.SetToolTipString(self.GetLabel("lookupsrefreshtooltip"))
+		#refreshbutton.SetToolTipString(self.t("lookupsrefreshtooltip"))
 		#refreshbutton.Bind(wx.EVT_BUTTON, self.RefreshList)
 		#buttonssizer.Add(refreshbutton, 0, wx.EXPAND)
 		
@@ -451,26 +451,26 @@ class KennelsPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		addblock = wx.MenuItem(popupmenu, ADD_KENNEL, self.GetLabel("addlabel"))
+		addblock = wx.MenuItem(popupmenu, ADD_KENNEL, self.t("addlabel"))
 		addblock.SetBitmap(wx.Bitmap("icons/new.png"))
 		popupmenu.AppendItem(addblock)
 		wx.EVT_MENU(popupmenu, ADD_KENNEL, self.AddKennel)
 		
 		if self.listbox.GetSelection() > -1:
 			
-			editblock = wx.MenuItem(popupmenu, EDIT_KENNEL, self.GetLabel("editlabel"))
+			editblock = wx.MenuItem(popupmenu, EDIT_KENNEL, self.t("editlabel"))
 			editblock.SetBitmap(wx.Bitmap("icons/new.png"))
 			popupmenu.AppendItem(editblock)
 			wx.EVT_MENU(popupmenu, EDIT_KENNEL, self.EditKennel)
 			
-			deleteblock = wx.MenuItem(popupmenu, DELETE_KENNEL, self.GetLabel("deletelabel"))
+			deleteblock = wx.MenuItem(popupmenu, DELETE_KENNEL, self.t("deletelabel"))
 			deleteblock.SetBitmap(wx.Bitmap("icons/new.png"))
 			popupmenu.AppendItem(deleteblock)
 			wx.EVT_MENU(popupmenu, DELETE_KENNEL, self.DeleteKennel)
 		
 		popupmenu.AppendSeparator()
 		
-		refresh = wx.MenuItem(popupmenu, REFRESH_KENNELS, self.GetLabel("refreshlabel"))
+		refresh = wx.MenuItem(popupmenu, REFRESH_KENNELS, self.t("refreshlabel"))
 		refresh.SetBitmap(wx.Bitmap("icons/refresh.png"))
 		popupmenu.AppendItem(refresh)
 		wx.EVT_MENU(popupmenu, REFRESH_KENNELS, self.RefreshList)
@@ -507,7 +507,7 @@ class KennelsPanel(wx.Panel):
 	
 	def DeleteKennel(self, ID):
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("deletekennelconfirmation"), self):
+		if miscmethods.ConfirmMessage(self.t("deletekennelconfirmation"), self):
 			
 			self.listbox.selectedid = 0
 			
@@ -526,14 +526,14 @@ class KennelsPanel(wx.Panel):
 			kennelid = 0
 			name = ""
 			description = ""
-			titlelabel = self.GetLabel("addkenneltooltip")
+			titlelabel = self.t("addkenneltooltip")
 			
 		else:
 			
 			kennelid = kenneldata[0]
 			name = kenneldata[1]
 			description = kenneldata[2]
-			titlelabel = self.GetLabel("editkenneltitle")
+			titlelabel = self.t("editkenneltitle")
 		
 		dialog = wx.Dialog(self, -1, titlelabel)
 		
@@ -545,7 +545,7 @@ class KennelsPanel(wx.Panel):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		namelabel = wx.StaticText(panel, -1, self.GetLabel("namelabel"))
+		namelabel = wx.StaticText(panel, -1, self.t("namelabel"))
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -554,17 +554,17 @@ class KennelsPanel(wx.Panel):
 		nameentry = wx.TextCtrl(panel, -1, name)
 		topsizer.Add(nameentry, 0, wx.EXPAND)
 		
-		descriptionlabel = wx.StaticText(panel, -1, self.GetLabel("descriptionlabel"))
+		descriptionlabel = wx.StaticText(panel, -1, self.t("descriptionlabel"))
 		descriptionlabel.SetFont(font)
 		topsizer.Add(descriptionlabel, 0, wx.ALIGN_LEFT)
 		
 		descriptionentry = wx.TextCtrl(panel, -1, description, style=wx.TE_MULTILINE)
 		topsizer.Add(descriptionentry, 1, wx.EXPAND)
 		
-		submitbutton = wx.Button(panel, -1, self.GetLabel("submitlabel"))
+		submitbutton = wx.Button(panel, -1, self.t("submitlabel"))
 		submitbutton.SetBackgroundColour("green")
 		submitbutton.Bind(wx.EVT_BUTTON, self.SubmitKennel)
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		topsizer.Add(submitbutton, 0, wx.ALIGN_CENTER_HORIZONTAL)
 		
 		panel.SetSizer(topsizer)
@@ -676,9 +676,9 @@ class KennelListbox(wx.HtmlListBox):
 
 class ViewKennelsPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -688,7 +688,7 @@ class ViewKennelsPanel(wx.Panel):
 		
 		self.localsettings = localsettings
 		
-		self.pagetitle = miscmethods.GetPageTitle(parent, self.GetLabel("viewkennelsmenu")[0])
+		self.pagetitle = miscmethods.GetPageTitle(parent, self.t("viewkennelsmenu")[0])
 		
 		self.pageimage = "icons/kennel.png"
 		
@@ -785,15 +785,15 @@ class ViewKennelsPanel(wx.Panel):
 			
 			vacancies = noofkennels - nooccupied
 			
-			html = html + "&nbsp;<font size=1 color=red>" + self.GetLabel("vacantlabel") + " x " + str(vacancies) + "</font><br>"
+			html = html + "&nbsp;<font size=1 color=red>" + self.t("vacantlabel") + " x " + str(vacancies) + "</font><br>"
 		
 		self.toolspanel.htmlwindow.SetPage(html)
 
 class KennelToolsPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -806,7 +806,7 @@ class KennelToolsPanel(wx.Panel):
 		
 		refreshbitmap = wx.Bitmap("icons/refresh.png")
 		refreshbutton = wx.BitmapButton(self, -1, refreshbitmap)
-		refreshbutton.SetToolTipString(self.GetLabel("lookupsrefreshtooltip"))
+		refreshbutton.SetToolTipString(self.t("lookupsrefreshtooltip"))
 		topsizer.Add(refreshbutton, 0, wx.ALIGN_LEFT)
 		
 		htmlwindow = wx.html.HtmlWindow(self, size=(200,-1))
@@ -819,9 +819,9 @@ class KennelToolsPanel(wx.Panel):
 
 class KennelCellPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings, kennelblockid):
 		
@@ -928,22 +928,22 @@ class KennelCellPanel(wx.Panel):
 			popupmenu = wx.Menu()
 			popupmenu.panel = panel
 			
-			vetform = wx.MenuItem(popupmenu, EDIT_VETFORM, self.GetLabel("editvetformlabel"))
+			vetform = wx.MenuItem(popupmenu, EDIT_VETFORM, self.t("editvetformlabel"))
 			vetform.SetBitmap(wx.Bitmap("icons/vetform.png"))
 			popupmenu.AppendItem(vetform)
 			wx.EVT_MENU(popupmenu, EDIT_VETFORM, self.EditVetForm)
 			
-			editanimal = wx.MenuItem(popupmenu, EDIT_ANIMAL, self.GetLabel("editanimaltooltip"))
+			editanimal = wx.MenuItem(popupmenu, EDIT_ANIMAL, self.t("editanimaltooltip"))
 			editanimal.SetBitmap(wx.Bitmap("icons/editanimal.png"))
 			popupmenu.AppendItem(editanimal)
 			wx.EVT_MENU(popupmenu, EDIT_ANIMAL, self.EditAnimal)
 			
-			editclient = wx.MenuItem(popupmenu, EDIT_CLIENT, self.GetLabel("viewappointmentseditclientbuttonlabel"))
+			editclient = wx.MenuItem(popupmenu, EDIT_CLIENT, self.t("viewappointmentseditclientbuttonlabel"))
 			editclient.SetBitmap(wx.Bitmap("icons/editclient.png"))
 			popupmenu.AppendItem(editclient)
 			wx.EVT_MENU(popupmenu, EDIT_CLIENT, self.EditClient)
 			
-			discharge = wx.MenuItem(popupmenu, DISCHARGE, self.GetLabel("dischargelabel"))
+			discharge = wx.MenuItem(popupmenu, DISCHARGE, self.t("dischargelabel"))
 			discharge.SetBitmap(wx.Bitmap("icons/reset.png"))
 			popupmenu.AppendItem(discharge)
 			wx.EVT_MENU(popupmenu, DISCHARGE, self.Discharge)
@@ -976,10 +976,10 @@ class KennelCellPanel(wx.Panel):
 			
 			appointmentdata.Submit(True)
 			
-			miscmethods.ShowMessage(self.GetLabel("animalstayedmessage"), self)
+			miscmethods.ShowMessage(self.t("animalstayedmessage"), self)
 			
 			appointmentdata = appointmentmethods.AppointmentSettings(self.localsettings, animalid, False)
-			appointmentdata.reason = self.GetLabel("overnightstaylabel")
+			appointmentdata.reason = self.t("overnightstaylabel")
 			appointmentdata.time =  str(datetime.datetime.today().time())[:5]
 			appointmentdata.arrived = 1
 			appointmentdata.withvet = 1

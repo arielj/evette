@@ -49,9 +49,9 @@ class SmallSpacer(wx.StaticText):
 
 class SearchPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, notebook, localsettings):
 		
@@ -60,7 +60,7 @@ class SearchPanel(wx.Panel):
 		
 		wx.Panel.__init__(self, notebook)
 		
-		rawpagetitle = self.GetLabel("clientsearchpagetitle")
+		rawpagetitle = self.t("clientsearchpagetitle")
 		
 		pagetitle = miscmethods.GetPageTitle(notebook, rawpagetitle)
 		self.pagetitle = pagetitle
@@ -77,7 +77,7 @@ class SearchPanel(wx.Panel):
 		#filtersizer.AddGrowableCol(3)
 		filtersizer.AddGrowableCol(4)
 		
-		namelabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.GetLabel("animalownerlabel") + ":"))
+		namelabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.t("animalownerlabel") + ":"))
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -85,13 +85,13 @@ class SearchPanel(wx.Panel):
 		
 		filtersizer.Add(SmallSpacer(filterpanel), 0, wx.EXPAND)
 		
-		addresslabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.GetLabel("clientsearchaddresslabel") + ":"))
+		addresslabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.t("clientsearchaddresslabel") + ":"))
 		addresslabel.SetFont(font)
 		filtersizer.Add(addresslabel, 0, wx.ALIGN_LEFT)
 		
 		filtersizer.Add(SmallSpacer(filterpanel), 0, wx.EXPAND)
 		
-		postcodelabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.GetLabel("clientsearchpostcodelabel") + ":"))
+		postcodelabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.t("clientsearchpostcodelabel") + ":"))
 		postcodelabel.SetFont(font)
 		filtersizer.Add(postcodelabel, 0, wx.ALIGN_LEFT)
 		
@@ -111,19 +111,19 @@ class SearchPanel(wx.Panel):
 		postcodeentry.Bind(wx.EVT_CHAR, self.KeyPressed)
 		filtersizer.Add(postcodeentry, 1, wx.EXPAND)
 		
-		telephonelabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.GetLabel("clientsearchphonelabel") + ":"))
+		telephonelabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.t("clientsearchphonelabel") + ":"))
 		telephonelabel.SetFont(font)
 		filtersizer.Add(telephonelabel, 0, wx.ALIGN_LEFT)
 		
 		filtersizer.Add(SmallSpacer(filterpanel), 0, wx.EXPAND)
 		
-		emailaddresslabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.GetLabel("clientsearchemaillabel") + ":"))
+		emailaddresslabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.t("clientsearchemaillabel") + ":"))
 		emailaddresslabel.SetFont(font)
 		filtersizer.Add(emailaddresslabel, 0, wx.ALIGN_LEFT)
 		
 		filtersizer.Add(SmallSpacer(filterpanel), 0, wx.EXPAND)
 		
-		clientcommentslabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.GetLabel("clientcommentslabel") + ":"))
+		clientcommentslabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.t("clientcommentslabel") + ":"))
 		clientcommentslabel.SetFont(font)
 		filtersizer.Add(clientcommentslabel, 0, wx.ALIGN_LEFT)
 		
@@ -143,19 +143,19 @@ class SearchPanel(wx.Panel):
 		clientcommentsentry.Bind(wx.EVT_CHAR, self.KeyPressed)
 		filtersizer.Add(clientcommentsentry, 1, wx.EXPAND)
 		
-		animalnamelabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.GetLabel("appointmentsearchanimalnamelabel") + ":"))
+		animalnamelabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.t("appointmentsearchanimalnamelabel") + ":"))
 		animalnamelabel.SetFont(font)
 		filtersizer.Add(animalnamelabel, 0, wx.ALIGN_LEFT)
 		
 		filtersizer.Add(SmallSpacer(filterpanel), 0, wx.EXPAND)
 		
-		specieslabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.GetLabel("animalspecieslabel") + ":"))
+		specieslabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.t("animalspecieslabel") + ":"))
 		specieslabel.SetFont(font)
 		filtersizer.Add(specieslabel, 0, wx.ALIGN_LEFT)
 		
 		filtersizer.Add(SmallSpacer(filterpanel), 0, wx.EXPAND)
 		
-		sexlabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.GetLabel("animalsexlabel") + ":"))
+		sexlabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.t("animalsexlabel") + ":"))
 		sexlabel.SetFont(font)
 		filtersizer.Add(sexlabel, 0, wx.ALIGN_LEFT)
 		
@@ -180,24 +180,24 @@ class SearchPanel(wx.Panel):
 		
 		filtersizer.Add(wx.StaticText(filterpanel, -1, "", size=(10,-1)), 0, wx.EXPAND)
 		
-		sexentry = wx.Choice(filterpanel, -1, choices=(self.GetLabel("unknownlabel"), self.GetLabel("malelabel"), self.GetLabel("femalelabel")))
+		sexentry = wx.Choice(filterpanel, -1, choices=(self.t("unknownlabel"), self.t("malelabel"), self.t("femalelabel")))
 		sexentry.SetSelection(0)
 		#sexentry.Bind(wx.EVT_CHOICE, self.KeyPressed)
 		filtersizer.Add(sexentry, 0, wx.EXPAND)
 		
-		breedlabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.GetLabel("animalbreedlabel") + ":"))
+		breedlabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.t("animalbreedlabel") + ":"))
 		breedlabel.SetFont(font)
 		filtersizer.Add(breedlabel, 1, wx.ALIGN_LEFT)
 		
 		filtersizer.Add(SmallSpacer(filterpanel), 0, wx.EXPAND)
 		
-		chipnolabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.GetLabel("animalchipnolabel") + ":"))
+		chipnolabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.t("animalchipnolabel") + ":"))
 		chipnolabel.SetFont(font)
 		filtersizer.Add(chipnolabel, 0, wx.ALIGN_LEFT)
 		
 		filtersizer.Add(SmallSpacer(filterpanel), 0, wx.EXPAND)
 		
-		asmreflabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.GetLabel("asmreflabel") + ":"))
+		asmreflabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.t("asmreflabel") + ":"))
 		asmreflabel.SetFont(font)
 		filtersizer.Add(asmreflabel, 0, wx.ALIGN_LEFT)
 		
@@ -226,7 +226,7 @@ class SearchPanel(wx.Panel):
 		asmrefentry.Bind(wx.EVT_CHAR, self.KeyPressed)
 		filtersizer.Add(asmrefentry, 1, wx.EXPAND)
 		
-		animalcommentslabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.GetLabel("clientcommentslabel") + ":"))
+		animalcommentslabel = wx.StaticText(filterpanel, -1, miscmethods.NoWrap(" " + self.t("clientcommentslabel") + ":"))
 		animalcommentslabel.SetFont(font)
 		filtersizer.Add(animalcommentslabel, 0, wx.ALIGN_LEFT)
 		
@@ -243,13 +243,13 @@ class SearchPanel(wx.Panel):
 		
 		buttonssizer = wx.BoxSizer(wx.HORIZONTAL)
 		
-		resetbutton = wx.Button(filterpanel, -1, self.GetLabel("resetlabel"))
+		resetbutton = wx.Button(filterpanel, -1, self.t("resetlabel"))
 		resetbutton.SetBackgroundColour("red")
 		resetbutton.SetForegroundColour("white")
 		resetbutton.Bind(wx.EVT_BUTTON, self.Reset)
 		buttonssizer.Add(resetbutton, 1, wx.EXPAND)
 		
-		searchbutton = wx.Button(filterpanel, -1, self.GetLabel("searchlabel"))
+		searchbutton = wx.Button(filterpanel, -1, self.t("searchlabel"))
 		searchbutton.SetBackgroundColour("green")
 		searchbutton.SetForegroundColour("black")
 		searchbutton.Bind(wx.EVT_BUTTON, self.Search)
@@ -259,7 +259,7 @@ class SearchPanel(wx.Panel):
 		
 		filtersizer.Add(wx.StaticText(filterpanel, -1, "", size=(10,-1)), 0, wx.EXPAND)
 		
-		includedeceasedentry = wx.CheckBox(filterpanel, -1, miscmethods.NoWrap(self.GetLabel("includedeceasedlabel")))
+		includedeceasedentry = wx.CheckBox(filterpanel, -1, miscmethods.NoWrap(self.t("includedeceasedlabel")))
 		includedeceasedentry.SetValue(True)
 		filtersizer.Add(includedeceasedentry, 1, wx.ALIGN_LEFT)
 		
@@ -486,7 +486,7 @@ class SearchPanel(wx.Panel):
 		
 		if len(clientresults) > 1000 or len(animalresults) > 1000:
 			
-			miscmethods.ShowMessage(self.GetLabel("toomanyresultsmessage"), self)
+			miscmethods.ShowMessage(self.t("toomanyresultsmessage"), self)
 		
 		self.clientpanel.RefreshList(clientresults)
 		
@@ -496,9 +496,9 @@ class SearchPanel(wx.Panel):
 
 class ClientSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -511,7 +511,7 @@ class ClientSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		topsizer.Add(wx.StaticText(self, -1, self.GetLabel("clientmenu")), 0, wx.ALIGN_CENTER)
+		topsizer.Add(wx.StaticText(self, -1, self.t("clientmenu")), 0, wx.ALIGN_CENTER)
 		
 		self.listctrl = ClientListCtrl(self, self.localsettings)
 		customwidgets.ListCtrlWrapper.RefreshList(self.listctrl)
@@ -521,7 +521,7 @@ class ClientSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		topsizer.Add(self.listctrl, 1, wx.EXPAND)
 		
-		self.totallabel = wx.StaticText(self, -1, self.GetLabel("totallabel") + ": 0")
+		self.totallabel = wx.StaticText(self, -1, self.t("totallabel") + ": 0")
 		topsizer.Add(self.totallabel, 0, wx.ALIGN_LEFT)
 		
 		self.SetSizer(topsizer)
@@ -536,21 +536,21 @@ class ClientSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 			
 			if self.localsettings.editclients == 1:
 				
-				editclient = wx.MenuItem(popupmenu, EDIT_CLIENT, self.GetLabel("editlabel"))
+				editclient = wx.MenuItem(popupmenu, EDIT_CLIENT, self.t("editlabel"))
 				editclient.SetBitmap(wx.Bitmap("icons/edit.png"))
 				popupmenu.AppendItem(editclient)
 				wx.EVT_MENU(popupmenu, EDIT_CLIENT, self.Edit)
 				
 			if self.localsettings.deleteclients == 1:
 				
-				deleteclient = wx.MenuItem(popupmenu, DELETE_CLIENT, self.GetLabel("deletelabel"))
+				deleteclient = wx.MenuItem(popupmenu, DELETE_CLIENT, self.t("deletelabel"))
 				deleteclient.SetBitmap(wx.Bitmap("icons/delete.png"))
 				popupmenu.AppendItem(deleteclient)
 				wx.EVT_MENU(popupmenu, DELETE_CLIENT, self.Delete)
 			
 			if self.localsettings.changelog == 1:
 				
-				changelog = wx.MenuItem(popupmenu, CLIENT_CHANGELOG, self.GetLabel("changelog"))
+				changelog = wx.MenuItem(popupmenu, CLIENT_CHANGELOG, self.t("changelog"))
 				changelog.SetBitmap(wx.Bitmap("icons/log.png"))
 				popupmenu.AppendItem(changelog)
 				wx.EVT_MENU(popupmenu, CLIENT_CHANGELOG, self.ChangeLog)
@@ -593,7 +593,7 @@ class ClientSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		if len(results) == 0:
 			
-			confirm = miscmethods.ConfirmMessage(self.GetLabel("medicationconfirmdeletemessage"))
+			confirm = miscmethods.ConfirmMessage(self.t("medicationconfirmdeletemessage"))
 			
 			if confirm == True:
 				
@@ -613,9 +613,9 @@ class ClientSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 
 class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -626,7 +626,7 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		topsizer.Add(wx.StaticText(self, -1, self.GetLabel("clientanimalslabel")), 0, wx.ALIGN_CENTER)
+		topsizer.Add(wx.StaticText(self, -1, self.t("clientanimalslabel")), 0, wx.ALIGN_CENTER)
 		
 		self.listctrl = AnimalListCtrl(self, self.localsettings)
 		customwidgets.ListCtrlWrapper.RefreshList(self.listctrl)
@@ -635,7 +635,7 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		self.listctrl.listctrl.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.Edit)
 		self.listctrl.listctrl.Bind(wx.EVT_RIGHT_DOWN, self.AnimalPopupMenu)
 		
-		self.totallabel = wx.StaticText(self, -1, self.GetLabel("totallabel") + ": 0")
+		self.totallabel = wx.StaticText(self, -1, self.t("totallabel") + ": 0")
 		topsizer.Add(self.totallabel, 0, wx.ALIGN_LEFT)
 		
 		self.SetSizer(topsizer)
@@ -648,21 +648,21 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 			
 			if self.localsettings.editclients == 1:
 				
-				editanimal = wx.MenuItem(popupmenu, EDIT_ANIMAL, self.GetLabel("editlabel"))
+				editanimal = wx.MenuItem(popupmenu, EDIT_ANIMAL, self.t("editlabel"))
 				editanimal.SetBitmap(wx.Bitmap("icons/edit.png"))
 				popupmenu.AppendItem(editanimal)
 				wx.EVT_MENU(popupmenu, EDIT_ANIMAL, self.Edit)
 				
 			if self.localsettings.deleteanimals == 1:
 				
-				deleteanimal = wx.MenuItem(popupmenu, DELETE_ANIMAL, self.GetLabel("deletelabel"))
+				deleteanimal = wx.MenuItem(popupmenu, DELETE_ANIMAL, self.t("deletelabel"))
 				deleteanimal.SetBitmap(wx.Bitmap("icons/delete.png"))
 				popupmenu.AppendItem(deleteanimal)
 				wx.EVT_MENU(popupmenu, DELETE_ANIMAL, self.Delete)
 			
 			if self.localsettings.changelog == 1:
 				
-				changelog = wx.MenuItem(popupmenu, ANIMAL_CHANGELOG, self.GetLabel("changelog"))
+				changelog = wx.MenuItem(popupmenu, ANIMAL_CHANGELOG, self.t("changelog"))
 				changelog.SetBitmap(wx.Bitmap("icons/log.png"))
 				popupmenu.AppendItem(changelog)
 				wx.EVT_MENU(popupmenu, ANIMAL_CHANGELOG, self.ChangeLog)
@@ -685,7 +685,7 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		listboxid = self.listctrl.GetFocusedItem()
 		animalid = self.listctrl.GetItemData(listboxid)
 		
-		if miscmethods.ConfirmMessage(self.GetLabel("medicationconfirmdeletemessage")) == True:
+		if miscmethods.ConfirmMessage(self.t("medicationconfirmdeletemessage")) == True:
 			
 			action = "DELETE FROM animal WHERE ID = " + str(animalid)
 			db.SendSQL(action, self.localsettings.dbconnection)
@@ -720,13 +720,13 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		#if len(results) < 1001:
 			
-			#self.listctrl.InsertColumn(0,self.GetLabel("namelabel"))
-			#self.listctrl.InsertColumn(1,self.GetLabel("animalsexlabel"))
-			#self.listctrl.InsertColumn(2,self.GetLabel("animalspecieslabel"))
-			#self.listctrl.InsertColumn(3,self.GetLabel("animalbreedlabel"))
-			#self.listctrl.InsertColumn(4,self.GetLabel("agelabel"))
-			#self.listctrl.InsertColumn(5,self.GetLabel("animalcolourlabel"))
-			#self.listctrl.InsertColumn(6,self.GetLabel("asmreflabel"))
+			#self.listctrl.InsertColumn(0,self.t("namelabel"))
+			#self.listctrl.InsertColumn(1,self.t("animalsexlabel"))
+			#self.listctrl.InsertColumn(2,self.t("animalspecieslabel"))
+			#self.listctrl.InsertColumn(3,self.t("animalbreedlabel"))
+			#self.listctrl.InsertColumn(4,self.t("agelabel"))
+			#self.listctrl.InsertColumn(5,self.t("animalcolourlabel"))
+			#self.listctrl.InsertColumn(6,self.t("asmreflabel"))
 			
 			#count = 0
 			
@@ -790,17 +790,17 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		self.listctrl.RefreshList(results)
 		
-		self.totallabel.SetLabel(miscmethods.NoWrap(self.GetLabel("totallabel") + ": " + str(len(results))))
+		self.totallabel.SetLabel(miscmethods.NoWrap(self.t("totallabel") + ": " + str(len(results))))
 
 #class OldClientSearchPanel(wx.Panel):
 	
-	#def GetLabel(self, field):
+	#def t(self, field, idx = 0):
 		
-		#return  self.localsettings.dictionary[field][self.localsettings.language]
+		#return self.localsettings.t(field,idx)
 	
 	#def GetButtonLabel(self, field, index):
 		
-		#return  self.localsettings.dictionary[field][self.localsettings.language][index]
+		#return self.localsettings.t(field,idx)[index]
 	
 	#def __init__(self, notebook, localsettings):
 		
@@ -811,7 +811,7 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		#wx.Panel.__init__(self, notebook)
 		
-		#rawpagetitle = self.GetLabel("clientsearchpagetitle")
+		#rawpagetitle = self.t("clientsearchpagetitle")
 		
 		#pagetitle = miscmethods.GetPageTitle(notebook, rawpagetitle)
 		#self.pagetitle = pagetitle
@@ -822,7 +822,7 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		#mainsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		#titlelabel = wx.StaticText(self, -1, self.GetLabel("clientsearchstitlelabel"))
+		#titlelabel = wx.StaticText(self, -1, self.t("clientsearchstitlelabel"))
 		#font = titlelabel.GetFont()
 		#font.SetPointSize(font.GetPointSize() + 2)
 		#titlelabel.SetFont(font)
@@ -831,31 +831,31 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		#searchtoolssizer = wx.FlexGridSizer(rows=3,cols=4)
 		#searchtoolssizer.AddGrowableCol(1)
 		
-		#namelabel = wx.StaticText(self, -1, self.GetLabel("namelabel") + ": ")
+		#namelabel = wx.StaticText(self, -1, self.t("namelabel") + ": ")
 		#searchtoolssizer.Add(namelabel, 0, wx.ALIGN_RIGHT)
 		
 		#self.nameinput = wx.TextCtrl(self, -1)
 		#searchtoolssizer.Add(self.nameinput, 1, wx.EXPAND)
 		
-		#phonelabel = wx.StaticText(self, -1, self.GetLabel("clientsearchphonelabel") + ": ")
+		#phonelabel = wx.StaticText(self, -1, self.t("clientsearchphonelabel") + ": ")
 		#searchtoolssizer.Add(phonelabel, 0, wx.ALIGN_RIGHT)
 		
 		#self.phoneinput = wx.TextCtrl(self, -1, size=(150,-1))
 		#searchtoolssizer.Add(self.phoneinput, 1, wx.EXPAND)
 		
-		#addresslabel = wx.StaticText(self, -1, self.GetLabel("clientsearchaddresslabel") + ": ")
+		#addresslabel = wx.StaticText(self, -1, self.t("clientsearchaddresslabel") + ": ")
 		#searchtoolssizer.Add(addresslabel, 0, wx.ALIGN_RIGHT)
 		
 		#self.addressinput = wx.TextCtrl(self, -1)
 		#searchtoolssizer.Add(self.addressinput, 1, wx.EXPAND)
 		
-		#postcodelabel = wx.StaticText(self, -1, self.GetLabel("clientsearchpostcodelabel") + ": ")
+		#postcodelabel = wx.StaticText(self, -1, self.t("clientsearchpostcodelabel") + ": ")
 		#searchtoolssizer.Add(postcodelabel, 0, wx.ALIGN_RIGHT)
 		
 		#self.postcodeinput = wx.TextCtrl(self, -1)
 		#searchtoolssizer.Add(self.postcodeinput, 1, wx.EXPAND)
 		
-		#emaillabel = wx.StaticText(self, -1, self.GetLabel("clientsearchemaillabel") + ": ")
+		#emaillabel = wx.StaticText(self, -1, self.t("clientsearchemaillabel") + ": ")
 		#searchtoolssizer.Add(emaillabel, 0, wx.ALIGN_RIGHT)
 		
 		#self.emailinput = wx.TextCtrl(self, -1)
@@ -886,14 +886,14 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		#openbitmap = wx.Bitmap("icons/edit.png")
 		
 		#openbutton = wx.BitmapButton(self, -1, openbitmap)
-		#openbutton.SetToolTipString(self.GetLabel("clientsearcheditclienttooltip"))
+		#openbutton.SetToolTipString(self.t("clientsearcheditclienttooltip"))
 		#openbutton.Disable()
 		#openbutton.Bind(wx.EVT_BUTTON, self.Edit)
 		
 		#deletebitmap = wx.Bitmap("icons/delete.png")
 		
 		#deletebutton = wx.BitmapButton(self, -1, deletebitmap)
-		#deletebutton.SetToolTipString(self.GetLabel("clientsearchdeleteclienttooltip"))
+		#deletebutton.SetToolTipString(self.t("clientsearchdeleteclienttooltip"))
 		#deletebutton.Bind(wx.EVT_BUTTON, self.Delete)
 		#deletebutton.Disable()
 		
@@ -925,7 +925,7 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		#mainsizer.Add(self.listbox, 1, wx.EXPAND)
 		
-		#self.totallabel = wx.StaticText(self, -1, self.GetLabel("totallabel") + ": 0")
+		#self.totallabel = wx.StaticText(self, -1, self.t("totallabel") + ": 0")
 		#mainsizer.Add(self.totallabel, 0, wx.ALIGN_LEFT)
 		
 		#horizontalsizer.Add(mainsizer, 2, wx.EXPAND)
@@ -1044,13 +1044,13 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 
 #class AnimalSearchPanel(wx.Panel):
 	
-	#def GetLabel(self, field):
+	#def t(self, field, idx = 0):
 		
-		#return  self.localsettings.dictionary[field][self.localsettings.language]
+		#return self.localsettings.t(field,idx)
 	
 	#def GetButtonLabel(self, field, index):
 		
-		#return  self.localsettings.dictionary[field][self.localsettings.language][index]
+		#return self.localsettings.t(field,idx)[index]
 	
 	#def __init__(self, parent, localsettings):
 		
@@ -1060,7 +1060,7 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		
 		#topsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		#titlelabel = wx.StaticText(self, -1, self.GetLabel("clientsearchanimallabel"))
+		#titlelabel = wx.StaticText(self, -1, self.t("clientsearchanimallabel"))
 		#font = titlelabel.GetFont()
 		#font.SetPointSize(font.GetPointSize() + 2)
 		#titlelabel.SetFont(font)
@@ -1071,32 +1071,32 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		#entrysizer.AddGrowableCol(1)
 		#entrysizer.AddGrowableCol(3)
 		
-		#namelabel = wx.StaticText(self, -1, self.GetLabel("clientsearchanimalnamelabel") + ": ")
+		#namelabel = wx.StaticText(self, -1, self.t("clientsearchanimalnamelabel") + ": ")
 		#entrysizer.Add(namelabel, 0, wx.ALIGN_RIGHT)
 		#nameentry = wx.TextCtrl(self, -1, "")
 		#entrysizer.Add(nameentry, 1, wx.EXPAND)
 		
-		#sexlabel = wx.StaticText(self, -1, self.GetLabel("clientsearchanimalsexlabel") + ": ")
+		#sexlabel = wx.StaticText(self, -1, self.t("clientsearchanimalsexlabel") + ": ")
 		#entrysizer.Add(sexlabel, 0, wx.ALIGN_RIGHT)
 		#sexentry = wx.TextCtrl(self, -1, "")
 		#entrysizer.Add(sexentry, 1, wx.EXPAND)
 		
-		#specieslabel = wx.StaticText(self, -1, self.GetLabel("clientsearchanimalspecieslabel") + ": ")
+		#specieslabel = wx.StaticText(self, -1, self.t("clientsearchanimalspecieslabel") + ": ")
 		#entrysizer.Add(specieslabel, 0, wx.ALIGN_RIGHT)
 		#speciesentry = wx.TextCtrl(self, -1, "")
 		#entrysizer.Add(speciesentry, 1, wx.EXPAND)
 		
-		#breedlabel = wx.StaticText(self, -1, self.GetLabel("clientsearchanimalbreedlabel") + ": ")
+		#breedlabel = wx.StaticText(self, -1, self.t("clientsearchanimalbreedlabel") + ": ")
 		#entrysizer.Add(breedlabel, 0, wx.ALIGN_RIGHT)
 		#breedentry = wx.TextCtrl(self, -1, "")
 		#entrysizer.Add(breedentry, 1, wx.EXPAND)
 		
-		#chiplabel = wx.StaticText(self, -1, self.GetLabel("clientsearchanimalchipnolabel") + ": ")
+		#chiplabel = wx.StaticText(self, -1, self.t("clientsearchanimalchipnolabel") + ": ")
 		#entrysizer.Add(chiplabel, 0, wx.ALIGN_RIGHT)
 		#chipentry = wx.TextCtrl(self, -1, "")
 		#entrysizer.Add(chipentry, 1, wx.EXPAND)
 		
-		#commentslabel = wx.StaticText(self, -1, self.GetLabel("clientsearchanimalcommentslabel") + ": ")
+		#commentslabel = wx.StaticText(self, -1, self.t("clientsearchanimalcommentslabel") + ": ")
 		#entrysizer.Add(commentslabel, 0, wx.ALIGN_RIGHT)
 		#commentsentry = wx.TextCtrl(self, -1, "")
 		#entrysizer.Add(commentsentry, 1, wx.EXPAND)
@@ -1112,19 +1112,19 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 		#editbutton = wx.BitmapButton(self, -1, editbitmap)
 		#editbutton.Bind(wx.EVT_BUTTON, self.OpenAnimalRecord)
 		#editbutton.Disable()
-		#editbutton.SetToolTipString(self.GetLabel("clientsearcheditanimaltooltip"))
+		#editbutton.SetToolTipString(self.t("clientsearcheditanimaltooltip"))
 		#buttonssizer.Add(editbutton, 0, wx.EXPAND)
 		
 		#deletebitmap = wx.Bitmap("icons/delete.bmp")
 		#deletebutton = wx.BitmapButton(self, -1, deletebitmap)
 		#deletebutton.Bind(wx.EVT_BUTTON, self.DeleteAnimalRecord)
 		#deletebutton.Disable()
-		#deletebutton.SetToolTipString(self.GetLabel("clientsearchdeleteanimaltooltip"))
+		#deletebutton.SetToolTipString(self.t("clientsearchdeleteanimaltooltip"))
 		#buttonssizer.Add(deletebutton, 0, wx.EXPAND)
 		
 		#buttonssizer.Add(wx.StaticText(self, -1, ""), 1, wx.EXPAND)
 		
-		#includedeceasedtickbox = wx.CheckBox(self, -1, self.GetLabel("includedeceasedlabel"))
+		#includedeceasedtickbox = wx.CheckBox(self, -1, self.t("includedeceasedlabel"))
 		#includedeceasedtickbox.SetValue(True)
 		#buttonssizer.Add(includedeceasedtickbox, 0, wx.EXPAND)
 		
@@ -1138,7 +1138,7 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 			#animallistbox.Bind(wx.EVT_RIGHT_DOWN, self.AnimalChangeLog)
 		#topsizer.Add(animallistbox, 1, wx.EXPAND)
 		
-		#totallabel = wx.StaticText(self, -1, self.GetLabel("totallabel") + " 0")
+		#totallabel = wx.StaticText(self, -1, self.t("totallabel") + " 0")
 		#topsizer.Add(totallabel, 0, wx.ALIGN_LEFT)
 		
 		#self.SetSizer(topsizer)
@@ -1524,13 +1524,13 @@ class AnimalSearchPanel(wx.Panel, listmix.ColumnSorterMixin):
 
 class AppointmentSearchPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def GetButtonLabel(self, field, index):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language][index]
+		return self.localsettings.t(field,idx)[index]
 	
 	def __init__(self, notebook, localsettings):
 		
@@ -1539,7 +1539,7 @@ class AppointmentSearchPanel(wx.Panel):
 		
 		wx.Panel.__init__(self, notebook)
 		
-		rawpagetitle = self.GetLabel("appointmentsearchpagetitle")
+		rawpagetitle = self.t("appointmentsearchpagetitle")
 		
 		pagetitle = miscmethods.GetPageTitle(notebook, rawpagetitle)
 		self.pagetitle = pagetitle
@@ -1554,7 +1554,7 @@ class AppointmentSearchPanel(wx.Panel):
 		searchsizer = wx.BoxSizer(wx.VERTICAL)
 		#searchsizer.AddGrowableCol(1)
 		
-		fromdatelabel = wx.StaticText(searchpanel, -1, self.GetLabel("fromlabel") + ": ")
+		fromdatelabel = wx.StaticText(searchpanel, -1, self.t("fromlabel") + ": ")
 		font = fromdatelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		fromdatelabel.SetFont(font)
@@ -1564,7 +1564,7 @@ class AppointmentSearchPanel(wx.Panel):
 		fromdateentry.SetSize((-1,-1))
 		searchsizer.Add(fromdateentry, 0, wx.EXPAND)
 		
-		todatelabel = wx.StaticText(searchpanel, -1, self.GetLabel("tolabel") + ": ")
+		todatelabel = wx.StaticText(searchpanel, -1, self.t("tolabel") + ": ")
 		todatelabel.SetFont(font)
 		searchsizer.Add(todatelabel, 0, wx.ALIGN_LEFT)
 		
@@ -1572,28 +1572,28 @@ class AppointmentSearchPanel(wx.Panel):
 		todateentry.SetSize((-1,-1))
 		searchsizer.Add(todateentry, 0, wx.EXPAND)
 		
-		clientlabel = wx.StaticText(searchpanel, -1, self.GetLabel("clientsurnamelabel") + ": ")
+		clientlabel = wx.StaticText(searchpanel, -1, self.t("clientsurnamelabel") + ": ")
 		clientlabel.SetFont(font)
 		searchsizer.Add(clientlabel, 0, wx.ALIGN_LEFT)
 		
 		cliententry = wx.TextCtrl(searchpanel, -1, "")
 		searchsizer.Add(cliententry, 0, wx.EXPAND)
 		
-		animalnamelabel = wx.StaticText(searchpanel, -1, self.GetLabel("appointmentsearchanimalnamelabel") + ": ")
+		animalnamelabel = wx.StaticText(searchpanel, -1, self.t("appointmentsearchanimalnamelabel") + ": ")
 		animalnamelabel.SetFont(font)
 		searchsizer.Add(animalnamelabel, 0, wx.ALIGN_LEFT)
 		
 		animalnameentry = wx.TextCtrl(searchpanel, -1, "")
 		searchsizer.Add(animalnameentry, 0, wx.EXPAND)
 		
-		specieslabel = wx.StaticText(searchpanel, -1, self.GetLabel("animalspecieslabel") + ": ")
+		specieslabel = wx.StaticText(searchpanel, -1, self.t("animalspecieslabel") + ": ")
 		specieslabel.SetFont(font)
 		searchsizer.Add(specieslabel, 0, wx.ALIGN_LEFT)
 		
 		speciesentry = wx.TextCtrl(searchpanel, -1, "")
 		searchsizer.Add(speciesentry, 0, wx.EXPAND)
 		
-		reasonlabel = wx.StaticText(searchpanel, -1,  self.GetLabel("reasonlabel") + ": ")
+		reasonlabel = wx.StaticText(searchpanel, -1,  self.t("reasonlabel") + ": ")
 		reasonlabel.SetFont(font)
 		searchsizer.Add(reasonlabel, 0, wx.ALIGN_LEFT)
 		
@@ -1604,15 +1604,15 @@ class AppointmentSearchPanel(wx.Panel):
 		
 		searchbuttonssizer = wx.BoxSizer(wx.HORIZONTAL)
 		
-		resetbutton = wx.Button(searchpanel, -1, self.GetLabel("resetlabel"))
-		resetbutton.SetToolTipString(self.GetLabel("movementresetsearchentriestooltip"))
+		resetbutton = wx.Button(searchpanel, -1, self.t("resetlabel"))
+		resetbutton.SetToolTipString(self.t("movementresetsearchentriestooltip"))
 		resetbutton.SetBackgroundColour("red")
 		resetbutton.SetForegroundColour("white")
 		resetbutton.Bind(wx.EVT_BUTTON, self.Reset)
 		searchbuttonssizer.Add(resetbutton, 1, wx.EXPAND)
 		
-		searchbutton = wx.Button(searchpanel, -1, self.GetLabel("searchlabel"))
-		searchbutton.SetToolTipString(self.GetLabel("searchlabel"))
+		searchbutton = wx.Button(searchpanel, -1, self.t("searchlabel"))
+		searchbutton.SetToolTipString(self.t("searchlabel"))
 		searchbutton.SetBackgroundColour("green")
 		searchbutton.SetForegroundColour("black")
 		searchbuttonssizer.Add(searchbutton, 1, wx.EXPAND)
@@ -1632,14 +1632,14 @@ class AppointmentSearchPanel(wx.Panel):
 		listboxsizer = wx.BoxSizer(wx.VERTICAL)
 		
 		listbox = AppointmentSearchListbox(listboxpanel)
-		listbox.SetToolTipString(self.GetLabel("doubleclicktoselecttooltip"))
+		listbox.SetToolTipString(self.t("doubleclicktoselecttooltip"))
 		listbox.Bind(wx.EVT_LISTBOX, self.AppointmentSelected)
 		listbox.Bind(wx.EVT_LISTBOX_DCLICK, self.EditAppointment)
 		listboxsizer.Add(listbox, 1, wx.EXPAND)
 		
 		searchbutton.Bind(wx.EVT_BUTTON, listbox.RefreshList)
 		
-		totallabel = wx.StaticText(listboxpanel, -1, self.GetLabel("totallabel") + ": 0 ")
+		totallabel = wx.StaticText(listboxpanel, -1, self.t("totallabel") + ": 0 ")
 		listboxsizer.Add(totallabel, 0, wx.ALIGN_RIGHT)
 		
 		listboxpanel.SetSizer(listboxsizer)
@@ -1779,9 +1779,9 @@ class AppointmentSearchListbox(wx.HtmlListBox):
 
 class ClientListCtrl(customwidgets.ListCtrlWrapper):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -1789,7 +1789,7 @@ class ClientListCtrl(customwidgets.ListCtrlWrapper):
 		self.localsettings = localsettings
 		self.parent = parent
 		
-		columnheadings = (self.GetLabel("animalnamelabel"), self.GetLabel("clientaddresslabel"), self.GetLabel("clientpostcodelabel"), self.GetLabel("clienthomephonelabel"), self.GetLabel("clientmobilephonelabel"), self.GetLabel("clientworkphonelabel"), self.GetLabel("clientemailaddresslabel"))
+		columnheadings = (self.t("animalnamelabel"), self.t("clientaddresslabel"), self.t("clientpostcodelabel"), self.t("clienthomephonelabel"), self.t("clientmobilephonelabel"), self.t("clientworkphonelabel"), self.t("clientemailaddresslabel"))
 		
 		customwidgets.ListCtrlWrapper.__init__(self, self.parent, self.localsettings, columnheadings, ("icons/editclient.png",))
 	
@@ -1825,15 +1825,15 @@ class ClientListCtrl(customwidgets.ListCtrlWrapper):
 				
 				self.htmllist.append((a[0], name, a[4], a[5], a[6], a[7], a[8], a[9], a[10]))
 		
-		self.parent.totallabel.SetLabel(miscmethods.NoWrap(self.GetLabel("totallabel") + ": " + str(len(results))))
+		self.parent.totallabel.SetLabel(miscmethods.NoWrap(self.t("totallabel") + ": " + str(len(results))))
 		
 		customwidgets.ListCtrlWrapper.RefreshList(self)
 
 class AnimalListCtrl(customwidgets.ListCtrlWrapper):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def __init__(self, parent, localsettings):
 		
@@ -1841,7 +1841,7 @@ class AnimalListCtrl(customwidgets.ListCtrlWrapper):
 		self.localsettings = localsettings
 		self.parent = parent
 		
-		columnheadings = (self.GetLabel("namelabel"), self.GetLabel("animalsexlabel"), self.GetLabel("animalspecieslabel"), self.GetLabel("animalbreedlabel"), self.GetLabel("agelabel"), self.GetLabel("animalcolourlabel") ,self.GetLabel("asmreflabel"))
+		columnheadings = (self.t("namelabel"), self.t("animalsexlabel"), self.t("animalspecieslabel"), self.t("animalbreedlabel"), self.t("agelabel"), self.t("animalcolourlabel") ,self.t("asmreflabel"))
 		
 		customwidgets.ListCtrlWrapper.__init__(self, self.parent, self.localsettings, columnheadings, ("icons/asm.png", "icons/editanimal.png", "icons/ghost.png"))
 	
@@ -1877,6 +1877,6 @@ class AnimalListCtrl(customwidgets.ListCtrlWrapper):
 				
 				self.htmllist.append((a[0], a[2], sex, a[4], a[5], age, a[6], a[15], imageid))
 		
-		self.parent.totallabel.SetLabel(miscmethods.NoWrap(self.GetLabel("totallabel") + ": " + str(len(results))))
+		self.parent.totallabel.SetLabel(miscmethods.NoWrap(self.t("totallabel") + ": " + str(len(results))))
 		
 		customwidgets.ListCtrlWrapper.RefreshList(self)

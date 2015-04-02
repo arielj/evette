@@ -48,9 +48,9 @@ SHOP_SALE = 711
 
 class ViewAppointments(wx.Panel):
   
-  def GetLabel(self, field):
+  def t(self, field, idx = 0):
     
-    return self.localsettings.dictionary[field][self.localsettings.language]
+    return self.localsettings.t(field,idx)
   
   def __init__(self, notebook, localsettings, operations=0):
     
@@ -66,9 +66,9 @@ class ViewAppointments(wx.Panel):
     sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
     
     if operations == 0:
-      action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND Operating = 0 AND Position = \"" + self.GetLabel("vetpositiontitle") + "\" ORDER BY Name"
+      action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND Operating = 0 AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
     else:
-      action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND Operating = 1  AND Position = \"" + self.GetLabel("vetpositiontitle") + "\" ORDER BY Name"
+      action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND Operating = 1  AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
     
     results = db.SendSQL(action, self.localsettings.dbconnection)
     
@@ -77,15 +77,15 @@ class ViewAppointments(wx.Panel):
     for a in results:
       self.vetlist.append(a[0])
     if len(self.vetlist) == 0:
-      self.vetlist.append(self.GetLabel("nonelabel"))
+      self.vetlist.append(self.t("nonelabel"))
     
     wx.Panel.__init__(self, notebook)
     
     if self.operations == 0:
-      self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("viewappointmentspagetitle"))
+      self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("viewappointmentspagetitle"))
       self.pageimage = "icons/appointment.png"
     else:
-      self.pagetitle = miscmethods.GetPageTitle(notebook, self.GetLabel("viewoperationspagetitle"))
+      self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("viewoperationspagetitle"))
       self.pageimage = "icons/operation.png"
     
     topsizer = wx.BoxSizer(wx.VERTICAL)
@@ -106,7 +106,7 @@ class ViewAppointments(wx.Panel):
     leftspacer1 = wx.StaticText(self, -1, "", size=(-1,50))
     leftsizer.Add(leftspacer1, 0, wx.EXPAND)
     
-    detailslabel = wx.StaticText(self, -1, self.GetLabel("animalappointmentdetailslabel") + ":")
+    detailslabel = wx.StaticText(self, -1, self.t("animalappointmentdetailslabel") + ":")
     leftsizer.Add(detailslabel, 0, wx.ALIGN_LEFT)
     
     detailswindow = wx.html.HtmlWindow(self)
@@ -123,12 +123,12 @@ class ViewAppointments(wx.Panel):
     
     
     waitingsizer = wx.BoxSizer(wx.VERTICAL)
-    waitinglabel = wx.StaticText(self, -1, self.GetLabel("appointmentwaitinglabel") + ":")
+    waitinglabel = wx.StaticText(self, -1, self.t("appointmentwaitinglabel") + ":")
     waitingsizer.Add(waitinglabel, 0, wx.ALIGN_LEFT)
     waitinglistbox = customwidgets.AppointmentListbox(self, localsettings, 1)
     waitinglistbox.Bind(wx.EVT_LISTBOX_DCLICK, self.EditAppointment)
     waitingsizer.Add(waitinglistbox, 1, wx.EXPAND)
-    waitingtotal = wx.StaticText(self, -1, self.GetLabel("totallabel") + ": 0")
+    waitingtotal = wx.StaticText(self, -1, self.t("totallabel") + ": 0")
     waitingsizer.Add(waitingtotal, 0, wx.ALIGN_RIGHT)
     rightleftsizer.Add(waitingsizer, 1, wx.EXPAND)
     
@@ -139,14 +139,14 @@ class ViewAppointments(wx.Panel):
     
     downbitmap = wx.Bitmap("icons/downarrow.png")
     withvetbutton = wx.BitmapButton(self, -1, downbitmap)
-    withvetbutton.SetToolTipString(self.GetLabel("viewappointmentsmarkwithvettooltip"))
+    withvetbutton.SetToolTipString(self.t("viewappointmentsmarkwithvettooltip"))
     withvetbutton.Bind(wx.EVT_BUTTON, self.MarkWithVet)
     withvetbuttonssizer.Add(withvetbutton, 0, wx.EXPAND)
     
     vetcombobox = wx.ComboBox(self, -1, self.vetlist[0], choices=self.vetlist)
-    vetcombobox.SetToolTipString(self.GetLabel("viewappointmentschoosevettooltip"))
+    vetcombobox.SetToolTipString(self.t("viewappointmentschoosevettooltip"))
     
-    if localsettings.userposition == self.GetLabel("vetpositiontitle"):
+    if localsettings.userposition == self.t("vetpositiontitle"):
       vetcombobox.SetValue(localsettings.username)
     
     
@@ -159,12 +159,12 @@ class ViewAppointments(wx.Panel):
     
     
     withvetsizer = wx.BoxSizer(wx.VERTICAL)
-    withvetlabel = wx.StaticText(self, -1, self.GetLabel("appointmentwithvetlabel") + ":")
+    withvetlabel = wx.StaticText(self, -1, self.t("appointmentwithvetlabel") + ":")
     withvetsizer.Add(withvetlabel, 0, wx.ALIGN_LEFT)
     withvetlistbox = customwidgets.AppointmentListbox(self, localsettings, 2)
     withvetlistbox.Bind(wx.EVT_LISTBOX_DCLICK, self.EditAppointment)
     withvetsizer.Add(withvetlistbox, 1, wx.EXPAND)
-    withvettotal = wx.StaticText(self, -1, self.GetLabel("totallabel") + ": 0")
+    withvettotal = wx.StaticText(self, -1, self.t("totallabel") + ": 0")
     withvetsizer.Add(withvettotal, 0, wx.ALIGN_RIGHT)
     
     rightleftsizer.Add(withvetsizer, 1, wx.EXPAND)
@@ -178,7 +178,7 @@ class ViewAppointments(wx.Panel):
     
     leftbitmap = wx.Bitmap("icons/leftarrow.png")
     arrivedbutton = wx.BitmapButton(self, -1, leftbitmap)
-    arrivedbutton.SetToolTipString(self.GetLabel("viewappointmentsmarkarrivedtooltip"))
+    arrivedbutton.SetToolTipString(self.t("viewappointmentsmarkarrivedtooltip"))
     arrivedbutton.Bind(wx.EVT_BUTTON, self.MarkArrived)
     rightmiddlesizer.Add(arrivedbutton, 0, wx.ALIGN_CENTER)
     
@@ -187,7 +187,7 @@ class ViewAppointments(wx.Panel):
     
     rightbitmap = wx.Bitmap("icons/rightarrow.png")
     donebutton = wx.BitmapButton(self, -1, rightbitmap)
-    donebutton.SetToolTipString(self.GetLabel("viewappointmentsmarkdonetooltip"))
+    donebutton.SetToolTipString(self.t("viewappointmentsmarkdonetooltip"))
     donebutton.Bind(wx.EVT_BUTTON, self.MarkDone)
     rightmiddlesizer.Add(donebutton, 0, wx.ALIGN_CENTER)
     
@@ -199,12 +199,12 @@ class ViewAppointments(wx.Panel):
     rightrightsizer = wx.BoxSizer(wx.VERTICAL)
     
     notarrivedsizer = wx.BoxSizer(wx.VERTICAL)
-    notarrivedlabel = wx.StaticText(self, -1, self.GetLabel("appointmentnotarrivedlabel") + ":")
+    notarrivedlabel = wx.StaticText(self, -1, self.t("appointmentnotarrivedlabel") + ":")
     notarrivedsizer.Add(notarrivedlabel, 0, wx.ALIGN_LEFT)
     notarrivedlistbox = customwidgets.AppointmentListbox(self, localsettings, 0)
     notarrivedlistbox.Bind(wx.EVT_LISTBOX_DCLICK, self.EditAppointment)
     notarrivedsizer.Add(notarrivedlistbox, 1, wx.EXPAND)
-    notarrivedtotal = wx.StaticText(self, -1, self.GetLabel("totallabel") + ": 0")
+    notarrivedtotal = wx.StaticText(self, -1, self.t("totallabel") + ": 0")
     notarrivedsizer.Add(notarrivedtotal, 0, wx.ALIGN_RIGHT)
     
     
@@ -214,12 +214,12 @@ class ViewAppointments(wx.Panel):
     rightrightsizer.Add(donespacer, 0, wx.EXPAND)
     
     donesizer = wx.BoxSizer(wx.VERTICAL)
-    donelabel = wx.StaticText(self, -1, self.GetLabel("appointmentdonelabel") + ":")
+    donelabel = wx.StaticText(self, -1, self.t("appointmentdonelabel") + ":")
     donesizer.Add(donelabel, 0, wx.ALIGN_LEFT)
     donelistbox = customwidgets.AppointmentListbox(self, localsettings, 3)
     donelistbox.Bind(wx.EVT_LISTBOX_DCLICK, self.EditAppointment)
     donesizer.Add(donelistbox, 1, wx.EXPAND)
-    donetotal = wx.StaticText(self, -1, self.GetLabel("totallabel") + ": 0")
+    donetotal = wx.StaticText(self, -1, self.t("totallabel") + ": 0")
     donesizer.Add(donetotal, 0, wx.ALIGN_RIGHT)
     
     rightrightsizer.Add(donesizer, 1, wx.EXPAND)
@@ -348,31 +348,31 @@ class ViewAppointments(wx.Panel):
       
       popupmenu.parent = ID.GetEventObject()
       
-      editappointment = wx.MenuItem(popupmenu, EDIT_APPOINTMENT, self.GetLabel("editappointmentlabel"))
+      editappointment = wx.MenuItem(popupmenu, EDIT_APPOINTMENT, self.t("editappointmentlabel"))
       editappointment.SetBitmap(wx.Bitmap("icons/edit.png"))
       popupmenu.AppendItem(editappointment)
       wx.EVT_MENU(popupmenu, EDIT_APPOINTMENT, self.EditAppointmentFromMenu)
       
       
-      editanimal = wx.MenuItem(popupmenu, EDIT_ANIMAL, self.GetLabel("editanimaltooltip"))
+      editanimal = wx.MenuItem(popupmenu, EDIT_ANIMAL, self.t("editanimaltooltip"))
       editanimal.SetBitmap(wx.Bitmap("icons/editanimal.png"))
       popupmenu.AppendItem(editanimal)
       wx.EVT_MENU(popupmenu, EDIT_ANIMAL, self.EditAnimalFromMenu)
       
       
-      editclient = wx.MenuItem(popupmenu, EDIT_CLIENT, self.GetLabel("viewappointmentseditclientbuttonlabel"))
+      editclient = wx.MenuItem(popupmenu, EDIT_CLIENT, self.t("viewappointmentseditclientbuttonlabel"))
       editclient.SetBitmap(wx.Bitmap("icons/editclient.png"))
       popupmenu.AppendItem(editclient)
       wx.EVT_MENU(popupmenu, EDIT_CLIENT, self.EditClientFromMenu)
       
-      shopsale = wx.MenuItem(popupmenu, SHOP_SALE, self.GetLabel("shopsalemenuitem"))
+      shopsale = wx.MenuItem(popupmenu, SHOP_SALE, self.t("shopsalemenuitem"))
       shopsale.SetBitmap(wx.Bitmap("icons/calculator.png"))
       popupmenu.AppendItem(shopsale)
       wx.EVT_MENU(popupmenu, SHOP_SALE, self.ShopSale)
       
       if self.localsettings.editfinances == 1:
         
-        paybill = wx.MenuItem(popupmenu, PAY_BILL, self.GetLabel("clientpaymentlabel"))
+        paybill = wx.MenuItem(popupmenu, PAY_BILL, self.t("clientpaymentlabel"))
         paybill.SetBitmap(wx.Bitmap("icons/other.png"))
         popupmenu.AppendItem(paybill)
         wx.EVT_MENU(popupmenu, PAY_BILL, self.PayBillDialog)
@@ -381,7 +381,7 @@ class ViewAppointments(wx.Panel):
         
         popupmenu.AppendSeparator()
         
-        vetform = wx.MenuItem(popupmenu, VET_FORM, self.GetLabel("vetformpagetitle"))
+        vetform = wx.MenuItem(popupmenu, VET_FORM, self.t("vetformpagetitle"))
         vetform.SetBitmap(wx.Bitmap("icons/vetform.png"))
         popupmenu.AppendItem(vetform)
         wx.EVT_MENU(popupmenu, VET_FORM, self.EditVetFormFromMenu)
@@ -390,41 +390,41 @@ class ViewAppointments(wx.Panel):
         
         popupmenu.AppendSeparator()
         
-        createappointment = wx.MenuItem(popupmenu, VET_FORM, self.GetLabel("createappointmentlabel"))
+        createappointment = wx.MenuItem(popupmenu, VET_FORM, self.t("createappointmentlabel"))
         createappointment.SetBitmap(wx.Bitmap("icons/in.png"))
         popupmenu.AppendItem(createappointment)
         wx.EVT_MENU(popupmenu, VET_FORM, self.CreateAppointmentFromMenu)
         
-        viewvetnotes = wx.MenuItem(popupmenu, VET_NOTES, self.GetLabel("viewvetnoteslabel"))
+        viewvetnotes = wx.MenuItem(popupmenu, VET_NOTES, self.t("viewvetnoteslabel"))
         viewvetnotes.SetBitmap(wx.Bitmap("icons/vetform.png"))
         popupmenu.AppendItem(viewvetnotes)
         wx.EVT_MENU(popupmenu, VET_NOTES, self.ViewVetNotes)
       
       popupmenu.AppendSeparator()
       
-      notarrived = wx.MenuItem(popupmenu, MOVE_TO_NOT_ARRIVED, self.GetLabel("appointmentnotarrivedlabel"))
+      notarrived = wx.MenuItem(popupmenu, MOVE_TO_NOT_ARRIVED, self.t("appointmentnotarrivedlabel"))
       notarrived.SetBitmap(wx.Bitmap("icons/submit.png"))
       popupmenu.AppendItem(notarrived)
       wx.EVT_MENU(popupmenu, MOVE_TO_NOT_ARRIVED, self.MarkNotArrived)
       
-      waiting = wx.MenuItem(popupmenu, MOVE_TO_WAITING, self.GetLabel("appointmentwaitinglabel"))
+      waiting = wx.MenuItem(popupmenu, MOVE_TO_WAITING, self.t("appointmentwaitinglabel"))
       waiting.SetBitmap(wx.Bitmap("icons/submit.png"))
       popupmenu.AppendItem(waiting)
       wx.EVT_MENU(popupmenu, MOVE_TO_WAITING, self.MarkArrived)
       
-      withvet = wx.MenuItem(popupmenu, MOVE_TO_WITH_VET, self.GetLabel("appointmentwithvetlabel"))
+      withvet = wx.MenuItem(popupmenu, MOVE_TO_WITH_VET, self.t("appointmentwithvetlabel"))
       withvet.SetBitmap(wx.Bitmap("icons/submit.png"))
       popupmenu.AppendItem(withvet)
       wx.EVT_MENU(popupmenu, MOVE_TO_WITH_VET, self.MarkWithVet)
       
-      done = wx.MenuItem(popupmenu, MOVE_TO_DONE, self.GetLabel("appointmentdonelabel"))
+      done = wx.MenuItem(popupmenu, MOVE_TO_DONE, self.t("appointmentdonelabel"))
       done.SetBitmap(wx.Bitmap("icons/submit.png"))
       popupmenu.AppendItem(done)
       wx.EVT_MENU(popupmenu, MOVE_TO_DONE, self.MarkDone)
       
       popupmenu.AppendSeparator()
       
-      unselect = wx.MenuItem(popupmenu, DESELECT, self.GetLabel("deselectlabel"))
+      unselect = wx.MenuItem(popupmenu, DESELECT, self.t("deselectlabel"))
       unselect.SetBitmap(wx.Bitmap("icons/reset.png"))
       popupmenu.AppendItem(unselect)
       wx.EVT_MENU(popupmenu, DESELECT, self.DeSelectAppointment)
@@ -439,7 +439,7 @@ class ViewAppointments(wx.Panel):
   
   def ViewVetNotes(self, ID):
     
-    dialog = wx.Dialog(self, -1, self.GetLabel("viewvetnoteslabel"))
+    dialog = wx.Dialog(self, -1, self.t("viewvetnoteslabel"))
     
     dialogsizer = wx.BoxSizer(wx.VERTICAL)
     
@@ -476,7 +476,7 @@ class ViewAppointments(wx.Panel):
     
     balance = miscmethods.FormatPrice(balance).replace("-", "")
     
-    dialog = wx.Dialog(self, -1, self.GetLabel("clientpaymentlabel"))
+    dialog = wx.Dialog(self, -1, self.t("clientpaymentlabel"))
     
     dialogsizer = wx.BoxSizer(wx.VERTICAL)
     
@@ -512,7 +512,7 @@ class ViewAppointments(wx.Panel):
     
     date = miscmethods.GetSQLDateFromDate(datetime.date.today())
     
-    dbmethods.WriteToReceiptTable(self.localsettings.dbconnection, False, date, self.GetLabel("clientpaymentinreceiptlabel"), price, 4, self.selectedappointmentdata.clientdata.ID, 0, self.localsettings.userid)
+    dbmethods.WriteToReceiptTable(self.localsettings.dbconnection, False, date, self.t("clientpaymentinreceiptlabel"), price, 4, self.selectedappointmentdata.clientdata.ID, 0, self.localsettings.userid)
     
     panel.GetParent().Close()
     
@@ -559,7 +559,7 @@ class ViewAppointments(wx.Panel):
     sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
     time = datetime.datetime.today().strftime("%X")[:5]
     
-    action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND \"" + time + ":00\" BETWEEN TimeOn AND TimeOff AND Operating = " + str(self.operations) + " AND Position = \"" + self.GetLabel("vetpositiontitle") + "\" ORDER BY Name"
+    action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND \"" + time + ":00\" BETWEEN TimeOn AND TimeOff AND Operating = " + str(self.operations) + " AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
     results = db.SendSQL(action, self.localsettings.dbconnection)
     
     vets = ""
@@ -570,7 +570,7 @@ class ViewAppointments(wx.Panel):
       self.vetlist.append(a[0])
     vets = vets[:-2]
     
-    self.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + time + "</b></font></center><br><font size=1><u>" + self.GetLabel("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
+    self.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + time + "</b></font></center><br><font size=1><u>" + self.t("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
     
     for a in (self.notarrivedlistbox, self.waitinglistbox, self.withvetlistbox, self.donelistbox):
       
@@ -589,16 +589,16 @@ class ViewAppointments(wx.Panel):
             a.listctrl.SetFocus()
       
       if a == self.notarrivedlistbox:
-        self.notarrivedtotal.SetLabel(self.GetLabel("totallabel") + ": " + str(len(a.htmllist)))
+        self.notarrivedtotal.SetLabel(self.t("totallabel") + ": " + str(len(a.htmllist)))
         self.notarrivedsizer.Layout()
       elif a == self.waitinglistbox:
-        self.waitingtotal.SetLabel(self.GetLabel("totallabel") + ": " + str(len(a.htmllist)))
+        self.waitingtotal.SetLabel(self.t("totallabel") + ": " + str(len(a.htmllist)))
         self.waitingsizer.Layout()
       elif a == self.withvetlistbox:
-        self.withvettotal.SetLabel(self.GetLabel("totallabel") + ": " + str(len(a.htmllist)))
+        self.withvettotal.SetLabel(self.t("totallabel") + ": " + str(len(a.htmllist)))
         self.withvetsizer.Layout()
       elif a == self.donelistbox:
-        self.donetotal.SetLabel(self.GetLabel("totallabel") + ": " + str(len(a.htmllist)))
+        self.donetotal.SetLabel(self.t("totallabel") + ": " + str(len(a.htmllist)))
         self.donesizer.Layout()
     
     if self.notarrivedlistbox.GetSelection() > -1:
@@ -744,7 +744,7 @@ def UpdateViewAppointments(ID, force=False):
       sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
       timestring = datetime.datetime.today().strftime("%X")[:5]
       
-      action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND \"" + timestring + ":00\" BETWEEN TimeOn AND TimeOff AND Operating = " + str(appointmentpanel.operations) + " AND Position = \"" + appointmentpanel.GetLabel("vetpositiontitle") + "\" ORDER BY Name"
+      action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND \"" + timestring + ":00\" BETWEEN TimeOn AND TimeOff AND Operating = " + str(appointmentpanel.operations) + " AND Position = \"" + appointmentpanel.t("vetpositiontitle") + "\" ORDER BY Name"
       
       results = db.SendSQL(action, appointmentpanel.localsettings.dbconnection)
       
@@ -759,7 +759,7 @@ def UpdateViewAppointments(ID, force=False):
       
       vets = vets[:-2]
       
-      appointmentpanel.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + timestring + "</b></font></center><br><font size=1><u>" + appointmentpanel.GetLabel("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
+      appointmentpanel.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + timestring + "</b></font></center><br><font size=1><u>" + appointmentpanel.t("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
       
       for a in range(0, 4):
         
@@ -816,7 +816,7 @@ def UpdateViewAppointments(ID, force=False):
             
             balance = miscmethods.FormatPrice(balance)
             
-            #balance = "<font size=2 color=" + colour + ">&nbsp;" + appointmentpanel.GetLabel("currency") + balance + "</font>"
+            #balance = "<font size=2 color=" + colour + ">&nbsp;" + appointmentpanel.t("currency") + balance + "</font>"
             
             listitem = list(b)
             

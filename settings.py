@@ -164,9 +164,9 @@ def CreateConfFile():
 
 class SettingsPanel(wx.Panel):
 	
-	def GetLabel(self, field):
+	def t(self, field, idx = 0):
 		
-		return  self.localsettings.dictionary[field][self.localsettings.language]
+		return self.localsettings.t(field,idx)
 	
 	def UpdateShelterName(self, ID=False):
 		
@@ -191,7 +191,7 @@ class SettingsPanel(wx.Panel):
 			
 		else:
 			
-			sheltername = self.GetLabel("nonelabel")
+			sheltername = self.t("nonelabel")
 		
 		self.asmshelterentry.SetValue(sheltername)
 	
@@ -211,20 +211,20 @@ class SettingsPanel(wx.Panel):
 			else:
 				
 				self.localsettings.asmvaccinationid = 0
-				asmvaccinationtype = self.GetLabel("nonelabel")
+				asmvaccinationtype = self.t("nonelabel")
 				
 			self.asmvaccinationentry.SetValue(asmvaccinationtype)
 			
 		except:
 			
-			self.asmvaccinationentry.SetValue(self.GetLabel("errorlabel"))
+			self.asmvaccinationentry.SetValue(self.t("errorlabel"))
 			self.asmvaccinationbutton.Disable()
 	
 	def __init__(self, notebook, localsettings):
 		
 		self.localsettings = localsettings
 		
-		pagetitle = self.GetLabel("editsettingslabel")
+		pagetitle = self.t("editsettingslabel")
 		
 		action = "SELECT * FROM settings"
 		results = db.SendSQL(action, localsettings.dbconnection)
@@ -250,7 +250,7 @@ class SettingsPanel(wx.Panel):
 		
 		leftsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		namelabel = wx.StaticText(self, -1, self.GetLabel("settingspracticenamelabel") + ": ")
+		namelabel = wx.StaticText(self, -1, self.t("settingspracticenamelabel") + ": ")
 		font = namelabel.GetFont()
 		font.SetPointSize(font.GetPointSize() - 2)
 		namelabel.SetFont(font)
@@ -259,35 +259,35 @@ class SettingsPanel(wx.Panel):
 		nameentry = wx.TextCtrl(self, -1, practicename)
 		leftsizer.Add(nameentry, 0, wx.EXPAND)
 		
-		addresslabel = wx.StaticText(self, -1, self.GetLabel("clientaddresslabel") + ": ")
+		addresslabel = wx.StaticText(self, -1, self.t("clientaddresslabel") + ": ")
 		addresslabel.SetFont(font)
 		leftsizer.Add(addresslabel, 0, wx.ALIGN_LEFT)
 		
 		addressentry = wx.TextCtrl(self, -1, practiceaddress, style=wx.TE_MULTILINE)
 		leftsizer.Add(addressentry, 0, wx.EXPAND)
 		
-		postcodelabel = wx.StaticText(self, -1, self.GetLabel("clientpostcodelabel") + ": ")
+		postcodelabel = wx.StaticText(self, -1, self.t("clientpostcodelabel") + ": ")
 		postcodelabel.SetFont(font)
 		leftsizer.Add(postcodelabel, 0, wx.ALIGN_LEFT)
 		
 		postcodeentry = wx.TextCtrl(self, -1, practicepostcode)
 		leftsizer.Add(postcodeentry, 0, wx.EXPAND)
 		
-		telephonelabel = wx.StaticText(self, -1, self.GetLabel("clientsearchphonelabel") + ": ")
+		telephonelabel = wx.StaticText(self, -1, self.t("clientsearchphonelabel") + ": ")
 		telephonelabel.SetFont(font)
 		leftsizer.Add(telephonelabel, 0, wx.ALIGN_LEFT)
 		
 		telephoneentry = wx.TextCtrl(self, -1, practicetelephone)
 		leftsizer.Add(telephoneentry, 0, wx.EXPAND)
 		
-		emaillabel = wx.StaticText(self, -1, self.GetLabel("clientemailaddresslabel") + ": ")
+		emaillabel = wx.StaticText(self, -1, self.t("clientemailaddresslabel") + ": ")
 		emaillabel.SetFont(font)
 		leftsizer.Add(emaillabel, 0, wx.ALIGN_LEFT)
 		
 		emailentry = wx.TextCtrl(self, -1, practiceemail)
 		leftsizer.Add(emailentry, 0, wx.EXPAND)
 		
-		websitelabel = wx.StaticText(self, -1, self.GetLabel("websitelabel") + ": ")
+		websitelabel = wx.StaticText(self, -1, self.t("websitelabel") + ": ")
 		websitelabel.SetFont(font)
 		leftsizer.Add(websitelabel, 0, wx.ALIGN_LEFT)
 		
@@ -300,28 +300,28 @@ class SettingsPanel(wx.Panel):
 		
 		middlesizer = wx.BoxSizer(wx.VERTICAL)
 		
-		openfromlabel = wx.StaticText(self, -1, self.GetLabel("settingsopenfromlabel") + ": ")
+		openfromlabel = wx.StaticText(self, -1, self.t("settingsopenfromlabel") + ": ")
 		openfromlabel.SetFont(font)
 		middlesizer.Add(openfromlabel, 0, wx.ALIGN_LEFT)
 		
 		openfromentry = wx.TextCtrl(self, -1, openfrom)
 		middlesizer.Add(openfromentry, 0, wx.EXPAND)
 		
-		opentolabel = wx.StaticText(self, -1, self.GetLabel("settingsopentolabel") + ": ")
+		opentolabel = wx.StaticText(self, -1, self.t("settingsopentolabel") + ": ")
 		opentolabel.SetFont(font)
 		middlesizer.Add(opentolabel, 0, wx.ALIGN_LEFT)
 		
 		opentoentry = wx.TextCtrl(self, -1, opento)
 		middlesizer.Add(opentoentry, 0, wx.EXPAND)
 		
-		operationtimelabel = wx.StaticText(self, -1, self.GetLabel("settingsoperatingtimelabel") + ": ")
+		operationtimelabel = wx.StaticText(self, -1, self.t("settingsoperatingtimelabel") + ": ")
 		operationtimelabel.SetFont(font)
 		middlesizer.Add(operationtimelabel, 0, wx.ALIGN_LEFT)
 		
 		operationtimeentry = wx.TextCtrl(self, -1, operationtime)
 		middlesizer.Add(operationtimeentry, 0, wx.EXPAND)
 		
-		prescriptionfeelabel = wx.StaticText(self, -1, self.GetLabel("prescriptionfeelabel") + ": ")
+		prescriptionfeelabel = wx.StaticText(self, -1, self.t("prescriptionfeelabel") + ": ")
 		prescriptionfeelabel.SetFont(font)
 		middlesizer.Add(prescriptionfeelabel, 0, wx.ALIGN_LEFT)
 		
@@ -330,7 +330,7 @@ class SettingsPanel(wx.Panel):
 		
 		middlesizer.Add(wx.StaticText(self, -1, "", size=(-1,20)), 0, wx.EXPAND)
 		
-		asmshelterlabel = wx.StaticText(self, -1, self.GetLabel("asmshelterlabel") + ": ")
+		asmshelterlabel = wx.StaticText(self, -1, self.t("asmshelterlabel") + ": ")
 		asmshelterlabel.SetFont(font)
 		middlesizer.Add(asmshelterlabel, 0, wx.ALIGN_LEFT)
 		
@@ -340,19 +340,19 @@ class SettingsPanel(wx.Panel):
 		asmstaticbitmap = wx.StaticBitmap(self, -1, asmbitmap)
 		asmsheltersizer.Add(asmstaticbitmap, 0, wx.ALIGN_CENTER)
 		
-		asmshelterentry = wx.TextCtrl(self, -1, self.GetLabel("nonelabel"), style=wx.TE_READONLY)
-		asmshelterentry.SetToolTipString(self.GetLabel("asmsheltertooltip"))
+		asmshelterentry = wx.TextCtrl(self, -1, self.t("nonelabel"), style=wx.TE_READONLY)
+		asmshelterentry.SetToolTipString(self.t("asmsheltertooltip"))
 		asmsheltersizer.Add(asmshelterentry, 1, wx.EXPAND)
 		
 		searchbitmap = wx.Bitmap("icons/search.png")
 		asmshelterbutton = wx.BitmapButton(self, -1, searchbitmap)
 		asmshelterbutton.Bind(wx.EVT_BUTTON, self.FindShelter)
-		asmshelterbutton.SetToolTipString(self.GetLabel("searchlabel"))
+		asmshelterbutton.SetToolTipString(self.t("searchlabel"))
 		asmsheltersizer.Add(asmshelterbutton, 0, wx.EXPAND)
 		
 		middlesizer.Add(asmsheltersizer, 0, wx.EXPAND)
 		
-		asmvaccinationlabel = wx.StaticText(self, -1, self.GetLabel("asmvaccinationlabel") + ": ")
+		asmvaccinationlabel = wx.StaticText(self, -1, self.t("asmvaccinationlabel") + ": ")
 		asmvaccinationlabel.SetFont(font)
 		middlesizer.Add(asmvaccinationlabel, 0, wx.ALIGN_LEFT)
 		
@@ -362,14 +362,14 @@ class SettingsPanel(wx.Panel):
 		asmstaticbitmap = wx.StaticBitmap(self, -1, asmbitmap)
 		asmvaccinationsizer.Add(asmstaticbitmap, 0, wx.ALIGN_CENTER)
 		
-		asmvaccinationentry = wx.TextCtrl(self, -1, self.GetLabel("nonelabel"), style=wx.TE_READONLY)
-		asmvaccinationentry.SetToolTipString(self.GetLabel("asmvaccinationtooltip"))
+		asmvaccinationentry = wx.TextCtrl(self, -1, self.t("nonelabel"), style=wx.TE_READONLY)
+		asmvaccinationentry.SetToolTipString(self.t("asmvaccinationtooltip"))
 		asmvaccinationsizer.Add(asmvaccinationentry, 1, wx.EXPAND)
 		
 		searchbitmap = wx.Bitmap("icons/search.png")
 		asmvaccinationbutton = wx.BitmapButton(self, -1, searchbitmap)
 		asmvaccinationbutton.Bind(wx.EVT_BUTTON, self.FindVaccination)
-		asmvaccinationbutton.SetToolTipString(self.GetLabel("searchlabel"))
+		asmvaccinationbutton.SetToolTipString(self.t("searchlabel"))
 		asmvaccinationsizer.Add(asmvaccinationbutton, 0, wx.EXPAND)
 		
 		middlesizer.Add(asmvaccinationsizer, 0, wx.EXPAND)
@@ -380,7 +380,7 @@ class SettingsPanel(wx.Panel):
 		
 		rightsizer = wx.BoxSizer(wx.VERTICAL)
 		
-		languagelabel = wx.StaticText(self, -1, self.GetLabel("settingslanguagelabel") + ": ")
+		languagelabel = wx.StaticText(self, -1, self.t("settingslanguagelabel") + ": ")
 		languagelabel.SetFont(font)
 		rightsizer.Add(languagelabel, 0, wx.ALIGN_LEFT)
 		
@@ -396,7 +396,7 @@ class SettingsPanel(wx.Panel):
 		languageentry.SetSelection(language)
 		rightsizer.Add(languageentry, 0, wx.EXPAND)
 		
-		appointmentrefreshlabel = wx.StaticText(self, -1, self.GetLabel("appointmentrefreshlabel") + ":")
+		appointmentrefreshlabel = wx.StaticText(self, -1, self.t("appointmentrefreshlabel") + ":")
 		appointmentrefreshlabel.SetFont(font)
 		rightsizer.Add(appointmentrefreshlabel, 0, wx.ALIGN_LEFT)
 		
@@ -405,9 +405,9 @@ class SettingsPanel(wx.Panel):
 		
 		rightsizer.Add(wx.StaticText(self, -1, "", size=(-1,20)), 0, wx.EXPAND)
 		
-		submitbutton = wx.Button(self, -1, self.GetLabel("submitlabel"))
+		submitbutton = wx.Button(self, -1, self.t("submitlabel"))
 		submitbutton.SetBackgroundColour("green")
-		submitbutton.SetToolTipString(self.GetLabel("submitlabel"))
+		submitbutton.SetToolTipString(self.t("submitlabel"))
 		submitbutton.Bind(wx.EVT_BUTTON, self.Submit)
 		rightsizer.Add(submitbutton, 0, wx.ALIGN_CENTER_HORIZONTAL)
 		
@@ -454,7 +454,7 @@ class SettingsPanel(wx.Panel):
 	
 	def FindVaccination(self, ID):
 		
-		dialog = wx.Dialog(self, -1, self.GetLabel("asmvaccinationlabel"))
+		dialog = wx.Dialog(self, -1, self.t("asmvaccinationlabel"))
 		
 		dialogsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -464,7 +464,7 @@ class SettingsPanel(wx.Panel):
 		
 		listbox = wx.ListBox(panel, size=(300,200))
 		listbox.Bind(wx.EVT_LISTBOX_DCLICK, self.VaccinationSelected)
-		listbox.SetToolTipString(self.GetLabel("doubleclicktoselecttooltip"))
+		listbox.SetToolTipString(self.t("doubleclicktoselecttooltip"))
 		topsizer.Add(listbox, 1, wx.EXPAND)
 		
 		panel.SetSizer(topsizer)
