@@ -52,7 +52,7 @@ class AppointmentSettings:
       self.ownerid = self.clientdata.ID
       self.date = datetime.date.today()
       self.date = miscmethods.GetSQLDateFromDate(self.date)
-      self.time = "14:00"
+      self.time = self.CurrentTimeRounded()
       self.reason = u"Chequeo"
       self.arrived = 0
       self.withvet = 0
@@ -104,19 +104,12 @@ class AppointmentSettings:
       arrived = results[0][1]
       
       if arrived == 0 and self.arrived == 1:
-        
         self.arrivaltime = datetime.datetime.today().strftime("%X")
       
       if changelog != self.changelog:
-        
-        
-        
         if miscmethods.ConfirmMessage(self.localsettings.dictionary["filealteredchoice"][self.localsettings.language]):
-          
           locked = False
-          
         else:
-          
           locked = True
     
     if locked == False:
@@ -130,6 +123,10 @@ class AppointmentSettings:
         self.changelog = currenttime + "%%%" + str(userid) + "$$$" + self.changelog
       
       dbmethods.WriteToAppointmentTable(self.localsettings.dbconnection, self)
+  
+  def CurrentTimeRounded(self):
+  
+    return datetime.datetime.now().strftime("%H:%M")[:-1]+'0'
 
 class AppointmentPanel(wx.Panel):
   
@@ -189,7 +186,10 @@ class AppointmentPanel(wx.Panel):
     vetlabel.SetFont(font)
     vetsizer.Add(vetlabel, 0, wx.ALIGN_LEFT)
     
-    self.vetcombobox = wx.ComboBox(self, -1, self.t("vetpositiontitle"), choices=vets)
+    vet = self.appointmentdata.localsettings.last_assigned_vet
+    vet = vet or (vets[0] if len(vets) > 0 else self.t("vetpositiontitle"))
+    
+    self.vetcombobox = wx.ComboBox(self, -1, vet, choices=vets)
     if self.appointmentdata.vet != "None":
       self.vetcombobox.SetValue(str(self.appointmentdata.vet))
     self.vetcombobox.Bind(wx.EVT_CHAR, self.UseVetComboBox)
@@ -625,6 +625,8 @@ class AppointmentPanel(wx.Panel):
         self.appointmentdata.vet = "None"
       else:
         self.appointmentdata.vet = self.vetcombobox.GetValue()
+      
+      self.appointmentdata.localsettings.last_assigned_vet = self.appointmentdata.vet
       
       choice = self.statuschoice.GetSelection()
       

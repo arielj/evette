@@ -137,6 +137,8 @@ class settings:
 			self.addtodiary = int(changelog[9][0])
 			self.editdiary = int(changelog[9][1])
 			self.deletefromdiary = int(changelog[9][2])
+			
+			self.last_assigned_vet = None
 	
 	def SaveSettings(self, username=""):
 		

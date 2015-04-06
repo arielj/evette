@@ -2625,7 +2625,7 @@ def GetDictionary():
     )
   dictionary["appointmentrefreshlabel"] = (
     "Appointment Refresh Interval",
-    u"Actualizar Intervalos de Citas"
+    u"Intervalos de Actualizar de Citas"
     )
 ############################## 1.3.2 ###############################################
   dictionary["asmvaccinationlabel"] = (
