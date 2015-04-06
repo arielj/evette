@@ -253,6 +253,10 @@ def GetDictionary():
     ("View Operations", "View todays operations"),
     (u"Ver Cirugías", u"Ver Cirugías del día")
     )
+  dictionary["viewgroomingsmenu"] = (
+    ("View Groomings", "View todays groomings"),
+    (u"Ver Turnos de Peluquería", u"Ver Turnos de Peluquería del día")
+    )
   dictionary["editusersmenu"] = (
     ("Edit Users", "Add and edit Evette users"),
     (u"Editar Usuarios", u"Agregar y Modificar Usuarios de Evette")
