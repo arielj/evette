@@ -65,33 +65,27 @@ class ViewAppointments(wx.Panel):
     date = datetime.datetime.today().strftime("%A %d %B %Y").decode('utf-8')
     sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
     
-    if operations == 0:
-      action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND Operating = 0 AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
-    else:
-      action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND Operating = 1  AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
-    
+    action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND Operating = " + str(operations) + " AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
     results = db.SendSQL(action, self.localsettings.dbconnection)
-    
-    
+        
     self.vetlist = []
     for a in results:
       self.vetlist.append(a[0])
+
+    if len(self.vetlist) == 0:
+      self.vetlist = self.localsettings.GetVetsNames()
+
     if len(self.vetlist) == 0:
       self.vetlist.append(self.t("nonelabel"))
     
     wx.Panel.__init__(self, notebook)
     
-    if self.operations == 0:
-      self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("viewappointmentspagetitle"))
-      self.pageimage = "icons/appointment.png"
-    else:
-      self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("viewoperationspagetitle"))
-      self.pageimage = "icons/operation.png"
+    kind = 'appointment' if self.operations == 0 else 'operation'
+    self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("view" + kind + "spagetitle"))
+    self.pageimage = "icons/" + kind + ".png"
     
     topsizer = wx.BoxSizer(wx.VERTICAL)
-    
-    
-    
+
     lefttorightsizer = wx.BoxSizer(wx.HORIZONTAL)
     
     leftsizer = wx.BoxSizer(wx.VERTICAL)

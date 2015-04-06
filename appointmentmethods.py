@@ -172,13 +172,7 @@ class AppointmentPanel(wx.Panel):
     appointmentdate = miscmethods.GetWXDateFromSQLDate(self.appointmentdata.date)
     self.appointmententry.SetValue(appointmentdate)
     
-    action = "SELECT Name FROM user WHERE Position = \"" + self.t("vetpositiontitle") + "\""
-    results = db.SendSQL(action, self.appointmentdata.localsettings.dbconnection)
-    
-    vets = []
-    if len(results) != 0:
-      for a in results:
-        vets.append(a[0])
+    vets = self.appointmentdata.localsettings.GetVetsNames()
     
     vetsizer = wx.BoxSizer(wx.VERTICAL)
     
