@@ -359,7 +359,7 @@ def CreateLookupTables(connection):
 		action = "INSERT INTO species (SpeciesName) VALUES (\'" + defaultspecies[a] + "\')"
 		db.SendSQL(action, connection)
 	
-	action = "CREATE TABLE breed (ID int unsigned not null auto_increment primary key, BreedName varchar(20))"
+	action = "CREATE TABLE breed (ID int unsigned not null auto_increment primary key, BreedName varchar(20), species varchar(20))"
 	db.SendSQL(action, connection)
 	
 	defaultbreeds = ( "Crossbreed", "SH Dom", "LH Dom", "SLH Dom" )

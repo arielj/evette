@@ -23,7 +23,7 @@ import dbmethods
 import miscmethods
 import datetime
 
-versionno = "1.3.2"
+versionno = "1.3.3"
 
 def GetCurrentVersion():
 	
@@ -615,6 +615,16 @@ Thank you in advance
 					out = open(home + "/.evette.conf", "w")
 					out.write(localsettings.dbip + "\n" + localsettings.dbuser + "\n" + localsettings.dbpass + "\n\nuser\n" + str(localsettings.language) + "\n15")
 					out.close()
+				
+				if oldversion == "1.3.2":
+				  
+					action = "ALTER TABLE breed ADD species varchar(20)"
+					db.SendSQL(action, localsettings.dbconnection)
+				  
+					action = "REPLACE INTO version (ID, VersionNo) VALUES (1, \"1.3.3\")"
+					db.SendSQL(action, localsettings.dbconnection)
+					
+					oldversion = "1.3.3"
 				
 			else:
 				

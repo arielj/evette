@@ -119,8 +119,30 @@ class EditLookup(wx.Panel):
     namelabel.SetFont(font)
     topsizer.Add(namelabel, 0, wx.ALIGN_LEFT)
     
-    nameentry = wx.TextCtrl(panel, -1, "", size=(350,-1))
+    nameentry = wx.TextCtrl(panel, -1, "", size=(200,-1))
     topsizer.Add(nameentry, 0, wx.EXPAND)
+    
+    if lookupid == False and self.lookup == 'breed':
+      species_label = wx.StaticText(panel, -1, self.t("lookupspecies") + ":")
+      species_label.SetFont(font)
+      topsizer.Add(species_label, 0, wx.ALIGN_LEFT)
+      
+      action = "SELECT * FROM species ORDER BY SpeciesName;"
+      results = db.SendSQL(action, self.localsettings.dbconnection)
+      
+      species = []
+      if len(results) != 0:
+        for a in results:
+          species.append(a[1])
+      
+      action = "SELECT Species, count(*) as sum FROM `animal` GROUP BY Species ORDER BY 'sum DESC';"
+      results = db.SendSQL(action, self.localsettings.dbconnection)
+      
+      most_common_species = results[0][0] if len(results) != 0 else species[0]
+        
+      species_select = wx.ComboBox(panel, -1, most_common_species, choices = species)
+      topsizer.Add(species_select)
+      panel.species_select = species_select
     
     if lookupid != False:
       
@@ -165,7 +187,11 @@ class EditLookup(wx.Panel):
       
       if panel.lookupid == False:
         
-        action = "INSERT INTO " + lookup + " (" + columnname + ") VALUES (\"" + name + "\")"
+        if self.lookup == 'breed':
+          species = panel.species_select.GetValue()
+          action = "INSERT INTO " + lookup + " (" + columnname + ",species) VALUES (\"" + name + "\",\"" + species + "\")"
+        else:
+          action = "INSERT INTO " + lookup + " (" + columnname + ") VALUES (\"" + name + "\")"
         
       else:
         
