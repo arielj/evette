@@ -32,6 +32,8 @@ import vetmethods
 import viewappointments
 import formmethods
 
+APPOINTMENT_TYPES = ['appointment','operation','grooming']
+
 class AppointmentSettings:
   
   def __init__(self, localsettings, animalid, ID):
@@ -148,10 +150,7 @@ class AppointmentPanel(wx.Panel):
     self.animalpanel = False
     self.kennelspanel = False
     
-    if self.appointmentdata.operation == 0:
-      pagetitle = self.t("appointmentappointmentforlabel") + " " + self.appointmentdata.animaldata.name + " " + self.appointmentdata.clientdata.surname
-    else:
-      pagetitle = self.t("appointmentoperationforlabel") + " " + self.appointmentdata.animaldata.name + " " + self.appointmentdata.clientdata.surname
+    pagetitle = self.t("appointment" + APPOINTMENT_TYPES[self.appointmentdata.operation] + "forlabel") + " " + self.appointmentdata.animaldata.name + " " + self.appointmentdata.clientdata.surname
     
     self.pagetitle = miscmethods.GetPageTitle(notebook, pagetitle)
     self.pageimage = "icons/appointment.png"
@@ -209,11 +208,17 @@ class AppointmentPanel(wx.Panel):
     searchsizer.Add(datesizer, 0, wx.EXPAND)
     searchsizer.Add(reasonsizer, 0, wx.EXPAND)
     
-    self.opcheckbox = wx.CheckBox(self, -1, self.t("appointmentisopcheckbox", 0))
-    self.opcheckbox.SetFont(font)
-    self.opcheckbox.Bind(wx.EVT_CHECKBOX, self.SwitchToOps)
-    self.opcheckbox.SetToolTipString(self.t("appointmentisopcheckbox", 1))
-    searchsizer.Add(self.opcheckbox, 0, wx.ALIGN_LEFT)
+    app_types = [self.t('appointmentlabel'),self.t('operationlabel'),self.t('groominglabel')]
+    
+    self.app_type_label = wx.StaticText(self, -1, self.t("appointmenttypelabel")+":")
+    self.app_type_label.SetFont(font)
+    searchsizer.Add(self.app_type_label, 0, wx.ALIGN_LEFT)
+    
+    self.app_type_combo = wx.ComboBox(self, -1, self.t(APPOINTMENT_TYPES[self.appointmentdata.operation]+"label"), choices=app_types, style=wx.CB_READONLY)
+    self.app_type_combo.SetFont(font)
+    self.app_type_combo.Bind(wx.EVT_COMBOBOX, self.SwitchToOps)
+    self.app_type_combo.SetToolTipString(self.t("appointmenttypetooltip"))
+    searchsizer.Add(self.app_type_combo, 0, wx.ALIGN_LEFT)
     
     searchspacer2 = wx.StaticText(self, -1, "", size=(-1,10))
     searchsizer.Add(searchspacer2, 0, wx.EXPAND)
@@ -392,7 +397,6 @@ class AppointmentPanel(wx.Panel):
     self.statuschoice = statuschoice
     
     if self.appointmentdata.operation == 1:
-      self.opcheckbox.SetValue(True)
       self.SwitchToOps()
 
     self.RefreshAppointment()
@@ -407,7 +411,7 @@ class AppointmentPanel(wx.Panel):
   
   def ChooseAppointmentReason(self, ID):
     
-    dialog = wx.Dialog(self, -1, self.t("lookupsreasonpagetitle"))
+    dialog = wx.Dialog(self, -1, self.t("lookupsreason"))
     
     dialogsizer = wx.BoxSizer(wx.VERTICAL)
     
@@ -484,14 +488,12 @@ class AppointmentPanel(wx.Panel):
     date = self.appointmententry.GetValue()
     sqldate = miscmethods.GetSQLDateFromWXDate(date)
     
-    if self.opcheckbox.GetValue() == True:
-      operation = 1
-    else:
-      operation = 0
-    
-    action = "SELECT ID FROM appointment WHERE appointment.Date = \"" + sqldate + "\" AND appointment.Operation = " + str(operation)
+    app_type = self.app_type_combo.GetSelection()
+    if app_type == -1:
+      app_type = 0
+
+    action = "SELECT ID FROM appointment WHERE appointment.Date = \"" + sqldate + "\" AND appointment.Operation = " + str(app_type)
     results = db.SendSQL(action, self.appointmentdata.localsettings.dbconnection)
-    
     
     total = len(results)
     
@@ -501,18 +503,15 @@ class AppointmentPanel(wx.Panel):
   
   def SwitchToOps(self, ID=False):
     
-    isop = self.opcheckbox.GetValue()
+    app_type = self.app_type_combo.GetSelection()
     date = self.appointmententry.GetValue()
     
-    weekday = date.GetWeekDay()
-    weekday = miscmethods.GetDayNameFromID(weekday, self.appointmentdata.localsettings)
+    weekday = miscmethods.GetDayNameFromID(date.GetWeekDay(), self.appointmentdata.localsettings)
     sqldate = miscmethods.GetSQLDateFromWXDate(date)
     datestring = miscmethods.GetDateFromWXDate(date)
     datestring = miscmethods.FormatDate(datestring, self.appointmentdata.localsettings)
     
-    
-    
-    if isop == True:
+    if APPOINTMENT_TYPES[app_type] == 'operation':
       self.appointmenttimeentry.SetValue("09:00")
       self.appointmenttimeentry.Disable()
       
@@ -524,85 +523,76 @@ class AppointmentPanel(wx.Panel):
   
   def Submit(self, ID):
     
-    if self.opcheckbox.GetValue() == True:
+    app_type = self.app_type_combo.GetSelection()
+    
+    if APPOINTMENT_TYPES[app_type]== 'operation':
       self.SubmitOperation(ID)
     else:
       self.SubmitAppointment(ID)
   
-  def SubmitOperation(self, ID):
-    
-    
+  def Submit(self):
     self.appointmentdata.date = miscmethods.GetSQLDateFromWXDate(self.appointmententry.GetValue())
-    self.appointmentdata.time = self.appointmentdata.localsettings.operationtime
     self.appointmentdata.vet = self.vetcombobox.GetValue()
-    
     self.appointmentdata.reason = self.reasonentry.GetValue()
-    self.appointmentdata.operation = 1
+    self.appointmentdata.operation = self.app_type_combo.GetSelection()
     
+    self.appointmentdata.arrived = 0
+    self.appointmentdata.withvet = 0
+    self.appointmentdata.done = 0
+    self.appointmentdata.staying = 0
+
     choice = self.statuschoice.GetSelection()
-    
-    if choice == 0:
-      self.appointmentdata.arrived = 0
-      self.appointmentdata.withvet = 0
-      self.appointmentdata.done = 0
-      self.appointmentdata.staying = 0
-    elif choice == 1:
+    if choice != 0:
       self.appointmentdata.arrived = 1
-      self.appointmentdata.withvet = 0
-      self.appointmentdata.done = 0
-      self.appointmentdata.staying = 0
-    elif choice == 2:
-      self.appointmentdata.arrived = 1
+    if choice == 2:
       self.appointmentdata.withvet = 1
-      self.appointmentdata.done = 0
-      self.appointmentdata.staying = 0
     elif choice == 3:
-      self.appointmentdata.arrived = 1
-      self.appointmentdata.withvet = 0
       self.appointmentdata.done = 1
-      self.appointmentdata.staying = 0
     elif choice == 4:
-      self.appointmentdata.arrived = 1
       self.appointmentdata.withvet = 1
-      self.appointmentdata.done = 0
       self.appointmentdata.staying = self.kennelid
     
     self.appointmentdata.Submit()
     
+    self.appointmentdata.localsettings.last_assigned_vet = self.appointmentdata.vet
+    
     try:
-      
       self.kennelspanel.RefreshListboxes()
-      
     except:
-      
       try:
-        
         self.parent.animalappointmentslistbox.RefreshList()
-        
       except:
-        
         try:
-          
           viewappointments.UpdateViewAppointments(self.viewappointmentspanel, True)
-          
         except:
-          
           pass
     
     self.Close()
   
+  def SubmitOperation(self, ID):
+    self.appointmentdata.time = self.appointmentdata.localsettings.operationtime
+    self.Submit()
+
   def SubmitAppointment(self, ID):
-    
+    valid = self.IsValidTime()
+
+    if valid is True:
+      self.appointmentdata.time = self.appointmenttimeentry.GetValue()
+      self.Submit()
+    else:
+      miscmethods.ShowMessage(failurereason)
+
+  def IsValidTime(self):
     time = self.appointmenttimeentry.GetValue()
     
-    success = False
+    is_valid = False
     
     if miscmethods.ValidateTime(time) == True:
       if miscmethods.GetMinutesFromTime(time) < miscmethods.GetMinutesFromTime(self.appointmentdata.localsettings.opento) + 1:
         if miscmethods.GetMinutesFromTime(time) > miscmethods.GetMinutesFromTime(self.appointmentdata.localsettings.openfrom) - 1:
           
           time = time[:2] + ":" + time[3:5]
-          success = True
+          is_valid = True
         else:
           failurereason = self.t("appointmenttimetooearlymessage")
       else:
@@ -610,84 +600,32 @@ class AppointmentPanel(wx.Panel):
     else:
       failurereason = self.t("appointmentinvalidtimemessage")
     
-    if success == True:
-      self.appointmentdata.date = miscmethods.GetSQLDateFromWXDate(self.appointmententry.GetValue())
-      self.appointmentdata.time = time
-      self.appointmentdata.reason = self.reasonentry.GetValue()
-      self.appointmentdata.operation = 0
-      if self.vetcombobox.GetValue() == "Vet":
-        self.appointmentdata.vet = "None"
-      else:
-        self.appointmentdata.vet = self.vetcombobox.GetValue()
-      
-      self.appointmentdata.localsettings.last_assigned_vet = self.appointmentdata.vet
-      
-      choice = self.statuschoice.GetSelection()
-      
-      self.appointmentdata.arrived = 0
-      self.appointmentdata.withvet = 0
-      self.appointmentdata.done = 0
-      self.appointmentdata.staying = 0
-
-      if choice != 0:
-        self.appointmentdata.arrived = 1
-
-      if choice == 2:
-        self.appointmentdata.withvet = 1
-      elif choice == 3:
-        self.appointmentdata.done = 1
-      elif choice == 4:
-        self.appointmentdata.withvet = 1
-        self.appointmentdata.staying = self.kennelid
-      
-      self.appointmentdata.Submit()
-      
-      try:
-        self.kennelspanel.RefreshListboxes()
-      except:
-        try:
-          self.parent.animalappointmentslistbox.RefreshList()
-        except:
-          try:
-            viewappointments.UpdateViewAppointments(self.viewappointmentspanel, True)
-          except:
-            pass
-
-      self.Close()
-      
-    else:
-      miscmethods.ShowMessage(failurereason)
+    return is_valid if is_valid else failurereason
   
   def RefreshAppointment(self, ID=False):
     
     localsettings = self.appointmentdata.localsettings
     
-    try:
-      
-      date = self.appointmententry.GetValue()
-      weekday = date.GetWeekDay()
-      weekday = miscmethods.GetDayNameFromID(weekday, self.appointmentdata.localsettings)
-      sqldate = miscmethods.GetSQLDateFromWXDate(date)
-      datestring = miscmethods.GetDateFromWXDate(date)
-      datestring = miscmethods.FormatDate(datestring, self.appointmentdata.localsettings)
-      
-      isop = self.opcheckbox.GetValue()
-      
-      if isop == True:
-        appointmentslistboxlabeltext = self.t("appointmentoperationsforlabel") + " " + weekday + " " + str(datestring)
-      else:
-        appointmentslistboxlabeltext = self.t("appointmentappointmentsforlabel") + " " + weekday + " " + str(datestring)
-      self.appointmentslistboxlabel.SetLabel(appointmentslistboxlabeltext)
-      
-      self.appointmentslistbox.sqldate = sqldate
-      
-      self.appointmentslistbox.RefreshList()
-      
-      self.RefreshTotal()
+    date = self.appointmententry.GetValue()
+    weekday = date.GetWeekDay()
+    weekday = miscmethods.GetDayNameFromID(weekday, self.appointmentdata.localsettings)
+    sqldate = miscmethods.GetSQLDateFromWXDate(date)
+    datestring = miscmethods.GetDateFromWXDate(date)
+    datestring = miscmethods.FormatDate(datestring, self.appointmentdata.localsettings)
     
-    except:
-      
-      pass
+    app_type = self.app_type_combo.GetSelection()
+    if app_type == -1:
+      app_type = 0
+    
+    appointmentslistboxlabeltext = self.t("appointment" + APPOINTMENT_TYPES[app_type] + "sforlabel") + " " + weekday + " " + str(datestring)
+
+    self.appointmentslistboxlabel.SetLabel(appointmentslistboxlabeltext)
+    
+    self.appointmentslistbox.sqldate = sqldate
+    
+    self.appointmentslistbox.RefreshList()
+    
+    self.RefreshTotal()
   
   def GetTime(self,ID):
     
@@ -1371,21 +1309,25 @@ class DayCell(wx.Panel):
     self.topsizer.Add(label, 1, wx.ALIGN_CENTER_HORIZONTAL)
     
     
-    action = "SELECT Operation FROM appointment WHERE Date = \"" + miscmethods.GetSQLDateFromDate(self.date) + "\""
+    action = "SELECT Operation, count(*) FROM appointment WHERE Date = \"" + miscmethods.GetSQLDateFromDate(self.date) + "\" GROUP BY Operation ORDER BY Operation"
     results = db.SendSQL(action, self.localsettings.dbconnection)
     
     appointments = 0
     operations = 0
+    groomings = 0
     
     for a in results:
       
       if a[0] == 0:
         
-        appointments = appointments + 1
+        appointments = a[1]
         
+      elif a[0] == 1:
+        
+        operations = a[1]
+      
       else:
-        
-        operations = operations + 1
+        groomings = a[1]
     
     appointmentslabel = wx.StaticText(self, -1, str(appointments) + " " + self.t("appointmentsmenu").lower().replace("&", "") + "\n" + str(operations) + " " + self.t("operationslabel").lower())
     

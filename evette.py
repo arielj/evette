@@ -103,6 +103,7 @@ EDIT_MARKUP = 148
 LOST_AND_FOUND = 149
 ADD_LOST = 150
 ADD_FOUND = 151
+VIEW_GROOMING = 152
 
 class Evette:
 	
@@ -494,9 +495,19 @@ class Evette:
 				self.bViewOps.SetToolTipString(self.t("viewoperationstoolbar", 1))
 				self.bViewOps.Bind(wx.EVT_BUTTON, self.ViewOps)
 				toolbarsizer.Add(self.bViewOps, 0, wx.EXPAND)
-			
-			
-			
+				
+				self.bViewGroom = wx.Button(panel, VIEW_GROOMING, self.t("viewgroomingstoolbar"))
+				#self.bViewGroom.SetBackgroundColour("yellow")
+				self.bViewGroom.SetForegroundColour('#555555')
+				
+				font = self.bViewGroom.GetFont()
+				font.SetPointSize(font.GetPointSize() + 2)
+				self.bViewGroom.SetFont(font)
+				
+				self.bViewGroom.SetToolTipString(self.t("viewgroomingstoolbar", 1))
+				self.bViewGroom.Bind(wx.EVT_BUTTON, self.ViewGrooms)
+				toolbarsizer.Add(self.bViewGroom, 0, wx.EXPAND)
+
 			editdiarybutton = wx.Button(panel, -1, self.t("editdiarytoolbar"))
 			editdiarybutton.SetToolTipString(self.t("editdiarytoolbar", 1))
 			#editdiarybutton.SetBackgroundColour("#ffacfe")
@@ -1024,7 +1035,7 @@ class Evette:
 		
 		for a in self.notebook.pages:
 			
-			if a.pagetitle == self.t("viewoperationsspagetitle"):
+			if a.pagetitle == self.t("viewoperationspagetitle"):
 				
 				pageno = count
 			
@@ -1035,6 +1046,31 @@ class Evette:
 			opspanel = viewappointments.ViewAppointments(self.notebook, self.localsettings, 1)
 			
 			self.notebook.AddPage(opspanel)
+			
+		else:
+			
+			self.notebook.tabsdropdown.SetSelection(pageno)
+			self.notebook.PageSelected(-1, pageno)
+	
+	def ViewGrooms(self, ev=False):
+	
+		pageno = -1
+		
+		count = 0
+		
+		for a in self.notebook.pages:
+			
+			if a.pagetitle == self.t("viewgroomingspagetitle"):
+				
+				pageno = count
+			
+			count = count + 1
+		
+		if pageno == -1:
+			
+			appointmentpanel = viewappointments.ViewAppointments(self.notebook, self.localsettings, 2)
+			
+			self.notebook.AddPage(appointmentpanel)
 			
 		else:
 			

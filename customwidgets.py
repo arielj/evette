@@ -114,20 +114,17 @@ class DayPlannerListbox(wx.HtmlListBox):
     
     if listboxid > -1:
       
-      if self.parent.opcheckbox.GetValue() == True:
-        
-        isoperation = 1
-        
-      else:
-        
-        isoperation = 0
+      app_type = self.parent.app_type_combo.GetSelection()
+      
+      if app_type == -1:
+        app_type = 0
       
       timeslot = self.timeslots[listboxid]
       
       timefrom = timeslot
       timeto = timeslot + self.step
       
-      action = "SELECT Name FROM staff WHERE Date = \"" + self.sqldate + "\" AND TimeOn < \"" + miscmethods.GetTimeFromMinutes(timefrom) + ":00" + "\" AND TimeOff > \"" + miscmethods.GetTimeFromMinutes(timefrom) + ":00" + "\" AND Operating = " + str(isoperation) + " ORDER BY Name"
+      action = "SELECT Name FROM staff WHERE Date = \"" + self.sqldate + "\" AND TimeOn < \"" + miscmethods.GetTimeFromMinutes(timefrom) + ":00" + "\" AND TimeOff > \"" + miscmethods.GetTimeFromMinutes(timefrom) + ":00" + "\" AND Operating = " + str(app_type) + " ORDER BY Name"
       results = db.SendSQL(action, self.localsettings.dbconnection)
       
       vets = ""
@@ -213,17 +210,14 @@ class DayPlannerListbox(wx.HtmlListBox):
     
     self.Hide()
     
-    if self.parent.opcheckbox.GetValue() == True:
-      
-      isoperation = 1
-      
-    else:
-      
-      isoperation = 0
+    app_type = self.parent.app_type_combo.GetSelection()
+    
+    if app_type == -1:
+      app_type = 0
       
     sqldate = self.sqldate
     
-    action = "SELECT appointment.Time, animal.Name, client.ClientSurname, appointment.AppointmentReason FROM appointment INNER JOIN animal ON appointment.AnimalID = animal.ID INNER JOIN client ON appointment.OwnerID = client.ID WHERE appointment.Date = \"" + self.sqldate + "\" AND appointment.Operation = " + str(isoperation) + " ORDER BY appointment.Time"
+    action = "SELECT appointment.Time, animal.Name, client.ClientSurname, appointment.AppointmentReason FROM appointment INNER JOIN animal ON appointment.AnimalID = animal.ID INNER JOIN client ON appointment.OwnerID = client.ID WHERE appointment.Date = \"" + self.sqldate + "\" AND appointment.Operation = " + str(app_type) + " ORDER BY appointment.Time"
     results = db.SendSQL(action, self.localsettings.dbconnection)
     
     self.htmllist = results

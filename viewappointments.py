@@ -45,6 +45,7 @@ DESELECT = 708
 VET_NOTES = 709
 PAY_BILL = 710
 SHOP_SALE = 711
+APPOINTMENT_TYPES = ['appointment','operation','grooming']
 
 class ViewAppointments(wx.Panel):
   
@@ -80,9 +81,9 @@ class ViewAppointments(wx.Panel):
     
     wx.Panel.__init__(self, notebook)
     
-    kind = 'appointment' if self.operations == 0 else 'operation'
-    self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("view" + kind + "spagetitle"))
-    self.pageimage = "icons/" + kind + ".png"
+    app_type = APPOINTMENT_TYPES[self.operations]
+    self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("view" + app_type + "spagetitle"))
+    self.pageimage = "icons/" + app_type + ".png"
     
     topsizer = wx.BoxSizer(wx.VERTICAL)
 

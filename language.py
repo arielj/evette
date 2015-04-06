@@ -327,6 +327,10 @@ def GetDictionary():
     (" Todays Operations ", "View todays operations"),
     (u" Cirugías Diarias ", u"Ver las Cirugías del día")
     )
+  dictionary["viewgroomingstoolbar"] = (
+    (" Todays Groomings ", "View todays groomings"),
+    (u" Peluquería ", u"Ver las citas de peluquería del día")
+    )
 
   ##Client Panel
   dictionary["newclientpagetitle"] = (
@@ -585,6 +589,10 @@ def GetDictionary():
     "Operation for",
     u"Cirugí­a de"
     )
+  dictionary["appointmentgroomingforlabel"] = (
+    "Grooming for",
+    u"Peluquería de"
+    )
   dictionary["appointmententervettooltip"] = (
     "If this appointment is for a specific vet, enter the vet's name here",
     u"Si esta cita es para un determinado Doctor/a, agregue el nombre del Doctor/a aquí­"
@@ -649,6 +657,10 @@ def GetDictionary():
     "Operations for",
     u"Cirugías para"
     )
+  dictionary["appointmentgroomingsforlabel"] = (
+    "Groomings for",
+    u"Peluquerías para"
+    )
   dictionary["appointmenttimetooearlymessage"] = (
     "Appointment time is before the practice opens!",
     u"¡La hora de la cita es antes de la apertura de la Clínica!"
@@ -661,6 +673,10 @@ def GetDictionary():
     "Invalid time - times must be HH:MM!",
     u"¡Hora Incorrecta - el formato de la hora es HH:MM!"
     )
+  dictionary["appointmenttypetooltip"] = (
+    "Choose the appointment type from the dropdown list",
+    u"Selecciona el tipo de cita de la lista desplegable"
+  )
 
   ##Client search panel
   dictionary["clientsearchpagetitle"] = (
@@ -1370,13 +1386,22 @@ def GetDictionary():
 
   ##View Appointments
 
+  dictionary["appointmenttypelabel"] = (
+    "Appointment type",
+    u"Tipo de cita"
+  )
+
   dictionary["viewappointmentspagetitle"] = (
     "View Appointments",
     u"Visualizar Citas"
     )
-  dictionary["viewoperationsspagetitle"] = (
+  dictionary["viewoperationspagetitle"] = (
     "View Operations",
     u"Visualizar Cirugías"
+    )
+  dictionary["viewgroomingspagetitle"] = (
+    "View Groomings",
+    u"Visualizar Peluquerías"
     )
   dictionary["viewappointmentsmarkwithvettooltip"] = (
     "Mark this appointment as with the vet",
@@ -1788,7 +1813,15 @@ def GetDictionary():
     )
   dictionary["appointmentlabel"] = (
     "appointment",
-    u"Citas"
+    u"cita"
+    )
+  dictionary["operationlabel"] = (
+    "operation",
+    u"cirugía"
+    )
+  dictionary["groominglabel"] = (
+    "grooming",
+    u"peluquería"
     )
   dictionary["januarylabel"] = (
     "January",
