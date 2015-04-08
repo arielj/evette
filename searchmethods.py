@@ -1772,7 +1772,7 @@ class AppointmentSearchListbox(wx.HtmlListBox):
 		
 		self.Show()
 		
-		self.parent.totallabel.SetLabel(self.parent.GetParent().GetLabel("totallabel") + ": " + str(len(self.htmllist)) + " ")
+		self.parent.totallabel.SetLabel(self.parent.GetParent().t("totallabel") + ": " + str(len(self.htmllist)) + " ")
 		self.parent.listboxsizer.Layout()
 		
 		del busy

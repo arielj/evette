@@ -299,7 +299,7 @@ class AppointmentPanel(wx.Panel):
     self.appointmentslistboxlabel = wx.StaticText(self, -1, appointmentslistboxlabeltext)
     self.appointmentslistboxlabel.SetFont(font)
     
-    self.appointmentslistbox = customwidgets.DayPlannerListbox(self, appointmentdata.localsettings, date, 10)
+    self.appointmentslistbox = customwidgets.DayPlannerListbox(self, appointmentdata.localsettings, date, 20)
     self.appointmentslistbox.SetToolTipString(self.t("appointmentsummarylistboxtooltip"))
     self.appointmentslistbox.Bind(wx.EVT_LISTBOX_DCLICK, self.GetTime)
     
@@ -530,7 +530,7 @@ class AppointmentPanel(wx.Panel):
     else:
       self.SubmitAppointment(ID)
   
-  def Submit(self):
+  def DoSubmit(self):
     self.appointmentdata.date = miscmethods.GetSQLDateFromWXDate(self.appointmententry.GetValue())
     self.appointmentdata.vet = self.vetcombobox.GetValue()
     self.appointmentdata.reason = self.reasonentry.GetValue()
@@ -571,14 +571,14 @@ class AppointmentPanel(wx.Panel):
   
   def SubmitOperation(self, ID):
     self.appointmentdata.time = self.appointmentdata.localsettings.operationtime
-    self.Submit()
+    self.DoSubmit()
 
   def SubmitAppointment(self, ID):
     valid = self.IsValidTime()
 
     if valid is True:
       self.appointmentdata.time = self.appointmenttimeentry.GetValue()
-      self.Submit()
+      self.DoSubmit()
     else:
       miscmethods.ShowMessage(failurereason)
 
@@ -1387,7 +1387,7 @@ def GetDaysInMonth(month, year):
 
 class AppointmentsListbox(wx.HtmlListBox):
   
-  def __init__(self, parent, localsettings, date, step=10):
+  def __init__(self, parent, localsettings, date, step=20):
     wx.HtmlListBox.__init__(self, parent, -1)
     
     self.htmllist = []

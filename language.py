@@ -1797,23 +1797,11 @@ def GetDictionary():
     )
   dictionary["browseappointmentsmenu"] = (
     ( "Browse Appointments", "Browse all appointments" ),
-    ( u"Mirar Citas", u"Mirar todas las Citas" )
+    ( u"Calendario de Citas", u"Mirar todas las Citas" )
     )
   dictionary["browseappointmentspagetitle"] = (
     "Browse Appointments",
-    u"Mirar Citas"
-    )
-  dictionary["clientanimalsearchtooltip"] = (
-    "If you wish to filter the animals by name, enter the name here",
-    u"Si desea realizar la búsqueda de las Mascotas por su nombre, escriba el nombre aquí­"
-    )
-  dictionary["browseappointmentsmenu"] = (
-    ( "Browse Appointments", "Browse all appointments" ),
-    ( u"Mirar Citas", u"Mirar todas las Citas" )
-    )
-  dictionary["browseappointmentspagetitle"] = (
-    "Browse Appointments",
-    u"Mirar Citas"
+    u"Calendario de Citas"
     )
   dictionary["appointmentlabel"] = (
     "appointment",
