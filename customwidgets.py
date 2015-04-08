@@ -2279,33 +2279,33 @@ class Notebook(wx.Panel):
     
     if pageid != self.activepage:
                         
-                        count = 0
-                        
-                        for a in self.tabs:
-                                
-                                if a.image.ID == self.activepage:
-                                        
-                                        self.pages[count].Hide()
-                                        
-                                        self.DisableTab(self.tabs[count])
-                                
-                                count = count + 1
-                        
-                        count = 0
-                        
-                        for a in self.tabs:
-                                
-                                if a.image.ID == pageid:
-                                        
-                                        self.activepage = a.image.ID
-                                        
-                                        self.EnableTab(self.tabs[count])
-                                        
-                                        self.pages[count].Show()
-                                
-                                count = count + 1
-                        
-                        self.topsizer.Layout()
+      count = 0
+      
+      for a in self.tabs:
+              
+        if a.image.ID == self.activepage:
+                
+          self.pages[count].Hide()
+          
+          self.DisableTab(self.tabs[count])
+        
+        count = count + 1
+      
+      count = 0
+      
+      for a in self.tabs:
+              
+        if a.image.ID == pageid:
+                
+          self.activepage = a.image.ID
+          
+          self.EnableTab(self.tabs[count])
+          
+          self.pages[count].Show()
+        
+        count = count + 1
+      
+      self.topsizer.Layout()
   
   def RightClick(self, ID):
     
