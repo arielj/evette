@@ -1244,7 +1244,7 @@ class AnimalPanel(wx.Panel):
         
       except:
         
-        pass
+        miscmethods.LogException()
     
     
     self.printbutton.Enable()

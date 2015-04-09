@@ -407,7 +407,7 @@ def GetDictionary():
     )
   dictionary["clientbalancelabel"] = (
     "Balance",
-    u"Estado del Paciente"
+    u"Balance"
     )
   dictionary["clientdetailedbilllabel"] = (
     "Detailed Bill",
@@ -906,13 +906,21 @@ def GetDictionary():
     "Edit Medication",
     u"Editar Medicamento"
     )
+  dictionary["medicationeditconsumable"] = (
+    "Edit Consumable",
+    u"Editar Consumible"
+  )
+  dictionary["movementcantbezero"] = (
+    "Movement quantity can not be zero.",
+    u"La cantidad del movimiento no puede ser cero."
+  )
   dictionary["medicationdeletetooltip"] = (
     "Delete the selected medication",
     u"Borrar el medicamento seleccionado"
     )
   dictionary["medicationbatchnolabel"] = (
     "Batch #",
-    u"# de lote"
+    u"Lote #"
     )
   dictionary["medicationbatchmovementreporttooltip"] = (
     "Generate a report showing all movements of this batch",

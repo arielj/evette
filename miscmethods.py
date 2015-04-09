@@ -20,6 +20,8 @@
 
 import os
 import sys
+import logging
+import traceback
 import db
 import settings
 import wx
@@ -27,6 +29,8 @@ import datetime
 import appointmentmethods
 import base64
 import random
+
+logging.basicConfig(filename='exceptions.log')
 
 def GetImagePath():
 	
@@ -346,7 +350,7 @@ def CheckDBConnection():
 		connection.close()
 		success = True
 	except:
-		pass
+		LogException()
 	
 	return success
 
@@ -563,7 +567,7 @@ def ValidateTime(time):
 		
 	except:
 		
-		pass
+		LogException()
 	
 	return success
 
@@ -1248,3 +1252,7 @@ def CorrectNullString(string):
 	
 	return string
 
+
+def LogException():
+  etype, value, tb = sys.exc_info()
+  logging.error(''.join(traceback.format_exception(etype, value, tb)))

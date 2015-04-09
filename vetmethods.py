@@ -1147,7 +1147,7 @@ class VetForm(wx.Panel):
 			
 		except:
 			
-			pass
+			miscmethods.LogException()
 		
 		self.notebook.ClosePage(self.notebook.activepage)
 

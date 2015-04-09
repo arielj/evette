@@ -565,7 +565,7 @@ class AppointmentPanel(wx.Panel):
         try:
           viewappointments.UpdateViewAppointments(self.viewappointmentspanel, True)
         except:
-          pass
+          miscmethods.LogException()
     
     self.Close()
   
@@ -683,7 +683,7 @@ class AppointmentPanel(wx.Panel):
         
       except:
         
-        pass
+        miscmethods.LogException()
     
     self.notebook.ClosePage(self.notebook.activepage)
     #miscmethods.ClosePanel(self)
@@ -1275,7 +1275,7 @@ class DayCell(wx.Panel):
       self.topsizer.Remove(self.daycellpanel)
       self.daycellpanel.Destroy()
     except:
-      pass
+      miscmethods.LogException()
     
     #daycellpanel = self
     

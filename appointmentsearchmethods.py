@@ -406,7 +406,7 @@ class AppointmentPanel(wx.Panel):
 		try:
 			self.parent.RefreshAppointments()
 		except:
-			pass
+			miscmethods.LogException()
 		
 		self.Close()
 	
@@ -467,7 +467,7 @@ class AppointmentPanel(wx.Panel):
 			try:
 				self.parent.RefreshAppointments()
 			except:
-				pass
+				miscmethods.LogException()
 			
 			self.Close()
 			

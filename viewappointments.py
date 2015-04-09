@@ -730,7 +730,7 @@ def UpdateViewAppointments(ID, force=False):
     appointmentpanel = ID
   
   try:
-    
+
     if appointmentpanel.IsShown() or force == True:
       
       #print "updating view appointments " + datetime.datetime.today().strftime("%H:%M:%S")
@@ -827,8 +827,6 @@ def UpdateViewAppointments(ID, force=False):
       
       del busy
     
-  except Exception as inst:
-    print traceback.format_exc()
-    print type(inst)
-    print inst
+  except:
+    miscmethods.LogException()
 

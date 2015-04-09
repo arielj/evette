@@ -478,7 +478,7 @@ class DayCell(wx.Panel):
 			self.topsizer.Remove(self.daycellpanel)
 			self.daycellpanel.Destroy()
 		except:
-			pass
+			miscmethods.LogException()
 		
 		daycellpanel = wx.Panel(self, -1)
 		

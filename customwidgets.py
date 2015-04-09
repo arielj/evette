@@ -166,7 +166,7 @@ class DayPlannerListbox(wx.HtmlListBox):
       
     else:
       
-      pass
+      miscmethods.LogException()
     
     
   
@@ -1725,7 +1725,7 @@ class DateCtrl(wx.TextCtrl):
         
       except:
           
-        pass
+        miscmethods.LogException()
   
   def GetToday(self):
     
@@ -1981,7 +1981,7 @@ class DateCtrl(wx.TextCtrl):
       
       success = True
     except:
-      pass
+      miscmethods.LogException()
     
     if success == False:
       
@@ -2577,27 +2577,19 @@ class ReceiptSummaryListbox(ListCtrlWrapper):
     
     price = rowdata[1]
     
+    imageid = 2
+    colour = "green"
+    
     if price < 0:
-      
+
       imageid = 0
-      
-    elif price > 0:
-      
-      imageid = 1
-      
-    else:
-      
-      imageid = 2
-    
-    receiptid = rowdata[3]
-    
-    if price < 0:
-      
       colour = "red"
-      
-    else:
-      
-      colour = "green"
+
+    elif price > 0:
+
+      imageid = 1
+
+    receiptid = rowdata[3]
     
     currencyunit = self.t("currency")
     
@@ -2644,19 +2636,11 @@ class ReceiptSummaryListbox(ListCtrlWrapper):
       results1 = ()
       results2 = ()
     
-    results = results1 + results2
-    
-    results = list(results)
+    results = list(results1 + results2)
     
     results.sort()
     
-    newresults = [(self.fromdate, balance, "Balance", 0),]
-    
-    for a in results:
-      
-      newresults.append(a)
-    
-    results = newresults
+    results.insert(0,(self.fromdate, balance, self.t('clientbalancelabel'), 0))
     
     totalprice = 0
     

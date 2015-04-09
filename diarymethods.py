@@ -707,6 +707,6 @@ class DiaryNotePanel(wx.Panel):
 			try:
 				self.parent.diarylistbox.RefreshList()
 			except:
-				pass
+				miscmethods.LogException()
 		
 		self.notebook.ClosePage(self.notebook.activepage)
