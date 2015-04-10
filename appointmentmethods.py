@@ -144,6 +144,8 @@ class AppointmentPanel(wx.Panel):
     
     self.kennelid = appointmentdata.staying
     
+    self.dayplaner_step = 20
+    
     wx.Panel.__init__(self, notebook)
     
     self.viewappointmentspanel = False
@@ -299,7 +301,7 @@ class AppointmentPanel(wx.Panel):
     self.appointmentslistboxlabel = wx.StaticText(self, -1, appointmentslistboxlabeltext)
     self.appointmentslistboxlabel.SetFont(font)
     
-    self.appointmentslistbox = customwidgets.DayPlannerListbox(self, appointmentdata.localsettings, date, 20)
+    self.appointmentslistbox = customwidgets.DayPlannerListbox(self, appointmentdata.localsettings, date, self.dayplaner_step)
     self.appointmentslistbox.SetToolTipString(self.t("appointmentsummarylistboxtooltip"))
     self.appointmentslistbox.Bind(wx.EVT_LISTBOX_DCLICK, self.GetTime)
     
@@ -488,9 +490,7 @@ class AppointmentPanel(wx.Panel):
     date = self.appointmententry.GetValue()
     sqldate = miscmethods.GetSQLDateFromWXDate(date)
     
-    app_type = self.app_type_combo.GetSelection()
-    if app_type == -1:
-      app_type = 0
+    app_type = self.GetSelectionIdx()
 
     action = "SELECT ID FROM appointment WHERE appointment.Date = \"" + sqldate + "\" AND appointment.Operation = " + str(app_type)
     results = db.SendSQL(action, self.appointmentdata.localsettings.dbconnection)
@@ -503,7 +503,7 @@ class AppointmentPanel(wx.Panel):
   
   def SwitchToOps(self, ID=False):
     
-    app_type = self.app_type_combo.GetSelection()
+    app_type = self.GetSelectionIdx()
     date = self.appointmententry.GetValue()
     
     weekday = miscmethods.GetDayNameFromID(date.GetWeekDay(), self.appointmentdata.localsettings)
@@ -520,12 +520,15 @@ class AppointmentPanel(wx.Panel):
     
     self.RefreshAppointment()
     self.RefreshTotal()
+
+  def GetSelectionIdx(self):
+    app_type = self.app_type_combo.GetSelection()
+    return app_type if app_type != -1 else 0
   
   def Submit(self, ID):
+    app_type = self.GetSelectionIdx()
     
-    app_type = self.app_type_combo.GetSelection()
-    
-    if APPOINTMENT_TYPES[app_type]== 'operation':
+    if APPOINTMENT_TYPES[app_type] == 'operation':
       self.SubmitOperation(ID)
     else:
       self.SubmitAppointment(ID)
@@ -534,7 +537,7 @@ class AppointmentPanel(wx.Panel):
     self.appointmentdata.date = miscmethods.GetSQLDateFromWXDate(self.appointmententry.GetValue())
     self.appointmentdata.vet = self.vetcombobox.GetValue()
     self.appointmentdata.reason = self.reasonentry.GetValue()
-    self.appointmentdata.operation = self.app_type_combo.GetSelection()
+    self.appointmentdata.operation = self.GetSelectionIdx()
     
     self.appointmentdata.arrived = 0
     self.appointmentdata.withvet = 0
@@ -613,9 +616,7 @@ class AppointmentPanel(wx.Panel):
     datestring = miscmethods.GetDateFromWXDate(date)
     datestring = miscmethods.FormatDate(datestring, self.appointmentdata.localsettings)
     
-    app_type = self.app_type_combo.GetSelection()
-    if app_type == -1:
-      app_type = 0
+    app_type = self.GetSelectionIdx()
     
     appointmentslistboxlabeltext = self.t("appointment" + APPOINTMENT_TYPES[app_type] + "sforlabel") + " " + weekday + " " + str(datestring)
 
@@ -638,7 +639,7 @@ class AppointmentPanel(wx.Panel):
     openfromraw = results[0][2]
     openfromtime = ( int(str(openfromraw)[:2]) * 60 ) + int(str(openfromraw)[3:5])
     
-    appointmenttime = openfromtime + (listboxid * 10)
+    appointmenttime = openfromtime + (listboxid * self.dayplaner_step)
     appointmenttime = miscmethods.GetTimeFromMinutes(appointmenttime)[:5]
     
     self.appointmenttimeentry.SetValue(appointmenttime)

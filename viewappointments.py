@@ -264,17 +264,20 @@ class ViewAppointments(wx.Panel):
       frame.appointments = wx.Timer(frame, -1)
       frame.appointments.appointmentpanel = self
       frame.Bind(wx.EVT_TIMER, UpdateViewAppointments, frame.appointments)
-      
-      
-      
       frame.appointments.Start(timeinterval)
       
-    else:
+    elif operations == 1:
       
       frame.operationstimer = wx.Timer(frame, -1)
       frame.operationstimer.appointmentpanel = self
       frame.Bind(wx.EVT_TIMER, UpdateViewAppointments, frame.operationstimer)
       frame.operationstimer.Start(timeinterval)
+    
+    else:
+      frame.groomingstimer = wx.Timer(frame, -1)
+      frame.groomingstimer.appointmentpanel = self
+      frame.Bind(wx.EVT_TIMER, UpdateViewAppointments, frame.groomingstimer)
+      frame.groomingstimer.Start(timeinterval)
   
   def MarkArrived(self, ID):
     
