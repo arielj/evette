@@ -53,6 +53,9 @@ class ViewAppointments(wx.Panel):
     
     return self.localsettings.t(field,idx)
   
+  def __del__(self):
+    self.refreshtimer.Stop()
+  
   def __init__(self, notebook, localsettings, operations=0):
     
     busy = wx.BusyCursor()
@@ -202,7 +205,6 @@ class ViewAppointments(wx.Panel):
     notarrivedtotal = wx.StaticText(self, -1, self.t("totallabel") + ": 0")
     notarrivedsizer.Add(notarrivedtotal, 0, wx.ALIGN_RIGHT)
     
-    
     rightrightsizer.Add(notarrivedsizer, 1, wx.EXPAND)
     
     donespacer = wx.StaticText(self, -1, "", size=(-1,20))
@@ -251,34 +253,16 @@ class ViewAppointments(wx.Panel):
     #self.RefreshLists()
     
     #AutoUpdateViewAppointments(self)
-    UpdateViewAppointments(self)
+    self.UpdateViewAppointments(False)
     
     del busy
     
-    frame = notebook.GetGrandParent()
-    
     timeinterval = self.localsettings.appointmentrefresh * 1000#convert from seconds
     
-    if operations == 0:
+    self.refreshtimer = wx.Timer(self, -1)
+    self.Bind(wx.EVT_TIMER, self.UpdateViewAppointments, self.refreshtimer)
+    self.refreshtimer.Start(timeinterval)
       
-      frame.appointments = wx.Timer(frame, -1)
-      frame.appointments.appointmentpanel = self
-      frame.Bind(wx.EVT_TIMER, UpdateViewAppointments, frame.appointments)
-      frame.appointments.Start(timeinterval)
-      
-    elif operations == 1:
-      
-      frame.operationstimer = wx.Timer(frame, -1)
-      frame.operationstimer.appointmentpanel = self
-      frame.Bind(wx.EVT_TIMER, UpdateViewAppointments, frame.operationstimer)
-      frame.operationstimer.Start(timeinterval)
-    
-    else:
-      frame.groomingstimer = wx.Timer(frame, -1)
-      frame.groomingstimer.appointmentpanel = self
-      frame.Bind(wx.EVT_TIMER, UpdateViewAppointments, frame.groomingstimer)
-      frame.groomingstimer.Start(timeinterval)
-  
   def MarkArrived(self, ID):
     
     busy = wx.BusyCursor()
@@ -290,7 +274,7 @@ class ViewAppointments(wx.Panel):
     self.selectedappointmentdata.arrivaltime = datetime.datetime.today().strftime("%X")
     self.selectedappointmentdata.Submit()
     
-    UpdateViewAppointments(self)
+    self.UpdateViewAppointments(False)
     
     del busy
   
@@ -304,7 +288,7 @@ class ViewAppointments(wx.Panel):
     self.selectedappointmentdata.vet = self.vetcombobox.GetValue()
     self.selectedappointmentdata.Submit()
     
-    UpdateViewAppointments(self)
+    self.UpdateViewAppointments(False)
     
     del busy
   
@@ -318,7 +302,7 @@ class ViewAppointments(wx.Panel):
     self.selectedappointmentdata.vet = self.vetcombobox.GetValue()
     self.selectedappointmentdata.Submit()
     
-    UpdateViewAppointments(self)
+    self.UpdateViewAppointments(False)
     
     del busy
   
@@ -332,7 +316,7 @@ class ViewAppointments(wx.Panel):
     self.selectedappointmentdata.vet = self.vetcombobox.GetValue()
     self.selectedappointmentdata.Submit()
     
-    UpdateViewAppointments(self)
+    self.UpdateViewAppointments(False)
     
     del busy
   
@@ -433,7 +417,7 @@ class ViewAppointments(wx.Panel):
     
     medicationmethods.ShopSale(self, self.selectedappointmentdata.clientdata.ID, self.localsettings)
     
-    UpdateViewAppointments(self)
+    self.UpdateViewAppointments(False)
   
   def ViewVetNotes(self, ID):
     
@@ -514,7 +498,7 @@ class ViewAppointments(wx.Panel):
     
     panel.GetParent().Close()
     
-    UpdateViewAppointments(self)
+    self.UpdateViewAppointments(False)
     
   
   def CreateAppointmentFromMenu(self, ID):
@@ -527,7 +511,7 @@ class ViewAppointments(wx.Panel):
   def DeSelectAppointment(self, ID):
     
     self.selectedappointmentdata = False
-    UpdateViewAppointments(self)
+    self.UpdateViewAppointments(False)
   
   def EditAppointmentFromMenu(self, ID):
     
@@ -718,118 +702,98 @@ class ViewAppointments(wx.Panel):
     clientpanel.viewappointmentspanel = self
     
     self.notebook.AddPage(clientpanel)
+    
+  def UpdateViewAppointments(self, event, force=False):
+    print "entra a update!!"
+  
+    date = datetime.datetime.today().strftime("%A %d %B %Y").decode('utf-8')
+    sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
+    timestring = datetime.datetime.today().strftime("%X")[:5]
+    
+    action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND \"" + timestring + ":00\" BETWEEN TimeOn AND TimeOff AND Operating = " + str(self.operations) + " AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
+    
+    results = db.SendSQL(action, self.localsettings.dbconnection)
+    
+    self.vetlist = self.localsettings.GetVetsNames()
+    
+    vets = ', '.join(self.vetlist)
+    
+    self.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + timestring + "</b></font></center><br><font size=1><u>" + self.t("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
+    
+    for a in range(0, 4):
+      
+      index = a
+    
+      action = "SELECT appointment.ID, appointment.Time, animal.ID, animal.Name, client.ClientSurname, animal.Sex, animal.Neutered, animal.Species, animal.Breed, animal.Comments, client.ClientComments, appointment.AppointmentReason, animal.DOB, client.ClientTitle, appointment.Vet, client.ID, animal.ASMRef, appointment.ArrivalTime FROM appointment INNER JOIN animal ON appointment.AnimalID = animal.ID INNER JOIN client ON animal.OwnerID = client.ID WHERE appointment.Operation = " + str(self.operations) + " AND appointment.Date = \"" + sqldate + "\""
+      
+      if index == 0:
+        
+        action = action + " AND appointment.Arrived = 0"
+        
+      elif index == 1:
+        
+        action = action + " AND appointment.Arrived = 1 AND appointment.WithVet = 0 AND appointment.done = 0"
+        
+      elif index == 2:
+        
+        action = action + " AND appointment.WithVet = 1"
+        
+      else:
+        
+        action = action + " AND appointment.Done = 1"
+      
+      action = action + " AND appointment.Staying = 0 ORDER BY appointment.Time"
+
+      if index == 0:
+        self.notarrivedlistbox.htmllist = db.SendSQL(action, self.localsettings.dbconnection)
+        
+      elif index == 1:
+        self.waitinglistbox.htmllist = db.SendSQL(action, self.localsettings.dbconnection)
+
+      elif index == 2:
+        self.withvetlistbox.htmllist = db.SendSQL(action, self.localsettings.dbconnection)
+      else:
+        results = db.SendSQL(action, self.localsettings.dbconnection)
+        
+        htmllist = []
+        
+        for b in results:
+          
+          clientid = b[15]
+          
+          clientdata = clientmethods.ClientSettings(self.localsettings, clientid)
+          
+          balance = miscmethods.GetBalance(clientdata, self.localsettings)
+          
+          #if balance < 0:
+            
+            #colour = "red"
+            
+          #else:
+            
+            #colour = "green"
+          
+          balance = miscmethods.FormatPrice(balance)
+          
+          #balance = "<font size=2 color=" + colour + ">&nbsp;" + self.t("currency") + balance + "</font>"
+          
+          listitem = list(b)
+          
+          listitem.append(balance)
+          
+          htmllist.append(listitem)
+        
+        self.donelistbox.htmllist = htmllist
+    
+    busy = wx.BusyCursor()
+    
+    self.RefreshLists()
+    
+    del busy
 
 def UpdateMessage(ID):
   
   appointmentpanel = ID.GetEventObject().appointmentpanel
   
   #print "appointmentpanel = " + str(appointmentpanel)
-
-def UpdateViewAppointments(ID, force=False):
-
-  try:
-    appointmentpanel = ID.GetEventObject().appointmentpanel
-  except:
-    appointmentpanel = ID
-  
-  try:
-
-    if appointmentpanel.IsShown() or force == True:
-      
-      #print "updating view appointments " + datetime.datetime.today().strftime("%H:%M:%S")
-      
-      date = datetime.datetime.today().strftime("%A %d %B %Y").decode('utf-8')
-      sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
-      timestring = datetime.datetime.today().strftime("%X")[:5]
-      
-      action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND \"" + timestring + ":00\" BETWEEN TimeOn AND TimeOff AND Operating = " + str(appointmentpanel.operations) + " AND Position = \"" + appointmentpanel.t("vetpositiontitle") + "\" ORDER BY Name"
-      
-      results = db.SendSQL(action, appointmentpanel.localsettings.dbconnection)
-      
-      vets = ""
-      
-      appointmentpanel.vetlist = []
-      
-      for a in results:
-        
-        vets = vets + a[0] + ", "
-        appointmentpanel.vetlist.append(a[0])
-      
-      vets = vets[:-2]
-      
-      appointmentpanel.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + timestring + "</b></font></center><br><font size=1><u>" + appointmentpanel.t("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
-      
-      for a in range(0, 4):
-        
-        index = a
-      
-        action = "SELECT appointment.ID, appointment.Time, animal.ID, animal.Name, client.ClientSurname, animal.Sex, animal.Neutered, animal.Species, animal.Breed, animal.Comments, client.ClientComments, appointment.AppointmentReason, animal.DOB, client.ClientTitle, appointment.Vet, client.ID, animal.ASMRef, appointment.ArrivalTime FROM appointment INNER JOIN animal ON appointment.AnimalID = animal.ID INNER JOIN client ON animal.OwnerID = client.ID WHERE appointment.Operation = " + str(appointmentpanel.operations) + " AND appointment.Date = \"" + sqldate + "\""
-        
-        if index == 0:
-          
-          action = action + " AND appointment.Arrived = 0"
-          
-        elif index == 1:
-          
-          action = action + " AND appointment.Arrived = 1 AND appointment.WithVet = 0 AND appointment.done = 0"
-          
-        elif index == 2:
-          
-          action = action + " AND appointment.WithVet = 1"
-          
-        else:
-          
-          action = action + " AND appointment.Done = 1"
-        
-        action = action + " AND appointment.Staying = 0 ORDER BY appointment.Time"
-
-        if index == 0:
-          appointmentpanel.notarrivedlistbox.htmllist = db.SendSQL(action, appointmentpanel.localsettings.dbconnection)
-          
-        elif index == 1:
-          appointmentpanel.waitinglistbox.htmllist = db.SendSQL(action, appointmentpanel.localsettings.dbconnection)
-
-        elif index == 2:
-          appointmentpanel.withvetlistbox.htmllist = db.SendSQL(action, appointmentpanel.localsettings.dbconnection)
-        else:
-          results = db.SendSQL(action, appointmentpanel.localsettings.dbconnection)
-          
-          htmllist = []
-          
-          for b in results:
-            
-            clientid = b[15]
-            
-            clientdata = clientmethods.ClientSettings(appointmentpanel.localsettings, clientid)
-            
-            balance = miscmethods.GetBalance(clientdata, appointmentpanel.localsettings)
-            
-            #if balance < 0:
-              
-              #colour = "red"
-              
-            #else:
-              
-              #colour = "green"
-            
-            balance = miscmethods.FormatPrice(balance)
-            
-            #balance = "<font size=2 color=" + colour + ">&nbsp;" + appointmentpanel.t("currency") + balance + "</font>"
-            
-            listitem = list(b)
-            
-            listitem.append(balance)
-            
-            htmllist.append(listitem)
-          
-          appointmentpanel.donelistbox.htmllist = htmllist
-      
-      busy = wx.BusyCursor()
-      
-      appointmentpanel.RefreshLists()
-      
-      del busy
-    
-  except:
-    miscmethods.LogException()
 
