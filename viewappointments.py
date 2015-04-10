@@ -66,8 +66,7 @@ class ViewAppointments(wx.Panel):
     
     self.selectedappointmentdata = False
     
-    date = datetime.datetime.today().strftime("%A %d %B %Y").decode('utf-8')
-    sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
+    [date, sqldate, time] = self.GetDatesAndTime()
     
     action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND Operating = " + str(operations) + " AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
     results = db.SendSQL(action, self.localsettings.dbconnection)
@@ -533,21 +532,14 @@ class ViewAppointments(wx.Panel):
     wx.CallAfter(self.notebook.AddPage, vetpanel)
     
   def RefreshLists(self, ID=False):
-    
-    date = datetime.datetime.today().strftime("%A %d %B %Y").decode('utf-8')
-    sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
-    time = datetime.datetime.today().strftime("%X")[:5]
+  
+    [date, sqldate, time] = self.GetDatesAndTime()
     
     action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND \"" + time + ":00\" BETWEEN TimeOn AND TimeOff AND Operating = " + str(self.operations) + " AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
     results = db.SendSQL(action, self.localsettings.dbconnection)
     
-    vets = ""
-    self.vetlist = []
-    
-    for a in results:
-      vets = vets + a[0] + ", "
-      self.vetlist.append(a[0])
-    vets = vets[:-2]
+    self.vetlist = self.localsettings.GetVetsNames()
+    vets = ', '.join(self.vetlist)
     
     self.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + time + "</b></font></center><br><font size=1><u>" + self.t("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
     
@@ -567,17 +559,18 @@ class ViewAppointments(wx.Panel):
             self.selectedappointmentdata = appointmentmethods.AppointmentSettings(self.localsettings, False, self.selectedappointmentdata.ID)
             a.listctrl.SetFocus()
       
+      label = self.t("totallabel") + ": " + str(len(a.htmllist))
       if a == self.notarrivedlistbox:
-        self.notarrivedtotal.SetLabel(self.t("totallabel") + ": " + str(len(a.htmllist)))
+        self.notarrivedtotal.SetLabel(label)
         self.notarrivedsizer.Layout()
       elif a == self.waitinglistbox:
-        self.waitingtotal.SetLabel(self.t("totallabel") + ": " + str(len(a.htmllist)))
+        self.waitingtotal.SetLabel(label)
         self.waitingsizer.Layout()
       elif a == self.withvetlistbox:
-        self.withvettotal.SetLabel(self.t("totallabel") + ": " + str(len(a.htmllist)))
+        self.withvettotal.SetLabel(label)
         self.withvetsizer.Layout()
       elif a == self.donelistbox:
-        self.donetotal.SetLabel(self.t("totallabel") + ": " + str(len(a.htmllist)))
+        self.donetotal.SetLabel(label)
         self.donesizer.Layout()
     
     if self.notarrivedlistbox.GetSelection() > -1:
@@ -701,16 +694,13 @@ class ViewAppointments(wx.Panel):
     self.notebook.AddPage(clientpanel)
     
   def UpdateViewAppointments(self, event, force=False):
-    date = datetime.datetime.today().strftime("%A %d %B %Y").decode('utf-8')
-    sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
-    timestring = datetime.datetime.today().strftime("%X")[:5]
+    [date,sqldate,timestring] = self.GetDatesAndTime()
     
     action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND \"" + timestring + ":00\" BETWEEN TimeOn AND TimeOff AND Operating = " + str(self.operations) + " AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
     
     results = db.SendSQL(action, self.localsettings.dbconnection)
     
     self.vetlist = self.localsettings.GetVetsNames()
-    
     vets = ', '.join(self.vetlist)
     
     self.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + timestring + "</b></font></center><br><font size=1><u>" + self.t("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
@@ -785,6 +775,13 @@ class ViewAppointments(wx.Panel):
     self.RefreshLists()
     
     del busy
+
+  def GetDatesAndTime(self):
+    date = datetime.datetime.today().strftime("%A %d %B %Y").decode('utf-8')
+    sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
+    time = datetime.datetime.today().strftime("%X")[:5]
+    return [date,sqldate,time]
+
 
 def UpdateMessage(ID):
   
