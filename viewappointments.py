@@ -250,9 +250,6 @@ class ViewAppointments(wx.Panel):
     self.withvetsizer = withvetsizer
     self.donesizer = donesizer
     
-    #self.RefreshLists()
-    
-    #AutoUpdateViewAppointments(self)
     self.UpdateViewAppointments(False)
     
     del busy
@@ -704,8 +701,6 @@ class ViewAppointments(wx.Panel):
     self.notebook.AddPage(clientpanel)
     
   def UpdateViewAppointments(self, event, force=False):
-    print "entra a update!!"
-  
     date = datetime.datetime.today().strftime("%A %d %B %Y").decode('utf-8')
     sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
     timestring = datetime.datetime.today().strftime("%X")[:5]
