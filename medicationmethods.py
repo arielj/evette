@@ -312,23 +312,23 @@ class EditMedicationPanel(wx.Panel):
     medicationdata["unitprice"] = "0.00"
     medicationdata["costprice"] = "0.00"
     
-    if self.medicationsearchpanel.medicationcheckbox.GetValue() == True:
+    if self.medicationsearchpanel.medicationradio.GetValue() == True:
       
       medicationdata["type"] = 0
       
-    elif self.medicationsearchpanel.vaccinationcheckbox.GetValue() == True:
+    elif self.medicationsearchpanel.vaccinationradio.GetValue() == True:
       
       medicationdata["type"] = 1
       
-    elif self.medicationsearchpanel.consumablecheckbox.GetValue() == True:
+    elif self.medicationsearchpanel.consumableradio.GetValue() == True:
       
       medicationdata["type"] = 2
       
-    elif self.medicationsearchpanel.shopcheckbox.GetValue() == True:
+    elif self.medicationsearchpanel.shopradio.GetValue() == True:
       
       medicationdata["type"] = 3
       
-    elif self.medicationsearchpanel.chipcheckbox.GetValue() == True:
+    elif self.medicationsearchpanel.chipradio.GetValue() == True:
       
       medicationdata["type"] = 4
     else:
@@ -491,50 +491,45 @@ class EditMedicationPanel(wx.Panel):
     
     medicationentrysizer4 = wx.GridSizer(cols=3)
     
-    medicationcheckbox = wx.CheckBox(panel, -1, self.t("randomdatamedicationlabel"))
-    medicationcheckbox.SetFont(font)
-    medicationcheckbox.Bind(wx.EVT_CHECKBOX, self.TypeChanged)
-    medicationentrysizer4.Add(medicationcheckbox, 0, wx.EXPAND)
+    medicationradio = wx.RadioButton(panel, -1, self.t("randomdatamedicationlabel"), style = wx.RB_GROUP)
+    medicationradio.SetFont(font)
+    medicationentrysizer4.Add(medicationradio, 0, wx.EXPAND)
     
-    vaccinationcheckbox = wx.CheckBox(panel, -1, self.t("vaccinationsvaccinelabel"))
-    vaccinationcheckbox.SetFont(font)
-    vaccinationcheckbox.Bind(wx.EVT_CHECKBOX, self.TypeChanged)
-    medicationentrysizer4.Add(vaccinationcheckbox, 0, wx.EXPAND)
+    vaccinationradio = wx.RadioButton(panel, -1, self.t("vaccinationsvaccinelabel"))
+    vaccinationradio.SetFont(font)
+    medicationentrysizer4.Add(vaccinationradio, 0, wx.EXPAND)
     
-    consumablecheckbox = wx.CheckBox(panel, -1, self.t("consumablelabel"))
-    consumablecheckbox.SetFont(font)
-    consumablecheckbox.Bind(wx.EVT_CHECKBOX, self.TypeChanged)
-    medicationentrysizer4.Add(consumablecheckbox, 0, wx.EXPAND)
+    consumableradio = wx.RadioButton(panel, -1, self.t("consumablelabel"))
+    consumableradio.SetFont(font)
+    medicationentrysizer4.Add(consumableradio, 0, wx.EXPAND)
     
-    shopcheckbox = wx.CheckBox(panel, -1, self.t("shoplabel"))
-    shopcheckbox.SetFont(font)
-    shopcheckbox.Bind(wx.EVT_CHECKBOX, self.TypeChanged)
-    medicationentrysizer4.Add(shopcheckbox, 0, wx.EXPAND)
+    shopradio = wx.RadioButton(panel, -1, self.t("shoplabel"))
+    shopradio.SetFont(font)
+    medicationentrysizer4.Add(shopradio, 0, wx.EXPAND)
     
-    chipcheckbox = wx.CheckBox(panel, -1, self.t("microchiplabel"))
-    chipcheckbox.SetFont(font)
-    chipcheckbox.Bind(wx.EVT_CHECKBOX, self.TypeChanged)
-    medicationentrysizer4.Add(chipcheckbox, 0, wx.EXPAND)
+    chipradio = wx.RadioButton(panel, -1, self.t("microchiplabel"))
+    chipradio.SetFont(font)
+    medicationentrysizer4.Add(chipradio, 0, wx.EXPAND)
     
     if medicationdata["type"] == 0:
       
-      medicationcheckbox.SetValue(True)
+      medicationradio.SetValue(True)
       
     elif medicationdata["type"] == 1:
       
-      vaccinationcheckbox.SetValue(True)
+      vaccinationradio.SetValue(True)
       
     elif medicationdata["type"] == 2:
       
-      consumablecheckbox.SetValue(True)
+      consumableradio.SetValue(True)
       
     elif medicationdata["type"] == 3:
       
-      shopcheckbox.SetValue(True)
+      shopradio.SetValue(True)
       
     else:
       
-      chipcheckbox.SetValue(True)
+      chipradio.SetValue(True)
     
     topsizer.Add(medicationentrysizer1, 0, wx.EXPAND)
     topsizer.Add(medicationentrysizer2, 0, wx.EXPAND)
@@ -555,11 +550,11 @@ class EditMedicationPanel(wx.Panel):
     panel.batchnoentry = batchnoentry
     panel.reorderentry = reorderentry
     panel.expiryentry = expiryentry
-    panel.medicationcheckbox = medicationcheckbox
-    panel.vaccinationcheckbox = vaccinationcheckbox
-    panel.consumablecheckbox = consumablecheckbox
-    panel.shopcheckbox = shopcheckbox
-    panel.chipcheckbox = chipcheckbox
+    panel.medicationradio = medicationradio
+    panel.vaccinationradio = vaccinationradio
+    panel.consumableradio = consumableradio
+    panel.shopradio = shopradio
+    panel.chipradio = chipradio
     
     dialogsizer.Add(panel, 1, wx.EXPAND)
     
@@ -719,19 +714,6 @@ class EditMedicationPanel(wx.Panel):
       
       ID.Skip()
   
-  def TypeChanged(self, ID):
-    
-    eventobject = ID.GetEventObject()
-    panel = eventobject.GetParent()
-    
-    panel.medicationcheckbox.SetValue(False)
-    panel.vaccinationcheckbox.SetValue(False)
-    panel.consumablecheckbox.SetValue(False)
-    panel.shopcheckbox.SetValue(False)
-    panel.chipcheckbox.SetValue(False)
-    
-    eventobject.SetValue(True)
-  
   def MedicationChangeLog(self, ID):
     
     if self.selectedmedicationid > -1:
@@ -833,19 +815,19 @@ class EditMedicationPanel(wx.Panel):
     medicationdata.batchno = parent.batchnoentry.GetValue()
     
     
-    if parent.medicationcheckbox.GetValue() == True:
+    if parent.medicationradio.GetValue() == True:
       
       medicationdata.consumabletype = 0
       
-    elif parent.vaccinationcheckbox.GetValue() == True:
+    elif parent.vaccinationradio.GetValue() == True:
       
       medicationdata.consumabletype = 1
       
-    elif parent.consumablecheckbox.GetValue() == True:
+    elif parent.consumableradio.GetValue() == True:
       
       medicationdata.consumabletype = 2
       
-    elif parent.shopcheckbox.GetValue() == True:
+    elif parent.shopradio.GetValue() == True:
       
       medicationdata.consumabletype = 3
     else:
@@ -1512,35 +1494,35 @@ class MedicationSearchPanel(wx.Panel):
     checkboxsizer.Add(checkboxspacer1, 0, wx.EXPAND)
     checkboxsizer.Add(checkboxspacer2, 0, wx.EXPAND)
     
-    medicationcheckbox = wx.CheckBox(self, -1, self.t("randomdatamedicationlabel"))
-    medicationcheckbox.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
-    medicationcheckbox.SetFont(font)
-    medicationcheckbox.SetValue(True)
-    checkboxsizer.Add(medicationcheckbox, 0, wx.EXPAND)
+    medicationradio = wx.CheckBox(self, -1, self.t("randomdatamedicationlabel"))
+    medicationradio.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
+    medicationradio.SetFont(font)
+    medicationradio.SetValue(True)
+    checkboxsizer.Add(medicationradio, 0, wx.EXPAND)
     
-    vaccinationcheckbox = wx.CheckBox(self, -1, self.t("vaccinationsvaccinelabel"))
-    vaccinationcheckbox.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
-    vaccinationcheckbox.SetFont(font)
-    vaccinationcheckbox.SetValue(True)
-    checkboxsizer.Add(vaccinationcheckbox, 0, wx.EXPAND)
+    vaccinationradio = wx.CheckBox(self, -1, self.t("vaccinationsvaccinelabel"))
+    vaccinationradio.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
+    vaccinationradio.SetFont(font)
+    vaccinationradio.SetValue(True)
+    checkboxsizer.Add(vaccinationradio, 0, wx.EXPAND)
     
-    consumablecheckbox = wx.CheckBox(self, -1, self.t("consumablelabel"))
-    consumablecheckbox.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
-    consumablecheckbox.SetFont(font)
-    consumablecheckbox.SetValue(True)
-    checkboxsizer.Add(consumablecheckbox, 0, wx.EXPAND)
+    consumableradio = wx.CheckBox(self, -1, self.t("consumablelabel"))
+    consumableradio.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
+    consumableradio.SetFont(font)
+    consumableradio.SetValue(True)
+    checkboxsizer.Add(consumableradio, 0, wx.EXPAND)
     
-    shopcheckbox = wx.CheckBox(self, -1, self.t("shoplabel"))
-    shopcheckbox.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
-    shopcheckbox.SetFont(font)
-    shopcheckbox.SetValue(True)
-    checkboxsizer.Add(shopcheckbox, 0, wx.EXPAND)
+    shopradio = wx.CheckBox(self, -1, self.t("shoplabel"))
+    shopradio.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
+    shopradio.SetFont(font)
+    shopradio.SetValue(True)
+    checkboxsizer.Add(shopradio, 0, wx.EXPAND)
     
-    chipcheckbox = wx.CheckBox(self, -1, self.t("microchiplabel"))
-    chipcheckbox.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
-    chipcheckbox.SetFont(font)
-    chipcheckbox.SetValue(True)
-    checkboxsizer.Add(chipcheckbox, 0, wx.EXPAND)
+    chipradio = wx.CheckBox(self, -1, self.t("microchiplabel"))
+    chipradio.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
+    chipradio.SetFont(font)
+    chipradio.SetValue(True)
+    checkboxsizer.Add(chipradio, 0, wx.EXPAND)
     
     runninglowentry = wx.CheckBox(self, -1, self.t("runninglowlabel"))
     runninglowentry.Bind(wx.EVT_CHECKBOX, self.parent.RefreshMedicationList)
@@ -1560,11 +1542,11 @@ class MedicationSearchPanel(wx.Panel):
     self.nameentry = nameentry
     self.descriptionentry = descriptionentry
     self.runninglowentry = runninglowentry
-    self.shopcheckbox = shopcheckbox
-    self.medicationcheckbox = medicationcheckbox
-    self.vaccinationcheckbox = vaccinationcheckbox
-    self.consumablecheckbox = consumablecheckbox
-    self.chipcheckbox = chipcheckbox
+    self.shopradio = shopradio
+    self.medicationradio = medicationradio
+    self.vaccinationradio = vaccinationradio
+    self.consumableradio = consumableradio
+    self.chipradio = chipradio
   
   def KeyStroke(self, ID):
     
@@ -1581,11 +1563,11 @@ class MedicationSearchPanel(wx.Panel):
     self.nameentry.Clear()
     self.descriptionentry.Clear()
     self.runninglowentry.SetValue(False)
-    self.shopcheckbox.SetValue(True)
-    self.medicationcheckbox.SetValue(True)
-    self.vaccinationcheckbox.SetValue(True)
-    self.consumablecheckbox.SetValue(True)
-    self.chipcheckbox.SetValue(True)
+    self.shopradio.SetValue(True)
+    self.medicationradio.SetValue(True)
+    self.vaccinationradio.SetValue(True)
+    self.consumableradio.SetValue(True)
+    self.chipradio.SetValue(True)
 
 class ShopSale(wx.Dialog):
   

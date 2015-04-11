@@ -593,11 +593,11 @@ class MedicationListbox(wx.HtmlListBox):
     name = self.parent.medicationsearchpanel.nameentry.GetValue()
     description = self.parent.medicationsearchpanel.descriptionentry.GetValue()
     
-    shop = self.parent.medicationsearchpanel.shopcheckbox.GetValue()
-    medication = self.parent.medicationsearchpanel.medicationcheckbox.GetValue()
-    vaccination = self.parent.medicationsearchpanel.vaccinationcheckbox.GetValue()
-    consumable = self.parent.medicationsearchpanel.consumablecheckbox.GetValue()
-    chip = self.parent.medicationsearchpanel.chipcheckbox.GetValue()
+    shop = self.parent.medicationsearchpanel.shopradio.GetValue()
+    medication = self.parent.medicationsearchpanel.medicationradio.GetValue()
+    vaccination = self.parent.medicationsearchpanel.vaccinationradio.GetValue()
+    consumable = self.parent.medicationsearchpanel.consumableradio.GetValue()
+    chip = self.parent.medicationsearchpanel.chipradio.GetValue()
     
     runninglow = self.parent.medicationsearchpanel.runninglowentry.GetValue()
     
