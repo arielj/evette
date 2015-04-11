@@ -601,64 +601,34 @@ class MedicationListbox(wx.HtmlListBox):
     
     runninglow = self.parent.medicationsearchpanel.runninglowentry.GetValue()
     
-    if name == "" and description == "":
+    action = "SELECT * FROM medication"
     
-      action = "SELECT * FROM medication"
+    where_conditions = []
+    if name:
+      where_conditions.append("Name LIKE '%" + name + "%'")
       
-    else:
-      action = "SELECT * FROM medication WHERE Name LIKE \"%" + name + "%\" AND Description LIKE \"%" + description + "%\""
+    if description:
+      where_conditions.append("Description LIKE '%" + description + "%'")
     
-    if shop == False or medication == False or vaccination == False or consumable == False:
-      
-      if action == "SELECT * FROM medication":
-        
-        action = action + " WHERE "
-        
-      else:
-        
-        action = action + " AND "
-      
-      checkboxarguments = ""
-      
-      if medication == False:
-        
-        checkboxarguments = "Type != 0"
-      
-      if vaccination == False:
-        
-        if checkboxarguments != "":
-          
-          checkboxarguments = checkboxarguments + " AND "
-        
-        checkboxarguments = checkboxarguments + "Type != 1"
-      
-      if consumable == False:
-        
-        if checkboxarguments != "":
-          
-          checkboxarguments = checkboxarguments + " AND "
-        
-        checkboxarguments = checkboxarguments + "Type != 2"
-      
-      if shop == False:
-        
-        if checkboxarguments != "":
-          
-          checkboxarguments = checkboxarguments + " AND "
-        
-        checkboxarguments = checkboxarguments + "Type != 3"
-      
-      if chip == False:
-        
-        if checkboxarguments != "":
-          
-          checkboxarguments = checkboxarguments + " AND "
-        
-        checkboxarguments = checkboxarguments + "Type != 4"
+    if medication == False:
+      where_conditions.append("Type != 0")
     
-      action = action + checkboxarguments
+    if vaccination == False:
+      where_conditions.append("Type != 1")
     
-    action = action + " ORDER BY Name"
+    if consumable == False:
+      where_conditions.append("Type != 2")
+    
+    if shop == False:
+      where_conditions.append("Type != 3")
+    
+    if chip == False:
+      where_conditions.append("Type != 4")
+    
+    if where_conditions:
+      action += " WHERE " + " AND ".join(where_conditions)
+    
+    action += " ORDER BY Name"
     
     results = db.SendSQL(action, self.localsettings.dbconnection)
     
