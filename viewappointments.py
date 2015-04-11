@@ -538,7 +538,7 @@ class ViewAppointments(wx.Panel):
     action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND \"" + time + ":00\" BETWEEN TimeOn AND TimeOff AND Operating = " + str(self.operations) + " AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
     results = db.SendSQL(action, self.localsettings.dbconnection)
     
-    self.vetlist = self.localsettings.GetVetsNames()
+    self.vetlist = map(lambda x: x[0], results)
     vets = ', '.join(self.vetlist)
     
     self.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + time + "</b></font></center><br><font size=1><u>" + self.t("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
@@ -700,7 +700,7 @@ class ViewAppointments(wx.Panel):
     
     results = db.SendSQL(action, self.localsettings.dbconnection)
     
-    self.vetlist = self.localsettings.GetVetsNames()
+    self.vetlist = map(lambda x: x[0], results)
     vets = ', '.join(self.vetlist)
     
     self.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + timestring + "</b></font></center><br><font size=1><u>" + self.t("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
