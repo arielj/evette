@@ -1016,6 +1016,10 @@ def GetDictionary():
     "Sunday",
     u"Domingo"
     )
+  dictionary["daynames"] = (
+    ('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'),
+    (u"Domingo",u"Lunes",u"Martes",u"Miércoles",u"Jueves",u"Viernes",u"Sábado")
+  )
 
 
   ##Procedures
@@ -1871,6 +1875,10 @@ def GetDictionary():
     "December",
     u"Diciembre"
     )
+  dictionary["monthnames"] = (
+    ("January","February","March","April","May","June","July","August","September","October","November","December"),
+    (u"Enero",u"Febrero",u"Marzo",u"Abril",u"Mayo",u"Junio",u"Julio",u"Agosto",u"Septiembre",u"Octubre",u"Noviembre", u"Diciembre")
+  )
   dictionary["readfileassociationhelpmessage"] = (
     "To learn about file associations - visit the help section.",
     u"Para saber más sobre asociaciones de archivos, visite la sección de ayuda"
