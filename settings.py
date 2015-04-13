@@ -102,6 +102,7 @@ class settings:
       self.markuproundto = results[0][12]
       self.asmvaccinationid = results[0][13]
       self.prescriptionfee = results[0][14]
+      self.handle_rota_by_day = results[0][15]
       
       action = "SELECT * FROM user WHERE ID = " + str(self.userid)
       results = db.SendSQL(action, connection)
@@ -158,6 +159,23 @@ class settings:
     results = db.SendSQL(action, self.dbconnection)
 
     return map(lambda a: a[0], results)
+  
+  def GetVetsByDateAndTime(self, date, time_str, operations):
+    if self.handle_rota_by_day:
+
+      action = "SELECT Name FROM staff WHERE Date = \"" + date + "\" AND \"" + time_str + ":00\" BETWEEN TimeOn AND TimeOff AND Operating = " + str(operations) + " AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
+
+    else:
+      days = ['mon','tue','wed','thu','fri','sat','sun']
+      day = time.strptime(date,"%Y-%m-%d").tm_wday
+      day = days[day]
+      time_str = time_str.replace(':','')
+      
+      action = "SELECT Name FROM user WHERE Position = '" + self.t("vetpositiontitle") + "' AND " + day + "_from <= '" + time_str + "' AND " + day + "_to >= '" + time_str + "' ORDER BY Name"
+
+    results = db.SendSQL(action, self.dbconnection)
+    
+    return map(lambda x: x[0], results)
 
 def CreateConfFile():
   
@@ -239,6 +257,7 @@ class SettingsPanel(wx.Panel):
     openfrom = results[0][2]
     opento = results[0][3]
     operationtime = results[0][4]
+    handle_rota_by_day = results[0][15]
     practiceaddress = results[0][5]
     practicepostcode = results[0][6]
     practicetelephone = results[0][7]
@@ -326,6 +345,11 @@ class SettingsPanel(wx.Panel):
     
     operationtimeentry = wx.TextCtrl(self, -1, operationtime)
     middlesizer.Add(operationtimeentry, 0, wx.EXPAND)
+    
+    handle_rota_by_day_check = wx.CheckBox(self, -1, self.t("settingshandlerotabydaylabel") + ": ", style = wx.ALIGN_RIGHT)
+    handle_rota_by_day_check.SetToolTipString(self.t("settingshandlerotabydaytooltip"))
+    handle_rota_by_day_check.SetValue(handle_rota_by_day == 1)
+    middlesizer.Add(handle_rota_by_day_check, 0, wx.EXPAND)
     
     prescriptionfeelabel = wx.StaticText(self, -1, self.t("prescriptionfeelabel") + ": ")
     prescriptionfeelabel.SetFont(font)
@@ -432,6 +456,7 @@ class SettingsPanel(wx.Panel):
     self.openfromentry = openfromentry
     self.opentoentry = opentoentry
     self.operationtimeentry = operationtimeentry
+    self.handle_rota_by_day_check = handle_rota_by_day_check
     self.asmshelterentry = asmshelterentry
     self.asmvaccinationentry = asmvaccinationentry
     self.asmvaccinationbutton = asmvaccinationbutton
@@ -519,6 +544,7 @@ class SettingsPanel(wx.Panel):
     telephone = self.telephoneentry.GetValue()
     email = self.emailentry.GetValue()
     website = self.websiteentry.GetValue()
+    handle_rota_by_day = str(int(self.handle_rota_by_day_check.GetValue()))
     
     prescriptionfee = miscmethods.ConvertPriceToPennies(self.prescriptionfeeentry.GetValue())
     
@@ -551,7 +577,7 @@ class SettingsPanel(wx.Panel):
       #out.write(self.localsettings.dbip + "\n" + self.localsettings.dbuser + "\n" + self.localsettings.dbpass + "\n\n" + self.localsettings.lastuser + "\n" + str(language))
       #out.close()
     
-    action = "UPDATE settings SET PracticeName = \"" + name + "\", PracticeAddress = \"" + address + "\", PracticePostcode = \"" + postcode + "\", PracticeTelephone = \"" + telephone + "\", PracticeEmail = \"" + email + "\", PracticeWebsite = \"" + website + "\", OpenFrom = \"" + openfrom + "\", OpenTo = \"" + opento + "\", OperationTime = \"" + operationtime + "\", PrescriptionFee = " + str(prescriptionfee)
+    action = "UPDATE settings SET PracticeName = \"" + name + "\", PracticeAddress = \"" + address + "\", PracticePostcode = \"" + postcode + "\", PracticeTelephone = \"" + telephone + "\", PracticeEmail = \"" + email + "\", PracticeWebsite = \"" + website + "\", OpenFrom = \"" + openfrom + "\", OpenTo = \"" + opento + "\", OperationTime = \"" + operationtime + "\", PrescriptionFee = " + str(prescriptionfee) + ", handle_rota_by_day = " + handle_rota_by_day
     
     db.SendSQL(action, self.localsettings.dbconnection)
     

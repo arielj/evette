@@ -68,12 +68,7 @@ class ViewAppointments(wx.Panel):
     
     [date, sqldate, time] = self.GetDatesAndTime()
     
-    action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND Operating = " + str(operations) + " AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
-    results = db.SendSQL(action, self.localsettings.dbconnection)
-        
-    self.vetlist = []
-    for a in results:
-      self.vetlist.append(a[0])
+    self.vetlist = self.localsettings.GetVetsByDateAndTime(sqldate,time,operations)
 
     if len(self.vetlist) == 0:
       self.vetlist = self.localsettings.GetVetsNames()
@@ -535,10 +530,7 @@ class ViewAppointments(wx.Panel):
   
     [date, sqldate, time] = self.GetDatesAndTime()
     
-    action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND \"" + time + ":00\" BETWEEN TimeOn AND TimeOff AND Operating = " + str(self.operations) + " AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
-    results = db.SendSQL(action, self.localsettings.dbconnection)
-    
-    self.vetlist = map(lambda x: x[0], results)
+    self.vetlist = self.localsettings.GetVetsByDateAndTime(sqldate,time,self.operations)
     vets = ', '.join(self.vetlist)
     
     self.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + time + "</b></font></center><br><font size=1><u>" + self.t("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
@@ -696,11 +688,7 @@ class ViewAppointments(wx.Panel):
   def UpdateViewAppointments(self, event, force=False):
     [date,sqldate,timestring] = self.GetDatesAndTime()
     
-    action = "SELECT Name FROM staff WHERE Date = \"" + sqldate + "\" AND \"" + timestring + ":00\" BETWEEN TimeOn AND TimeOff AND Operating = " + str(self.operations) + " AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
-    
-    results = db.SendSQL(action, self.localsettings.dbconnection)
-    
-    self.vetlist = map(lambda x: x[0], results)
+    self.vetlist = self.localsettings.GetVetsByDateAndTime(sqldate,timestring,self.operations)
     vets = ', '.join(self.vetlist)
     
     self.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + timestring + "</b></font></center><br><font size=1><u>" + self.t("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
@@ -781,7 +769,6 @@ class ViewAppointments(wx.Panel):
     sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
     time = datetime.datetime.today().strftime("%X")[:5]
     return [date,sqldate,time]
-
 
 def UpdateMessage(ID):
   

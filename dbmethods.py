@@ -382,22 +382,26 @@ def CreateLookupTables(connection):
 
 def CreateUserTable(connection):
 	
-	action = "CREATE TABLE user (ID int unsigned not null auto_increment primary key, Name varchar(20), Password varchar(10), Position varchar(50), Permissions varchar(50))"
+	action = "CREATE TABLE user (ID int unsigned not null auto_increment primary key, Name varchar(20), Password varchar(10), Position varchar(50), Permissions varchar(50), mon_from varchar(4), mon_to varchar(4), tue_from varchar(4), tue_to varchar(4), wed_from varchar(4), wed_to varchar(4), thu_from varchar(4), thu_to varchar(4), fri_from varchar(4), fri_to varchar(4), sat_from varchar(4), sat_to varchar(4), sun_from varchar(4), sun_to varchar(4))"
 	db.SendSQL(action, connection)
 	action = "INSERT INTO user (Name, Password, Position, Permissions) VALUES (\'user\', \'letmein\', \'Manager\', \'111$11$111$11$11$11$11$111$11110$111\')"
 	db.SendSQL(action, connection)
 
-def WriteToUserTable(connection, ID, name, password, position, permissions):
+def WriteToUserTable(connection, ID, name, password, position, permissions, schedules):
+	
+	fields = "Name, Password, Position, Permissions, mon_from, mon_to, tue_from, tue_to, wed_from, wed_to, thu_from, thu_to, fri_from, fri_to, sat_from, sat_to, sun_from, sun_to"
+	
+	values = name + "\', \'" + password + "\', \'" + position + "\', \'" + permissions + "\', \'" + schedules['mon']['from'] + "\', \'" + schedules['mon']['to'] + "\', \'" + schedules['tue']['from'] + "\', \'" + schedules['tue']['to'] + "\', \'" + schedules['wed']['from'] + "\', \'" + schedules['wed']['to'] + "\', \'" + schedules['thu']['from'] + "\', \'" + schedules['thu']['to'] + "\', \'" + schedules['fri']['from'] + "\', \'" + schedules['fri']['to'] + "\', \'" + schedules['sat']['from'] + "\', \'" + schedules['sat']['to'] + "\', \'" + schedules['sun']['from'] + "\', \'" + schedules['sun']['to']
 	
 	if ID == False:
-		action = "INSERT INTO user (Name, Password, Position, Permissions) VALUES (\'" + name + "\', \'" + password + "\', \'" + position + "\', \'" + permissions + "\')"
+		action = "INSERT INTO user (" + fields + ") VALUES (\'" + values + "\')"
 	else:
-		action = "REPLACE INTO user (ID, Name, Password, Position, Permissions) VALUES (" + str(ID) + ", \'" + name + "\', \'" + password + "\', \'" + position + "\', \'" + permissions + "\')"
+		action = "REPLACE INTO user (ID, " + fields + ") VALUES (" + str(ID) + ", \'" + values + "\')"
 	db.SendSQL(action, connection)
 
 def CreateSettingsTable(connection):
 	
-	action = "CREATE TABLE settings (ID int unsigned not null auto_increment primary key, PracticeName varchar(100), OpenFrom varchar(10), OpenTo varchar(10), OperationTime varchar(10), PracticeAddress varchar(250), PracticePostcode varchar(10), PracticeTelephone varchar(20), PracticeEmail varchar(250), PracticeWebsite varchar(250), ShelterID int, MarkupMultiplyBy varchar(10), MarkupRoundTo int, ASMVaccinationID int, PrescriptionFee int)"
+	action = "CREATE TABLE settings (ID int unsigned not null auto_increment primary key, PracticeName varchar(100), OpenFrom varchar(10), OpenTo varchar(10), OperationTime varchar(10), PracticeAddress varchar(250), PracticePostcode varchar(10), PracticeTelephone varchar(20), PracticeEmail varchar(250), PracticeWebsite varchar(250), ShelterID int, MarkupMultiplyBy varchar(10), MarkupRoundTo int, ASMVaccinationID int, PrescriptionFee int, handle_rota_by_day int DEFAULT 1)"
 	db.SendSQL(action, connection)
 	
 	action = "INSERT INTO settings (PracticeName, OpenFrom, OpenTo, OperationTime, PracticeAddress, PracticePostcode, PracticeTelephone, PracticeEmail, PracticeWebsite, ShelterID, MarkupMultiplyBy, MarkupRoundTo, ASMVaccinationID, PrescriptionFee) VALUES (\'Unnamed Surgery\', \'09:00\', \'17:00\', \'09:00\', \"\", \"\", \"\", \"\", \"\", 0, \"1.175\", 5, 0, 0)"

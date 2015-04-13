@@ -1130,6 +1130,14 @@ def GetDictionary():
     "Language",
     u"Lenguaje"
     )
+  dictionary["settingshandlerotabydaylabel"] = (
+    "Handle rota by day",
+    u"Administrar turnos por día"
+  )
+  dictionary["settingshandlerotabydaytooltip"] = (
+    "Handle rota by day, setting each time on the calendar. Unchecking this allows to set rota by user globally.",
+    u"Administrar turnos por día, seteando horarios en el calendario. Desmarcando esto permite setear los turnos por usuario de forma global."
+  )
 
   ##Staff settings
 
@@ -1205,6 +1213,26 @@ def GetDictionary():
     "Misc",
     u"Misceláneos"
     )
+  dictionary["scheduleslabel"] = (
+    "Schedules",
+    u"Horarios"
+  )
+  dictionary["invalidscheduletime"] = (
+    {'mon': 'Invalid monday schedules', 'tue': 'Invalid tuesday schedules', 'wed': 'Invalid wednesday schedules',
+     'thu': 'Invalid thursday schedules', 'fri': 'Invalid friday schedules', 'sat': 'Invalid saturday schedules',
+     'sun': 'Invalid sunday schedules'},
+    {'mon': u"Horario inválido de lunes", 'tue': u"Horario inválido de martes", 'wed': u"Horario inválido de miércoles",
+     'thu': u"Horario inválido de jueves", 'fri': u"Horario inválido de viernes", 'sat': u"Horario inválido de sábado",
+     'sun': u"Horario inválido de domingo"}
+  )
+  dictionary["from"] = (
+    "From",
+    u"Desde"
+  )
+  dictionary["to"] = (
+    "To",
+    u"Hasta"
+  )
   dictionary["tickalllabel"] = (
     "Tick All",
     u"Marcar todos"

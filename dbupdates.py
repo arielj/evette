@@ -23,7 +23,7 @@ import dbmethods
 import miscmethods
 import datetime
 
-versionno = "1.3.3"
+versionno = "1.3.4"
 
 def GetCurrentVersion():
 	
@@ -625,6 +625,45 @@ Thank you in advance
 					db.SendSQL(action, localsettings.dbconnection)
 					
 					oldversion = "1.3.3"
+					
+				if oldversion == "1.3.3":
+				  
+					action = "ALTER TABLE settings ADD COLUMN handle_rota_by_day int DEFAULT 1"
+					db.SendSQL(action, localsettings.dbconnection)
+					
+					action = "ALTER TABLE user ADD COLUMN mon_from varchar(4)" #HHMM
+					db.SendSQL(action, localsettings.dbconnection)
+					action = "ALTER TABLE user ADD COLUMN mon_to varchar(4)"
+					db.SendSQL(action, localsettings.dbconnection)
+					action = "ALTER TABLE user ADD COLUMN tue_from varchar(4)"
+					db.SendSQL(action, localsettings.dbconnection)
+					action = "ALTER TABLE user ADD COLUMN tue_to varchar(4)"
+					db.SendSQL(action, localsettings.dbconnection)
+					action = "ALTER TABLE user ADD COLUMN wed_from varchar(4)"
+					db.SendSQL(action, localsettings.dbconnection)
+					action = "ALTER TABLE user ADD COLUMN wed_to varchar(4)"
+					db.SendSQL(action, localsettings.dbconnection)
+					action = "ALTER TABLE user ADD COLUMN thu_from varchar(4)"
+					db.SendSQL(action, localsettings.dbconnection)
+					action = "ALTER TABLE user ADD COLUMN thu_to varchar(4)"
+					db.SendSQL(action, localsettings.dbconnection)
+					action = "ALTER TABLE user ADD COLUMN fri_from varchar(4)"
+					db.SendSQL(action, localsettings.dbconnection)
+					action = "ALTER TABLE user ADD COLUMN fri_to varchar(4)"
+					db.SendSQL(action, localsettings.dbconnection)
+					action = "ALTER TABLE user ADD COLUMN sat_from varchar(4)"
+					db.SendSQL(action, localsettings.dbconnection)
+					action = "ALTER TABLE user ADD COLUMN sat_to varchar(4)"
+					db.SendSQL(action, localsettings.dbconnection)
+					action = "ALTER TABLE user ADD COLUMN sun_from varchar(4)"
+					db.SendSQL(action, localsettings.dbconnection)
+					action = "ALTER TABLE user ADD COLUMN sun_to varchar(4)"
+					db.SendSQL(action, localsettings.dbconnection)
+				  
+					action = "REPLACE INTO version (ID, VersionNo) VALUES (1, \"1.3.4\")"
+					db.SendSQL(action, localsettings.dbconnection)
+					
+					oldversion = "1.3.4"
 				
 			else:
 				

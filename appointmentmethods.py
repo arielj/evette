@@ -175,6 +175,11 @@ class AppointmentPanel(wx.Panel):
     
     vets = self.appointmentdata.localsettings.GetVetsNames()
     
+    sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
+    time_str = datetime.datetime.today().strftime("%X")[:5]
+    
+    current_vets = self.appointmentdata.localsettings.GetVetsByDateAndTime(sqldate,time_str,'0')
+    
     vetsizer = wx.BoxSizer(wx.VERTICAL)
     
     vetlabel = wx.StaticText(self, -1, self.t("vetlabel") + ":")
@@ -182,7 +187,9 @@ class AppointmentPanel(wx.Panel):
     vetsizer.Add(vetlabel, 0, wx.ALIGN_LEFT)
     
     vet = self.appointmentdata.localsettings.last_assigned_vet
-    vet = vet or (vets[0] if len(vets) > 0 else self.t("vetpositiontitle"))
+    vet = vet or (current_vets[0] if len(current_vets) > 0 else False)
+    vet = vet or (vets[0] if len(vets) > 0 else False)
+    vet = vet or self.t("vetpositiontitle")
     
     self.vetcombobox = wx.ComboBox(self, -1, vet, choices=vets)
     if self.appointmentdata.vet != "None":
