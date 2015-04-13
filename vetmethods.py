@@ -34,13 +34,15 @@ class VetForm(wx.Panel):
 	
 	def t(self, field, idx = 0):
 		
-		return  self.appointmentdata.t(field,idx)
+		return  self.localsettings.t(field,idx)
 
 	def __init__(self, notebook, appointmentdata, localsettings, parent):
 		
 		self.parent = parent
 		
 		self.appointmentdata = appointmentdata
+		
+		self.localsettings = localsettings
 		
 		wx.Panel.__init__(self, notebook)
 		
@@ -270,7 +272,6 @@ class VetForm(wx.Panel):
 		self.prescribedmedicationsizer = prescribedmedicationsizer
 		self.prescribedbuttonssizer = prescribedbuttonssizer
 		self.receipttotallabel = receipttotallabel
-		self.localsettings = localsettings
 		
 		self.deletemedicationbutton = deletemedicationbutton
 		
@@ -1143,7 +1144,7 @@ class VetForm(wx.Panel):
 		
 		try:
 			
-			viewappointments.UpdateViewAppointments(self.viewappointmentspanel, True)
+			self.viewappointmentspanel.UpdateViewAppointments(False)
 			
 		except:
 			

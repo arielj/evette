@@ -525,6 +525,7 @@ class AppointmentPanel(wx.Panel):
     else:
       self.appointmenttimeentry.Enable()
     
+    self.RefreshVetsGroomersCombo()
     self.RefreshAppointment()
     self.RefreshTotal()
 
@@ -590,7 +591,7 @@ class AppointmentPanel(wx.Panel):
       self.appointmentdata.time = self.appointmenttimeentry.GetValue()
       self.DoSubmit()
     else:
-      miscmethods.ShowMessage(failurereason)
+      miscmethods.ShowMessage(valid)
 
   def IsValidTime(self):
     time = self.appointmenttimeentry.GetValue()
@@ -611,7 +612,18 @@ class AppointmentPanel(wx.Panel):
       failurereason = self.t("appointmentinvalidtimemessage")
     
     return is_valid if is_valid else failurereason
-  
+
+  def RefreshVetsGroomersCombo(self):
+    localsettings = self.appointmentdata.localsettings
+    app_type = self.GetSelectionIdx()
+    if APPOINTMENT_TYPES[app_type] == 'grooming':
+      users = localsettings.GetGroomersNames()
+    else:
+      users = localsettings.GetVetsNames()
+    
+    self.vetcombobox.Clear()
+    map(lambda x: self.vetcombobox.Append(x), users)
+
   def RefreshAppointment(self, ID=False):
     
     localsettings = self.appointmentdata.localsettings

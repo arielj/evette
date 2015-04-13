@@ -155,10 +155,10 @@ class settings:
     return v[idx ]if type(v).__name__ == 'tuple' else v
 
   def GetVetsNames(self):
-    return self.GetUsersNamesByPosition(self.t("vetpositiontitle"))
+    return self.GetUserNamesByPosition(self.t("vetpositiontitle"))
   
   def GetGroomersNames(self):
-    return self.GetUsersNamesByPosition(self.t("groomerpositiontitle"))
+    return self.GetUserNamesByPosition(self.t("groomerpositiontitle"))
   
   def GetUserNamesByPosition(self,position):
     action = "SELECT Name FROM user WHERE Position = \"" + position + "\""
@@ -167,26 +167,18 @@ class settings:
     return map(lambda a: a[0], results)
   
   def GetVetsByDateAndTime(self, date, time_str, operations):
-    if self.handle_rota_by_day:
-
-      action = "SELECT Name FROM staff WHERE Date = \"" + date + "\" AND \"" + time_str + ":00\" BETWEEN TimeOn AND TimeOff AND Operating = " + str(operations) + " AND Position = \"" + self.t("vetpositiontitle") + "\" ORDER BY Name"
-
-    else:
-      days = ['mon','tue','wed','thu','fri','sat','sun']
-      day = time.strptime(date,"%Y-%m-%d").tm_wday
-      day = days[day]
-      time_str = time_str.replace(':','')
-      
-      action = "SELECT Name FROM user WHERE Position = '" + self.t("vetpositiontitle") + "' AND " + day + "_from <= '" + time_str + "' AND " + day + "_to >= '" + time_str + "' ORDER BY Name"
-
-    results = db.SendSQL(action, self.dbconnection)
-    
-    return map(lambda x: x[0], results)
+    return self.GetUserNamesByDateAndTime(self.t('vetpositiontitle'),date,time_str,operations)
     
   def GetGroomersByDateAndTime(self, date, time_str):
+    return self.GetUserNamesByDateAndTime(self.t("groomerpositiontitle"),date,time_str)
+  
+  def GetUserNamesByDateAndTime(self, position, date, time_str, operations = False):
     if self.handle_rota_by_day:
 
-      action = "SELECT Name FROM staff WHERE Date = \"" + date + "\" AND \"" + time_str + ":00\" BETWEEN TimeOn AND TimeOff AND Position = \"" + self.t("groomerpositiontitle") + "\" ORDER BY Name"
+      action = "SELECT Name FROM staff WHERE Date = \"" + date + "\" AND \"" + time_str + ":00\" BETWEEN TimeOn AND TimeOff AND Position = \"" + position
+      if operations is not False:
+        action += " AND Operating = " + str(operations)
+      action += "\" ORDER BY Name"
 
     else:
       days = ['mon','tue','wed','thu','fri','sat','sun']
@@ -194,7 +186,7 @@ class settings:
       day = days[day]
       time_str = time_str.replace(':','')
       
-      action = "SELECT Name FROM user WHERE Position = '" + self.t("groomerpositiontitle") + "' AND " + day + "_from <= '" + time_str + "' AND " + day + "_to >= '" + time_str + "' ORDER BY Name"
+      action = "SELECT Name FROM user WHERE Position = '" + position + "' AND " + day + "_from <= '" + time_str + "' AND " + day + "_to >= '" + time_str + "' ORDER BY Name"
 
     results = db.SendSQL(action, self.dbconnection)
     
