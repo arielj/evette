@@ -68,10 +68,15 @@ class ViewAppointments(wx.Panel):
     
     [date, sqldate, time] = self.GetDatesAndTime()
     
-    self.vetlist = self.localsettings.GetVetsByDateAndTime(sqldate,time,operations)
+    if self.operations == 2:
+      self.vetlist = self.localsettings.GetGroomersByDateAndTime(sqldate,time)
+      if len(self.vetlist) == 0:
+        self.vetlist = self.localsettings.GetGroomersNames()
 
-    if len(self.vetlist) == 0:
-      self.vetlist = self.localsettings.GetVetsNames()
+    else:
+      self.vetlist = self.localsettings.GetVetsByDateAndTime(sqldate,time,operations)
+      if len(self.vetlist) == 0:
+        self.vetlist = self.localsettings.GetVetsNames()
 
     if len(self.vetlist) == 0:
       self.vetlist.append(self.t("nonelabel"))
@@ -528,12 +533,11 @@ class ViewAppointments(wx.Panel):
     
   def RefreshLists(self, ID=False):
   
-    [date, sqldate, time] = self.GetDatesAndTime()
+    [date, sqldate, time_str] = self.GetDatesAndTime()
     
-    self.vetlist = self.localsettings.GetVetsByDateAndTime(sqldate,time,self.operations)
-    vets = ', '.join(self.vetlist)
+    label = self.GetVetsGroomersOnLabel(sqldate,time_str)
     
-    self.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + time + "</b></font></center><br><font size=1><u>" + self.t("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
+    self.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + time_str + "</b></font></center><br><font size=1>" + label + "</font>")
     
     for a in (self.notarrivedlistbox, self.waitinglistbox, self.withvetlistbox, self.donelistbox):
       
@@ -688,10 +692,9 @@ class ViewAppointments(wx.Panel):
   def UpdateViewAppointments(self, event, force=False):
     [date,sqldate,timestring] = self.GetDatesAndTime()
     
-    self.vetlist = self.localsettings.GetVetsByDateAndTime(sqldate,timestring,self.operations)
-    vets = ', '.join(self.vetlist)
+    label = self.GetVetsGroomersOnLabel(sqldate,timestring)
     
-    self.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + timestring + "</b></font></center><br><font size=1><u>" + self.t("viewappointmentsvetsonlabel") + "</u>: " + vets + "</font>")
+    self.datetimewindow.SetPage("<center><font size=2>" + date + "</font><br><font color=blue size=5><b>" + timestring + "</b></font></center><br><font size=1>" + label + "</font>")
     
     for a in range(0, 4):
       
@@ -769,6 +772,19 @@ class ViewAppointments(wx.Panel):
     sqldate = datetime.datetime.today().strftime("%Y-%m-%d")
     time = datetime.datetime.today().strftime("%X")[:5]
     return [date,sqldate,time]
+  
+  def GetVetsGroomersOnLabel(self,sqldate,time_str):
+    label = "<u>"
+    if self.operations == 2:
+      groomerslist = self.localsettings.GetGroomersByDateAndTime(sqldate,time_str)
+      groomers = ', '.join(groomerslist)
+      label += self.t("viewappointmentsgroomersonlabel") + "</u>: " + groomers.decode('utf-8')
+    else:
+      vetlist = self.localsettings.GetVetsByDateAndTime(sqldate,time_str,self.operations)
+      vets = ', '.join(vetlist)
+      label += self.t("viewappointmentsvetsonlabel") + "</u>: " + vets.decode('utf-8')
+    
+    return label
 
 def UpdateMessage(ID):
   

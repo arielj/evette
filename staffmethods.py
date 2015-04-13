@@ -457,10 +457,10 @@ class EditStaffPanel(wx.Panel):
     
     busy = wx.BusyCursor()
     
-    action = "SELECT Position FROM user ORDER BY Position"
+    action = "SELECT DISTINCT(Position) FROM user ORDER BY Position"
     results = db.SendSQL(action, self.localsettings.dbconnection)
     
-    positions = []
+    positions = [self.t('vetpositiontitle'), self.t('groomerpositiontitle'), self.t('managerpositiontitle'), self.t('vetnursepositiontitle')]
     
     for a in results:
       

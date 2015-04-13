@@ -1477,7 +1477,11 @@ def GetDictionary():
     )
   dictionary["viewappointmentsvetsonlabel"] = (
     "Vets On",
-    u"Veterinarios presentes"
+    u"Veterinarios/as presentes"
+    )
+  dictionary["viewappointmentsgroomersonlabel"] = (
+    "Groomers On",
+    u"Peluqueros/as presentes"
     )
   dictionary["appointmentsearchpagetitle"] = (
     "Appointment Search",
@@ -1614,6 +1618,10 @@ def GetDictionary():
   dictionary["vetpositiontitle"] = (
     "Vet",
     u"Doctor/a"
+    )
+  dictionary["groomerpositiontitle"] = (
+    "Groomer",
+    u"Peluquero/a"
     )
   dictionary["vetnursepositiontitle"] = (
     "Nurse",
