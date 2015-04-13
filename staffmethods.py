@@ -315,7 +315,7 @@ class SchedulesTab(wx.Panel):
     font = field_label.GetFont()
     font.SetPointSize(font.GetPointSize() - 2)
     field_label.SetFont(font)
-    field_entry = wx.TextCtrl(self, -1, "", size=(150,-1))
+    field_entry = wx.TextCtrl(self, -1, "", size=(100,-1))
     
     return [field_label,field_entry]
   

@@ -1017,8 +1017,8 @@ def GetDictionary():
     u"Domingo"
     )
   dictionary["daynames"] = (
-    ('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'),
-    (u"Domingo",u"Lunes",u"Martes",u"Miércoles",u"Jueves",u"Viernes",u"Sábado")
+    (dictionary["sunday"][0], dictionary["monday"][0], dictionary["tuesday"][0], dictionary["wednesday"][0], dictionary["thursday"][0], dictionary["friday"][0], dictionary["saturday"][0]),
+    (dictionary["sunday"][1], dictionary["monday"][1], dictionary["tuesday"][1], dictionary["wednesday"][1], dictionary["thursday"][1], dictionary["friday"][1], dictionary["saturday"][1])
   )
 
 
@@ -1904,8 +1904,8 @@ def GetDictionary():
     u"Diciembre"
     )
   dictionary["monthnames"] = (
-    ("January","February","March","April","May","June","July","August","September","October","November","December"),
-    (u"Enero",u"Febrero",u"Marzo",u"Abril",u"Mayo",u"Junio",u"Julio",u"Agosto",u"Septiembre",u"Octubre",u"Noviembre", u"Diciembre")
+    (dictionary["januarylabel"][0], dictionary["februarylabel"][0], dictionary["marchlabel"][0], dictionary["aprillabel"][0], dictionary["maylabel"][0], dictionary["junelabel"][0], dictionary["julylabel"][0], dictionary["augustlabel"][0], dictionary["septemberlabel"][0], dictionary["octoberlabel"][0], dictionary["novemberlabel"][0], dictionary["decemberlabel"][0]),
+    (dictionary["januarylabel"][1], dictionary["februarylabel"][1], dictionary["marchlabel"][1], dictionary["aprillabel"][1], dictionary["maylabel"][1], dictionary["junelabel"][1], dictionary["julylabel"][1], dictionary["augustlabel"][1], dictionary["septemberlabel"][1], dictionary["octoberlabel"][1], dictionary["novemberlabel"][1], dictionary["decemberlabel"][1])
   )
   dictionary["readfileassociationhelpmessage"] = (
     "To learn about file associations - visit the help section.",

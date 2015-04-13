@@ -196,8 +196,7 @@ def NoWrap(string):
   #return string
 
 def GetMonth(monthint, localsettings):
-  
-  return localsettings.t('monthnames')[monthint]
+  return localsettings.t('monthnames',monthint)
 
 def GetWeekday(weekdayint, localsettings):
   
@@ -651,7 +650,7 @@ def GenerateDayPlan(localsettings, sqldate, step):
 
 def GetDayNameFromID(ID, localsettings):
   
-  return localsettings.t("daynames")[ID]
+  return localsettings.t("daynames",ID)
 
 def FormatPrice(price):
   
