@@ -286,6 +286,8 @@ class ViewAppointments(wx.Panel):
     
     self.UpdateViewAppointments(False)
     
+    self.EditVetFormFromMenu(False)
+    
     del busy
   
   def MarkDone(self, ID):
