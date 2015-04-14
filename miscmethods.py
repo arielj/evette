@@ -29,6 +29,8 @@ import datetime
 import appointmentmethods
 import base64
 import random
+import re
+from decimal import Decimal
 
 logging.basicConfig(filename='exceptions.log')
 
@@ -921,101 +923,14 @@ def GetBalance(clientdata, localsettings):
 
 def ConvertPriceToPennies(price, silent=False):
 
-  try:
-    
-    if price.__contains__("-"):
-      
-      negative = True
-      price = price.replace("-", "")
-      
-    else:
-      
-      negative = False
-    
-    intprice = int(price.replace(".", "")) ## The price is all numbers and decimal points
+  price = str(price)
+  if re.match("^-?\d*\d(\.\d\d)?$",price):
+    dec = Decimal(price).quantize(Decimal('0.00')) #make it to two decimals
+    return int(str(dec).replace('.','')) #convert it to pennies
 
-    splitprice = price.split(".")
-    noofdecimalpoints = len(splitprice) - 1
+  else:
 
-    if noofdecimalpoints == 1:
-
-      price = str(price)
-
-      price1 = int(price.split(".")[0]) * 100
-      price2 = price.split(".")[1]
-    
-      if len(price2) > 2:
-        
-        if silent == False:
-          
-          ShowMessage("Too many digits after decimal point!")
-        
-        return -1
-        
-      else:
-    
-        if len(price2) == 1:
-          price2 = int(price2) * 10
-        else:
-          price2 = int(price2)
-  
-        price = price1 + price2
-        
-        if negative == True:
-          
-          price = price * -1
-  
-        return price
-
-    elif noofdecimalpoints == 0:
-
-      price = int(price) * 100
-
-      if negative == True:
-        
-        price = price * -1
-      
-      return price
-    
-    else:
-    
-      if silent == False:
-      
-        ShowMessage("Too many decimal points!")
-
-      return -1
-    
-  except:
-    
-    if silent == False:
-      
-      ShowMessage("Invalid price!")
-    
-    return -1
-
-#def ConvertPriceToPennies(price):
-  
-  #price = str(price)
-  
-  #if price.__contains__("-"):
-    #negative = True
-    #price = price.replace("-", "")
-  #else:
-    #negative = False
-  
-  #price1 = int(price.split(".")[0]) * 100
-  #price2 = price.split(".")[1]
-  #if len(price2) == 1:
-    #price2 = int(price2) * 10
-  #else:
-    #price2 = int(price2)
-  
-  #price = price1 + price2
-  
-  #if negative == True:
-    #price = price * -1
-  
-  #return price
+    return False
 
 def ValidateEntryString(string):
   

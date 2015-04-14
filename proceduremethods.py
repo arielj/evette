@@ -199,21 +199,24 @@ class EditProceduresPanel(wx.Panel):
 			price = panel.priceentry.GetValue()
 			price = str(miscmethods.ConvertPriceToPennies(price))
 			
-			if panel.procedureid > -1:
-				
-				procedureid = panel.procedureid
-				
-				action = "REPLACE INTO procedures (ID, Name, Description, Price) VALUES (" + str(procedureid) + ", \"" + name + "\", \"" + description + "\", \"" + price + "\")"
-				db.SendSQL(action, self.localsettings.dbconnection)
-				
+			if price is False:
+			  miscmethods.ShowMessage(self.t('invalidpricevalue'))
 			else:
+			  if panel.procedureid > -1:
 				
-				action = "INSERT INTO procedures (Name, Description, Price) VALUES (\"" + name + "\", \"" + description + "\", \"" + price + "\")"
-				db.SendSQL(action, self.localsettings.dbconnection)
+				  procedureid = panel.procedureid
+				
+				  action = "REPLACE INTO procedures (ID, Name, Description, Price) VALUES (" + str(procedureid) + ", \"" + name + "\", \"" + description + "\", \"" + price + "\")"
+				  db.SendSQL(action, self.localsettings.dbconnection)
+				
+			  else:
+				
+				  action = "INSERT INTO procedures (Name, Description, Price) VALUES (\"" + name + "\", \"" + description + "\", \"" + price + "\")"
+				  db.SendSQL(action, self.localsettings.dbconnection)
 			
-			self.RefreshList()
+			  self.RefreshList()
 			
-			panel.GetParent().Close()
+			  panel.GetParent().Close()
 	
 	def DeleteProcedure(self, ID):
 		

@@ -795,7 +795,8 @@ class EditMedicationPanel(wx.Panel):
     medicationdata.description = parent.descriptionentry.GetValue()
     medicationdata.unit = parent.unitentry.GetValue()
     try:
-      medicationdata.reorderno = int(parent.reorderentry.GetValue())
+      val = int(parent.reorderentry.GetValue())
+      medicationdata.reorderno = val if val >= 0 else 0
     except:
       medicationdata.reorderno = "0"
     
@@ -835,7 +836,7 @@ class EditMedicationPanel(wx.Panel):
       medicationdata.consumabletype = 4
     
     
-    if medicationdata.price != -1:
+    if medicationdata.price is not False and medicationdata.price >= 0:
       
       medicationdata.Submit(self.localsettings)
     
