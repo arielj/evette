@@ -103,6 +103,7 @@ class settings:
       self.asmvaccinationid = results[0][13]
       self.prescriptionfee = results[0][14]
       self.handle_rota_by_day = results[0][15]
+      self.startup_size = results[0][16]
       
       action = "SELECT * FROM user WHERE ID = " + str(self.userid)
       results = db.SendSQL(action, connection)
@@ -448,6 +449,13 @@ class SettingsPanel(wx.Panel):
     appointmentrefreshentry = wx.TextCtrl(self, -1, str(self.localsettings.appointmentrefresh))
     rightsizer.Add(appointmentrefreshentry, 0, wx.EXPAND)
     
+    startup_size_label = wx.StaticText(self, -1, self.t("startupsizelabel") + ":")
+    startup_size_label.SetFont(font)
+    rightsizer.Add(startup_size_label, 0, wx.ALIGN_LEFT)
+    
+    startup_size_entry = wx.TextCtrl(self, -1, str(self.localsettings.startup_size))
+    rightsizer.Add(startup_size_entry, 0, wx.EXPAND)
+    
     rightsizer.Add(wx.StaticText(self, -1, "", size=(-1,20)), 0, wx.EXPAND)
     
     submitbutton = wx.Button(self, -1, self.t("submitlabel"))
@@ -477,6 +485,7 @@ class SettingsPanel(wx.Panel):
     self.asmvaccinationbutton = asmvaccinationbutton
     self.languageentry = languageentry
     self.appointmentrefreshentry = appointmentrefreshentry
+    self.startup_size_entry = startup_size_entry
     self.prescriptionfeeentry = prescriptionfeeentry
     self.notebook = notebook
     
@@ -560,6 +569,7 @@ class SettingsPanel(wx.Panel):
     email = self.emailentry.GetValue()
     website = self.websiteentry.GetValue()
     handle_rota_by_day = str(int(self.handle_rota_by_day_check.GetValue()))
+    startup_size = self.startup_size_entry.GetValue()
     
     prescriptionfee = miscmethods.ConvertPriceToPennies(self.prescriptionfeeentry.GetValue())
     
@@ -592,7 +602,7 @@ class SettingsPanel(wx.Panel):
       #out.write(self.localsettings.dbip + "\n" + self.localsettings.dbuser + "\n" + self.localsettings.dbpass + "\n\n" + self.localsettings.lastuser + "\n" + str(language))
       #out.close()
     
-    action = "UPDATE settings SET PracticeName = \"" + name + "\", PracticeAddress = \"" + address + "\", PracticePostcode = \"" + postcode + "\", PracticeTelephone = \"" + telephone + "\", PracticeEmail = \"" + email + "\", PracticeWebsite = \"" + website + "\", OpenFrom = \"" + openfrom + "\", OpenTo = \"" + opento + "\", OperationTime = \"" + operationtime + "\", PrescriptionFee = " + str(prescriptionfee) + ", handle_rota_by_day = " + handle_rota_by_day
+    action = "UPDATE settings SET PracticeName = \"" + name + "\", PracticeAddress = \"" + address + "\", PracticePostcode = \"" + postcode + "\", PracticeTelephone = \"" + telephone + "\", PracticeEmail = \"" + email + "\", PracticeWebsite = \"" + website + "\", OpenFrom = \"" + openfrom + "\", OpenTo = \"" + opento + "\", OperationTime = \"" + operationtime + "\", PrescriptionFee = " + str(prescriptionfee) + ", handle_rota_by_day = " + handle_rota_by_day + ", startup_size = '" + startup_size + "'"
     
     db.SendSQL(action, self.localsettings.dbconnection)
     

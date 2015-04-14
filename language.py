@@ -2867,5 +2867,14 @@ def GetDictionary():
     "Size",
     u"Tamaño"
   )
+  
+  dictionary["startupsizelabel"] = (
+    "App Startup Size",
+    u"Tamaño inicial de la aplicación"
+  )
+  dictionary["startupsizetooltip"] = (
+    "App Startup Size, set an empty string for fullscreen",
+    u"Tamaño inicial de la aplicación"
+  )
 
   return dictionary

@@ -48,6 +48,7 @@ import animalmethods
 import threading
 import random
 import lostandfound
+import re
 
 sound = False
 
@@ -125,11 +126,13 @@ class Evette:
     
     frame.SetTitle("Evette - " + self.localsettings.username + "@"  + self.localsettings.practicename + " (" + self.localsettings.userposition + ")")
     
-    #frame.Maximize()
-    
-    frame.SetSize((1024,700))
-    frame.CentreOnScreen()
-    
+    if re.match("^\d{3,5}x\d{3,5}$", self.localsettings.startup_size):
+      w, h = self.localsettings.startup_size.split('x')
+      frame.SetSize((int(w),int(h)))
+      frame.CentreOnScreen()
+    else:
+      frame.Maximize(True)
+
     panel = wx.Panel(frame)
     #panel.Bind(wx.EVT_CLOSE, self.CloseEvette)
     

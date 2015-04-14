@@ -23,7 +23,7 @@ import dbmethods
 import miscmethods
 import datetime
 
-versionno = "1.3.4"
+versionno = "1.3.5"
 
 def GetCurrentVersion():
 	
@@ -664,6 +664,16 @@ Thank you in advance
 					db.SendSQL(action, localsettings.dbconnection)
 					
 					oldversion = "1.3.4"
+					
+				if oldversion == "1.3.4":
+				  
+					action = "ALTER TABLE settings ADD COLUMN startup_size varchar(9) DEFAULT ''"
+					db.SendSQL(action, localsettings.dbconnection)
+					
+					action = "REPLACE INTO version (ID, VersionNo) VALUES (1, \"1.3.5\")"
+					db.SendSQL(action, localsettings.dbconnection)
+					
+					oldversion = "1.3.5"
 				
 			else:
 				
