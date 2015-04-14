@@ -245,7 +245,7 @@ class SearchPanel(wx.Panel):
 		
 		resetbutton = wx.Button(filterpanel, -1, self.t("resetlabel"))
 		resetbutton.SetBackgroundColour("red")
-		resetbutton.SetForegroundColour("white")
+		resetbutton.SetForegroundColour("black")
 		resetbutton.Bind(wx.EVT_BUTTON, self.Reset)
 		buttonssizer.Add(resetbutton, 1, wx.EXPAND)
 		

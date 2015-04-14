@@ -152,7 +152,7 @@ class settings:
   
   def t(self, langkey, idx = 0):
     v = self.dictionary[langkey][self.language]
-    return v[idx ]if type(v).__name__ == 'tuple' else v
+    return v[idx] if type(v).__name__ == 'tuple' and idx is not False else v
 
   def GetVetsNames(self):
     return self.GetUserNamesByPosition(self.t("vetpositiontitle"))

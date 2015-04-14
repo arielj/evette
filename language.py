@@ -147,7 +147,7 @@ def GetDictionary():
     )
   dictionary["problemlabel"] = (
     "Problem",
-    u"Motivo de Consulta"
+    u"Diagnóstico"
     )
   dictionary["noteslabel"] = (
     "Notes",
@@ -245,6 +245,10 @@ def GetDictionary():
     ("Find Clients", "Find client and animal records"),
     (u"Buscar Cliente", u"Busca los datos de un Cliente o Mascota")
     )
+  dictionary["clienttitles"] = (
+    ("Mr", "Ms", "Mrs", "Miss", "Dr"),
+    ("Sr", "Sra", "Srto", "Srta", "Dr")
+  )
   dictionary["viewappointmentsmenu"] = (
     ("View Appointments", "View todays appointments"),
     (u"Ver Citas", u"Ver las citas del día")

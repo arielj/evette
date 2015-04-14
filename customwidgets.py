@@ -26,12 +26,15 @@ import clientmethods
 import sys
 import appointmentmethods
 import wx.lib.mixins.listctrl as listmix
+import wx.lib.agw.ultimatelistctrl as ULC
 
 red = wx.Colour(255, 163, 163)
 green = wx.Colour(144, 255, 172)
 yellow = wx.Colour(252, 255, 0)
 
 DETATCH_TAB = 6001
+
+APPOINTMENT_TYPES = ['appointment','operation','grooming']
 
 class StaffSummaryListbox(wx.HtmlListBox):
   
@@ -2304,7 +2307,7 @@ class ListCtrlWrapper(wx.Panel, listmix.ColumnSorterMixin):
     
     topsizer = wx.BoxSizer(wx.VERTICAL)
     
-    self.listctrl = wx.ListCtrl(self, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
+    self.listctrl = ULC.UltimateListCtrl(self, -1, agwStyle=wx.LC_REPORT | wx.LC_SINGLE_SEL | ULC.ULC_HAS_VARIABLE_ROW_HEIGHT | ULC.ULC_HRULES)
     listmix.ColumnSorterMixin.__init__(self, len(columnheadings))
     topsizer.Add(self.listctrl, 1, wx.EXPAND)
     
@@ -2395,7 +2398,7 @@ class ListCtrlWrapper(wx.Panel, listmix.ColumnSorterMixin):
       
       for b in output[2:]:
         
-        self.listctrl.SetStringItem(count, bcount, b.replace("\r", "").replace("\n", " "))
+        self.listctrl.SetStringItem(count, bcount, b)#.replace("\r", "").replace("\n", " "))
         
         bcount = bcount + 1
       
@@ -2406,7 +2409,7 @@ class ListCtrlWrapper(wx.Panel, listmix.ColumnSorterMixin):
       self.listctrl.SetItemData(count, output[0])
       
       count = count + 1
-    
+    0
     #for a in range(0, len(self.columnheadings)):
       
       #self.listctrl.SetColumnWidth(a, wx.LIST_AUTOSIZE_USEHEADER)
@@ -2445,11 +2448,11 @@ class ListCtrlWrapper(wx.Panel, listmix.ColumnSorterMixin):
   
   def GetFocusedItem(self):
     
-    return wx.ListCtrl.GetFocusedItem(self.listctrl)
+    return ULC.UltimateListCtrl.GetFocusedItem(self.listctrl)
   
   def GetItemData(self, dataid):
     
-    return wx.ListCtrl.GetItemData(self.listctrl, dataid)
+    return ULC.UltimateListCtrl.GetItemData(self.listctrl, dataid)
 
 class AppointmentsSummaryListbox(ListCtrlWrapper):
   
@@ -2465,13 +2468,13 @@ class AppointmentsSummaryListbox(ListCtrlWrapper):
     self.animaldata = animaldata
     self.excludetoday = excludetoday
     
-    columnheadings = (self.t("datelabel"), self.t("timelabel"), self.t("reasonlabel"))
+    columnheadings = (self.t("datelabel"), self.t("timelabel"), self.t("reasonlabel"), self.t("appointmenttypelabel"), self.t('vetlabel'), self.t('problemlabel'), self.t('noteslabel'))
     
     ListCtrlWrapper.__init__(self, parent, animaldata.localsettings, columnheadings, ("icons/clock.png", "icons/ontime.png", "icons/late.png", "icons/dna.png"))
   
   def RefreshList(self, ID=False):
     
-    if self.excludetoday == False:
+    if self.excludetoday is False:
       
       action = "SELECT * FROM appointment WHERE AnimalID = " + str(self.animaldata.ID) + " ORDER BY Date desc, Time"
       
@@ -2516,7 +2519,15 @@ class AppointmentsSummaryListbox(ListCtrlWrapper):
     
     reason = rowdata[5]
     
-    output = ((appointmentid, date, time, reason), imageid)
+    problem = rowdata[8]
+    
+    notes = rowdata[9]
+    
+    app_type = self.t(APPOINTMENT_TYPES[rowdata[12]]+"label")
+    
+    vet = rowdata[13]
+    
+    output = ((appointmentid, date, time, reason, app_type, vet, problem, notes), imageid)
     
     return output
 
