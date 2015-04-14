@@ -2873,8 +2873,8 @@ def GetDictionary():
     u"Tamaño inicial de la aplicación"
   )
   dictionary["startupsizetooltip"] = (
-    "App Startup Size, set an empty string for fullscreen",
-    u"Tamaño inicial de la aplicación"
+    "App Startup Size. If invalid or empty, app starts maximized.",
+    u"Tamaño inicial de la aplicación. Si es inválido o vacío, la applicación inicia maximizada."
   )
 
   return dictionary

@@ -454,6 +454,7 @@ class SettingsPanel(wx.Panel):
     rightsizer.Add(startup_size_label, 0, wx.ALIGN_LEFT)
     
     startup_size_entry = wx.TextCtrl(self, -1, str(self.localsettings.startup_size))
+    startup_size_entry.SetToolTipString(self.t('startupsizetooltip'))
     rightsizer.Add(startup_size_entry, 0, wx.EXPAND)
     
     rightsizer.Add(wx.StaticText(self, -1, "", size=(-1,20)), 0, wx.EXPAND)
