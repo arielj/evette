@@ -432,15 +432,13 @@ class Evette:
     frame.menubar.Append(frame.lostandfoundmenu, self.t("lostandfoundmenu"))
     frame.menubar.Append(frame.helpmenu, self.t("helpmenu"))
     
-    if sound == True:
+    if sound is True:
       
       frame.menubar.Append(frame.soundmenu, "Sound")
     
     #Creating the main vertical sizer
     mainsizer = wx.BoxSizer(wx.VERTICAL)
-    
-    #if self.localsettings.userposition != "Medication Only":
-    
+        
     #Add a status bar
     frame.CreateStatusBar()
     
