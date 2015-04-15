@@ -56,7 +56,7 @@ class EditKennelsPanel(wx.Panel):
 		
 		wx.Panel.__init__(self, notebook)
 		
-		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("editkennelsmenu")[0])
+		self.pagetitle = miscmethods.GetPageTitle(notebook, self.t("editkennelsmenu"))
 		
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		
@@ -77,7 +77,6 @@ class EditKennelsPanel(wx.Panel):
 		self.kennelblockpanel.listbox.RefreshList()
 
 class KennelBlockPanel(wx.Panel):
-	
 	
 	def t(self, field, idx = 0):
 		

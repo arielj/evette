@@ -266,18 +266,18 @@ class Evette:
       wx.EVT_MENU(frame, BROWSE_APPOINTMENTS, self.BrowseAppointments)
     
     #Creating the kennels menu
-    frame.kennelsmenu = wx.Menu()
+    #frame.kennelsmenu = wx.Menu()
     
     
-    editkennelsmenuitem = wx.MenuItem(frame.kennelsmenu, EDIT_KENNELS, self.t("editkennelsmenu"), self.t("editkennelsmenu", 1))
-    editkennelsmenuitem.SetBitmap(wx.Bitmap("icons/edit.png"))
-    frame.kennelsmenu.AppendItem(editkennelsmenuitem)
-    wx.EVT_MENU(frame, EDIT_KENNELS, self.EditKennels)
+    #editkennelsmenuitem = wx.MenuItem(frame.kennelsmenu, EDIT_KENNELS, self.t("editkennelsmenu"), self.t("editkennelsmenu", 1))
+    #editkennelsmenuitem.SetBitmap(wx.Bitmap("icons/edit.png"))
+    #frame.kennelsmenu.AppendItem(editkennelsmenuitem)
+    #wx.EVT_MENU(frame, EDIT_KENNELS, self.EditKennels)
     
-    browsekennelsmenuitem = wx.MenuItem(frame.kennelsmenu, VIEW_KENNELS, self.t("viewkennelsmenu") + "\tCTRL+K", self.t("viewkennelsmenu"))
-    browsekennelsmenuitem.SetBitmap(wx.Bitmap("icons/kennel.png"))
-    frame.kennelsmenu.AppendItem(browsekennelsmenuitem)
-    wx.EVT_MENU(frame, VIEW_KENNELS, self.ViewKennels)
+    #browsekennelsmenuitem = wx.MenuItem(frame.kennelsmenu, VIEW_KENNELS, self.t("viewkennelsmenu") + "\tCTRL+K", self.t("viewkennelsmenu"))
+    #browsekennelsmenuitem.SetBitmap(wx.Bitmap("icons/kennel.png"))
+    #frame.kennelsmenu.AppendItem(browsekennelsmenuitem)
+    #wx.EVT_MENU(frame, VIEW_KENNELS, self.ViewKennels)
     
     #Creating the medication database menu
     frame.medicationdatabasemenu = wx.Menu()
@@ -418,7 +418,7 @@ class Evette:
     if self.localsettings.editappointments == 1:
       frame.menubar.Append(frame.appointmentmenu, self.t("appointmentsmenu"))
     
-    frame.menubar.Append(frame.kennelsmenu, self.t("kennelsmenu"))
+    #frame.menubar.Append(frame.kennelsmenu, self.t("kennelsmenu"))
     
     if self.localsettings.editmedication == 1:
       frame.menubar.Append(frame.medicationdatabasemenu, self.t("stocklabel"))
@@ -528,7 +528,7 @@ class Evette:
       
       editstockbutton = wx.Button(panel, -1, self.t("editstockmenu"))
       editstockbutton.SetToolTipString(self.t("editstockmenu", 1))
-      editstockbutton.SetBackgroundColour("blue")
+      #editstockbutton.SetBackgroundColour("blue")
       editstockbutton.SetForegroundColour("black")
       font = editstockbutton.GetFont()
       font.SetPointSize(font.GetPointSize() + 2)
