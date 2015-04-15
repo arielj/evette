@@ -73,6 +73,10 @@ def GetDictionary():
     "Add",
     u"Agregar"
   )
+  dictionary["addclientlabel"] = (
+    "Add Client",
+    u"Agregar Cliente"
+  )
   dictionary["deletelabel"] = (
     "Delete",
     u"Borrar"

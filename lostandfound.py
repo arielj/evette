@@ -1377,10 +1377,10 @@ class EditLostAndFoundPanel(wx.Panel):
 		
 		popupmenu = wx.Menu()
 		
-		addclient = wx.MenuItem(popupmenu, ADD_CLIENT, self.t("addlabel"))
-		addclient.SetBitmap(wx.Bitmap("icons/new.png"))
-		popupmenu.AppendItem(addclient)
-		wx.EVT_MENU(popupmenu, ADD_CLIENT, self.AddClient)
+		#addclient = wx.MenuItem(popupmenu, ADD_CLIENT, self.t("addclientlabel"))
+		#addclient.SetBitmap(wx.Bitmap("icons/new.png"))
+		#popupmenu.AppendItem(addclient)
+		#wx.EVT_MENU(popupmenu, ADD_CLIENT, self.AddClient)
 		
 		findclient = wx.MenuItem(popupmenu, FIND_CLIENT, self.t("searchlabel"))
 		findclient.SetBitmap(wx.Bitmap("icons/search.png"))
@@ -1662,6 +1662,8 @@ class EditLostAndFoundPanel(wx.Panel):
 class AddClientPanel:
 	
 	def __init__(self, editlostandfoundpanel):
+		
+		self.pagetitle = editlostandfoundpanel.t('addclientlabel')
 		
 		self.editlostandfoundpanel = editlostandfoundpanel
 		
