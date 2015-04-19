@@ -401,7 +401,7 @@ def WriteToUserTable(connection, ID, name, password, position, permissions, sche
 
 def CreateSettingsTable(connection):
 	
-	action = "CREATE TABLE settings (ID int unsigned not null auto_increment primary key, PracticeName varchar(100), OpenFrom varchar(10), OpenTo varchar(10), OperationTime varchar(10), PracticeAddress varchar(250), PracticePostcode varchar(10), PracticeTelephone varchar(20), PracticeEmail varchar(250), PracticeWebsite varchar(250), ShelterID int, MarkupMultiplyBy varchar(10), MarkupRoundTo int, ASMVaccinationID int, PrescriptionFee int, handle_rota_by_day int DEFAULT 1)"
+	action = "CREATE TABLE settings (ID int unsigned not null auto_increment primary key, PracticeName varchar(100), OpenFrom varchar(10), OpenTo varchar(10), OperationTime varchar(10), PracticeAddress varchar(250), PracticePostcode varchar(10), PracticeTelephone varchar(20), PracticeEmail varchar(250), PracticeWebsite varchar(250), ShelterID int, MarkupMultiplyBy varchar(10), MarkupRoundTo int, ASMVaccinationID int, PrescriptionFee int, handle_rota_by_day int DEFAULT 1, startup_size varchar(9))"
 	db.SendSQL(action, connection)
 	
 	action = "INSERT INTO settings (PracticeName, OpenFrom, OpenTo, OperationTime, PracticeAddress, PracticePostcode, PracticeTelephone, PracticeEmail, PracticeWebsite, ShelterID, MarkupMultiplyBy, MarkupRoundTo, ASMVaccinationID, PrescriptionFee) VALUES (\'Unnamed Surgery\', \'09:00\', \'17:00\', \'09:00\', \"\", \"\", \"\", \"\", \"\", 0, \"1.175\", 5, 0, 0)"
