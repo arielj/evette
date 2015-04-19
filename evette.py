@@ -126,7 +126,7 @@ class Evette:
     
     frame.SetTitle("Evette - " + self.localsettings.username + "@"  + self.localsettings.practicename + " (" + self.localsettings.userposition + ")")
     
-    if re.match("^\d{3,5}x\d{3,5}$", self.localsettings.startup_size):
+    if self.localsettings.startup_size and re.match("^\d{3,5}x\d{3,5}$", self.localsettings.startup_size):
       w, h = self.localsettings.startup_size.split('x')
       frame.SetSize((int(w),int(h)))
       frame.CentreOnScreen()
