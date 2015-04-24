@@ -2370,7 +2370,6 @@ class ListCtrlWrapper(wx.Panel, listmix.ColumnSorterMixin):
       self.listctrl.Select(selection)
   
   def RefreshList(self, ID=False):
-    
     self.itemDataMap = {}
     
     self.listctrl.ClearAll()
@@ -2386,7 +2385,6 @@ class ListCtrlWrapper(wx.Panel, listmix.ColumnSorterMixin):
     count = 0
     
     for a in self.htmllist:
-      
       processedrow = self.ProcessRow(a)
       
       output = processedrow[0]

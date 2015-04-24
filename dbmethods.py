@@ -24,6 +24,7 @@ import datetime
 import dbupdates
 import sys
 import MySQLdb
+from models import *
 
 def GetLabel(localsettings, field):
 	
@@ -751,6 +752,22 @@ def WriteToLostAndFoundTable(connection, lostandfounddata):
 	action = "UPDATE lostandfound SET LostOrFound = " + str(lostandfounddata.lostorfound) + ", ContactID = " + str(lostandfounddata.contactid) + ", Species = \"" + str(lostandfounddata.species) + "\", Date = \"" + str(lostandfounddata.date) + "\", Sex = " + str(lostandfounddata.sex) + ", Neutered = "  + str(lostandfounddata.neutered) + ", FurLength = " + str(lostandfounddata.furlength) + ", Colour1 = \"" + str(lostandfounddata.colour1) + "\", Colour2 = \"" + str(lostandfounddata.colour2) + "\", Colour3 = \"" + str(lostandfounddata.colour3) + "\", Collar = "  + str(lostandfounddata.collar) + ", CollarDescription = \""  + str(lostandfounddata.collardescription) + "\", Size = "  + str(lostandfounddata.size) + ", Age = "  + str(lostandfounddata.age) + ", IsChipped = "  + str(lostandfounddata.ischipped) + ", ChipNo = \""  + str(lostandfounddata.chipno) + "\", Temperament = "  + str(lostandfounddata.temperament) + ", Comments = \""  + str(lostandfounddata.comments) + "\", DateComplete = \""  + str(lostandfounddata.datecomplete) + "\", ChangeLog = \""  + str(lostandfounddata.changelog) + "\", Area = \"" + str(lostandfounddata.area) + "\", AnimalID = " + str(lostandfounddata.animalid) + " WHERE ID = "  + str(lostandfounddata.ID)
 	
 	db.SendSQL(action, connection)
+
+def GetNextVaccinations(settings):
+  action = "SELECT ID, AnimalID, Date, Name, Batch, Next FROM manualvaccination WHERE  `Next` >= CURDATE() AND  `Next` <= DATE_ADD(CURDATE() , INTERVAL 4 DAY)"
+  results = db.SendSQL(action, settings.dbconnection)
+  
+  res = []
+  for r in results:
+    animal = Animal.find(settings, r[1])
+    client = Client.find(settings, animal.OwnerID)
+    res.append(animal.OwnerID)
+    res.append(client.to_label())
+    res.append(animal.Name)
+    res.append(r[5])
+    res.append(client.ClientMobileTelephone)
+
+  return res
 
 def CreateAllTables(connection):
 	

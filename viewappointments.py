@@ -100,15 +100,26 @@ class ViewAppointments(wx.Panel):
     
     leftsizer.Add(datetimesizer, 1, wx.EXPAND)
     
-    leftspacer1 = wx.StaticText(self, -1, "", size=(-1,50))
+    leftspacer1 = wx.StaticText(self, -1, "", size=(-1,30))
     leftsizer.Add(leftspacer1, 0, wx.EXPAND)
     
     detailslabel = wx.StaticText(self, -1, self.t("animalappointmentdetailslabel") + ":")
     leftsizer.Add(detailslabel, 0, wx.ALIGN_LEFT)
     
     detailswindow = wx.html.HtmlWindow(self)
-    leftsizer.Add(detailswindow, 3, wx.EXPAND)
+    leftsizer.Add(detailswindow, 1, wx.EXPAND)
     
+    leftspacer2 = wx.StaticText(self, -1, "", size=(-1,30))
+    leftsizer.Add(leftspacer2, 0, wx.EXPAND)
+    
+    next_vaccinations_label = wx.StaticText(self, -1, self.t("vaccinationssoonlabel") + ":")
+    leftsizer.Add(next_vaccinations_label, 0, wx.ALIGN_LEFT)
+    
+    next_vaccinations_window = NextVaccinationsWindow(self)
+    leftsizer.Add(next_vaccinations_window, 3, wx.EXPAND)
+
+
+
     lefttorightsizer.Add(leftsizer, 1, wx.EXPAND)
     
     lefttorightspacer = wx.StaticText(self, -1, "", size=(50,-1))
@@ -233,6 +244,7 @@ class ViewAppointments(wx.Panel):
     self.withvetlistbox = withvetlistbox
     self.donelistbox = donelistbox
     self.detailswindow = detailswindow
+    self.next_vaccinations_window = next_vaccinations_window
     self.notebook = notebook
     self.datetimewindow = datetimewindow
     self.vetcombobox = vetcombobox
@@ -787,6 +799,44 @@ class ViewAppointments(wx.Panel):
       label += self.t("viewappointmentsvetsonlabel") + "</u>: " + vets.decode('utf-8')
     
     return label
+
+class NextVaccinationsWindow(customwidgets.ListCtrlWrapper):
+  def t(self, field, idx = 0):
+    return  self.localsettings.t(field, idx)
+  
+  def __init__(self, parent):
+    self.htmllist = []
+    self.localsettings = parent.localsettings
+    self.parent = parent
+    
+    columnheadings = (self.t("clientlabel"), self.t("animallabel"), self.t("nextduelabel"), self.t("clientmobilephonelabel"))
+    
+    customwidgets.ListCtrlWrapper.__init__(self, parent, self.localsettings, columnheadings)
+    
+    self.RefreshList()
+    
+    self.listctrl.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.on_item_activated)
+  
+  def RefreshList(self, ID=False):
+  
+    v = dbmethods.GetNextVaccinations(self.localsettings)
+    if v:
+      self.htmllist = [v]
+  
+    customwidgets.ListCtrlWrapper.RefreshList(self)
+  
+  def ProcessRow(self, rowdata):
+    return [map(lambda x: str(x), rowdata), -1]
+
+  def on_item_activated(self, event):
+		listboxid = self.GetFocusedItem()
+		clientid = self.GetItemData(listboxid)
+		
+		notebook = self.parent.notebook
+		
+		clientdata = clientmethods.ClientSettings(self.localsettings, clientid)
+		clientpanel = clientmethods.ClientPanel(notebook, clientdata)
+		wx.CallAfter(notebook.AddPage, clientpanel)
 
 def UpdateMessage(ID):
   

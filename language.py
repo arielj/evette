@@ -187,7 +187,7 @@ def GetDictionary():
     )
   dictionary["nextduelabel"] = (
     "Next Due",
-    u"Próxima consulta"
+    u"Próxima"
     )
   dictionary["nonelabel"] = (
     "None",
@@ -1343,7 +1343,10 @@ def GetDictionary():
     "Are you sure that you want to delete this movement?",
     u"¿Está seguro de borrar esta entrada?"
     )
-
+  dictionary["vaccinationssoonlabel"] = (
+    "Animals which vaccination is required soon",
+    u"Animales que requieren vacunación próximamente"
+  )
 
   ##Vet Form
 
