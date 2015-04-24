@@ -754,9 +754,7 @@ def WriteToLostAndFoundTable(connection, lostandfounddata):
 	db.SendSQL(action, connection)
 
 def GetNextVaccinations(settings):
-  date_range = "`Next` >= CURDATE() AND  `Next` <= DATE_ADD(CURDATE() , INTERVAL 7 DAY)"
-
-  action = "SELECT ID, AnimalID, Date, Name, Batch, Next FROM manualvaccination WHERE " + date_range
+  action = "SELECT ID, AnimalID, Date, Name, Batch, Next FROM manualvaccination WHERE `Next` >= CURDATE() AND  `Next` <= DATE_ADD(CURDATE() , INTERVAL 7 DAY)"
   results = db.SendSQL(action, settings.dbconnection)
   
   res = []
@@ -771,7 +769,7 @@ def GetNextVaccinations(settings):
     aux.append(client.ClientMobileTelephone)
     res.append(aux)
   
-  action = "SELECT appointment.AnimalID, appointment.OwnerID, NextDue FROM medicationout LEFT JOIN appointment ON medicationout.AppointmentID = appointment.ID LEFT JOIN medication ON medicationout.MedicationID = medication.ID WHERE medication.Type = 1 AND " + date_range
+  action = "SELECT appointment.AnimalID, appointment.OwnerID, NextDue FROM medicationout LEFT JOIN appointment ON medicationout.AppointmentID = appointment.ID LEFT JOIN medication ON medicationout.MedicationID = medication.ID WHERE medication.Type = 1 AND `NextDue` >= CURDATE() AND  `NextDue` <= DATE_ADD(CURDATE() , INTERVAL 7 DAY)"
   
   results = db.SendSQL(action, settings.dbconnection)
   for r in results:

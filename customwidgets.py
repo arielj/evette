@@ -1525,7 +1525,7 @@ class VaccinationSummaryListbox(wx.HtmlListBox):
           
           today_t = self.localsettings.t("today").upper()
           
-          daypivot = "<font size=2 color=green><b> " + today_t +"</b></font>"
+          daypivot_s = "<font size=2 color=green><b> " + today_t +"</b></font>"
           
         elif daypivot > 0:
           
@@ -1560,6 +1560,7 @@ class VaccinationSummaryListbox(wx.HtmlListBox):
       else:
         
         daypivot = ""
+        daypivot_s = ""
         nextdue = ""
       
       #print str(daypivot)
