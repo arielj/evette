@@ -754,18 +754,34 @@ def WriteToLostAndFoundTable(connection, lostandfounddata):
 	db.SendSQL(action, connection)
 
 def GetNextVaccinations(settings):
-  action = "SELECT ID, AnimalID, Date, Name, Batch, Next FROM manualvaccination WHERE  `Next` >= CURDATE() AND  `Next` <= DATE_ADD(CURDATE() , INTERVAL 4 DAY)"
+  action = "SELECT ID, AnimalID, Date, Name, Batch, Next FROM manualvaccination WHERE  `Next` >= CURDATE() AND  `Next` <= DATE_ADD(CURDATE() , INTERVAL 40 DAY)"
   results = db.SendSQL(action, settings.dbconnection)
   
   res = []
   for r in results:
+    aux = []
     animal = Animal.find(settings, r[1])
     client = Client.find(settings, animal.OwnerID)
-    res.append(animal.OwnerID)
-    res.append(client.to_label())
-    res.append(animal.Name)
-    res.append(r[5])
-    res.append(client.ClientMobileTelephone)
+    aux.append(animal.OwnerID)
+    aux.append(client.to_label())
+    aux.append(animal.Name)
+    aux.append(r[5])
+    aux.append(client.ClientMobileTelephone)
+    res.append(aux)
+  
+  action = "SELECT appointment.AnimalID, appointment.OwnerID, NextDue FROM medicationout LEFT JOIN appointment ON medicationout.AppointmentID = appointment.ID LEFT JOIN medication ON medicationout.MedicationID = medication.ID WHERE medication.Type = 1 AND `NextDue` >= CURDATE() AND  `NextDue` <= DATE_ADD(CURDATE() , INTERVAL 40 DAY)"
+  
+  results = db.SendSQL(action, settings.dbconnection)
+  for r in results:
+    aux = []
+    animal = Animal.find(settings, r[0])
+    client = Client.find(settings, r[1])
+    aux.append(animal.OwnerID)
+    aux.append(client.to_label())
+    aux.append(animal.Name)
+    aux.append(r[2])
+    aux.append(client.ClientMobileTelephone)
+    res.append(aux)
 
   return res
 

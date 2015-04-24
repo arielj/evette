@@ -819,9 +819,7 @@ class NextVaccinationsWindow(customwidgets.ListCtrlWrapper):
   
   def RefreshList(self, ID=False):
   
-    v = dbmethods.GetNextVaccinations(self.localsettings)
-    if v:
-      self.htmllist = [v]
+    self.htmllist = dbmethods.GetNextVaccinations(self.localsettings)
   
     customwidgets.ListCtrlWrapper.RefreshList(self)
   
