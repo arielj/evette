@@ -3145,7 +3145,10 @@ class AnimalAppointmentBrowser(wx.Panel):
     
     if self.animaldata.localsettings.editappointments == 1:
       
-      listbox.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.animalpanel.Edit)
+      if self.animaldata.localsettings.userposition != self.t('vetpositiontitle'):
+        listbox.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.animalpanel.Edit)
+      else:
+        listbox.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.animalpanel.VetForm)
     
     topsizer.Add(listbox, 1, wx.EXPAND)
     
