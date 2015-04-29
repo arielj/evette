@@ -2467,7 +2467,7 @@ class AppointmentsSummaryListbox(ListCtrlWrapper):
     self.animaldata = animaldata
     self.excludetoday = excludetoday
     
-    columnheadings = (self.t("datelabel"), self.t("timelabel"), self.t("reasonlabel"), self.t("appointmenttypelabel"), self.t('vetlabel'), self.t('problemlabel'), self.t('noteslabel'))
+    columnheadings = (self.t("datelabel"), self.t("timelabel"), self.t("reasonlabel"), self.t("appointmenttypelabel"), self.t('vetlabel'), self.t('problemlabel'), self.t('noteslabel'), self.t("procedurelabel"))
     
     ListCtrlWrapper.__init__(self, parent, animaldata.localsettings, columnheadings, ("icons/clock.png", "icons/ontime.png", "icons/late.png", "icons/dna.png"))
   
@@ -2522,11 +2522,13 @@ class AppointmentsSummaryListbox(ListCtrlWrapper):
     
     notes = rowdata[9]
     
+    procedure = rowdata[10]
+    
     app_type = self.t(APPOINTMENT_TYPES[rowdata[12]]+"label")
     
     vet = rowdata[13]
     
-    output = ((appointmentid, date, time, reason, app_type, vet, problem, notes), imageid)
+    output = ((appointmentid, date, time, reason, app_type, vet, problem, notes, procedure), imageid)
     
     return output
 
