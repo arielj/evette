@@ -2125,7 +2125,6 @@ class Notebook(wx.Panel):
     self.topsizer.Add(panel, 1, wx.EXPAND)
 
     tabpanel.image = image
-    tabpanel.tablabel = tablabel
     tabpanel.tabspacer = tabspacer
     tabpanel.tablabel = tablabel
     tabpanel.tabsizer = tabsizer
@@ -2299,6 +2298,14 @@ class Notebook(wx.Panel):
     pageno = ID.GetEventObject().parent.ID
     
     self.ClosePage(pageno)
+
+  def UpdateLabel(self, panel, new_label):
+    tabpanel = self.FindTabByPanel(panel)
+    tabpanel.tablabel.SetLabel(new_label)
+
+  def FindTabByPanel(self, panel):
+    idx = self.pages.index(panel)
+    return self.tabs[idx]
 
 class ListCtrlWrapper(wx.Panel, listmix.ColumnSorterMixin):
   

@@ -1261,6 +1261,11 @@ class AnimalPanel(wx.Panel):
     self.attachedfilespanel.listbox.linkid = self.animaldata.ID
     
     self.animalnotebook.Enable()
+
+    self.pagetitle = self.animaldata.name + " " + self.clientdata.surname
+    self.pagetitle = miscmethods.GetPageTitle(self.notebook, self.pagetitle)
+    self.pageimage = "icons/editanimal.png"
+    self.notebook.UpdateLabel(self, self.pagetitle)
   
   def CreateAppointment(self, ID):
     
