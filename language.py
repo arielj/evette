@@ -201,7 +201,7 @@ def GetDictionary():
     )
   dictionary["appointmentsmenu"] = (
     "Appointments",
-    u"Citas"
+    u"Consultas"
     )
   dictionary["medicationmenu"] = (
     "Medication",
@@ -255,15 +255,15 @@ def GetDictionary():
   )
   dictionary["viewappointmentsmenu"] = (
     ("View Appointments", "View todays appointments"),
-    (u"Ver Citas", u"Ver las citas del día")
+    (u"Ver Consultas", u"Ver las consultas del día")
     )
   dictionary["viewoperationsmenu"] = (
     ("View Operations", "View todays operations"),
-    (u"Ver Cirugías", u"Ver Cirugías del día")
+    (u"Ver Cirugías", u"Ver cirugías del día")
     )
   dictionary["viewgroomingsmenu"] = (
     ("View Groomings", "View todays groomings"),
-    (u"Ver Turnos de Peluquería", u"Ver Turnos de Peluquería del día")
+    (u"Ver Turnos de Peluquería", u"Ver turnos de peluquería del día")
     )
   dictionary["editusersmenu"] = (
     ("Edit Users", "Add and edit Evette users"),
@@ -333,15 +333,15 @@ def GetDictionary():
     )
   dictionary["viewappointmentstoolbar"] = (
     (" Todays Appointments ", "View todays appointments"),
-    (u" Citas Diarias ", u"Ver las citas del día")
+    (u" Consultas del día ", u"Ver las consultas del día")
     )
   dictionary["viewoperationstoolbar"] = (
     (" Todays Operations ", "View todays operations"),
-    (u" Cirugías Diarias ", u"Ver las Cirugías del día")
+    (u" Cirugías del día ", u"Ver las cirugías del día")
     )
   dictionary["viewgroomingstoolbar"] = (
     (" Todays Groomings ", "View todays groomings"),
-    (u" Peluquería ", u"Ver las citas de peluquería del día")
+    (u" Peluquería del día ", u"Ver los turnos de peluquería del día")
     )
 
   ##Client Panel
@@ -411,7 +411,7 @@ def GetDictionary():
     )
   dictionary["clientcreateappointmenttooltip"] = (
     "Create an appointment for the selected animal",
-    u"Crear una cita para la Mascota seleccionada"
+    u"Crear un turno para la Mascota seleccionada"
     )
   dictionary["clientbalancelabel"] = (
     "Balance",
@@ -513,35 +513,35 @@ def GetDictionary():
     )
   dictionary["animalappointmentslabel"] = (
     "Appointments",
-    u"Citas"
+    u"Consultas"
     )
   dictionary["animalcreateappointmenttooltip"] = (
     "Create an appointment for this animal",
-    u"Crear una cita para esta Mascota"
+    u"Crear una consulta para esta Mascota"
     )
   dictionary["animaleditappointmenttooltip"] = (
     "Edit the selected appointment",
-    u"Modificar la cita seleccionada"
+    u"Modificar la consulta seleccionada"
     )
   dictionary["animalrefreshappointmentstooltip"] = (
     "Refresh the list of appointments",
-    u"Actualizar la lita de citas"
+    u"Actualizar la lita de consultas"
     )
   dictionary["animaldeleteappointmenttooltip"] = (
     "Delete the selected appointment",
-    u"Borrar la cita seleccionada"
+    u"Borrar la consulta seleccionada"
     )
   dictionary["animalprintappointmenttooltip"] = (
     "Generate printable output for the selected appointment",
-    u"Generar una Versión para Imprimir la cita seleccionada"
+    u"Generar una Versión para Imprimir la consulta seleccionada"
     )
   dictionary["animalvetformbutton"] = (
     ("Vet Form", "Edit the vet form for the selected appointment"),
-    (u"Formulario Veterinario", u"Editar el Formulario Veterinario para la cita seleccionada")
+    (u"Formulario Veterinario", u"Editar el Formulario Veterinario para la consulta seleccionada")
     )
   dictionary["animalappointmentdetailslabel"] = (
     "Appointment Details",
-    u"Detalles de la cita"
+    u"Detalles de la consulta"
     )
   dictionary["animalvaccinationslabel"] = (
     "Vaccinations",
@@ -557,7 +557,7 @@ def GetDictionary():
     )
   dictionary["animalconfirmdeleteappointmentmessage"] = (
     "Really delete appointment?",
-    u"¿Está seguro de borrar la cita?"
+    u"¿Está seguro de borrar la consulta?"
     )
   dictionary["animalresetvaccinationentries"] = (
     "Reset vaccination entries",
@@ -595,7 +595,7 @@ def GetDictionary():
   ##Appointments
   dictionary["appointmentappointmentforlabel"] = (
     "Appointment for",
-    u"Cita para"
+    u"Consultas para"
     )
   dictionary["appointmentoperationforlabel"] = (
     "Operation for",
@@ -607,19 +607,19 @@ def GetDictionary():
     )
   dictionary["appointmententervettooltip"] = (
     "If this appointment is for a specific vet, enter the vet's name here",
-    u"Si esta cita es para un determinado Doctor/a, agregue el nombre del Doctor/a aquí­"
+    u"Si este turno es para un determinado Doctor/a, agregue el nombre del Doctor/a aquí­"
     )
   dictionary["appointmentrefreshtooltip"] = (
     "Refresh the list of appointments",
-    u"Actualizar la lista de citas"
+    u"Actualizar la lista de consultas"
     )
   dictionary["appointmentreasonlabel"] = (
     "Reason For Appointment",
-    u"Motivo de la cita"
+    u"Motivo de la consulta"
     )
   dictionary["appointmenttimelabel"] = (
     "Appointment time",
-    u"Hora de la cita"
+    u"Hora de la consulta"
     )
   dictionary["appointmentisopcheckbox"] = (
     ("Operation?", "Tick this box if you would like to book an operation"),
@@ -627,11 +627,11 @@ def GetDictionary():
     )
   dictionary["appointmentsubmittooltip"] = (
     "Submit this appointment",
-    u"Guardar esta cita"
+    u"Guardar esta consulta"
     )
   dictionary["appointmentdeletetooltip"] = (
     "Delete this appointment",
-    u"Borrar esta cita"
+    u"Borrar esta consulta"
     )
   dictionary["appointmentstatuslabel"] = (
     "Status",
@@ -663,7 +663,7 @@ def GetDictionary():
     )
   dictionary["appointmentappointmentsforlabel"] = (
     "Appointments for",
-    u"Citas para"
+    u"Consultas para"
     )
   dictionary["appointmentoperationsforlabel"] = (
     "Operations for",
@@ -675,11 +675,11 @@ def GetDictionary():
     )
   dictionary["appointmenttimetooearlymessage"] = (
     "Appointment time is before the practice opens!",
-    u"¡La hora de la cita es antes de la apertura de la Clínica!"
+    u"¡La hora de la consulta es anterior a la apertura de la Clínica!"
     )
   dictionary["appointmenttimetoolatemessage"] = (
     "Appointment time is after the practice closes!",
-    u"¡La hora de la cita es posterior al cierre de la Clínica!"
+    u"¡La hora de la consulta es posterior al cierre de la Clínica!"
     )
   dictionary["appointmentinvalidtimemessage"] = (
     "Invalid time - times must be HH:MM!",
@@ -687,7 +687,7 @@ def GetDictionary():
     )
   dictionary["appointmenttypetooltip"] = (
     "Choose the appointment type from the dropdown list",
-    u"Selecciona el tipo de cita de la lista desplegable"
+    u"Selecciona el tipo de consulta de la lista desplegable"
   )
 
   ##Client search panel
@@ -873,11 +873,11 @@ def GetDictionary():
     )
   dictionary["lookupsreason"] = (
     "Reason Lookups",
-    u"Razones"
+    u"Motivos"
   )
   dictionary["lookupreason"] = (
     "Reason Lookup",
-    u"Razón"
+    u"Motivo"
   )
   dictionary["lookupsrefreshtooltip"] = (
     "Refresh the list",
@@ -1073,7 +1073,7 @@ def GetDictionary():
     )
   dictionary["randomdatanoofappointmentslabel"] = (
     "No of appointments",
-    u"Cantidad de citas"
+    u"Cantidad de consultas"
     )
   dictionary["randomdatanoofoperationslabel"] = (
     "No of operations",
@@ -1093,7 +1093,7 @@ def GetDictionary():
     )
   dictionary["randomdataappointmentslabel"] = (
     "Appointments",
-    u"Citas"
+    u"Consultas"
     )
   dictionary["randomdataoperationslabel"] = (
     "Operations",
@@ -1195,7 +1195,7 @@ def GetDictionary():
     )
   dictionary["appointmentslabel"] = (
     "Appointments",
-    u"Citas"
+    u"Consultas"
     )
   dictionary["medicationlabel"] = (
     "Medication",
@@ -1356,11 +1356,11 @@ def GetDictionary():
     )
   dictionary["vetformotherappointmentslabel"] = (
     "Appointment History",
-    u"Historial de Citas"
+    u"Historial de Consultas"
     )
   dictionary["vetformappointmentdetailslabel"] = (
     "Appointment Details",
-    u"Detalles de Citas"
+    u"Detalles de Consultas"
     )
   dictionary["vetformmedlabel"] = (
     "Med",
@@ -1384,7 +1384,7 @@ def GetDictionary():
     )
   dictionary["vetformdonetooltip"] = (
     "Mark this appointment as complete and close",
-    u"Marcar esta cita como completa y terminada"
+    u"Marcar esta consulta como completa y terminada"
     )
   dictionary["vetformsavetooltip"] = (
     "Save any changes made to this vet form",
@@ -1443,12 +1443,12 @@ def GetDictionary():
 
   dictionary["appointmenttypelabel"] = (
     "Appointment type",
-    u"Tipo de cita"
+    u"Tipo de turno"
   )
 
   dictionary["viewappointmentspagetitle"] = (
     "View Appointments",
-    u"Visualizar Citas"
+    u"Visualizar Consultas"
     )
   dictionary["viewoperationspagetitle"] = (
     "View Operations",
@@ -1460,7 +1460,7 @@ def GetDictionary():
     )
   dictionary["viewappointmentsmarkwithvettooltip"] = (
     "Mark this appointment as with the vet",
-    u"Marcar esta cita con un/a Doctor/a"
+    u"Marcar esta consulta con un/a Doctor/a"
     )
   dictionary["viewappointmentschoosevettooltip"] = (
     "Choose a vet",
@@ -1468,15 +1468,15 @@ def GetDictionary():
     )
   dictionary["viewappointmentsvetformtooltip"] = (
     "Carry out the vet visit for this appointment",
-    u"Organizar la visita del Doctor/a para esta cita"
+    u"Organizar la visita del Doctor/a para esta consulta"
     )
   dictionary["viewappointmentsmarkarrivedtooltip"] = (
     "Mark this appointment as arrived",
-    u"Marcar esta cita como presente"
+    u"Marcar esta consulta como presente"
     )
   dictionary["viewappointmentsmarkdonetooltip"] = (
     "Mark this appointment as done",
-    u"Marcar esta cita como realizada"
+    u"Marcar esta consulta como realizada"
     )
   dictionary["viewappointmentseditclientbuttonlabel"] = (
     "Edit Client",
@@ -1496,11 +1496,11 @@ def GetDictionary():
     )
   dictionary["appointmentsearchpagetitle"] = (
     "Appointment Search",
-    u"Búsqueda de citas"
+    u"Búsqueda de turnos"
     )
   dictionary["appointmentsearchmenu"] = (
     ("Appointment Search", "Find an appointment"),
-    (u"Búsqueda de citas", u"Buscar una cita")
+    (u"Búsqueda de consultas", u"Buscar una consulta")
     )
   dictionary["appointmentsearchanimalnamelabel"] = (
     "Animal Name",
@@ -1552,7 +1552,7 @@ def GetDictionary():
     )
   dictionary["createvaccinationappointmentbutton"] = (
     ("Create Appointment", "Create an appointment for this vaccination"),
-    (u"Crear Cita", u"Fijar una cita para esta vacunación")
+    (u"Crear turno", u"Fijar un turno para esta vacunación")
     )
   dictionary["generatevaccinationcsvbutton"] = (
     ("Create CSV File", "Create and save a CSV file to disc. This can be used by most word processors to create mail shots"),
@@ -1856,15 +1856,15 @@ def GetDictionary():
     )
   dictionary["browseappointmentsmenu"] = (
     ( "Browse Appointments", "Browse all appointments" ),
-    ( u"Calendario de Citas", u"Mirar todas las Citas" )
+    ( u"Calendario de turnos", u"Mirar todos los turnos" )
     )
   dictionary["browseappointmentspagetitle"] = (
     "Browse Appointments",
-    u"Calendario de Citas"
+    u"Calendario de turnos"
     )
   dictionary["appointmentlabel"] = (
     "appointment",
-    u"cita"
+    u"consulta"
     )
   dictionary["operationlabel"] = (
     "operation",
@@ -2242,11 +2242,11 @@ def GetDictionary():
     )
   dictionary["editreasonsmenu"] = (
     ("Edit Reasons", "Edit common appointment reasons"),
-    (u"Editar Razones", u"Editar las razones comunes de las citas")
+    (u"Editar Motivos", u"Editar los motivos comunes de los consultas")
     )
   dictionary["doubleclickforreasonstooltip"] = (
     "Double click for a choice of common appointment reasons",
-    u"Doble click para abrir la Seleccion de razones comunes para citas"
+    u"Doble click para abrir la Seleccion de motivos comunes para consultas"
     )
   dictionary["filemenu"] = (
     "File",
@@ -2336,7 +2336,7 @@ def GetDictionary():
     )
   dictionary["editappointmentlabel"] = (
     "Edit Appointment",
-    u"Editar Cita"
+    u"Editar Consulta"
     )
   dictionary["agelabel"] = (
     "Age",
@@ -2365,7 +2365,7 @@ def GetDictionary():
     )
   dictionary["createappointmentlabel"] = (
     "Create Appointment",
-    u"Crear cita"
+    u"Crear Consulta"
     )
   dictionary["multiplepanellabel"] = (
     "Allow multiple panels open",
@@ -2713,7 +2713,7 @@ def GetDictionary():
     )
   dictionary["appointmentrefreshlabel"] = (
     "Appointment Refresh Interval",
-    u"Intervalos de Actualizar de Citas"
+    u"Intervalos de Actualizar de turnos"
     )
 ############################## 1.3.2 ###############################################
   dictionary["asmvaccinationlabel"] = (
