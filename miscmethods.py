@@ -197,8 +197,9 @@ def NoWrap(string):
   
   #return string
 
+# monthint goes from 1 to 12!!!
 def GetMonth(monthint, localsettings):
-  return localsettings.t('monthnames',monthint)
+  return localsettings.t('monthnames',monthint-1)
 
 def GetWeekday(weekdayint, localsettings):
   
