@@ -250,7 +250,7 @@ class Evette:
       frame.appointmentmenu.AppendItem(viewoperationsmenuitem)
       wx.EVT_MENU(frame, VIEW_OPS, self.ViewOps)
 
-      viewgroomingsmenuitem = wx.MenuItem(frame.appointmentmenu, VIEW_GROOMING, self.t("viewgroomingsmenu") + "\tSHIFT+T", self.t("viewgroomingsmenu", 1))
+      viewgroomingsmenuitem = wx.MenuItem(frame.appointmentmenu, VIEW_GROOMING, self.t("viewgroomingsmenu"), self.t("viewgroomingsmenu", 1))
       viewgroomingsmenuitem.SetBitmap(wx.Bitmap("icons/grooming.png"))
       frame.appointmentmenu.AppendItem(viewgroomingsmenuitem)
       wx.EVT_MENU(frame, VIEW_GROOMING, self.ViewGrooms)
