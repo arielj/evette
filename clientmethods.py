@@ -697,6 +697,11 @@ class ClientPanel(wx.Panel, listmix.ColumnSorterMixin):
       
       self.clientdata.Submit()
       self.savebutton.Disable()
+
+    pagetitle = self.clientdata.title + " " + self.clientdata.surname
+    self.pagetitle = miscmethods.GetPageTitle(self.notebook, pagetitle)
+    self.pageimage = "icons/editclient.png"
+    self.notebook.UpdateLabel(self, self.pagetitle)
     
     self.attachedfilespanel.listbox.linkid = self.clientdata.ID
     self.billnotebook.Enable()
