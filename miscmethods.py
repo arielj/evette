@@ -296,7 +296,34 @@ def CreateEvetteFolder():
   os.mkdir(evettefolder + "/html")
   os.mkdir(evettefolder + "/temp")
   os.mkdir(evettefolder + "/templates")
-  header = "<html><head><meta http-equiv='content-type' content='text/html; charset=UTF-8'></head><body><table width=100% cellpadding=0 cellspacing=10><tr><td valign=top><img src=http://evette.homeip.net/imagesfolder/logo.jpg alt=Evette></td><td valign=middle width=100% align=right><font size=1 color=red>" + localsettings.t("headertext1") + "<br></font><font size=1><i>" + localsettings.t("headertext2") + " <br>$HOME/.evette/html/header.dat</i></font></td></tr></table><hr>"
+  header = """\
+<html>
+<head>
+  <meta http-equiv='content-type' content='text/html; charset=UTF-8' />
+  <style type='text/css'>
+    #wrapper {
+      width: 800px;
+      margin: 0 auto;
+    }
+    .appointment {
+      width: 100%%;
+      font-size: 1em;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id='wrapper'>
+    <table id='wrapper' cellpadding=0 cellspacing=10>
+      <tr>
+        <td class='vetname' valign=top>$$vetname$$</td>
+        <td valign=middle align=right>
+          <font size=1 color=red>%(h1)s<br></font><font size=1><i>%(h2)s <br>$HOME/.evette/html/header.dat</i></font>
+        </td>
+      </tr>
+    </table>
+    <hr>""" % {'h1': localsettings.t("headertext1").encode('utf-8'), 'h2': localsettings.t("headertext2").encode('utf-8')}
+
   out = open(evettefolder + "/html/header.dat", "w")
   out.write(header)
   out.close()
@@ -769,11 +796,11 @@ def GetAppointmentDetailsHtml(localsettings, appointmentid, short=False):
       
       price = FormatPrice(price)
       
-      receipthtml = receipthtml + "<tr><td align=left valign=top><font size=1>" + description + "</font></td><td align=right valign=top nowrap><font size=1>" + localsettings.t("currency") + price + "</font></td></tr>"
+      receipthtml = receipthtml + "<tr><td align=left valign=top>" + description + "</td><td align=right valign=top nowrap>" + localsettings.t("currency") + price + "</td></tr>"
     
     receipttotal = FormatPrice(receipttotal)
     
-    receipthtml = receipthtml + "<tr><td align=left valign=top><font size=1><b>" + localsettings.t("totallabel") + ":</b></font></td><td align=right valign=top nowrap><font size=1><b>" + localsettings.t("currency") + receipttotal + "</b></font></td></tr></table></td>"
+    receipthtml = receipthtml + "<tr><td align=left valign=top><b>" + localsettings.t("totallabel") + ":</b></td><td align=right valign=top nowrap><b>" + localsettings.t("currency") + receipttotal + "</b></td></tr></table></td>"
     
   else:
     
@@ -811,7 +838,7 @@ def GetAppointmentDetailsHtml(localsettings, appointmentid, short=False):
     
     arrivaltimehtml = ""
   
-  output =  "<table width=100% cellpadding=0 cellspacing=0><tr><td valign=top align=left><font color=blue size=1><b>" + date + " " + time + "</b>" + arrivaltimehtml + "</font><font size=1><br>" + localsettings.t("vetlabel") + ": <b>" + appointmentdata.vet + "</b><br></font><font color=red size=1>" + appointmentdata.reason + "</font><br><br><font size=1><u>" + localsettings.t("problemlabel") + "</u><br>" + appointmentdata.problem + "<br><u>" + localsettings.t("noteslabel") + "</u><br>" + appointmentdata.notes + "<br><u>" + localsettings.t("planlabel") + "</u><br>" + appointmentdata.plan + "</font></td>" + receipthtml + "</tr></table>"
+  output =  "<table class='appointment' cellpadding=0 cellspacing=0><tr><td width=15% valign=top align=left><font color=blue><b>" + date + " " + time + "</b>" + arrivaltimehtml + "</font><br>" + localsettings.t("vetlabel") + ": <b>" + appointmentdata.vet + "</b></font><br /><font color=red>" + appointmentdata.reason + "</font></td><td width=50%><u>" + localsettings.t("problemlabel") + "</u><br />" + appointmentdata.problem + "<br /><br /><u>" + localsettings.t("noteslabel") + "</u><br />" + appointmentdata.notes + "<br /><br /><u>" + localsettings.t("planlabel") + "</u><br />" + appointmentdata.plan + "</td>" + receipthtml + "</tr></table>"
   
   return output
 

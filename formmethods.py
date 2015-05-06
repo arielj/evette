@@ -33,6 +33,8 @@ def CreateHeader(localsettings):
 	
 	username = localsettings.username
 	
+	vetname = localsettings.practicename
+	
 	time = datetime.datetime.today()
 	
 	time = time.strftime("%A %d %B %Y - %H:%M").decode('utf-8')
@@ -47,7 +49,7 @@ def CreateHeader(localsettings):
 		
 		html = html + a
 	
-	html = html.replace("$$user$$", username).replace("$$time$$", time)
+	html = html.decode('utf-8').replace("$$user$$", username).replace("$$time$$", time).replace("$$vetname$$", vetname)
 	
 	return html
 
@@ -75,7 +77,7 @@ class BuildForm(threading.Thread):
 		
 		header = CreateHeader(localsettings)
 		
-		form = header + body + "<p align=right><font size=1><hr>" + localsettings.t("generatedbylabel") + " $$user$$ " + localsettings.t("onlabel") + " $$time$$</font></p></body></html>"
+		form = header + body + "<p align=right><font size=1><hr>" + localsettings.t("generatedbylabel") + " $$user$$ " + localsettings.t("onlabel") + " $$time$$</font></p></div></body></html>"
 		
 		form = form.replace("$$user$$", username).replace("$$time$$", time)
 		
