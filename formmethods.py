@@ -35,7 +35,7 @@ def CreateHeader(localsettings):
 	
 	time = datetime.datetime.today()
 	
-	time = time.strftime("%A %d %B %Y - %H:%M")
+	time = time.strftime("%A %d %B %Y - %H:%M").decode('utf-8')
 	
 	inp = open(home + "/.evette/html/header.dat", "r")
 	filecontents = inp.readlines()
@@ -71,7 +71,7 @@ class BuildForm(threading.Thread):
 		
 		time = datetime.datetime.today()
 		
-		time = time.strftime("%A %d %B %Y - %H:%M")
+		time = time.strftime("%A %d %B %Y - %H:%M").decode('utf-8')
 		
 		header = CreateHeader(localsettings)
 		
