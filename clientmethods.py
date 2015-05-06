@@ -2384,7 +2384,7 @@ class CheckForExistingClient:
   
   def t(self, label):
     
-    return miscmethods.t(label, self.localsettings)
+    return self.localsettings.t(label, self.localsettings)
   
   def __init__(self, parent, clientdata, notebook=False):
     
