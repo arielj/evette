@@ -1143,6 +1143,9 @@ class VetForm(wx.Panel):
     
     self.appointmentdata.Submit()
     
+    if isinstance(self.parent, animalmethods.AnimalPanel):
+      self.parent.RefreshAppointments()
+    
     try:
       
       self.viewappointmentspanel.UpdateViewAppointments(False)
